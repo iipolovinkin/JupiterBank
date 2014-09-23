@@ -24,19 +24,37 @@ public class Client implements Serializable {
 	private static final long serialVersionUID = -9162969037731987965L;
 
 	@Id
-	@GeneratedValue(generator = "increment")
-	@GenericGenerator(name = "increment", strategy = "increment")
 	private Long id;
 	private String name;
 	private String address;
 	private Integer age;
 
+	public Client() {
+
+	}
+
+	public Client(Long id, String name, String address, Integer age) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.address = address;
+		this.age = age;
+	}
+
+	public Client(String name, String address, Integer age) {
+		super();
+		this.name = name;
+		this.address = address;
+		this.age = age;
+	}
+
 	@OneToMany
-	private Set<Account> accounts=new HashSet<>();
-	
+	private Set<Account> accounts = new HashSet<>();
+
 	@Override
 	public String toString() {
-		return "Client{" + "id=" + id + ", name=" + name + ", address=" + address + ", age=" + age + '}';
+		return "Client{" + "id=" + id + ", name=" + name + ", address="
+				+ address + ", age=" + age + '}';
 	}
 
 	public Long getId() {
