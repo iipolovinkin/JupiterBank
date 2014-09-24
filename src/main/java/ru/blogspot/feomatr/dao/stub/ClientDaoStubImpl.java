@@ -1,9 +1,10 @@
 /**
  * 
  */
-package ru.blogspot.feomatr.dao.Test;
+package ru.blogspot.feomatr.dao.stub;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import ru.blogspot.feomatr.dao.ClientDAO;
@@ -13,15 +14,11 @@ import ru.blogspot.feomatr.entity.Client;
  * @author igor
  *
  */
-public class ClientDaoTestImpl implements ClientDAO {
-	List<Client> clients = new ArrayList<Client>() {
-		{
-			add(new Client(1L, "Alex", "NY", 22));
-			add(new Client(2L, "Nick", "LA", 27));
-			add(new Client(3L, "Ivan", "Spb", 39));
-			add(new Client(4L, "Petr", "RnD", 13));
-		}
-	};
+public class ClientDaoStubImpl implements ClientDAO {
+	List<Client> clients = new ArrayList<Client>(Arrays.asList(new Client[] {
+			new Client(1L, "Alex", "NY", 22), new Client(2L, "Nick", "LA", 27),
+			new Client(3L, "Ivan", "Spb", 39),
+			new Client(4L, "Petr", "RnD", 13) }));
 
 	/*
 	 * (non-Javadoc)
@@ -91,7 +88,7 @@ public class ClientDaoTestImpl implements ClientDAO {
 	@Override
 	public int update(Client cl) {
 		Client c = getById(cl.getId());
-		if(c==null){
+		if (c == null) {
 			return 0;
 		}
 		c.setId(cl.getId());

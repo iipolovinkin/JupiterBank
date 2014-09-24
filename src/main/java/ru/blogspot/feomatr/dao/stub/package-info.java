@@ -6,4 +6,4 @@
  * @author iipolovinkin
  *
  */
-package ru.blogspot.feomatr.dao.Test;
+package ru.blogspot.feomatr.dao.stub;
