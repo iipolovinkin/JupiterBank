@@ -4,6 +4,9 @@
 	<definition extends="default" name="clients">
 		<put-attribute name="body" value="/WEB-INF/views/clients/clients.jsp"/>
 	</definition>
+	<definition extends="default" name="clients/show">
+		<put-attribute name="body" value="/WEB-INF/views/clients/show.jsp"/>
+	</definition>
 	<definition extends="default" name="home">
 		<put-attribute name="body" value="/WEB-INF/views/home.jsp"/>
 	</definition>

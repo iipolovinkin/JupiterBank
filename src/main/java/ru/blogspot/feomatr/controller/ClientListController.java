@@ -35,9 +35,11 @@ public class ClientListController {
 		return "clients";
 	}
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/clients/{id}", method = RequestMethod.GET)
 	public String showClient(@PathVariable("id") Long id, Model model) {
 		logger.info("showClient");
+		Client client = new ClientDaoStubImpl().getById(id);
+		model.addAttribute("client", client);
 		return "clients/show";
 	}
 
