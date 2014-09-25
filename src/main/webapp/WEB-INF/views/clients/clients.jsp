@@ -8,10 +8,8 @@
 	xmlns:spring="http://www.springframework.org/tags" version="2.0">
 	<jsp:directive.page contentType="text/html; charset=UTF-8"
 		pageEncoding="UTF-8" session="false" />
-	<spring:message code="menu_header_text" var="menuHeaderText" />
-	<spring:message code="menu_add_client" var="menuAddClient" />
-	<spring:message code="menu_add_client" var="menuAddClient" />
 	<c:if test="${not empty clientList}">
+	<br>
 		<table border="1">
 			<thead>
 				<tr>
