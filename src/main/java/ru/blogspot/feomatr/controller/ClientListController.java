@@ -4,18 +4,20 @@
 package ru.blogspot.feomatr.controller;
 
 import java.util.List;
-
-import ru.blogspot.feomatr.entity.Client;
-import ru.blogspot.feomatr.dao.stub.ClientDaoStubImpl;
+import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.ui.Model;
+
+import ru.blogspot.feomatr.dao.stub.ClientDaoStubImpl;
+import ru.blogspot.feomatr.entity.Client;
 
 /**
  * Handles requests for the application Client List page
@@ -57,6 +59,7 @@ public class ClientListController {
 	public String showClient(@PathVariable("id") Long id, Model model) {
 		logger.info("showClient");
 		Client client = new ClientDaoStubImpl().getById(id);
+		//clientService.getClientById(id);
 		model.addAttribute("client", client);
 		return "clients/show";
 	}
