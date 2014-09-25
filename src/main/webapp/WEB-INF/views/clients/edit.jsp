@@ -27,6 +27,11 @@
 					<td><sf:input path="age" size="3" id="client_age" /> <small
 						id="client_age_msg">Between 0 and 150, please.</small></td>
 				</tr>
+				<tr>
+					<th></th>
+					<td><input name="commit" type="submit"
+							value="Create Client" /></td>
+				</tr>
 			</table>
 		</fieldset>
 	</sf:form>
