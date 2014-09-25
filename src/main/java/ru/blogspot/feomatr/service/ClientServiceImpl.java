@@ -17,12 +17,9 @@ import ru.blogspot.feomatr.entity.Client;
 public class ClientServiceImpl implements ClientService {
 	private ClientDAO clientDAO;
 
-	public ClientServiceImpl() {
-	}
-
 	@Inject
 	public ClientServiceImpl(ClientDAO clientDAO) {
-		this.setClientDAO(clientDAO);
+		this.clientDAO = clientDAO;
 	}
 
 	/*
@@ -34,34 +31,20 @@ public class ClientServiceImpl implements ClientService {
 	 */
 	@Override
 	public Client saveClient(Client client) {
-		List<Client> clients = getClientDAO().getAllClients();
+		List<Client> clients = clientDAO.getAllClients();
 		client.setId(clients.get(clients.size() - 1).getId() + 1);
-		client = getClientDAO().create(client);
+		client = clientDAO.create(client);
 		return client;
 	}
 
 	@Override
 	public List<Client> getAllClients() {
-		return getClientDAO().getAllClients();
+		return clientDAO.getAllClients();
 	}
 
 	@Override
 	public Client getClientById(Long id) {
-		return getClientDAO().getById(id);
-	}
-
-	/**
-	 * @return the clientDAO
-	 */
-	public ClientDAO getClientDAO() {
-		return clientDAO;
-	}
-
-	/**
-	 * @param clientDAO the clientDAO to set
-	 */
-	public void setClientDAO(ClientDAO clientDAO) {
-		this.clientDAO = clientDAO;
+		return clientDAO.getById(id);
 	}
 
 }
