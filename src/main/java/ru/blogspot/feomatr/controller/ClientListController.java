@@ -11,6 +11,7 @@ import ru.blogspot.feomatr.dao.stub.ClientDaoStubImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,6 +29,16 @@ public class ClientListController {
 	private static final Logger logger = LoggerFactory
 			.getLogger(ClientListController.class);
 
+	@RequestMapping(method = RequestMethod.POST)
+	public String addClientFromForm(@Valid Client client, BindingResult bindingResult) {
+		if(bindingResult.hasErrors()){
+			return "clients/edit";
+		}
+		
+		//clientService.saveClient(client);
+		
+		return "redirect:/clients/"+client.getId();
+	}
 	@RequestMapping(method = RequestMethod.GET, params = "new")
 	public String createClientProfile(Model model) {
 		model.addAttribute(new Client());

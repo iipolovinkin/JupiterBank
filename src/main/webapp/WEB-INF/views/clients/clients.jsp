@@ -10,7 +10,7 @@
 		pageEncoding="UTF-8" session="false" />
 	<c:if test="${not empty clientList}">
 	<br>
-		<table border="1">
+		<table cellspacing="0" border="1">
 			<thead>
 				<tr>
 					<td>Identity Number</td>

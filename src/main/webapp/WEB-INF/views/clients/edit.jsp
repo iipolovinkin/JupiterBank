@@ -13,7 +13,7 @@
 	<sf:form method="POST" modelAttribute="client">
 		<!--  bind form to model attribute  -->
 		<fieldset>
-			<table cellspacing="0" border="1">
+			<table cellspacing="0" border="0" alig="left">
 				<tr>
 					<th><label for="client_name">Client name:</label></th>
 					<td><sf:input path="name" size="15" id="client_name" /></td>
