@@ -23,11 +23,18 @@ import org.springframework.ui.Model;
  *
  */
 @Controller
+@RequestMapping(value = "clients")
 public class ClientListController {
 	private static final Logger logger = LoggerFactory
 			.getLogger(ClientListController.class);
 
-	@RequestMapping(value = "clients")
+	@RequestMapping(method = RequestMethod.GET, params = "new")
+	public String createClientProfile(Model model) {
+		model.addAttribute(new Client());
+		return "clients/edit";
+	}
+
+	@RequestMapping()
 	public String showCLients(Model model) {
 		logger.info("showCLients");
 		List<Client> clientList = new ClientDaoStubImpl().getAllClients();
@@ -35,7 +42,7 @@ public class ClientListController {
 		return "clients";
 	}
 
-	@RequestMapping(value = "/clients/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public String showClient(@PathVariable("id") Long id, Model model) {
 		logger.info("showClient");
 		Client client = new ClientDaoStubImpl().getById(id);
@@ -43,9 +50,4 @@ public class ClientListController {
 		return "clients/show";
 	}
 
-	@RequestMapping(value = { "/home", "/" }, method = RequestMethod.GET)
-	public String showHome(Model model) {
-		logger.info("showHome");
-		return "home";
-	}
 }

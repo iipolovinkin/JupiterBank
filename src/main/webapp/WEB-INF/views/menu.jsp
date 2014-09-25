@@ -10,7 +10,7 @@
 		pageEncoding="UTF-8" session="false" />
 	<s:message code="menu_header_text" var="menuHeaderText" />
 	<s:message code="menu_add_client" var="menuAddClient" />
-	<s:url value="/clients?form" var="addClientUrl" />
+	<s:url value="/clients?new" var="addClientUrl" />
 	<h3>Menu:${menuHeaderText}</h3>
 	<a href="${addClientUrl}"><h3>${menuAddClient}</h3></a><br /> <a
 		id="param" class="textLink" href="<c:url value="/clients" />">List
