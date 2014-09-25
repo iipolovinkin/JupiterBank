@@ -44,4 +44,6 @@
 			</beans:list>
 		</beans:property>
 	</beans:bean>
+	<beans:bean id="validator"
+		class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
 </beans:beans>
