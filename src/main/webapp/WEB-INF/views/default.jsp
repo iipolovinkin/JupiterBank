@@ -19,6 +19,7 @@
 		<tiles:insertAttribute name="menu" ignore="true" />
 		<div id="main">
 			<tiles:insertAttribute name="body" />
+			<tiles:insertAttribute name="body2" ignore="true" />
 			<tiles:insertAttribute name="footer" ignore="true" />
 		</div>
 	</div>
