@@ -10,9 +10,10 @@
 		pageEncoding="UTF-8" session="false" />
 	<s:message code="menu_header_text" var="menuHeaderText" />
 	<s:message code="menu_add_client" var="menuAddClient" />
+	<s:message code="menu_client_list" var="menuClientList" />
+	<s:message code="menu_account_list" var="menuAccountList" />
 	<s:url value="/clients?new" var="addClientUrl" />
-	<h3>Menu:${menuHeaderText}</h3>
-	<a href="${addClientUrl}"><h3>${menuAddClient}</h3></a><br /> <a
-		id="param" class="textLink" href="<c:url value="/clients" />">List
-		of clients</a>
+	<h3>M${menuHeaderText}</h3>
+	<a id="param" class="textLink" href="<c:url value="/clients" />">${menuClientList}</a>
+	<a id="param" class="textLink" href="<c:url value="/accounts" />">${menuAccountList}</a>
 </div>

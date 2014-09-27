@@ -12,4 +12,11 @@
 
 	<bean id="clientDaoStub" class="ru.blogspot.feomatr.dao.stub.ClientDaoStubImpl">
 	</bean>
+
+	<bean id="accountService" class="ru.blogspot.feomatr.service.AccountServiceImpl">
+		<constructor-arg ref="accountDaoStub" />
+	</bean>
+
+	<bean id="accountDaoStub" class="ru.blogspot.feomatr.dao.stub.AccountDaoStubImpl">
+	</bean>
 </beans>

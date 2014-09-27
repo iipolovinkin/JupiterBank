@@ -10,6 +10,7 @@
 	</definition>
 	<definition extends="default" name="clients/show">
 		<put-attribute name="body" value="/WEB-INF/views/clients/show.jsp"/>
+		<put-attribute name="body2" value="/WEB-INF/views/accounts/accounts.jsp"/>
 	</definition>
 	<definition extends="default" name="clients/edit">
 		<put-attribute name="body" value="/WEB-INF/views/clients/edit.jsp"/>

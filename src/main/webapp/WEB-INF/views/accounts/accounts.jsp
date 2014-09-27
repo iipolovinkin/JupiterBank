@@ -11,23 +11,24 @@
 	<spring:message code="menu_header_text" var="menuHeaderText" />
 	<spring:message code="menu_add_client" var="menuAddClient" />
 	<spring:message code="menu_add_client" var="menuAddClient" />
-	<c:if test="${not empty client}">
+	<c:if test="${not empty accounts}">
+	<br>
 		<table cellspacing="0" border="1">
 			<thead>
 				<tr>
 					<td>Identity Number</td>
-					<td>Name</td>
-					<td>Address</td>
-					<td>Age</td>
+					<td>Balance</td>
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td>${client.getId()}</td>
-					<td>${client.getName()}</td>
-					<td><c:out value="${client.getAddress()}" /></td>
-					<td><c:out value="${client.getAge()}" /></td>
-				</tr>
+				<c:forEach var="account" items="${accounts}">
+					<tr>
+						<td><a id="param" class="textLink"
+							href="<c:url value="/accounts/${account.getId()}/" />"><c:out
+									value="${account.getId()}" /></a></td>
+						<td><c:out value="${account.getBalance()}" /></td>
+					</tr>
+				</c:forEach>
 			</tbody>
 		</table>
 	</c:if>
