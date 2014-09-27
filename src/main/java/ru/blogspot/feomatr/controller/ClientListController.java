@@ -80,9 +80,7 @@ public class ClientListController {
 		Client cl = getClientService().getClientById(id);
 		model.addAttribute("client", cl);
 		List<Account> accounts = accountService.getAccountsByOwner(cl);
-		for (Account account : accounts) {
-			logger.info(account.toString());
-		}
+		model.addAttribute("accounts", accounts);
 		return "clients/show";
 	}
 

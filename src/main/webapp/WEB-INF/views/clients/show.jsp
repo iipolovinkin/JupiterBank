@@ -12,7 +12,7 @@
 	<spring:message code="menu_add_client" var="menuAddClient" />
 	<spring:message code="menu_add_client" var="menuAddClient" />
 	<c:if test="${not empty client}">
-		<table border="1">
+		<table cellspacing="0" border="1">
 			<thead>
 				<tr>
 					<td>Identity Number</td>
