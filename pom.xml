@@ -20,6 +20,7 @@
         <apache.tiles.version>3.0.0</apache.tiles.version>
         <jstl.version>1.2</jstl.version>
         <junit.version>4.10</junit.version>
+        <joda.time.version>2.4</joda.time.version>
         <AA></AA>
 	</properties>
 	<dependencies>
@@ -145,7 +146,15 @@
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
-	
+
+		<!-- Joda Time -->
+		<!-- Test -->
+		<dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>${joda.time.version}</version>
+		</dependency>
+
 		<!-- Test -->
 		<dependency>
 			<groupId>junit</groupId>
