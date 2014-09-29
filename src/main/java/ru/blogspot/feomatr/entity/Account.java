@@ -18,7 +18,7 @@ public class Account implements Serializable {
 	private Long id;
 	@ManyToOne()
 	private Client owner;
-	private Long balance;
+	private Long balance = 0L;
 
 	public Account() {
 		super();
@@ -37,7 +37,9 @@ public class Account implements Serializable {
 				+ balance + "]";
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -50,7 +52,9 @@ public class Account implements Serializable {
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
