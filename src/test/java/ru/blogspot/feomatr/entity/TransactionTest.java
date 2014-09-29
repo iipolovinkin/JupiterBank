@@ -50,10 +50,6 @@ public class TransactionTest {
 		assertEquals(t1.getAmount(), (Long) 50L);
 		assertEquals(t2.getAmount(), (Long) 550L);
 		assertEquals(t3.getAmount(), (Long) 560L);
-		assertEquals(t1.getTime().getSecondOfDay(), t2.getTime()
-				.getSecondOfDay());
-		assertEquals(t1.getTime().getSecondOfDay(), t3.getTime()
-				.getSecondOfDay());
 		assertFalse(new Transaction(null, 10L, accs[0], accs[1])
 				.equals(new Transaction()));
 	}
