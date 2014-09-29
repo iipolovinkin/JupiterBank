@@ -65,6 +65,62 @@ public class Transaction implements Serializable {
 				+ sender + ", reciver=" + reciver + ", time=" + time + "]";
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((amount == null) ? 0 : amount.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((reciver == null) ? 0 : reciver.hashCode());
+		result = prime * result + ((sender == null) ? 0 : sender.hashCode());
+		result = prime * result + ((time == null) ? 0 : time.hashCode());
+		return result;
+	}
+
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Transaction other = (Transaction) obj;
+		if (amount == null) {
+			if (other.amount != null)
+				return false;
+		} else if (!amount.equals(other.amount))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (reciver == null) {
+			if (other.reciver != null)
+				return false;
+		} else if (!reciver.equals(other.reciver))
+			return false;
+		if (sender == null) {
+			if (other.sender != null)
+				return false;
+		} else if (!sender.equals(other.sender))
+			return false;
+		if (time == null) {
+			if (other.time != null)
+				return false;
+		} else if (!time.equals(other.time))
+			return false;
+		return true;
+	}
+
 	public Long getId() {
 		return id;
 	}
