@@ -5,6 +5,9 @@ package ru.blogspot.feomatr.entity;
 
 import static org.junit.Assert.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,6 +18,7 @@ import org.junit.Test;
  */
 public class TransactionTest {
 	Account[] accs = null;
+	Transaction t1, t2, t3;
 
 	/**
 	 * @throws java.lang.Exception
@@ -24,6 +28,9 @@ public class TransactionTest {
 		accs = new Account[] { new Account(1L, null, 100L),
 				new Account(2L, null, 770L), new Account(3L, null, 200L),
 				new Account(4L, null, 400L) };
+		t1 = new Transaction(1L, 50L, accs[0], accs[1]);
+		t2 = new Transaction(2L, 550L, accs[1], accs[2]);
+		t3 = new Transaction(3L, 560L, accs[2], accs[3]);
 	}
 
 	/**
@@ -40,14 +47,32 @@ public class TransactionTest {
 	 */
 	@Test
 	public void testTransactionLongLongAccountAccount() {
-		Transaction t1 = new Transaction(1L, 50L, accs[0], accs[1]);
-		Transaction t2 = new Transaction(2L, 550L, accs[1], accs[2]);
-		Transaction t3 = new Transaction(3L, 560L, accs[2], accs[3]);
 		assertEquals(t1.getAmount(), (Long) 50L);
 		assertEquals(t2.getAmount(), (Long) 550L);
 		assertEquals(t3.getAmount(), (Long) 560L);
-		assertEquals(t1.getTime().getSecondOfDay(), t2.getTime().getSecondOfDay());
-		assertEquals(t1.getTime().getSecondOfDay(), t3.getTime().getSecondOfDay());
+		assertEquals(t1.getTime().getSecondOfDay(), t2.getTime()
+				.getSecondOfDay());
+		assertEquals(t1.getTime().getSecondOfDay(), t3.getTime()
+				.getSecondOfDay());
+		assertFalse(new Transaction(null, 10L, accs[0], accs[1])
+				.equals(new Transaction()));
 	}
 
+	/**
+	 * Test method for {@link ru.blogspot.feomatr.entity.Transaction#hash()}
+	 */
+	@Test
+	public void testTransactionHash() {
+		Set<Transaction> t = new HashSet<Transaction>() {
+			{
+				add(t1);
+				add(t2);
+				add(t3);
+			}
+		};
+		Transaction tt = new Transaction();
+		tt.setId(t1.getId());
+		t.add(tt);
+		assertEquals((long) t.size(), 4L);
+	}
 }
