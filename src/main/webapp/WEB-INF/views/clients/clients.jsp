@@ -8,6 +8,10 @@
 	xmlns:spring="http://www.springframework.org/tags" version="2.0">
 	<jsp:directive.page contentType="text/html; charset=UTF-8"
 		pageEncoding="UTF-8" session="false" />
+	<s:message code="add_client" var="addClient" />	
+	<s:url value="?new" var="addClientUrl" />
+	
+	<a id="param" class="textLink" href="<c:url value="${addClientUrl}" />">${addClient}</a>
 	<c:if test="${not empty clientList}">
 	<br>
 		<table cellspacing="0" border="1">

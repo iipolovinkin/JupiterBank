@@ -13,7 +13,7 @@
 	<s:message code="menu_client_list" var="menuClientList" />
 	<s:message code="menu_account_list" var="menuAccountList" />
 	<s:url value="/clients?new" var="addClientUrl" />
-	<h3>M${menuHeaderText}</h3>
+	<h3>${menuHeaderText}</h3>
 	<a id="param" class="textLink" href="<c:url value="/clients" />">${menuClientList}</a>
 	<a id="param" class="textLink" href="<c:url value="/accounts" />">${menuAccountList}</a>
 </div>
