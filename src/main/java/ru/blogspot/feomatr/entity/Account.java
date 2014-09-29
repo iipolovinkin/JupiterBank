@@ -31,6 +31,11 @@ public class Account implements Serializable {
 		this.balance = balance;
 	}
 
+	public Account(Client client) {
+		this();
+		setOwner(client);
+	}
+
 	@Override
 	public String toString() {
 		return "Account [id=" + id + ", owner=" + owner + ", balance="

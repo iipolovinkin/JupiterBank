@@ -45,6 +45,26 @@ public class ClientListController {
 		this.accountService = accountService;
 	}
 
+	@RequestMapping(value = "/{id}", method = RequestMethod.POST)
+	public String addAccountFromForm(@PathVariable("id") Long id, Model model) {
+		//if (bindingResult.hasErrors()) {
+			//return "ERROR!";
+		//}
+		logger.info("addAccountFromForm {}", id);
+
+		Client client = clientService.getClientById(id);
+		Account account = new Account(client);
+		logger.info("account:  {}", account);
+		accountService.saveAccount(account);
+		logger.info("account saved:  {}", account);
+		List<Account> accs = accountService.getAllAccounts();
+		for (Account a : accs) {
+			logger.info("a {}", a);
+		}
+
+		return "redirect:/clients/" + client.getId() + "/";
+	}
+
 	@RequestMapping(method = RequestMethod.POST)
 	public String addClientFromForm(@Valid Client client,
 			BindingResult bindingResult) {
