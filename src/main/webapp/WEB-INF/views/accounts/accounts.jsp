@@ -2,6 +2,7 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="t" uri="http://tiles.apache.org/tags-tiles"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <div id="clientInfo" xmlns:jsp="http://java.sun.com/JSP/Page"
@@ -11,8 +12,16 @@
 	<spring:message code="menu_header_text" var="menuHeaderText" />
 	<spring:message code="menu_add_client" var="menuAddClient" />
 	<spring:message code="menu_add_client" var="menuAddClient" />
+	<c:if test="${not empty client }">
+		<sf:form method="POST" modelAttribute="client" id="addEmptyAccount">
+			<!--  bind form to model attribute  -->
+			<sf:input path="id" type="hidden" value="${client.getId()}"/>
+			<input name="submit" type="submit" value="Добавить счёт" />
+		</sf:form>
+	</c:if>
+	
 	<c:if test="${not empty accounts}">
-	<br>
+		<br>
 		<table cellspacing="0" border="1">
 			<thead>
 				<tr>

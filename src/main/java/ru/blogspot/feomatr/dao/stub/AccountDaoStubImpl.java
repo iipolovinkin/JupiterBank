@@ -68,6 +68,11 @@ public class AccountDaoStubImpl implements AccountDAO {
 	public Account create(Account acc) {
 		if (acc == null)
 			return acc;
+		if (acc.getId() == null) {
+			acc.setId((long) accounts.size());
+			accounts.add(acc);
+			return acc;
+		}
 		Account acc1 = getAccountById(acc.getId());
 		if (acc1 == null)
 			accounts.add(acc);
