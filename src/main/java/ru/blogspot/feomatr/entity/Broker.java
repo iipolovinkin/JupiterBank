@@ -9,6 +9,60 @@ package ru.blogspot.feomatr.entity;
  */
 public class Broker {
 
+	Long accountFrom, accountTo;
+	Long amount;
+	
+	
+
+	/**
+	 * @return the accountFrom
+	 */
+	public Long getAccountFrom() {
+		return accountFrom;
+	}
+
+	/**
+	 * @param accountFrom the accountFrom to set
+	 */
+	public void setAccountFrom(Long accountFrom) {
+		this.accountFrom = accountFrom;
+	}
+
+	/**
+	 * @return the accountTo
+	 */
+	public Long getAccountTo() {
+		return accountTo;
+	}
+
+	/**
+	 * @param accountTo the accountTo to set
+	 */
+	public void setAccountTo(Long accountTo) {
+		this.accountTo = accountTo;
+	}
+
+	/**
+	 * @return the amount
+	 */
+	public Long getAmount() {
+		return amount;
+	}
+
+	/**
+	 * @param amount the amount to set
+	 */
+	public void setAmount(Long amount) {
+		this.amount = amount;
+	}
+
+	/**
+	 * 
+	 */
+	public Broker() {
+		super();
+	}
+
 	/**
 	 * Transfer amount money from accountFrom to accountTo
 	 * 

@@ -19,4 +19,11 @@
 
 	<bean id="accountDaoStub" class="ru.blogspot.feomatr.dao.stub.AccountDaoStubImpl">
 	</bean>
+	
+	<bean id="transactionService" class="ru.blogspot.feomatr.service.TransactionServiceImpl">
+		<constructor-arg ref="transactionDaoStub" />
+	</bean>
+
+	<bean id="transactionDaoStub" class="ru.blogspot.feomatr.dao.stub.TransactionDaoStubImpl">
+	</bean>
 </beans>

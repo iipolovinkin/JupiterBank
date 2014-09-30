@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ru.blogspot.feomatr.dao.TransactionDAO;
+import ru.blogspot.feomatr.entity.Account;
 import ru.blogspot.feomatr.entity.Transaction;
 
 /**
@@ -14,7 +15,19 @@ import ru.blogspot.feomatr.entity.Transaction;
  *
  */
 public class TransactionDaoStubImpl implements TransactionDAO {
-	private List<Transaction> transactions = new ArrayList<Transaction>();
+	private List<Transaction> transactions = new ArrayList<Transaction>() {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
+		{
+			add(new Transaction(1L, 100L, new Account(1L, null, 400L),
+					new Account(2L, null, 500L)));
+			add(new Transaction(2L, 140L, new Account(3L, null, 300L),
+					new Account(4L, null, 560L)));
+		}
+	};
 
 	/**
 	 * 
