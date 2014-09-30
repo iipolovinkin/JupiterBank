@@ -11,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import ru.blogspot.feomatr.service.AccountService;
 import ru.blogspot.feomatr.service.TransactionService;
 
 /**
@@ -21,24 +20,22 @@ import ru.blogspot.feomatr.service.TransactionService;
  */
 
 @Controller
-@RequestMapping(value = "accounts")
-public class AccountsController {
+@RequestMapping(value = "transactions")
+public class TransactionsController {
 	private static final Logger logger = LoggerFactory
-			.getLogger(AccountsController.class);
-	private AccountService accountService;
+			.getLogger(TransactionsController.class);
 	private TransactionService transactionService;
 
 	@Inject
-	public AccountsController(AccountService accountService,
-			TransactionService transactionService) {
-		this.accountService = accountService;
+	public TransactionsController(TransactionService transactionService) {
 		this.transactionService = transactionService;
 	}
 
 	@RequestMapping()
-	public String showAllAccounts(Model model) {
-		logger.info(" {}", "showAccounts");
-		model.addAttribute("accounts", accountService.getAllAccounts());
-		return "accounts";
+	public String showTransactions(Model model) {
+		logger.info(" {}", "showTransactiosn");
+		model.addAttribute("transactions",
+				transactionService.getAllTransactions());
+		return "transactions";
 	}
 }
