@@ -18,16 +18,16 @@
 		<table cellspacing="0" border="1">
 
 			<tr>
-				<th>${accountFrom}</th>
+				<th align = left>${accountFrom}</th>
 				<td><sf:input path="accountFrom" size="40" /></td>
 
 			</tr>
 			<tr>
-				<th>${accountTo}</th>
+				<th align = left>${accountTo}</th>
 				<td><sf:input path="accountTo" size="40" /></td>
 			</tr>
 			<tr>
-				<th>${amount}</th>
+				<th align = left>${amount}</th>
 				<td><sf:input path="amount" size="40" /></td>
 			</tr>
 		</table>
