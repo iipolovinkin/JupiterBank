@@ -11,7 +11,6 @@
 		pageEncoding="UTF-8" session="false" />
 	<spring:message code="menu_header_text" var="menuHeaderText" />
 	<spring:message code="menu_add_client" var="menuAddClient" />
-	<spring:message code="menu_add_client" var="menuAddClient" />
 	<c:if test="${not empty client }">
 		<sf:form method="POST" modelAttribute="client" id="addEmptyAccount">
 			<!--  bind form to model attribute  -->
@@ -32,8 +31,10 @@
 			<tbody>
 				<c:forEach var="account" items="${accounts}">
 					<tr>
-						<td><a id="param" class="textLink"
-							href="<c:url value="/accounts/${account.getId()}/" />"><c:out
+						<td>
+						<!-- <a id="param" class="textLink"
+							href="<c:url value="/accounts/${account.getId()}/" />">
+							--><c:out
 									value="${account.getId()}" /></a></td>
 						<td><c:out value="${account.getBalance()}" /></td>
 					</tr>

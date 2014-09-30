@@ -15,4 +15,9 @@
 	<definition extends="default" name="clients/edit">
 		<put-attribute name="body" value="/WEB-INF/views/clients/edit.jsp"/>
 	</definition>
+	
+	<definition extends="default" name="accounts">
+		<put-attribute name="body" value="/WEB-INF/views/accounts/accounts.jsp"/>
+	</definition>
+	
 </tiles-definitions>
