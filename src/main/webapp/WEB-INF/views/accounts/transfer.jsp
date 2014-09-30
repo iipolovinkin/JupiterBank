@@ -19,16 +19,16 @@
 
 			<tr>
 				<th align = left>${accountFrom}</th>
-				<td><sf:input path="accountFrom" size="40" /></td>
+				<td><sf:input path="accountFrom" size="40" value="" /></td>
 
 			</tr>
 			<tr>
 				<th align = left>${accountTo}</th>
-				<td><sf:input path="accountTo" size="40" /></td>
+				<td><sf:input path="accountTo" size="40" value="" /></td>
 			</tr>
 			<tr>
 				<th align = left>${amount}</th>
-				<td><sf:input path="amount" size="40" /></td>
+				<td><sf:input path="amount" size="40" value="" /></td>
 			</tr>
 		</table>
 		<input name="submit" type="submit" value="${Transfer}" />

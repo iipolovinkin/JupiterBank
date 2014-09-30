@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import ru.blogspot.feomatr.entity.Account;
 import ru.blogspot.feomatr.entity.Broker;
+import ru.blogspot.feomatr.entity.Transaction;
 import ru.blogspot.feomatr.service.AccountService;
 import ru.blogspot.feomatr.service.TransactionService;
 
@@ -61,9 +62,15 @@ public class AccountsController {
 		Account accountFrom, accountTo;
 		accountFrom = accountService.getAccountById(broker.getAccountFrom());
 		accountTo = accountService.getAccountById(broker.getAccountTo());
-		logger.info("a1 {}", accountFrom);
-		logger.info("a2 {}", accountTo);
-		logger.info("amount: {}", amount);
+		if (accountFrom == null || accountTo == null) {
+			return "transfer";
+		}
+		logger.info("a1 {}, a2 {}", accountFrom, accountTo);
+		Broker.transfer(accountFrom, accountTo, amount);
+		transactionService.create(new Transaction(amount, accountFrom,
+				accountTo));
+		logger.info("a1' {}, a2' {}", accountFrom, accountTo);
+
 		return "transfer";
 	}
 }
