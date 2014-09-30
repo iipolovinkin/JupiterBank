@@ -52,11 +52,26 @@ public class Transaction implements Serializable {
 		this(id, amount, sender, reciver, new DateTime());
 	}
 
+	/**
+	 * @param amount
+	 * @param sender
+	 * @param reciver
+	 */
+	public Transaction(Long amount, Account sender, Account reciver) {
+		super();
+		this.amount = amount;
+		this.sender = sender;
+		this.reciver = reciver;
+		this.time = new DateTime();
+	}
+
 	public Transaction() {
 		super();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
@@ -65,7 +80,9 @@ public class Transaction implements Serializable {
 				+ sender + ", reciver=" + reciver + ", time=" + time + "]";
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -80,8 +97,9 @@ public class Transaction implements Serializable {
 		return result;
 	}
 
-
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override

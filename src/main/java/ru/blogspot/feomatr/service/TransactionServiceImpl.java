@@ -130,4 +130,10 @@ public class TransactionServiceImpl implements TransactionService {
 
 	}
 
+	@Override
+	public void create(Transaction tr) {
+		// TODO Auto-generated method stub
+		dao.create(tr);
+	}
+
 }
