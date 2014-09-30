@@ -19,5 +19,9 @@
 	<definition extends="default" name="accounts">
 		<put-attribute name="body" value="/WEB-INF/views/accounts/accounts.jsp"/>
 	</definition>
+
+	<definition extends="default" name="transfer">
+		<put-attribute name="body" value="/WEB-INF/views/accounts/transfer.jsp"/>
+	</definition>
 	
 </tiles-definitions>
