@@ -29,4 +29,6 @@ public interface TransactionService {
 
 	void update(Transaction tr);
 
+	void create(Transaction tr);
+
 }

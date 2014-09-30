@@ -78,6 +78,9 @@ public class TransactionDaoStubImpl implements TransactionDAO {
 	 */
 	@Override
 	public void create(Transaction tr) {
+		if (tr.getId() == null) {
+			tr.setId((transactions.size() + 1L));
+		}
 		transactions.add(tr);
 	}
 
