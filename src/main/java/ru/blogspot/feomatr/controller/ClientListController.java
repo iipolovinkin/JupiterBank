@@ -35,7 +35,6 @@ public class ClientListController {
 	private static final Logger logger = LoggerFactory
 			.getLogger(ClientListController.class);
 	private ClientService clientService;
-	@Autowired
 	private AccountService accountService;
 
 	@Inject
@@ -47,9 +46,9 @@ public class ClientListController {
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.POST)
 	public String addAccountFromForm(@PathVariable("id") Long id, Model model) {
-		//if (bindingResult.hasErrors()) {
-			//return "ERROR!";
-		//}
+		// if (bindingResult.hasErrors()) {
+		// return "ERROR!";
+		// }
 		logger.info("addAccountFromForm {}", id);
 
 		Client client = clientService.getClientById(id);
@@ -87,7 +86,7 @@ public class ClientListController {
 	}
 
 	@RequestMapping()
-	public String showCLients(Model model) {
+	public String showClients(Model model) {
 		logger.info("showClients");
 
 		model.addAttribute("clientList", getClientService().getAllClients());
