@@ -47,6 +47,31 @@ public class AccountsController {
 		return "accounts";
 	}
 
+	@RequestMapping(method = RequestMethod.GET, params = "transferFrom")
+	public String showTransferFrom(Broker broker, Model model) {
+		logger.info(" {}", "GET TransferFrom");
+		model.addAttribute("broker", new Broker());
+		return "transferFrom";
+	}
+
+	@RequestMapping(method = RequestMethod.POST, params = "transferFrom")
+	public String doTransferFromAccount(Broker broker, Model model) {
+		logger.info("POST TransferFrom");
+		Long amount = broker.getAmount();
+		Account accountFrom, accountTo = null;
+		accountFrom = accountService.getAccountById(broker.getAccountFrom());
+		if (accountFrom == null || amount == null) {
+			logger.info(" {}", "fail transferFrom");
+			return "transferFrom";
+		}
+		logger.info("a1 {}, a2 {}", accountFrom, accountTo);
+		Broker.transferFrom(accountFrom, amount);
+		transactionService.create(new Transaction(amount, accountFrom, null));
+		logger.info("a1' {}, a2' {}", accountFrom, accountTo);
+
+		return "transferFrom";
+	}
+
 	@RequestMapping(method = RequestMethod.GET, params = "transferTo")
 	public String showTransferTo(Broker broker, Model model) {
 		logger.info(" {}", "GET TransferTo");
