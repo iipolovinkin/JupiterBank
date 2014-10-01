@@ -47,22 +47,47 @@ public class AccountsController {
 		return "accounts";
 	}
 
-	@RequestMapping(value = "/transfer", method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET, params = "transferTo")
+	public String showTransferTo(Broker broker, Model model) {
+		logger.info(" {}", "GET TransferTo");
+		model.addAttribute("broker", new Broker());
+		return "transferTo";
+	}
+
+	@RequestMapping(method = RequestMethod.POST, params = "transferTo")
+	public String doTransferToAccount(Broker broker, Model model) {
+		logger.info("POST TransferTo");
+		Long amount = broker.getAmount();
+		Account accountFrom = null, accountTo;
+		accountTo = accountService.getAccountById(broker.getAccountTo());
+		if (accountTo == null || amount == null) {
+			logger.info(" {}", "fail transferTo");
+			return "transferTo";
+		}
+		logger.info("a1 {}, a2 {}", accountFrom, accountTo);
+		Broker.transferTo(accountTo, amount);
+		transactionService.create(new Transaction(amount, null, accountTo));
+		logger.info("a1' {}, a2' {}", accountFrom, accountTo);
+
+		return "transferTo";
+	}
+
+	@RequestMapping(method = RequestMethod.GET, params = "transfer")
 	public String showTransfer(Broker broker, Model model) {
 		logger.info(" {}", "GET Transfer");
-		Long id1 = 3L, id2 = null, amount = null;
 		model.addAttribute("broker", new Broker());
 		return "transfer";
 	}
 
-	@RequestMapping(value = "/transfer", method = RequestMethod.POST)
+	@RequestMapping(method = RequestMethod.POST, params = "transfer")
 	public String doTransfer(Broker broker, Model model) {
 		logger.info("POST Transfer");
 		Long amount = broker.getAmount();
 		Account accountFrom, accountTo;
 		accountFrom = accountService.getAccountById(broker.getAccountFrom());
 		accountTo = accountService.getAccountById(broker.getAccountTo());
-		if (accountFrom == null || accountTo == null) {
+		if (accountFrom == null || accountTo == null || amount == null) {
+			logger.info(" {}", "fail");
 			return "transfer";
 		}
 		logger.info("a1 {}, a2 {}", accountFrom, accountTo);
