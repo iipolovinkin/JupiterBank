@@ -5,14 +5,18 @@
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="t" uri="http://tiles.apache.org/tags-tiles"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<div id="clientInfo" xmlns:jsp="http://java.sun.com/JSP/Page"
+<div id="accounts" xmlns:jsp="http://java.sun.com/JSP/Page"
 	xmlns:spring="http://www.springframework.org/tags" version="2.0">
 	<jsp:directive.page contentType="text/html; charset=UTF-8"
 		pageEncoding="UTF-8" session="false" />
 	<s:message code="accounts_menu_transfer" var="accountsMenuTransfer" />
-	<s:url value="/accounts/transfer" var="transferUrl" />
-	
+	<s:message code="accounts_menu_transferTo" var="accountsMenuTransferTo" />
+		
+	<s:url value="?transfer" var="transferUrl" />
+	<s:url value="?transferTo" var="transferUrlTo" />
+
 	<a id="param" class="textLink" href="<c:url value="${transferUrl}" />">${accountsMenuTransfer}</a>
+	<a id="param" class="textLink" href="<c:url value="${transferUrlTo}" />">${accountsMenuTransferTo}</a>
 	<c:if test="${not empty client }">
 		<sf:form method="POST" modelAttribute="client" id="addEmptyAccount">
 			<!--  bind form to model attribute  -->
