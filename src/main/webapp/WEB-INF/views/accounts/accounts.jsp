@@ -11,12 +11,15 @@
 		pageEncoding="UTF-8" session="false" />
 	<s:message code="accounts_menu_transfer" var="accountsMenuTransfer" />
 	<s:message code="accounts_menu_transferTo" var="accountsMenuTransferTo" />
+	<s:message code="accounts_menu_transferFrom" var="accountsMenuTransferFrom" />	
 		
 	<s:url value="?transfer" var="transferUrl" />
 	<s:url value="?transferTo" var="transferUrlTo" />
+	<s:url value="?transferFrom" var="transferUrlFrom" />
 
 	<a id="param" class="textLink" href="<c:url value="${transferUrl}" />">${accountsMenuTransfer}</a>
 	<a id="param" class="textLink" href="<c:url value="${transferUrlTo}" />">${accountsMenuTransferTo}</a>
+	<a id="param" class="textLink" href="<c:url value="${transferUrlFrom}" />">${accountsMenuTransferFrom}</a>
 	<c:if test="${not empty client }">
 		<sf:form method="POST" modelAttribute="client" id="addEmptyAccount">
 			<!--  bind form to model attribute  -->
