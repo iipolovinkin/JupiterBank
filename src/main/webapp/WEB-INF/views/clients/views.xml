@@ -32,4 +32,8 @@
 		<put-attribute name="body" value="/WEB-INF/views/accounts/transferTo.jsp"/>
 	</definition>
 	
+	<definition extends="default" name="transferFrom">
+		<put-attribute name="body" value="/WEB-INF/views/accounts/transferFrom.jsp"/>
+	</definition>
+	
 </tiles-definitions>
