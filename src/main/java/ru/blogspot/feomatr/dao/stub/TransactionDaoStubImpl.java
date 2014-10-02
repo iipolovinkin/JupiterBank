@@ -6,6 +6,8 @@ package ru.blogspot.feomatr.dao.stub;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.joda.time.DateTime;
+
 import ru.blogspot.feomatr.dao.TransactionDAO;
 import ru.blogspot.feomatr.entity.Account;
 import ru.blogspot.feomatr.entity.Transaction;
@@ -47,10 +49,10 @@ public class TransactionDaoStubImpl implements TransactionDAO {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see ru.blogspot.feomatr.dao.TransactionDAO#getAllTransactions()
+	 * @see ru.blogspot.feomatr.dao.TransactionDAO#getAll()
 	 */
 	@Override
-	public List<Transaction> getAllTransactions() {
+	public List<Transaction> getAll() {
 		return transactions;
 	}
 
@@ -118,4 +120,98 @@ public class TransactionDaoStubImpl implements TransactionDAO {
 		return (get(id) != null ? true : false);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public List<Transaction> getAfterTime(DateTime t) {
+		return filterAfterTime(transactions, t);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public List<Transaction> getBeforeTime(DateTime t) {
+		return filterBeforeTime(transactions, t);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public List<Transaction> getBetweenTimes(DateTime startTime,
+			DateTime endTime) {
+		List<Transaction> l = filterAfterTime(transactions, startTime);
+		l = filterBeforeTime(l, endTime);
+		return l;
+	}
+
+	@Override
+	public List<Transaction> getByFilter(Long idSender, Long idReciver,
+			DateTime startTime, DateTime endTime) {
+		List<Transaction> l = filterAfterTime(transactions, startTime);
+		l = filterBeforeTime(l, endTime);
+		l = filterReciver(l, idReciver);
+		l = filterSender(l, idSender);
+		return l;
+	}
+
+	public static List<Transaction> filterAfterTime(List<Transaction> trs,
+			DateTime t) {
+		if (t == null) {
+			return trs;
+		}
+		List<Transaction> l = new ArrayList<>();
+		for (int i = 0; i < trs.size(); ++i) {
+			if (trs.get(i).getTime().isAfter(t)) {
+				l.add(trs.get(i));
+			}
+		}
+		return l;
+	}
+
+	public static List<Transaction> filterBeforeTime(List<Transaction> trs,
+			DateTime t) {
+		if (t == null) {
+			return trs;
+		}
+		List<Transaction> l = new ArrayList<>();
+		for (int i = 0; i < trs.size(); ++i) {
+			if (trs.get(i).getTime().isBefore(t)) {
+				l.add(trs.get(i));
+			}
+		}
+		return l;
+	}
+
+	public static List<Transaction> filterSender(List<Transaction> trs,
+			Long idSender) {
+		if (idSender == null) {
+			return trs;
+		}
+		List<Transaction> l = new ArrayList<>();
+		for (int i = 0; i < trs.size(); ++i) {
+			Account sender = trs.get(i).getSender();
+			if (sender != null && sender.getId().equals(idSender)) {
+				l.add(trs.get(i));
+			}
+		}
+		return l;
+	}
+
+	public static List<Transaction> filterReciver(List<Transaction> trs,
+			Long idReciver) {
+		if (idReciver == null) {
+			return trs;
+		}
+		List<Transaction> l = new ArrayList<>();
+		for (int i = 0; i < trs.size(); ++i) {
+			Account reciver = trs.get(i).getReciver();
+			if (reciver != null && reciver.getId().equals(idReciver)) {
+				l.add(trs.get(i));
+			}
+		}
+		return l;
+	}
 }
