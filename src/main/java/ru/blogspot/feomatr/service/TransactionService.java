@@ -5,6 +5,8 @@ package ru.blogspot.feomatr.service;
 
 import java.util.List;
 
+import org.joda.time.DateTime;
+
 import ru.blogspot.feomatr.entity.Account;
 import ru.blogspot.feomatr.entity.Transaction;
 
@@ -15,13 +17,42 @@ import ru.blogspot.feomatr.entity.Transaction;
 public interface TransactionService {
 	void saveTransaction(Transaction tr);
 
-	List<Transaction> getAllTransactions();
+	List<Transaction> getAll();
 
 	Transaction getById(Long id);
 
-	List<Transaction> getTransactionsBySender(Account sender);
+	List<Transaction> getBySender(Account sender);
 
-	List<Transaction> getTransactionsByReciver(Account reciver);
+	List<Transaction> getByReciver(Account reciver);
+
+	/**
+	 * @param idSender
+	 * @param idReciver
+	 * @param startTime
+	 * @param endTime
+	 * @return
+	 */
+	List<Transaction> getByFilter(Long idSender, Long idReciver,
+			DateTime startTime, DateTime endTime);
+
+	/**
+	 * @param t
+	 * @return
+	 */
+	List<Transaction> getAfterTime(DateTime t);
+
+	/**
+	 * @param t
+	 * @return
+	 */
+	List<Transaction> getBeforeTime(DateTime t);
+
+	/**
+	 * @param startTime
+	 * @param endTime
+	 * @return
+	 */
+	List<Transaction> getBetweenTimes(DateTime startTime, DateTime endTime);
 
 	void delete(Transaction tr);
 
