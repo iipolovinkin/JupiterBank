@@ -5,6 +5,8 @@ package ru.blogspot.feomatr.service;
 
 import java.util.List;
 
+import org.joda.time.DateTime;
+
 import ru.blogspot.feomatr.dao.TransactionDAO;
 import ru.blogspot.feomatr.entity.Account;
 import ru.blogspot.feomatr.entity.Transaction;
@@ -21,7 +23,6 @@ public class TransactionServiceImpl implements TransactionService {
 	 */
 	public TransactionServiceImpl() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -41,8 +42,7 @@ public class TransactionServiceImpl implements TransactionService {
 	 */
 	@Override
 	public void saveTransaction(Transaction tr) {
-		// TODO Auto-generated method stub
-
+		dao.create(tr);
 	}
 
 	/*
@@ -51,9 +51,8 @@ public class TransactionServiceImpl implements TransactionService {
 	 * @see ru.blogspot.feomatr.service.TransactionService#getAllTransactions()
 	 */
 	@Override
-	public List<Transaction> getAllTransactions() {
-		// TODO Auto-generated method stub
-		return dao.getAllTransactions();
+	public List<Transaction> getAll() {
+		return dao.getAll();
 	}
 
 	/*
@@ -64,7 +63,6 @@ public class TransactionServiceImpl implements TransactionService {
 	 */
 	@Override
 	public Transaction getById(Long id) {
-		// TODO Auto-generated method stub
 		return dao.get(id);
 	}
 
@@ -76,8 +74,10 @@ public class TransactionServiceImpl implements TransactionService {
 	 * (ru.blogspot.feomatr.entity.Account)
 	 */
 	@Override
-	public List<Transaction> getTransactionsBySender(Account sender) {
-		// TODO Auto-generated method stub
+	public List<Transaction> getBySender(Account sender) {
+		if (sender != null) {
+			return dao.getByFilter(sender.getId(), null, null, null);
+		}
 		return null;
 	}
 
@@ -89,8 +89,10 @@ public class TransactionServiceImpl implements TransactionService {
 	 * (ru.blogspot.feomatr.entity.Account)
 	 */
 	@Override
-	public List<Transaction> getTransactionsByReciver(Account reciver) {
-		// TODO Auto-generated method stub
+	public List<Transaction> getByReciver(Account reciver) {
+		if (reciver != null) {
+			return dao.getByFilter(null, reciver.getId(), null, null);
+		}
 		return null;
 	}
 
@@ -126,14 +128,34 @@ public class TransactionServiceImpl implements TransactionService {
 	 */
 	@Override
 	public void update(Transaction tr) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void create(Transaction tr) {
-		// TODO Auto-generated method stub
 		dao.create(tr);
+	}
+
+	@Override
+	public List<Transaction> getAfterTime(DateTime t) {
+		return dao.getAfterTime(t);
+	}
+
+	@Override
+	public List<Transaction> getBeforeTime(DateTime t) {
+		return dao.getBeforeTime(t);
+	}
+
+	@Override
+	public List<Transaction> getBetweenTimes(DateTime startTime,
+			DateTime endTime) {
+		return dao.getBetweenTimes(startTime, endTime);
+	}
+
+	@Override
+	public List<Transaction> getByFilter(Long idSender, Long idReciver,
+			DateTime startTime, DateTime endTime) {
+		return dao.getByFilter(idSender, idReciver, startTime, endTime);
 	}
 
 }
