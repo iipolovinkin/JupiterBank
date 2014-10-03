@@ -13,24 +13,27 @@
 	<sf:form method="POST" modelAttribute="client">
 		<!--  bind form to model attribute  -->
 		<fieldset>
-			<table cellspacing="0" border="0" alig="left">
+			<table cellspacing="0" border="0">
 				<tr>
-					<th><label for="client_name">Client name:</label></th>
-					<td><sf:input path="name" size="15" id="client_name" /></td>
+					<th align="left"><label for="client_name">Client name:</label></th>
+					<td><sf:input path="name" size="30" id="client_name" /><br>
+					<sf:errors path="name" cssClass="error" /></td>
 				</tr>
 				<tr>
-					<th><label for="client_address">Client address:</label></th>
-					<td><sf:input path="address" size="50" id="client_address" /></td>
+					<th align=left><label for="client_address">Client
+							address:</label></th>
+					<td><sf:input path="address" size="50" id="client_address" /><br>
+					<sf:errors path="address" cssClass="error" /></td>
 				</tr>
 				<tr>
-					<th><label for="client_age">Client age:</label></th>
-					<td><sf:input path="age" size="3" id="client_age" /> <small
-						id="client_age_msg">Between 0 and 150, please.</small></td>
+					<th align=left><label for="client_age">Client age:</label></th>
+					<td><sf:input path="age" size="3" id="client_age" /><small
+						id="client_age_msg">Between 0 and 150, please.</small><br>
+					<sf:errors path="age" cssClass="error" /></td>
 				</tr>
 				<tr>
 					<th></th>
-					<td><input name="commit" type="submit"
-							value="Create Client" /></td>
+					<td><input name="commit" type="submit" value="Create Client" /></td>
 				</tr>
 			</table>
 		</fieldset>
