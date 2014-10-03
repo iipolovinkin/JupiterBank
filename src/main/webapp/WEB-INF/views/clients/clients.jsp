@@ -10,7 +10,6 @@
 		pageEncoding="UTF-8" session="false" />
 	<s:url value="/clients?new" var="addClientUrl" />
 	<s:message code="add_client" var="addClient" />	
-	<s:url value="?new" var="addClientUrl" />
 	
 	<a id="param" class="textLink" href="<c:url value="${addClientUrl}" />">${addClient}</a>
 	<c:if test="${not empty clientList}">

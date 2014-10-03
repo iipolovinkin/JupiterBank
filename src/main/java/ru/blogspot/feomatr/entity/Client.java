@@ -8,11 +8,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-
-import org.hibernate.annotations.GenericGenerator;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 /**
  * @author iipolvinkin
@@ -25,8 +27,14 @@ public class Client implements Serializable {
 
 	@Id
 	private Long id;
+	@Size(min = 3, max = 30, message = "Name must be between 3 and 30 characters long.")
+	@Pattern(regexp = "^[a-zA-Z0-9]+$", message = "Name must be alphanumeric with no spaces.")
 	private String name;
+	@Size(min = 10, max = 50, message = "Address must be between 10 and 50 characters long.")
 	private String address;
+	@NotNull(message = "Age should not be empty.")
+	@Min(1)
+	@Max(value = 150, message = "Age can not be more than 150")
 	private Integer age;
 
 	public Client() {
@@ -57,7 +65,9 @@ public class Client implements Serializable {
 				+ address + ", age=" + age + '}';
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -71,7 +81,9 @@ public class Client implements Serializable {
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override

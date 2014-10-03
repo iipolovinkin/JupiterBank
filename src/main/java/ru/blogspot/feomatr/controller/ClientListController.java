@@ -6,11 +6,11 @@ package ru.blogspot.feomatr.controller;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -64,11 +64,13 @@ public class ClientListController {
 		return "redirect:/clients/" + client.getId() + "/";
 	}
 
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(method = RequestMethod.POST, params = "new")
 	public String addClientFromForm(@Valid Client client,
-			BindingResult bindingResult) {
+			BindingResult bindingResult, Model model, HttpServletRequest request) {
 		logger.info("addClientFromForm");
+		logger.info("bindingResult.hasErrors {}", bindingResult.hasErrors());
 		if (bindingResult.hasErrors()) {
+			logger.info("fieldErrors: {}", bindingResult.getFieldErrors());
 			return "clients/edit";
 		}
 
@@ -78,7 +80,7 @@ public class ClientListController {
 		return "redirect:/clients/" + client.getId();
 	}
 
-	@RequestMapping(method = RequestMethod.GET, params = "new")
+	@RequestMapping(params = "new", method = RequestMethod.GET)
 	public String createClientProfile(Model model) {
 		logger.info("createClientProfile");
 		model.addAttribute(new Client());
