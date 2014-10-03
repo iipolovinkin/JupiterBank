@@ -12,10 +12,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-
-import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * @author iipolvinkin
@@ -33,7 +32,7 @@ public class Client implements Serializable {
 	private String name;
 	@Size(min = 10, max = 50, message = "Address must be between 10 and 50 characters long.")
 	private String address;
-	@NotEmpty(message = "Age should not be empty.")
+	@NotNull(message = "Age should not be empty.")
 	@Min(1)
 	@Max(value = 150, message = "Age can not be more than 150")
 	private Integer age;
