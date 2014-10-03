@@ -10,6 +10,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>Insert title here</title>
+<link href="<c:url value="/resources/messages.css" />" rel="stylesheet"
+	type="text/css" />
 </head>
 <body class="tundra spring">
 	<div id="headerWrapper">
