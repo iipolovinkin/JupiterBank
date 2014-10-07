@@ -9,10 +9,10 @@
 		</id>
 		<property name="amount" type="java.lang.Long" column="amount" />
 		<many-to-one name="sender" class="Account" fetch="select">
-			<column name="senderId" not-null="true" />
+			<column name="senderId" not-null="false" />
 		</many-to-one>
 		<many-to-one name="reciver" class="Account" fetch="select">
-			<column name="reciverId" not-null="true" />
+			<column name="reciverId" not-null="false" />
 		</many-to-one>
 		<property name="time"
 			type="org.jadira.usertype.dateandtime.joda.PersistentDateTime"
