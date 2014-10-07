@@ -10,7 +10,8 @@
 		<constructor-arg ref="clientDaoHibImpl" />
 	</bean>
 
-	<bean id="initTestData" class="ru.blogspot.feomatr.dao.hibernate.InitTestData" />
+	<bean id="initTestData" class="ru.blogspot.feomatr.dao.hibernate.InitTestData"
+		scope="singleton" />
 
 	<bean id="clientDaoHibImpl" class="ru.blogspot.feomatr.dao.hibernate.ClientDaoHibImpl" />
 
@@ -25,8 +26,9 @@
 	<bean id="accountDaoHib" class="ru.blogspot.feomatr.dao.hibernate.AccountDaoHibImpl" />
 
 	<bean id="transactionService" class="ru.blogspot.feomatr.service.TransactionServiceImpl">
-		<constructor-arg ref="transactionDaoStub" />
+		<constructor-arg ref="transactionDaoHib" />
 	</bean>
 
 	<bean id="transactionDaoStub" class="ru.blogspot.feomatr.dao.stub.TransactionDaoStubImpl" />
+	<bean id="transactionDaoHib" class="ru.blogspot.feomatr.dao.hibernate.TransactionDaoHibImpl" />
 </beans>
