@@ -10,11 +10,14 @@
 		<constructor-arg ref="clientDaoHibImpl" />
 	</bean>
 
+	<bean id="initTestData" class="ru.blogspot.feomatr.dao.hibernate.InitTestData">
+	</bean>
+
 	<bean id="clientDaoHibImpl" class="ru.blogspot.feomatr.dao.hibernate.ClientDaoHibImpl">
 	</bean>
 
 	<bean id="clientDaoStub " class="ru.blogspot.feomatr.dao.stub.ClientDaoStubImpl">
-		
+
 	</bean>
 
 	<bean id="accountService" class="ru.blogspot.feomatr.service.AccountServiceImpl">
