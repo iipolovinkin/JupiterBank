@@ -7,10 +7,14 @@
 	<!-- Bean declaration go here. -->
 
 	<bean id="clientService" class="ru.blogspot.feomatr.service.ClientServiceImpl">
-		<constructor-arg ref="clientDaoStub" />
+		<constructor-arg ref="clientDaoHibImpl" />
 	</bean>
 
-	<bean id="clientDaoStub" class="ru.blogspot.feomatr.dao.stub.ClientDaoStubImpl">
+	<bean id="clientDaoHibImpl" class="ru.blogspot.feomatr.dao.hibernate.ClientDaoHibImpl">
+	</bean>
+
+	<bean id="clientDaoStub " class="ru.blogspot.feomatr.dao.stub.ClientDaoStubImpl">
+		
 	</bean>
 
 	<bean id="accountService" class="ru.blogspot.feomatr.service.AccountServiceImpl">
@@ -19,7 +23,7 @@
 
 	<bean id="accountDaoStub" class="ru.blogspot.feomatr.dao.stub.AccountDaoStubImpl">
 	</bean>
-	
+
 	<bean id="transactionService" class="ru.blogspot.feomatr.service.TransactionServiceImpl">
 		<constructor-arg ref="transactionDaoStub" />
 	</bean>

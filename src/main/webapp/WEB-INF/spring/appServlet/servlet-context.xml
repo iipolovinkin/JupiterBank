@@ -24,6 +24,7 @@
 	<resources mapping="/resources/**" location="/resources/" />
 
 	<context:component-scan base-package="ru.blogspot.feomatr.controller" />
+	<context:component-scan base-package="ru.blogspot.feomatr.dao.hibernate" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
 		in the /WEB-INF/views directory -->
