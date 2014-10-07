@@ -22,6 +22,8 @@
         <jstl.version>1.2</jstl.version>
         <junit.version>4.10</junit.version>
         <joda.time.version>2.4</joda.time.version>
+        <jadira.usertype.version>3.2.0.GA</jadira.usertype.version>
+        <AA></AA>
 
         <jetty.host>127.0.0.1</jetty.host>
         <jetty.port>8081</jetty.port>
@@ -168,6 +170,11 @@
             <artifactId>joda-time</artifactId>
             <version>${joda.time.version}</version>
 		</dependency>
+        <dependency>
+            <groupId>org.jadira.usertype</groupId>
+            <artifactId>usertype.core</artifactId>
+            <version>${jadira.usertype.version}</version>
+        </dependency>
 
 		<!-- Test -->
 		<dependency>
