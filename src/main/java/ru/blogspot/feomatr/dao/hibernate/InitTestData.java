@@ -5,9 +5,13 @@ package ru.blogspot.feomatr.dao.hibernate;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import ru.blogspot.feomatr.entity.Account;
 import ru.blogspot.feomatr.entity.Client;
+import ru.blogspot.feomatr.entity.Transaction;
 import ru.blogspot.feomatr.persistence.hibernate.util.HibernateUtil;
 
 /**
@@ -18,9 +22,31 @@ public class InitTestData {
 
 	SessionFactory sf = HibernateUtil.getSessionFactory();
 	Client clients[] = new Client[7];
+	Account accounts[];
+	Transaction transactions[];
+
+	void initTransactions() {
+		String sTime = " 13:10:30";
+		String dts[] = { "2014/01/10", "2014/01/20", "2014/02/15",
+				"2014/03/11", "2014/03/22", "2014/04/07", "2014/07/07" };
+		DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy/MM/dd");// HH:mm:ss
+		DateTime dates[] = new DateTime[7];
+		for (int i = 0; i < dates.length; ++i) {
+			dates[i] = formatter.parseDateTime(dts[i]);
+		}
+		transactions = new Transaction[7];
+		Session s = sf.getCurrentSession();
+		s.beginTransaction();
+		for (int i = 0; i < transactions.length; ++i) {
+			transactions[i] = new Transaction(i * 10L, accounts[0 + i],
+					accounts[1 + i], dates[i]);
+			s.save(transactions[i]);
+		}
+		s.getTransaction().commit();
+	}
 
 	void initAccounts() {
-		Account accounts[] = new Account[] { new Account(clients[0], 500L),
+		accounts = new Account[] { new Account(clients[0], 500L),
 				new Account(clients[0], 140L), new Account(clients[1], 140L),
 				new Account(clients[1], 140L), new Account(clients[2], 670L),
 				new Account(clients[2], 1400L), new Account(clients[3], 10L),
@@ -76,6 +102,7 @@ public class InitTestData {
 		super();
 		initClients();
 		initAccounts();
+		initTransactions();
 	}
 
 }
