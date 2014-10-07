@@ -15,10 +15,27 @@ import ru.blogspot.feomatr.persistence.hibernate.util.HibernateUtil;
  *
  */
 public class InitTestData {
-	void init() {
+
+	SessionFactory sf = HibernateUtil.getSessionFactory();
+	Client clients[] = new Client[7];
+
+	void initAccounts() {
+		Account accounts[] = new Account[] { new Account(clients[0], 500L),
+				new Account(clients[0], 140L), new Account(clients[1], 140L),
+				new Account(clients[1], 140L), new Account(clients[2], 670L),
+				new Account(clients[2], 1400L), new Account(clients[3], 10L),
+				new Account(clients[4], 1040L) };
+		Session s = sf.getCurrentSession();
+		s.beginTransaction();
+		for (int i = 0; i < accounts.length; ++i) {
+			s.save(accounts[i]);
+		}
+		s.getTransaction().commit();
+	}
+
+	void initClients() {
 		System.out
 				.println("================!!!!!!!!!!!!!!================InitTestData");
-		Client clients[];
 		clients = new Client[7];
 		String a[] = { "New York, Yellow st, 64", "Washington, Black st, 77",
 				"Minesote, White st, 12", "Dallas, Red square, 1",
@@ -27,7 +44,6 @@ public class InitTestData {
 		String nm[] = { "John", "John2", "John3", "Lisa", "Bart", "Homer",
 				"Marge" };
 		Integer age[] = { 21, 22, 25, 12, 14, 35, 34 };
-		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session s = sf.getCurrentSession();
 		s.beginTransaction();
 		for (int i = 0; i < clients.length; ++i) {
@@ -58,7 +74,8 @@ public class InitTestData {
 
 	public InitTestData() {
 		super();
-		init();
+		initClients();
+		initAccounts();
 	}
 
 }

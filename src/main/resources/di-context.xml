@@ -10,27 +10,23 @@
 		<constructor-arg ref="clientDaoHibImpl" />
 	</bean>
 
-	<bean id="initTestData" class="ru.blogspot.feomatr.dao.hibernate.InitTestData">
-	</bean>
+	<bean id="initTestData" class="ru.blogspot.feomatr.dao.hibernate.InitTestData" />
 
-	<bean id="clientDaoHibImpl" class="ru.blogspot.feomatr.dao.hibernate.ClientDaoHibImpl">
-	</bean>
+	<bean id="clientDaoHibImpl" class="ru.blogspot.feomatr.dao.hibernate.ClientDaoHibImpl" />
 
-	<bean id="clientDaoStub " class="ru.blogspot.feomatr.dao.stub.ClientDaoStubImpl">
-
-	</bean>
+	<bean id="clientDaoStub " class="ru.blogspot.feomatr.dao.stub.ClientDaoStubImpl" />
 
 	<bean id="accountService" class="ru.blogspot.feomatr.service.AccountServiceImpl">
-		<constructor-arg ref="accountDaoStub" />
+		<constructor-arg ref="accountDaoHib" />
 	</bean>
 
-	<bean id="accountDaoStub" class="ru.blogspot.feomatr.dao.stub.AccountDaoStubImpl">
-	</bean>
+	<bean id="accountDaoStub" class="ru.blogspot.feomatr.dao.stub.AccountDaoStubImpl" />
+
+	<bean id="accountDaoHib" class="ru.blogspot.feomatr.dao.hibernate.AccountDaoHibImpl" />
 
 	<bean id="transactionService" class="ru.blogspot.feomatr.service.TransactionServiceImpl">
 		<constructor-arg ref="transactionDaoStub" />
 	</bean>
 
-	<bean id="transactionDaoStub" class="ru.blogspot.feomatr.dao.stub.TransactionDaoStubImpl">
-	</bean>
+	<bean id="transactionDaoStub" class="ru.blogspot.feomatr.dao.stub.TransactionDaoStubImpl" />
 </beans>
