@@ -3,8 +3,6 @@
  */
 package ru.blogspot.feomatr.dao.hibernate;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -19,10 +17,6 @@ import ru.blogspot.feomatr.persistence.hibernate.util.HibernateUtil;
  *
  */
 public class ClientDaoHibImpl implements ClientDAO {
-	List<Client> clients = new ArrayList<Client>(Arrays.asList(new Client[] {
-			new Client(1L, "Alex", "NY", 22), new Client(2L, "Nick", "LA", 27),
-			new Client(3L, "Ivan", "Spb", 39),
-			new Client(4L, "Petr", "RnD", 13) }));
 
 	private Class<Client> clazz = Client.class;
 	private SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
