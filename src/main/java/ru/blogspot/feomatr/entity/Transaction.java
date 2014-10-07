@@ -26,6 +26,21 @@ public class Transaction implements Serializable {
 	private DateTime time;
 
 	/**
+	 * @param amount
+	 * @param sender
+	 * @param reciver
+	 * @param time
+	 */
+	public Transaction(Long amount, Account sender, Account reciver,
+			DateTime time) {
+		super();
+		this.amount = amount;
+		this.sender = sender;
+		this.reciver = reciver;
+		this.time = time;
+	}
+
+	/**
 	 * @param id
 	 * @param amount
 	 * @param sender

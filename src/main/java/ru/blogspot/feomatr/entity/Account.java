@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.Min;
 
 @Entity
 public class Account implements Serializable {
@@ -18,10 +19,17 @@ public class Account implements Serializable {
 	private Long id;
 	@ManyToOne()
 	private Client owner;
+	@Min(value = 0, message = "Balance can not be less then zero")
 	private Long balance = 0L;
 
 	public Account() {
 		super();
+	}
+
+	public Account(Client owner, Long balance) {
+		super();
+		this.owner = owner;
+		this.balance = balance;
 	}
 
 	public Account(Long id, Client owner, Long balance) {

@@ -16,10 +16,11 @@
 	<s:url value="?transfer" var="transferUrl" />
 	<s:url value="?transferTo" var="transferUrlTo" />
 	<s:url value="?transferFrom" var="transferUrlFrom" />
-
-	<a id="param" class="textLink" href="<c:url value="${transferUrl}" />">${accountsMenuTransfer}</a>
-	<a id="param" class="textLink" href="<c:url value="${transferUrlTo}" />">${accountsMenuTransferTo}</a>
-	<a id="param" class="textLink" href="<c:url value="${transferUrlFrom}" />">${accountsMenuTransferFrom}</a>
+    <c:if test="${empty client }">
+	    <a id="param" class="textLink" href="<c:url value="${transferUrl}" />">${accountsMenuTransfer}</a>
+	    <a id="param" class="textLink" href="<c:url value="${transferUrlTo}" />">${accountsMenuTransferTo}</a>
+	    <a id="param" class="textLink" href="<c:url value="${transferUrlFrom}" />">${accountsMenuTransferFrom}</a>
+	</c:if>
 	<c:if test="${not empty client }">
 		<sf:form method="POST" modelAttribute="client" id="addEmptyAccount">
 			<!--  bind form to model attribute  -->

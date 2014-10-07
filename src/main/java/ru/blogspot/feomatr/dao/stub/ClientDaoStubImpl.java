@@ -11,7 +11,7 @@ import ru.blogspot.feomatr.dao.ClientDAO;
 import ru.blogspot.feomatr.entity.Client;
 
 /**
- * @author igor
+ * @author iipolovinkin
  *
  */
 public class ClientDaoStubImpl implements ClientDAO {

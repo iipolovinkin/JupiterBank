@@ -14,6 +14,7 @@
         <hibernate.validator.version>5.1.2.Final</hibernate.validator.version>
         <validation.api.version>1.1.0.Final</validation.api.version>
         <h2.version>1.2.140</h2.version>
+        <mysql.version>5.1.32</mysql.version>
 		<org.springframework-version>3.2.2.RELEASE</org.springframework-version>
 		<org.aspectj-version>1.6.10</org.aspectj-version>
 		<org.slf4j-version>1.6.6</org.slf4j-version>
@@ -21,6 +22,8 @@
         <jstl.version>1.2</jstl.version>
         <junit.version>4.10</junit.version>
         <joda.time.version>2.4</joda.time.version>
+        <jadira.usertype.version>3.2.0.GA</jadira.usertype.version>
+        <AA></AA>
 
         <jetty.host>127.0.0.1</jetty.host>
         <jetty.port>8081</jetty.port>
@@ -59,6 +62,11 @@
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <version>${h2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql.version}</version>
         </dependency>
 		<!-- Spring -->
 		<dependency>
@@ -162,6 +170,11 @@
             <artifactId>joda-time</artifactId>
             <version>${joda.time.version}</version>
 		</dependency>
+        <dependency>
+            <groupId>org.jadira.usertype</groupId>
+            <artifactId>usertype.core</artifactId>
+            <version>${jadira.usertype.version}</version>
+        </dependency>
 
 		<!-- Test -->
 		<dependency>
