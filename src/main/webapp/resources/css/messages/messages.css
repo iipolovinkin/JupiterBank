@@ -25,7 +25,8 @@ div.warning {
 }
 
 div.error {
-	color: #D8000C;
+
+	color: #0000fC;
 	background-color: #FFBABA;
 	background-image: url('error.png');
 }
