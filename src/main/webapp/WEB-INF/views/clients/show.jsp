@@ -4,21 +4,17 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="t" uri="http://tiles.apache.org/tags-tiles"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<div id="showClient" xmlns:jsp="http://java.sun.com/JSP/Page"
-	xmlns:spring="http://www.springframework.org/tags" version="2.0">
+<div id="showClient" class="container">
 	<jsp:directive.page contentType="text/html; charset=UTF-8"
 		pageEncoding="UTF-8" session="false" />
-	<spring:message code="menu_header_text" var="menuHeaderText" />
-	<spring:message code="menu_add_client" var="menuAddClient" />
-	<spring:message code="menu_add_client" var="menuAddClient" />
 	<c:if test="${not empty client}">
-		<table cellspacing="0" border="1">
+		<table class="table">
 			<thead>
 				<tr>
-					<td>Identity Number</td>
-					<td>Name</td>
-					<td>Address</td>
-					<td>Age</td>
+					<th>Identity Number</th>
+					<th>Name</th>
+					<th>Address</th>
+					<th>Age</th>
 				</tr>
 			</thead>
 			<tbody>
