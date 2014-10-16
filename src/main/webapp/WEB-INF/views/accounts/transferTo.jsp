@@ -5,26 +5,35 @@
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="t" uri="http://tiles.apache.org/tags-tiles"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<div id="transferTo" xmlns:jsp="http://java.sun.com/JSP/Page"
-	xmlns:spring="http://www.springframework.org/tags" version="2.0">
+<div id="transferTo">
 	<jsp:directive.page contentType="text/html; charset=UTF-8"
 		pageEncoding="UTF-8" session="false" />
 	<s:message code="accountTo" var="accountTo" />
 	<s:message code="amount" var="amount" />
 	<s:message code="Transfer" var="Transfer" />
 	<sf:form method="POST" modelAttribute="broker">
-		<table cellspacing="0" border="1">
+		<table>
 
 			<tr>
-				<th align = left>${accountTo}</th>
-				<td><sf:input path="accountTo" size="40" value="" /></td>
+				<th align=left>${accountTo}</th>
+				<td><sf:input path="accountTo" class="form-control"
+						required="true" value="" /></td>
 			</tr>
 			<tr>
-				<th align = left>${amount}</th>
-				<td><sf:input path="amount" size="40" value="" /></td>
+				<th align=left>${amount}</th>
+				<td><sf:input path="amount" class="form-control"
+						required="true" value="" /></td>
+			</tr>
+			<tr>
+				<th></th>
+				<td><br></td>
+			</tr>
+			<tr>
+				<th align=left></th>
+				<td><input name="submit" class="btn btn-success" type="submit"
+					value="${Transfer}" /></td>
 			</tr>
 		</table>
-		<input name="submit" type="submit" value="${Transfer}" />
 	</sf:form>
 </div>
 
