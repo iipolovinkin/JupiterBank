@@ -30,10 +30,8 @@ public class HibernateUtil {
 	}
 
 	public static void main(String[] args) {
-		System.out.println("hello Hib");
 		SessionFactory sf = getSessionFactory();
 		sf.close();
-		System.out.println("goodbye Hib");
 	}
 
 	public static SessionFactory getSessionFactory() {

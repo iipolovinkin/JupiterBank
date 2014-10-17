@@ -55,7 +55,7 @@ public interface TransactionDAO {
 
 	boolean delete(Transaction tr);
 
-	boolean delete(Long Id);
+	boolean delete(Long id);
 
 	void update(Transaction tr);
 

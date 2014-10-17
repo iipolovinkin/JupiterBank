@@ -57,8 +57,6 @@ public class TransactionDaoHibImpl implements TransactionDAO {
 	@Override
 	public Transaction get(Long id) {
 		getCurrentSession().beginTransaction();
-		System.out.println("getById(" + id + ")");
-		System.out.println("class (" + clazz + ")");
 		Transaction e = (Transaction) getCurrentSession().get(clazz, id);
 		getCurrentSession().getTransaction().commit();
 		return e;
@@ -110,8 +108,8 @@ public class TransactionDaoHibImpl implements TransactionDAO {
 	}
 
 	@Override
-	public boolean delete(Long Id) {
-		return delete(get(Id));
+	public boolean delete(Long id) {
+		return delete(get(id));
 	}
 
 	@Override
@@ -149,7 +147,8 @@ public class TransactionDaoHibImpl implements TransactionDAO {
 	@Override
 	public List<Transaction> getByFilter(Long idSender, Long idReciver,
 			DateTime startTime, DateTime endTime) {
-		List<Transaction> l = filterAfterTime(getAll(), startTime);
+		List<Transaction> l = new ArrayList<Transaction>();
+		l.addAll(filterAfterTime(getAll(), startTime));
 		l = filterBeforeTime(l, endTime);
 		l = filterReciver(l, idReciver);
 		l = filterSender(l, idSender);

@@ -20,5 +20,7 @@ public interface AccountService {
 	Account getAccountById(Long id);
 
 	List<Account> getAccountsByOwner(Client cl);
+	
+	void update(Account acc);
 
 }
