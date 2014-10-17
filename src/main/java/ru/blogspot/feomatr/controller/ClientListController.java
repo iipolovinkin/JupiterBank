@@ -46,9 +46,6 @@ public class ClientListController {
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.POST)
 	public String addAccountFromForm(@PathVariable("id") Long id, Model model) {
-		// if (bindingResult.hasErrors()) {
-		// return "ERROR!";
-		// }
 		logger.info("addAccountFromForm {}", id);
 
 		Client client = clientService.getClientById(id);

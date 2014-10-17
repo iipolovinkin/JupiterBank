@@ -57,20 +57,21 @@ public class AccountsController {
 	public String doTransferFromAccount(Broker broker, Model model) {
 		logger.info("POST TransferFrom");
 		Long amount = broker.getAmount();
-		Account accountFrom, accountTo = null;
+		Account accountFrom;
 		accountFrom = accountService.getAccountById(broker.getAccountFrom());
 		if (accountFrom == null || amount == null) {
 			logger.info(" {}", "fail transferFrom");
 			return "transferFrom";
 		}
-		logger.info("a1 {}, a2 {}", accountFrom, accountTo);
+		logger.info("a1 {}, a2 {}", accountFrom);
 		if (Broker.transferFrom(accountFrom, amount)) {
 			accountService.update(accountFrom);
 			transactionService
 					.create(new Transaction(amount, accountFrom, null));
-			logger.info("a1' {}, a2' {}", accountFrom, accountTo);
-		}else{
-			logger.info("transfer from: {} amount:{} failed", accountFrom.toString(), amount);
+			logger.info("a1' {}, a2' {}", accountFrom);
+		} else {
+			logger.info("transfer from: {} amount:{} failed",
+					accountFrom.toString(), amount);
 		}
 
 		return "transferFrom";
@@ -87,17 +88,17 @@ public class AccountsController {
 	public String doTransferToAccount(Broker broker, Model model) {
 		logger.info("POST TransferTo");
 		Long amount = broker.getAmount();
-		Account accountFrom = null, accountTo;
+		Account accountTo;
 		accountTo = accountService.getAccountById(broker.getAccountTo());
 		if (accountTo == null || amount == null) {
 			logger.info(" {}", "fail transferTo");
 			return "transferTo";
 		}
-		logger.info("a1 {}, a2 {}", accountFrom, accountTo);
+		logger.info("a1 {}, a2 {}", accountTo);
 		Broker.transferTo(accountTo, amount);
 		accountService.update(accountTo);
 		transactionService.create(new Transaction(amount, null, accountTo));
-		logger.info("a1' {}, a2' {}", accountFrom, accountTo);
+		logger.info("a1' {}, a2' {}", accountTo);
 
 		return "transferTo";
 	}
@@ -113,7 +114,8 @@ public class AccountsController {
 	public String doTransfer(Broker broker, Model model) {
 		logger.info("POST Transfer");
 		Long amount = broker.getAmount();
-		Account accountFrom, accountTo;
+		Account accountFrom;
+		Account accountTo;
 		accountFrom = accountService.getAccountById(broker.getAccountFrom());
 		accountTo = accountService.getAccountById(broker.getAccountTo());
 		if (accountFrom == null || accountTo == null || amount == null) {

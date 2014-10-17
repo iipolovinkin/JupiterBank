@@ -111,8 +111,8 @@ public class TransactionDaoStubImpl implements TransactionDAO {
 	}
 
 	@Override
-	public boolean delete(Long Id) {
-		return transactions.remove(get(Id));
+	public boolean delete(Long id) {
+		return transactions.remove(get(id));
 	}
 
 	@Override
