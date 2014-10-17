@@ -128,7 +128,7 @@ public class TransactionServiceImpl implements TransactionService {
 	 */
 	@Override
 	public void update(Transaction tr) {
-
+		dao.update(tr);
 	}
 
 	@Override

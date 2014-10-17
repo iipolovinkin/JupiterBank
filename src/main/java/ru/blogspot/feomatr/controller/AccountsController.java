@@ -9,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -65,9 +64,14 @@ public class AccountsController {
 			return "transferFrom";
 		}
 		logger.info("a1 {}, a2 {}", accountFrom, accountTo);
-		Broker.transferFrom(accountFrom, amount);
-		transactionService.create(new Transaction(amount, accountFrom, null));
-		logger.info("a1' {}, a2' {}", accountFrom, accountTo);
+		if (Broker.transferFrom(accountFrom, amount)) {
+			accountService.update(accountFrom);
+			transactionService
+					.create(new Transaction(amount, accountFrom, null));
+			logger.info("a1' {}, a2' {}", accountFrom, accountTo);
+		}else{
+			logger.info("transfer from: {} amount:{} failed", accountFrom.toString(), amount);
+		}
 
 		return "transferFrom";
 	}
@@ -91,6 +95,7 @@ public class AccountsController {
 		}
 		logger.info("a1 {}, a2 {}", accountFrom, accountTo);
 		Broker.transferTo(accountTo, amount);
+		accountService.update(accountTo);
 		transactionService.create(new Transaction(amount, null, accountTo));
 		logger.info("a1' {}, a2' {}", accountFrom, accountTo);
 
@@ -117,6 +122,8 @@ public class AccountsController {
 		}
 		logger.info("a1 {}, a2 {}", accountFrom, accountTo);
 		Broker.transfer(accountFrom, accountTo, amount);
+		accountService.update(accountFrom);
+		accountService.update(accountTo);
 		transactionService.create(new Transaction(amount, accountFrom,
 				accountTo));
 		logger.info("a1' {}, a2' {}", accountFrom, accountTo);
