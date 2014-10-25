@@ -64,6 +64,8 @@ public class AccountsController {
 			return "transferFrom";
 		}
 		LOGGER.info("a1 {}, a2 {}", accountFrom);
+		//@ TODO should I wire Broker with AccountService and TransactionService ?? 
+		// These three operations looks like one logical operation
 		if (Broker.transferFrom(accountFrom, amount)) {
 			accountService.update(accountFrom);
 			transactionService
@@ -95,9 +97,12 @@ public class AccountsController {
 			return "transferTo";
 		}
 		LOGGER.info("a1 {}, a2 {}", accountTo);
+		//@ TODO should I wire Broker with AccountService and TransactionService ?? 
+		// These three operations looks like one logical operation
 		Broker.transferTo(accountTo, amount);
 		accountService.update(accountTo);
 		transactionService.create(new Transaction(amount, null, accountTo));
+		
 		LOGGER.info("a1' {}, a2' {}", accountTo);
 
 		return "transferTo";
@@ -123,11 +128,15 @@ public class AccountsController {
 			return "transfer";
 		}
 		LOGGER.info("a1 {}, a2 {}", accountFrom, accountTo);
+		
+		//@ TODO should I wire Broker with AccountService and TransactionService ?? 
+		// These operations looks like one logical operation
 		Broker.transfer(accountFrom, accountTo, amount);
 		accountService.update(accountFrom);
 		accountService.update(accountTo);
 		transactionService.create(new Transaction(amount, accountFrom,
 				accountTo));
+
 		LOGGER.info("a1' {}, a2' {}", accountFrom, accountTo);
 
 		return "transfer";

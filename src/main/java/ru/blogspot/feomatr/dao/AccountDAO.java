@@ -13,6 +13,6 @@ public interface AccountDAO {
 	
 	boolean delete(Account acc);
 	
-	int update(Account acc);
+	void update(Account acc);
 
 }
