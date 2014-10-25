@@ -72,28 +72,37 @@ public class Account implements Serializable {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		Account other = (Account) obj;
 		if (balance == null) {
-			if (other.balance != null)
+			if (other.balance != null) {
 				return false;
-		} else if (!balance.equals(other.balance))
+			}
+		} else if (!balance.equals(other.balance)) {
 			return false;
+		}
 		if (id == null) {
-			if (other.id != null)
+			if (other.id != null) {
 				return false;
-		} else if (!id.equals(other.id))
+			}
+		} else if (!id.equals(other.id)) {
 			return false;
+		}
 		if (owner == null) {
-			if (other.owner != null)
+			if (other.owner != null) {
 				return false;
-		} else if (!owner.equals(other.owner))
+			}
+		} else if (!owner.equals(other.owner)) {
 			return false;
+		}
 		return true;
 	}
 

@@ -65,7 +65,4 @@ public class TransactionsController {
 
 		return "transactions";
 	}
-	// class FormFilter {
-
-	// }
 }

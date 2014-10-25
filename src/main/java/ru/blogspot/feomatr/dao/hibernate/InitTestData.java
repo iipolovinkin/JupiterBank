@@ -18,21 +18,33 @@ import ru.blogspot.feomatr.persistence.hibernate.util.HibernateUtil;
  * @author iipolovinkin
  *
  */
-public class InitTestData {
+public final class InitTestData {
 
-	SessionFactory sf = HibernateUtil.getSessionFactory();
-	Client clients[] = new Client[7];
-	Account accounts[];
-	Transaction transactions[];
+	private static SessionFactory sf = HibernateUtil.getSessionFactory();
+	private static Client clients[] = new Client[7];
+	private static Account accounts[];
+	private static Transaction transactions[];
 
-	void initTransactions() {
-		String sTime = " 13:10:30";
-		String dts[] = { "2014/01/10", "2014/01/20", "2014/02/15",
-				"2014/03/11", "2014/03/22", "2014/04/07", "2014/07/07" };
+	private final static String ADDRS[] = { "New York, Yellow st, 64",
+			"Washington, Black st, 77", "Minesote, White st, 12",
+			"Dallas, Red square, 1", "Springfield, Simpson st, 1",
+			"Springfield, Simpson st, 2", "Springfield, Simpson st, 3" };
+	private final static String NAMES[] = { "John", "John2", "John3", "Lisa",
+			"Bart", "Homer", "Marge" };
+	private final static Integer AGES[] = { 21, 22, 25, 12, 14, 35, 34 };
+	private final static String DTS[] = { "2014/01/10", "2014/01/20",
+			"2014/02/15", "2014/03/11", "2014/03/22", "2014/04/07",
+			"2014/07/07" };
+
+	private InitTestData() {
+
+	}
+
+	static void initTransactions() {
 		DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy/MM/dd");// HH:mm:ss
 		DateTime dates[] = new DateTime[7];
 		for (int i = 0; i < dates.length; ++i) {
-			dates[i] = formatter.parseDateTime(dts[i]);
+			dates[i] = formatter.parseDateTime(DTS[i]);
 		}
 		transactions = new Transaction[7];
 		Session s = sf.getCurrentSession();
@@ -45,7 +57,7 @@ public class InitTestData {
 		s.getTransaction().commit();
 	}
 
-	void initAccounts() {
+	static void initAccounts() {
 		accounts = new Account[] { new Account(clients[0], 500L),
 				new Account(clients[0], 140L), new Account(clients[1], 140L),
 				new Account(clients[1], 140L), new Account(clients[2], 670L),
@@ -59,47 +71,17 @@ public class InitTestData {
 		s.getTransaction().commit();
 	}
 
-	void initClients() {
-		System.out
-				.println("================!!!!!!!!!!!!!!================InitTestData");
-		clients = new Client[7];
-		String a[] = { "New York, Yellow st, 64", "Washington, Black st, 77",
-				"Minesote, White st, 12", "Dallas, Red square, 1",
-				"Springfield, Simpson st, 1", "Springfield, Simpson st, 2",
-				"Springfield, Simpson st, 3" };
-		String nm[] = { "John", "John2", "John3", "Lisa", "Bart", "Homer",
-				"Marge" };
-		Integer age[] = { 21, 22, 25, 12, 14, 35, 34 };
+	static void initClients() {
 		Session s = sf.getCurrentSession();
 		s.beginTransaction();
 		for (int i = 0; i < clients.length; ++i) {
-			clients[i] = new Client(nm[i], a[i], age[i]);
+			clients[i] = new Client(NAMES[i], ADDRS[i], AGES[i]);
 			s.save(clients[i]);
 		}
 		s.getTransaction().commit();
-		/*
-		 * s.beginTransaction(); Client cc = (Client)
-		 * s.get(ru.blogspot.feomatr.entity.Client.class, 1L);
-		 * System.out.println(cc); s.getTransaction().commit();
-		 */
-		/*
-		 * s.beginTransaction(); for (int i = 0; i < clients.length; ++i) { //
-		 * s.save(new Account(1L * i, clients[i], i * 100L)); }
-		 * s.getTransaction().commit(); s.beginTransaction(); for (int i = 0; i
-		 * < age.length; i++) { // Account ac = (Account) s.get( //
-		 * ru.blogspot.feomatr.entity.Account.class, i * 1L); // Client cc =
-		 * (Client) // s.get(ru.blogspot.feomatr.entity.Client.class, // i *
-		 * 1L); // System.out.println("Client: " + cc + " account: " + ac); }
-		 * s.getTransaction().commit();
-		 */
 	}
 
-	public InitTestData(HibernateUtil hibernateUtil) {
-		this();
-	}
-
-	public InitTestData() {
-		super();
+	public static void initTestData() {
 		initClients();
 		initAccounts();
 		initTransactions();

@@ -40,7 +40,7 @@ public class ClientListController {
 	@Inject
 	public ClientListController(ClientService clientService,
 			AccountService accountService) {
-		this.setClientService(clientService);
+		this.clientService = clientService;
 		this.accountService = accountService;
 	}
 
@@ -71,7 +71,7 @@ public class ClientListController {
 			return "clients/edit";
 		}
 
-		client = getClientService().saveClient(client);
+		client = clientService.saveClient(client);
 		logger.info(client.toString());
 
 		return "redirect:/clients/" + client.getId();
@@ -86,35 +86,20 @@ public class ClientListController {
 
 	@RequestMapping()
 	public String showClients(Model model) {
-		logger.info("showClients");
+		logger.info("showClients {} {} {}", clientService);
 
-		model.addAttribute("clientList", getClientService().getAllClients());
+		model.addAttribute("clientList", clientService.getAllClients());
 		return "clients";
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public String showClient(@PathVariable("id") Long id, Model model) {
 		logger.info("showClient");
-		Client cl = getClientService().getClientById(id);
+		Client cl = clientService.getClientById(id);
 		model.addAttribute("client", cl);
 		List<Account> accounts = accountService.getAccountsByOwner(cl);
 		model.addAttribute("accounts", accounts);
 		return "clients/show";
-	}
-
-	/**
-	 * @return the clientService
-	 */
-	public ClientService getClientService() {
-		return clientService;
-	}
-
-	/**
-	 * @param clientService
-	 *            the clientService to set
-	 */
-	public void setClientService(ClientService clientService) {
-		this.clientService = clientService;
 	}
 
 }
