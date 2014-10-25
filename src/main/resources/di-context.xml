@@ -7,7 +7,7 @@
 
 	<bean id="clientDaoHibImpl" class="ru.blogspot.feomatr.dao.hibernate.ClientDaoHibImpl" />
 	<bean id="accountDaoHibImpl" class="ru.blogspot.feomatr.dao.hibernate.AccountDaoHibImpl" />
-	<bean id="transactionDaoHib" class="ru.blogspot.feomatr.dao.hibernate.TransactionDaoHibImpl" />
+	<bean id="transactionDaoHibImpl" class="ru.blogspot.feomatr.dao.hibernate.TransactionDaoHibImpl" />
 
 
 
@@ -21,7 +21,7 @@
 		<constructor-arg ref="accountDaoHibImpl" />
 	</bean>
 	<bean id="transactionServiceImpl" class="ru.blogspot.feomatr.service.TransactionServiceImpl">
-		<constructor-arg ref="transactionDaoHib" />
+		<constructor-arg ref="transactionDaoHibImpl" />
 	</bean>
 
 	<bean id="transactionsController" class="ru.blogspot.feomatr.controller.TransactionsController">

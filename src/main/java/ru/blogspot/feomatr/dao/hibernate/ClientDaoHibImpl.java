@@ -18,7 +18,6 @@ import ru.blogspot.feomatr.persistence.hibernate.util.HibernateUtil;
  */
 public class ClientDaoHibImpl implements ClientDAO {
 
-	private Class<Client> clazz = Client.class;
 	private SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
 	private Session getCurrentSession() {

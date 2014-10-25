@@ -71,7 +71,7 @@ public class ClientListController {
 			return "clients/edit";
 		}
 
-		client = clientService.saveClient(client);
+		clientService.saveClient(client);
 		LOGGER.info(client.toString());
 
 		return "redirect:/clients/" + client.getId();
