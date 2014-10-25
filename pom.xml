@@ -21,8 +21,10 @@
         <apache.tiles.version>3.0.0</apache.tiles.version>
         <jstl.version>1.2</jstl.version>
         <junit.version>4.10</junit.version>
+
         <joda.time.version>2.4</joda.time.version>
         <jadira.usertype.version>3.2.0.GA</jadira.usertype.version>
+        <mockito.core.version>1.10.8</mockito.core.version>
         <AA></AA>
 
         <jetty.host>127.0.0.1</jetty.host>
@@ -183,6 +185,11 @@
 			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>        
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>${mockito.core.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.mortbay.jetty</groupId>
             <artifactId>servlet-api</artifactId>
