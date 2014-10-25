@@ -31,10 +31,7 @@ public class ClientServiceImpl implements ClientService {
 	 */
 	@Override
 	public Client saveClient(Client client) {
-		List<Client> clients = clientDAO.getAllClients();
-		client.setId(clients.get(clients.size() - 1).getId() + 1);
-		client = clientDAO.create(client);
-		return client;
+		return clientDAO.create(client);
 	}
 
 	@Override

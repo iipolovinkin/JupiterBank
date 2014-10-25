@@ -66,7 +66,6 @@ public class AccountDaoHibImpl implements AccountDAO {
 		getCurrentSession().beginTransaction();
 		getCurrentSession().save(acc);
 		getCurrentSession().getTransaction().commit();
-		System.out.println(acc.toString());
 		return acc;
 	}
 
@@ -93,11 +92,10 @@ public class AccountDaoHibImpl implements AccountDAO {
 	 * Account)
 	 */
 	@Override
-	public int update(Account acc) {
+	public void update(Account acc) {
 		getCurrentSession().beginTransaction();
 		getCurrentSession().update(acc);
 		getCurrentSession().getTransaction().commit();
-		return 1;
 	}
 
 }

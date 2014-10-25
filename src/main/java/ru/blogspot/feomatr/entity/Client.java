@@ -88,33 +88,44 @@ public class Client implements Serializable {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		Client other = (Client) obj;
 		if (address == null) {
-			if (other.address != null)
+			if (other.address != null) {
 				return false;
-		} else if (!address.equals(other.address))
+			}
+		} else if (!address.equals(other.address)) {
 			return false;
+		}
 		if (age == null) {
-			if (other.age != null)
+			if (other.age != null) {
 				return false;
-		} else if (!age.equals(other.age))
+			}
+		} else if (!age.equals(other.age)) {
 			return false;
+		}
 		if (id == null) {
-			if (other.id != null)
+			if (other.id != null) {
 				return false;
-		} else if (!id.equals(other.id))
+			}
+		} else if (!id.equals(other.id)) {
 			return false;
+		}
 		if (name == null) {
-			if (other.name != null)
+			if (other.name != null) {
 				return false;
-		} else if (!name.equals(other.name))
+			}
+		} else if (!name.equals(other.name)) {
 			return false;
+		}
 		return true;
 	}
 

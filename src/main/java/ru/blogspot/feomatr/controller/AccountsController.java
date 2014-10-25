@@ -27,7 +27,7 @@ import ru.blogspot.feomatr.service.TransactionService;
 @Controller
 @RequestMapping(value = "accounts")
 public class AccountsController {
-	private static final Logger logger = LoggerFactory
+	private static final Logger LOGGER = LoggerFactory
 			.getLogger(AccountsController.class);
 	private AccountService accountService;
 	private TransactionService transactionService;
@@ -41,36 +41,38 @@ public class AccountsController {
 
 	@RequestMapping()
 	public String showAllAccounts(Model model) {
-		logger.info(" {}", "showAccounts");
+		LOGGER.info(" {}", "showAccounts");
 		model.addAttribute("accounts", accountService.getAllAccounts());
 		return "accounts";
 	}
 
 	@RequestMapping(method = RequestMethod.GET, params = "transferFrom")
 	public String showTransferFrom(Broker broker, Model model) {
-		logger.info(" {}", "GET TransferFrom");
+		LOGGER.info(" {}", "GET TransferFrom");
 		model.addAttribute("broker", new Broker());
 		return "transferFrom";
 	}
 
 	@RequestMapping(method = RequestMethod.POST, params = "transferFrom")
 	public String doTransferFromAccount(Broker broker, Model model) {
-		logger.info("POST TransferFrom");
+		LOGGER.info("POST TransferFrom");
 		Long amount = broker.getAmount();
 		Account accountFrom;
 		accountFrom = accountService.getAccountById(broker.getAccountFrom());
 		if (accountFrom == null || amount == null) {
-			logger.info(" {}", "fail transferFrom");
+			LOGGER.info(" {}", "fail transferFrom");
 			return "transferFrom";
 		}
-		logger.info("a1 {}, a2 {}", accountFrom);
+		LOGGER.info("a1 {}, a2 {}", accountFrom);
+		//@ TODO should I wire Broker with AccountService and TransactionService ?? 
+		// These three operations looks like one logical operation
 		if (Broker.transferFrom(accountFrom, amount)) {
 			accountService.update(accountFrom);
 			transactionService
 					.create(new Transaction(amount, accountFrom, null));
-			logger.info("a1' {}, a2' {}", accountFrom);
+			LOGGER.info("a1' {}, a2' {}", accountFrom);
 		} else {
-			logger.info("transfer from: {} amount:{} failed",
+			LOGGER.info("transfer from: {} amount:{} failed",
 					accountFrom.toString(), amount);
 		}
 
@@ -79,56 +81,63 @@ public class AccountsController {
 
 	@RequestMapping(method = RequestMethod.GET, params = "transferTo")
 	public String showTransferTo(Broker broker, Model model) {
-		logger.info(" {}", "GET TransferTo");
+		LOGGER.info(" {}", "GET TransferTo");
 		model.addAttribute("broker", new Broker());
 		return "transferTo";
 	}
 
 	@RequestMapping(method = RequestMethod.POST, params = "transferTo")
 	public String doTransferToAccount(Broker broker, Model model) {
-		logger.info("POST TransferTo");
+		LOGGER.info("POST TransferTo");
 		Long amount = broker.getAmount();
 		Account accountTo;
 		accountTo = accountService.getAccountById(broker.getAccountTo());
 		if (accountTo == null || amount == null) {
-			logger.info(" {}", "fail transferTo");
+			LOGGER.info(" {}", "fail transferTo");
 			return "transferTo";
 		}
-		logger.info("a1 {}, a2 {}", accountTo);
+		LOGGER.info("a1 {}, a2 {}", accountTo);
+		//@ TODO should I wire Broker with AccountService and TransactionService ?? 
+		// These three operations looks like one logical operation
 		Broker.transferTo(accountTo, amount);
 		accountService.update(accountTo);
 		transactionService.create(new Transaction(amount, null, accountTo));
-		logger.info("a1' {}, a2' {}", accountTo);
+		
+		LOGGER.info("a1' {}, a2' {}", accountTo);
 
 		return "transferTo";
 	}
 
 	@RequestMapping(method = RequestMethod.GET, params = "transfer")
 	public String showTransfer(Broker broker, Model model) {
-		logger.info(" {}", "GET Transfer");
+		LOGGER.info(" {}", "GET Transfer");
 		model.addAttribute("broker", new Broker());
 		return "transfer";
 	}
 
 	@RequestMapping(method = RequestMethod.POST, params = "transfer")
 	public String doTransfer(Broker broker, Model model) {
-		logger.info("POST Transfer");
+		LOGGER.info("POST Transfer");
 		Long amount = broker.getAmount();
 		Account accountFrom;
 		Account accountTo;
 		accountFrom = accountService.getAccountById(broker.getAccountFrom());
 		accountTo = accountService.getAccountById(broker.getAccountTo());
 		if (accountFrom == null || accountTo == null || amount == null) {
-			logger.info(" {}", "fail");
+			LOGGER.info(" {}", "fail");
 			return "transfer";
 		}
-		logger.info("a1 {}, a2 {}", accountFrom, accountTo);
+		LOGGER.info("a1 {}, a2 {}", accountFrom, accountTo);
+		
+		//@ TODO should I wire Broker with AccountService and TransactionService ?? 
+		// These operations looks like one logical operation
 		Broker.transfer(accountFrom, accountTo, amount);
 		accountService.update(accountFrom);
 		accountService.update(accountTo);
 		transactionService.create(new Transaction(amount, accountFrom,
 				accountTo));
-		logger.info("a1' {}, a2' {}", accountFrom, accountTo);
+
+		LOGGER.info("a1' {}, a2' {}", accountFrom, accountTo);
 
 		return "transfer";
 	}

@@ -25,7 +25,7 @@ import ru.blogspot.feomatr.service.TransactionService;
 @Controller
 @RequestMapping(value = "transactions")
 public class TransactionsController {
-	private static final Logger logger = LoggerFactory
+	private static final Logger LOGGER = LoggerFactory
 			.getLogger(TransactionsController.class);
 	private TransactionService transactionService;
 
@@ -36,7 +36,7 @@ public class TransactionsController {
 
 	@RequestMapping(method = RequestMethod.POST, params = "clear")
 	public String clearInput(Model model) {
-		logger.info(" {}", "clearInput");
+		LOGGER.info(" {}", "clearInput");
 		model.addAttribute("transactions", transactionService.getAll());
 		model.addAttribute("formFilter", new FormFilter());
 		return "transactions";
@@ -44,7 +44,7 @@ public class TransactionsController {
 
 	@RequestMapping()
 	public String showTransactions(Model model) {
-		logger.info(" {}", "showTransactions");
+		LOGGER.info(" {}", "showTransactions");
 		model.addAttribute("transactions", transactionService.getAll());
 		model.addAttribute("formFilter", new FormFilter());
 		return "transactions";
@@ -52,8 +52,8 @@ public class TransactionsController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	public String doFilter(FormFilter formFilter, Model model) {
-		logger.info("do Filter");
-		logger.info("FF: {}", formFilter);
+		LOGGER.info("do Filter");
+		LOGGER.info("FF: {}", formFilter);
 		Account a1, a2;
 		// TransactionFilter = new TransactionFilter();
 		// model.addAttribute("transactionFilter", transactionFilter);
@@ -65,7 +65,4 @@ public class TransactionsController {
 
 		return "transactions";
 	}
-	// class FormFilter {
-
-	// }
 }

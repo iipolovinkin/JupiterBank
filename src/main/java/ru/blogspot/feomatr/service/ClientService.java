@@ -5,7 +5,6 @@ package ru.blogspot.feomatr.service;
 
 import java.util.List;
 
-import ru.blogspot.feomatr.dao.ClientDAO;
 import ru.blogspot.feomatr.entity.Client;
 
 /**

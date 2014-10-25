@@ -32,7 +32,7 @@ import ru.blogspot.feomatr.service.ClientService;
 @Controller
 @RequestMapping(value = "clients")
 public class ClientListController {
-	private static final Logger logger = LoggerFactory
+	private static final Logger LOGGER = LoggerFactory
 			.getLogger(ClientListController.class);
 	private ClientService clientService;
 	private AccountService accountService;
@@ -40,22 +40,22 @@ public class ClientListController {
 	@Inject
 	public ClientListController(ClientService clientService,
 			AccountService accountService) {
-		this.setClientService(clientService);
+		this.clientService = clientService;
 		this.accountService = accountService;
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.POST)
 	public String addAccountFromForm(@PathVariable("id") Long id, Model model) {
-		logger.info("addAccountFromForm {}", id);
+		LOGGER.info("addAccountFromForm {}", id);
 
 		Client client = clientService.getClientById(id);
 		Account account = new Account(client);
-		logger.info("account:  {}", account);
+		LOGGER.info("account:  {}", account);
 		accountService.saveAccount(account);
-		logger.info("account saved:  {}", account);
+		LOGGER.info("account saved:  {}", account);
 		List<Account> accs = accountService.getAllAccounts();
 		for (Account a : accs) {
-			logger.info("a {}", a);
+			LOGGER.info("a {}", a);
 		}
 
 		return "redirect:/clients/" + client.getId() + "/";
@@ -64,57 +64,42 @@ public class ClientListController {
 	@RequestMapping(method = RequestMethod.POST, params = "new")
 	public String addClientFromForm(@Valid Client client,
 			BindingResult bindingResult, Model model, HttpServletRequest request) {
-		logger.info("addClientFromForm");
-		logger.info("bindingResult.hasErrors {}", bindingResult.hasErrors());
+		LOGGER.info("addClientFromForm");
+		LOGGER.info("bindingResult.hasErrors {}", bindingResult.hasErrors());
 		if (bindingResult.hasErrors()) {
-			logger.info("fieldErrors: {}", bindingResult.getFieldErrors());
+			LOGGER.info("fieldErrors: {}", bindingResult.getFieldErrors());
 			return "clients/edit";
 		}
 
-		client = getClientService().saveClient(client);
-		logger.info(client.toString());
+		clientService.saveClient(client);
+		LOGGER.info(client.toString());
 
 		return "redirect:/clients/" + client.getId();
 	}
 
 	@RequestMapping(params = "new", method = RequestMethod.GET)
 	public String createClientProfile(Model model) {
-		logger.info("createClientProfile");
+		LOGGER.info("createClientProfile");
 		model.addAttribute(new Client());
 		return "clients/edit";
 	}
 
 	@RequestMapping()
 	public String showClients(Model model) {
-		logger.info("showClients");
+		LOGGER.info("showClients {} {} {}", clientService);
 
-		model.addAttribute("clientList", getClientService().getAllClients());
+		model.addAttribute("clientList", clientService.getAllClients());
 		return "clients";
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public String showClient(@PathVariable("id") Long id, Model model) {
-		logger.info("showClient");
-		Client cl = getClientService().getClientById(id);
+		LOGGER.info("showClient");
+		Client cl = clientService.getClientById(id);
 		model.addAttribute("client", cl);
 		List<Account> accounts = accountService.getAccountsByOwner(cl);
 		model.addAttribute("accounts", accounts);
 		return "clients/show";
-	}
-
-	/**
-	 * @return the clientService
-	 */
-	public ClientService getClientService() {
-		return clientService;
-	}
-
-	/**
-	 * @param clientService
-	 *            the clientService to set
-	 */
-	public void setClientService(ClientService clientService) {
-		this.clientService = clientService;
 	}
 
 }

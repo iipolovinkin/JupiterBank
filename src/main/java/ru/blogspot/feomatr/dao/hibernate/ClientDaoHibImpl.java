@@ -18,7 +18,6 @@ import ru.blogspot.feomatr.persistence.hibernate.util.HibernateUtil;
  */
 public class ClientDaoHibImpl implements ClientDAO {
 
-	private Class<Client> clazz = Client.class;
 	private SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
 	private Session getCurrentSession() {
@@ -26,7 +25,6 @@ public class ClientDaoHibImpl implements ClientDAO {
 	}
 
 	public ClientDaoHibImpl() {
-		super();
 	}
 
 	/*
@@ -52,8 +50,6 @@ public class ClientDaoHibImpl implements ClientDAO {
 	@Override
 	public Client getById(Long id) {
 		getCurrentSession().beginTransaction();
-		System.out.println("getById(" + id + ")");
-		System.out.println("class (" + clazz + ")");
 		Client c = (Client) getCurrentSession().get(
 				ru.blogspot.feomatr.entity.Client.class, id);
 		getCurrentSession().getTransaction().commit();
@@ -74,7 +70,6 @@ public class ClientDaoHibImpl implements ClientDAO {
 		getCurrentSession().beginTransaction();
 		getCurrentSession().save(cl);
 		getCurrentSession().getTransaction().commit();
-		System.out.println(cl.toString());
 		return cl;
 	}
 

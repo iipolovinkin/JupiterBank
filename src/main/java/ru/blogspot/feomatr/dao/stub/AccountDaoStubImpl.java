@@ -99,15 +99,14 @@ public class AccountDaoStubImpl implements AccountDAO {
 	 * Account)
 	 */
 	@Override
-	public int update(Account acc) {
+	public void update(Account acc) {
 		Account acc1 = getAccountById(acc.getId());
 		if (acc1 == null) {
-			return 0;
+			return;
 		}
 		acc1.setId(acc.getId());
 		acc1.setOwner(acc.getOwner());
 		acc1.setBalance(acc.getBalance());
-		return 1;
 	}
 
 }
