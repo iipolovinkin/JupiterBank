@@ -12,7 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import ru.blogspot.feomatr.entity.Account;
 import ru.blogspot.feomatr.formBean.FormFilter;
 import ru.blogspot.feomatr.service.TransactionService;
 
@@ -34,17 +33,9 @@ public class TransactionsController {
 		this.transactionService = transactionService;
 	}
 
-	@RequestMapping(method = RequestMethod.POST, params = "clear")
-	public String clearInput(Model model) {
-		LOGGER.info(" {}", "clearInput");
-		model.addAttribute("transactions", transactionService.getAll());
-		model.addAttribute("formFilter", new FormFilter());
-		return "transactions";
-	}
-
 	@RequestMapping()
 	public String showTransactions(Model model) {
-		LOGGER.info(" {}", "showTransactions");
+		LOGGER.debug(" {}", "showTransactions");
 		model.addAttribute("transactions", transactionService.getAll());
 		model.addAttribute("formFilter", new FormFilter());
 		return "transactions";
@@ -52,12 +43,7 @@ public class TransactionsController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	public String doFilter(FormFilter formFilter, Model model) {
-		LOGGER.info("do Filter");
-		LOGGER.info("FF: {}", formFilter);
-		Account a1, a2;
-		// TransactionFilter = new TransactionFilter();
-		// model.addAttribute("transactionFilter", transactionFilter);
-		// model.addAttribute("formFilter", new FormFilter());
+		LOGGER.debug("doFilter formFilter: {}", formFilter);
 
 		model.addAttribute("transactions", transactionService.getByFilter(
 				formFilter.getIdFrom(), formFilter.getIdTo(),

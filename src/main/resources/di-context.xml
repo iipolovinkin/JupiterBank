@@ -28,9 +28,14 @@
 		<constructor-arg ref="transactionServiceImpl" />
 	</bean>
 
-	<bean id="accountsController" class="ru.blogspot.feomatr.controller.AccountsController">
+	<bean id="transferServiceImpl" class="ru.blogspot.feomatr.service.TransferServiceImpl">
 		<constructor-arg ref="accountServiceImpl" />
 		<constructor-arg ref="transactionServiceImpl" />
+	</bean>
+
+	<bean id="accountsController" class="ru.blogspot.feomatr.controller.AccountsController">
+		<constructor-arg ref="accountServiceImpl" />
+		<constructor-arg ref="transferServiceImpl" />
 	</bean>
 
 
