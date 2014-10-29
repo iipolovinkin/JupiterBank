@@ -58,7 +58,7 @@ public class ClientListController {
 			LOGGER.info("a {}", a);
 		}
 
-		return "redirect:/clients/" + client.getId() + "/";
+		return "redirect:/clients/" + client.getId();
 	}
 
 	@RequestMapping(method = RequestMethod.POST, params = "new")

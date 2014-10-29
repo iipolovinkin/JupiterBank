@@ -38,7 +38,7 @@ public class ClientDaoStubImpl implements ClientDAO {
 	@Override
 	public Client getById(Long id) {
 		for (Client client : clients) {
-			if (client.getId() == id) {
+			if (client.getId().equals(id)) {
 				return client;
 			}
 		}

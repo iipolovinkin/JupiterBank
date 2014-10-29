@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -56,7 +57,7 @@ public class Client implements Serializable {
 		this.age = age;
 	}
 
-	@OneToMany
+	@OneToMany(cascade= {CascadeType.ALL})
 	private Set<Account> accounts = new HashSet<>();
 
 	@Override
