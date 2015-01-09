@@ -20,7 +20,7 @@
 			<tbody>
 				<tr>
 					<td>${client.getId()}</td>
-					<td>${client.getName()}</td>
+					<td>${client.getFirstname()}</td>
 					<td><c:out value="${client.getAddress()}" /></td>
 					<td><c:out value="${client.getAge()}" /></td>
 				</tr>

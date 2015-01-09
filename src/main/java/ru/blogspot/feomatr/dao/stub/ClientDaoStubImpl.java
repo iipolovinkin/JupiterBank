@@ -92,7 +92,7 @@ public class ClientDaoStubImpl implements ClientDAO {
 			return 0;
 		}
 		c.setId(cl.getId());
-		c.setName(cl.getName());
+		c.setFirstname(cl.getFirstname());
 		c.setAddress(cl.getAddress());
 		c.setAge(cl.getAge());
 		return 1;

@@ -4,6 +4,7 @@
 package ru.blogspot.feomatr.controller;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -50,13 +51,16 @@ public class ClientListController {
 
 		Client client = clientService.getClientById(id);
 		Account account = new Account(client);
+//		client.getAccounts();//.add(account);
 		LOGGER.info("account:  {}", account);
 		accountService.saveAccount(account);
+//		client.getAccounts().add(account);
+//		clientService.updateClient(client);
 		LOGGER.info("account saved:  {}", account);
-		List<Account> accs = accountService.getAllAccounts();
-		for (Account a : accs) {
-			LOGGER.info("a {}", a);
-		}
+//		List<Account> accs = accountService.getAllAccounts();
+//		for (Account a : accs) {
+//			LOGGER.info("a {}", a);
+//		}
 
 		return "redirect:/clients/" + client.getId();
 	}
@@ -80,7 +84,8 @@ public class ClientListController {
 	@RequestMapping(params = "new", method = RequestMethod.GET)
 	public String createClientProfile(Model model) {
 		LOGGER.info("createClientProfile");
-		model.addAttribute(new Client());
+		Client client = new Client("John", "45 Green Park Street", 18);
+		model.addAttribute(client);
 		return "clients/edit";
 	}
 
@@ -97,7 +102,9 @@ public class ClientListController {
 		LOGGER.info("showClient");
 		Client cl = clientService.getClientById(id);
 		model.addAttribute("client", cl);
-		List<Account> accounts = accountService.getAccountsByOwner(cl);
+//		List<Account> accounts = accountService.getAccountsByOwner(cl);
+		Set<Account> accounts = cl.getAccounts();
+		LOGGER.info("s: {}",accounts.size());
 		model.addAttribute("accounts", accounts);
 		return "clients/show";
 	}

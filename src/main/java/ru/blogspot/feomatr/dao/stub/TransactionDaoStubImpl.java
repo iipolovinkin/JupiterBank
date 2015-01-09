@@ -207,7 +207,7 @@ public class TransactionDaoStubImpl implements TransactionDAO {
 		}
 		List<Transaction> l = new ArrayList<>();
 		for (int i = 0; i < trs.size(); ++i) {
-			Account reciver = trs.get(i).getReciver();
+			Account reciver = trs.get(i).getReceiver();
 			if (reciver != null && reciver.getId().equals(idReciver)) {
 				l.add(trs.get(i));
 			}

@@ -57,7 +57,7 @@
 					<tr>
 						<td><c:out value="${transaction.getId()}" /></td>
 						<td><c:out value="${transaction.getSender().getId()}" /></td>
-						<td><c:out value="${transaction.getReciver().getId()}" /></td>
+						<td><c:out value="${transaction.getReceiver().getId()}" /></td>
 						<td><c:out value="${transaction.getAmount()}" /></td>
 						<td><c:out value="${transaction.getTime()}" /></td>
 					</tr>

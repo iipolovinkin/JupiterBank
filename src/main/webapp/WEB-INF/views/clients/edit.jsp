@@ -14,8 +14,8 @@
 			<table cellspacing="0" border="0">
 				<tr>
 					<th align="left"><label for="client_name">Client name:</label></th>
-					<td><sf:input path="name" id="client_name"
-							class="form-control" required="true" /> <sf:errors path="name"
+					<td><sf:input path="firstname" id="client_name"
+							class="form-control" required="true"/> <sf:errors path="firstname"
 							cssClass="error" /></td>
 				</tr>
 				<tr>

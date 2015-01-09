@@ -77,8 +77,10 @@ public class AccountsController {
 		LOGGER.info("POST TransferTo");
 		Long amount = broker.getAmount();
 		Account accountTo;
-		accountTo = accountService.getAccountById(broker.getAccountTo());
-		LOGGER.info("a1 {}, a2 {}", accountTo);
+		Long aTo = broker.getAccountTo();
+		LOGGER.info(String.valueOf(aTo));
+		accountTo = accountService.getAccountById(aTo);
+		LOGGER.info("a1 {}, a2 {}", accountTo, aTo);
 		boolean transfer = transferService.transferTo(accountTo, amount);
 		LOGGER.info("transfer = {}, {}", transfer, accountTo);
 		return "transferTo";

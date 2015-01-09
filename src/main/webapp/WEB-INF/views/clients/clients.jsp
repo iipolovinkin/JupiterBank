@@ -27,7 +27,7 @@
 									value="${client.getId()}" /></a></td>
 						<td><a id="param" class="textLink"
 							href="<c:url value="/clients/${client.getId()}/" />"><c:out
-									value="${client.getName()}" /></a></td>
+									value="${client.getFirstname()}" /></a></td>
 						<td><c:out value="${client.getAddress()}" /></td>
 						<td><c:out value="${client.getAge()}" /></td>
 					</tr>

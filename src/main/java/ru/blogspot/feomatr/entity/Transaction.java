@@ -22,21 +22,21 @@ public class Transaction implements Serializable {
 	private Long id;
 	private Long amount;
 	private Account sender;
-	private Account reciver;
+	private Account receiver;
 	private DateTime time;
 
 	/**
 	 * @param amount
 	 * @param sender
-	 * @param reciver
+	 * @param receiver
 	 * @param time
 	 */
-	public Transaction(Long amount, Account sender, Account reciver,
+	public Transaction(Long amount, Account sender, Account receiver,
 			DateTime time) {
 		super();
 		this.amount = amount;
 		this.sender = sender;
-		this.reciver = reciver;
+		this.receiver = receiver;
 		this.time = time;
 	}
 
@@ -44,16 +44,16 @@ public class Transaction implements Serializable {
 	 * @param id
 	 * @param amount
 	 * @param sender
-	 * @param reciver
+	 * @param receiver
 	 * @param time
 	 */
-	public Transaction(Long id, Long amount, Account sender, Account reciver,
+	public Transaction(Long id, Long amount, Account sender, Account receiver,
 			DateTime time) {
 		super();
 		this.id = id;
 		this.amount = amount;
 		this.sender = sender;
-		this.reciver = reciver;
+		this.receiver = receiver;
 		this.time = time;
 	}
 
@@ -61,22 +61,22 @@ public class Transaction implements Serializable {
 	 * @param id
 	 * @param amount
 	 * @param sender
-	 * @param reciver
+	 * @param receiver
 	 */
-	public Transaction(Long id, Long amount, Account sender, Account reciver) {
-		this(id, amount, sender, reciver, new DateTime());
+	public Transaction(Long id, Long amount, Account sender, Account receiver) {
+		this(id, amount, sender, receiver, new DateTime());
 	}
 
 	/**
 	 * @param amount
 	 * @param sender
-	 * @param reciver
+	 * @param receiver
 	 */
-	public Transaction(Long amount, Account sender, Account reciver) {
+	public Transaction(Long amount, Account sender, Account receiver) {
 		super();
 		this.amount = amount;
 		this.sender = sender;
-		this.reciver = reciver;
+		this.receiver = receiver;
 		this.time = new DateTime();
 	}
 
@@ -92,7 +92,7 @@ public class Transaction implements Serializable {
 	@Override
 	public String toString() {
 		return "Transaction [id=" + id + ", amount=" + amount + ", sender="
-				+ sender + ", reciver=" + reciver + ", time=" + time + "]";
+				+ sender + ", receiver=" + receiver + ", time=" + time + "]";
 	}
 
 	/*
@@ -106,7 +106,7 @@ public class Transaction implements Serializable {
 		int result = 1;
 		result = prime * result + ((amount == null) ? 0 : amount.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((reciver == null) ? 0 : reciver.hashCode());
+		result = prime * result + ((receiver == null) ? 0 : receiver.hashCode());
 		result = prime * result + ((sender == null) ? 0 : sender.hashCode());
 		result = prime * result + ((time == null) ? 0 : time.hashCode());
 		return result;
@@ -136,10 +136,10 @@ public class Transaction implements Serializable {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (reciver == null) {
-			if (other.reciver != null)
+		if (receiver == null) {
+			if (other.receiver != null)
 				return false;
-		} else if (!reciver.equals(other.reciver))
+		} else if (!receiver.equals(other.receiver))
 			return false;
 		if (sender == null) {
 			if (other.sender != null)
@@ -178,12 +178,12 @@ public class Transaction implements Serializable {
 		this.sender = sender;
 	}
 
-	public Account getReciver() {
-		return reciver;
+	public Account getReceiver() {
+		return receiver;
 	}
 
-	public void setReciver(Account reciver) {
-		this.reciver = reciver;
+	public void setReceiver(Account receiver) {
+		this.receiver = receiver;
 	}
 
 	public DateTime getTime() {

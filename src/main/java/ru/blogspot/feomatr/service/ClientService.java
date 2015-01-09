@@ -14,6 +14,8 @@ import ru.blogspot.feomatr.entity.Client;
 public interface ClientService {
 	Client saveClient(Client client);
 
+	int updateClient(Client client);
+
 	List<Client> getAllClients();
 
 	Client getClientById(Long id);
