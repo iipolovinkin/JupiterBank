@@ -19,6 +19,7 @@
 <s:url value="${accountsUrl}?transferFrom" var="transferUrlFrom" />
 <s:message code="menu_transaction_list" var="menuTransactionList" />
 
+<s:message code="lang" var="lang" />
 <!-- Menu -->
 <div id="menuDiv">
 	<jsp:directive.page contentType="text/html; charset=UTF-8"
@@ -58,6 +59,12 @@
 				<li role="presentation"><a role="menuitem" tabindex="-1"
 					href="/transactions">${menuTransactionList}</a></li>
 			</ul></li>
-	</ul>
 	<!-- /pills -->
+	<span style="float:right" >
+	${lang}:
+		<a href="?lang=en_US">en</a>
+		|
+		<a href="?lang=ru_RU">ru</a>
+	</span>
+	</ul>
 </div>

@@ -11,4 +11,6 @@
 	<div id="appname">
 		<img height="150" alt="" src="/resources/images/upiter1.gif">${mainTitle}
 	</div>
+
+
 </div>

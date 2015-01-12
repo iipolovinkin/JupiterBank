@@ -4,6 +4,15 @@
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="t" uri="http://tiles.apache.org/tags-tiles"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<s:message code="id" var="id" />
+<s:message code="time" var="time" />
+<s:message code="amount" var="amount" />
+<s:message code="accountFrom" var="accountFrom" />
+<s:message code="accountTo" var="accountTo" />
+<s:message code="filter" var="filter" />
+<s:message code="clear" var="clear" />
+<s:message code="dateFrom" var="dateFrom" />
+<s:message code="dateTo" var="dateTo" />
 <div id="transactions">
 	<jsp:directive.page contentType="text/html; charset=UTF-8"
 		pageEncoding="UTF-8" session="false" />
@@ -12,10 +21,10 @@
 		<!--  bind form to model attribute  -->
 		<table>
 			<tr>
-				<td>idFrom:</td>
-				<td>idTo:</td>
-				<td>startTime:</td>
-				<td>endTime:</td>
+				<td>${accountFrom}:</td>
+				<td>${accountTo}:</td>
+				<td>${dateFrom}:</td>
+				<td>${dateTo}:</td>
 			</tr>
 			<tr>
 				<td><sf:input path="idFrom" class="form-control" value="" /></td>
@@ -28,9 +37,9 @@
 		</table>
 		<br>
 		<input class="btn btn-success" id="filter" name="submit" type="submit"
-			value="Filter" />
+			value="${filter}" />
 		<input class="btn btn-default" id="clear" name="clear" type="button"
-			onclick="clearInput()" value="Clear" />
+			onclick="clearInput()" value="${clear}" />
 	</sf:form>
 	<script>
 		function clearInput() {
@@ -45,11 +54,11 @@
 		<table class="table">
 			<thead>
 				<tr>
-					<th>Identity Number</th>
-					<th>Account From</th>
-					<th>Account To</th>
-					<th>Amount</th>
-					<th>Time</th>
+					<th>${id}</th>
+					<th>${accountFrom}</th>
+					<th>${accountTo}</th>
+					<th>${amount}</th>
+					<th>${time}</th>
 				</tr>
 			</thead>
 			<tbody>

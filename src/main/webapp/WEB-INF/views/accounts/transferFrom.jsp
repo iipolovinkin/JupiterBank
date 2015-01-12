@@ -15,12 +15,12 @@
 		<table>
 
 			<tr>
-				<th align=left>${accountFrom}</th>
+				<th align=left>${accountFrom}:</th>
 				<td><sf:input path="accountFrom" class="form-control"
 						required="true" value="" /></td>
 			</tr>
 			<tr>
-				<th align=left>${amount}</th>
+				<th align=left>${amount}:</th>
 				<td><sf:input path="amount" class="form-control"
 						required="true" value="" /></td>
 			</tr>
