@@ -1,9 +1,11 @@
 /**
- * 
+ *
  */
 package ru.blogspot.feomatr.formBean;
 
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 /**
  * @author iipolovinkin
@@ -11,14 +13,26 @@ import org.joda.time.DateTime;
  */
 public class FormFilter {
 	Long idFrom, idTo;
-	DateTime startTime, endTime;
+	String startTime = "";
+	String endTime = "";
+
+	public DateTime getTime() {
+		return time;
+	}
+
+	public void setTime(DateTime time) {
+		this.time = time;
+	}
+
+	DateTime time;
+	private static DateTimeFormatter formatter = DateTimeFormat.forPattern("dd.MM.yyyy");
 
 	public FormFilter() {
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
@@ -60,7 +74,7 @@ public class FormFilter {
 	/**
 	 * @return the startTime
 	 */
-	public DateTime getStartTime() {
+	public String getStartTime() {
 		return startTime;
 	}
 
@@ -68,14 +82,14 @@ public class FormFilter {
 	 * @param startTime
 	 *            the startTime to set
 	 */
-	public void setStartTime(DateTime startTime) {
+	public void setStartTime(String startTime) {
 		this.startTime = startTime;
 	}
 
 	/**
 	 * @return the endTime
 	 */
-	public DateTime getEndTime() {
+	public String getEndTime() {
 		return endTime;
 	}
 
@@ -83,8 +97,7 @@ public class FormFilter {
 	 * @param endTime
 	 *            the endTime to set
 	 */
-	public void setEndTime(DateTime endTime) {
+	public void setEndTime(String endTime) {
 		this.endTime = endTime;
 	};
-
 }
