@@ -15,6 +15,7 @@ import ru.blogspot.feomatr.service.AccountService;
 import ru.blogspot.feomatr.service.TransferService;
 
 import javax.inject.Inject;
+import java.math.BigDecimal;
 
 /**
  * @author iipolovinkin
@@ -52,7 +53,7 @@ public class AccountsController {
     @RequestMapping(method = RequestMethod.POST, params = "transferFrom")
     public String doTransferFromAccount(Broker broker, Model model) {
         LOGGER.info("POST TransferFrom");
-        Long amount = broker.getAmount();
+        BigDecimal amount = broker.getAmount();
         Account accountFrom;
         accountFrom = accountService.getAccountById(broker.getAccountFrom());
         LOGGER.info("a1 {}, a2 {}", accountFrom);
@@ -72,7 +73,7 @@ public class AccountsController {
     @RequestMapping(method = RequestMethod.POST, params = "transferTo")
     public String doTransferToAccount(Broker broker, Model model) {
         LOGGER.info("POST TransferTo");
-        Long amount = broker.getAmount();
+        BigDecimal amount = broker.getAmount();
         Account accountTo;
         Long aTo = broker.getAccountTo();
         LOGGER.info(String.valueOf(aTo));
@@ -93,7 +94,7 @@ public class AccountsController {
     @RequestMapping(method = RequestMethod.POST, params = "transfer")
     public String doTransfer(Broker broker, Model model) {
         LOGGER.info("POST Transfer");
-        Long amount = broker.getAmount();
+        BigDecimal amount = broker.getAmount();
         Account accountFrom;
         Account accountTo;
         accountFrom = accountService.getAccountById(broker.getAccountFrom());

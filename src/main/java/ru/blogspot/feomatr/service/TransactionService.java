@@ -25,12 +25,12 @@ public interface TransactionService {
 
     /**
      * @param idSender
-     * @param idReciver
+     * @param idReceiver
      * @param startTime
      * @param endTime
      * @return
      */
-    List<Transaction> getByFilter(Long idSender, Long idReciver,
+    List<Transaction> getByFilter(Long idSender, Long idReceiver,
                                   DateTime startTime, DateTime endTime);
 
     /**

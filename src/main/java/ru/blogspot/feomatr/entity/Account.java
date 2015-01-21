@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.validation.constraints.Min;
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
  * @author iipolvinkin
@@ -21,14 +22,26 @@ public class Account implements Serializable {
     private Long id;
     private Client owner;
     @Min(value = 0, message = "Balance can not be less then zero")
-    private Long balance = 0L;
+    private BigDecimal balance;
 
     public Account(Client owner) {
         this.owner = owner;
     }
 
-    public Account(Client owner, Long balance) {
+    public Account(Client owner, BigDecimal balance) {
         this.owner = owner;
         this.balance = balance;
+    }
+
+    // todo it is  hack for tests
+    public Account(Client owner, Long balance) {
+        this.owner = owner;
+        this.balance = new BigDecimal(balance);
+    }
+
+    public Account(Long id, Client owner, Long balance) {
+        this.id = id;
+        this.owner = owner;
+        this.balance = new BigDecimal(balance);
     }
 }

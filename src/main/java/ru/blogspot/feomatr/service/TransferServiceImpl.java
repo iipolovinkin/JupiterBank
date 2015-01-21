@@ -7,6 +7,7 @@ import ru.blogspot.feomatr.entity.Account;
 import ru.blogspot.feomatr.entity.Transaction;
 
 import javax.inject.Inject;
+import java.math.BigDecimal;
 
 /**
  * @author iipolovinkin
@@ -36,18 +37,27 @@ public class TransferServiceImpl implements TransferService {
      * @param amount
      */
     @Override
-    public boolean transfer(Account accountFrom, Account accountTo, Long amount) {
+    public boolean transfer(Account accountFrom, Account accountTo, BigDecimal amount) {
         if (accountFrom == null || accountTo == null || amount == null) {
             return false;
         }
-        if (amount < 0) {
+        if (amount.compareTo(BigDecimal.ZERO) < 0) {
             return false;
         }
-        if (accountFrom.getBalance() < amount) {
+
+        BigDecimal sumFrom = accountFrom.getBalance();
+        sumFrom = (sumFrom == null ? BigDecimal.ZERO : sumFrom);
+
+        if (sumFrom.compareTo(amount) < 0) {
             return false;
         }
-        accountFrom.setBalance(accountFrom.getBalance() - amount);
-        accountTo.setBalance(accountTo.getBalance() + amount);
+
+        BigDecimal sumTo = accountTo.getBalance();
+        sumTo = (sumTo == null ? BigDecimal.ZERO : sumTo);
+
+
+        accountFrom.setBalance(sumFrom.subtract(amount));
+        accountTo.setBalance(sumTo.add(amount));
 
         accountService.update(accountFrom);
         accountService.update(accountTo);
@@ -64,15 +74,18 @@ public class TransferServiceImpl implements TransferService {
      * @param amount
      */
     @Override
-    public boolean transferTo(Account account, Long amount) {
+    public boolean transferTo(Account account, BigDecimal amount) {
         if (account == null || amount == null) {
             return false;
         }
-        if (amount < 0) {
+        if (amount.compareTo(BigDecimal.ZERO) < 0) {
             throw new UnsupportedOperationException(
                     "amount < 0, Unsupported operation!");
         }
-        account.setBalance(account.getBalance() + amount);
+        BigDecimal sum = account.getBalance();
+        sum = (sum == null ? BigDecimal.ZERO : sum);
+        sum = sum.add(amount);
+        account.setBalance(sum);
         accountService.update(account);
         transactionService.create(new Transaction(amount, null, account));
         return true;
@@ -86,16 +99,18 @@ public class TransferServiceImpl implements TransferService {
      * @return
      */
     @Override
-    public boolean transferFrom(Account account, Long amount) {
+    public boolean transferFrom(Account account, BigDecimal amount) {
         if (account == null || amount == null) {
             return false;
         }
-        if (amount < 0) {
+        if (amount.compareTo(BigDecimal.ZERO) < 0) {
             throw new UnsupportedOperationException(
                     "amount < 0, Unsupported operation!");
         }
-        if (account.getBalance() >= amount) {
-            account.setBalance(account.getBalance() - amount);
+        BigDecimal sum = account.getBalance();
+        sum = (sum == null ? BigDecimal.ZERO : sum);
+        if (sum.compareTo(amount) >= 0) {
+            account.setBalance(sum.subtract(amount));
             accountService.update(account);
             transactionService.create(new Transaction(amount, account, null));
             return true;

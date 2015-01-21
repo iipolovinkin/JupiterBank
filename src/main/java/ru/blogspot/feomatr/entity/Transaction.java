@@ -7,6 +7,7 @@ import lombok.*;
 import org.joda.time.DateTime;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
  * Account transactions.
@@ -23,7 +24,7 @@ public class Transaction implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private Long id;
-    private Long amount;
+    private BigDecimal amount;
     private Account sender;
     private Account receiver;
     private DateTime time;
@@ -34,7 +35,7 @@ public class Transaction implements Serializable {
      * @param receiver
      * @param time
      */
-    public Transaction(Long amount, Account sender, Account receiver,
+    public Transaction(BigDecimal amount, Account sender, Account receiver,
                        DateTime time) {
         super();
         this.amount = amount;
@@ -50,8 +51,12 @@ public class Transaction implements Serializable {
      * @param sender
      * @param receiver
      */
-    public Transaction(Long id, Long amount, Account sender, Account receiver) {
+    public Transaction(Long id, BigDecimal amount, Account sender, Account receiver) {
         this(id, amount, sender, receiver, new DateTime());
+    }
+
+    public Transaction(Long id, Long amount, Account sender, Account receiver) {
+        this(id, new BigDecimal(amount), sender, receiver, new DateTime());
     }
 
     /**
@@ -59,7 +64,7 @@ public class Transaction implements Serializable {
      * @param sender
      * @param receiver
      */
-    public Transaction(Long amount, Account sender, Account receiver) {
+    public Transaction(BigDecimal amount, Account sender, Account receiver) {
         super();
         this.amount = amount;
         this.sender = sender;

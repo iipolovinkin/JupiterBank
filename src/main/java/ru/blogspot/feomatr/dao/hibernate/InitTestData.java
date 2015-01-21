@@ -13,6 +13,8 @@ import ru.blogspot.feomatr.entity.Client;
 import ru.blogspot.feomatr.entity.Transaction;
 import ru.blogspot.feomatr.persistence.hibernate.util.HibernateUtil;
 
+import java.math.BigDecimal;
+
 /**
  * @author iipolovinkin
  */
@@ -48,7 +50,8 @@ public final class InitTestData {
         Session s = sf.getCurrentSession();
         s.beginTransaction();
         for (int i = 0; i < transactions.length; ++i) {
-            transactions[i] = new Transaction(i * 10L, accounts[0 + i],
+            BigDecimal bd10 = new BigDecimal(10);
+            transactions[i] = new Transaction(bd10.multiply(new BigDecimal(i)), accounts[0 + i],
                     accounts[1 + i], dates[i]);
             s.save(transactions[i]);
         }

@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.math.BigDecimal;
+
 /**
  * @author iipolovinkin
  */
@@ -20,6 +22,6 @@ public class Broker {
 
     Long accountFrom;
     Long accountTo;
-    Long amount;
+    BigDecimal amount;
 
 }

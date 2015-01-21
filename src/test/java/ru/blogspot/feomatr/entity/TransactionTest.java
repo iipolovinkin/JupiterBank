@@ -5,6 +5,7 @@ package ru.blogspot.feomatr.entity;
 
 import static org.junit.Assert.*;
 
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -47,15 +48,15 @@ public class TransactionTest {
 	 */
 	@Test
 	public void testTransactionLongLongAccountAccount() {
-		assertEquals(t1.getAmount(), (Long) 50L);
-		assertEquals(t2.getAmount(), (Long) 550L);
-		assertEquals(t3.getAmount(), (Long) 560L);
+		assertEquals(t1.getAmount(), BigDecimal.valueOf(50));
+		assertEquals(t2.getAmount(), BigDecimal.valueOf(550));
+		assertEquals(t3.getAmount(), BigDecimal.valueOf(550));
 		assertFalse(new Transaction(null, 10L, accs[0], accs[1])
 				.equals(new Transaction()));
 	}
 
 	/**
-	 * Test method for {@link ru.blogspot.feomatr.entity.Transaction#hash()}
+	 * Test method for {@link Transaction#hashCode()} ()}
 	 */
 	@Test
 	public void testTransactionHash() {
@@ -69,6 +70,6 @@ public class TransactionTest {
 		Transaction tt = new Transaction();
 		tt.setId(t1.getId());
 		t.add(tt);
-		assertEquals((long) t.size(), 4L);
+		assertEquals(t.size(), 4);
 	}
 }

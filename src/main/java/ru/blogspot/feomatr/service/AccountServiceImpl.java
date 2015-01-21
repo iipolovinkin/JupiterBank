@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author igor
+ * @author iipolovinkin
  */
 public class AccountServiceImpl implements AccountService {
     @Autowired

@@ -159,12 +159,12 @@ public class TransactionDaoHibImpl implements TransactionDAO {
     }
 
     @Override
-    public List<Transaction> getByFilter(Long idSender, Long idReciver,
+    public List<Transaction> getByFilter(Long idSender, Long idReceiver,
                                          DateTime startTime, DateTime endTime) {
         List<Transaction> l = new ArrayList<Transaction>();
         l.addAll(filterAfterTime(getAll(), startTime));
         l = filterBeforeTime(l, endTime);
-        l = filterReciver(l, idReciver);
+        l = filterReciver(l, idReceiver);
         l = filterSender(l, idSender);
         return l;
     }
@@ -213,14 +213,14 @@ public class TransactionDaoHibImpl implements TransactionDAO {
     }
 
     public static List<Transaction> filterReciver(List<Transaction> trs,
-                                                  Long idReciver) {
-        if (idReciver == null) {
+                                                  Long idReceiver) {
+        if (idReceiver == null) {
             return trs;
         }
         List<Transaction> l = new ArrayList<>();
         for (int i = 0; i < trs.size(); ++i) {
-            Account reciver = trs.get(i).getReceiver();
-            if (reciver != null && reciver.getId().equals(idReciver)) {
+            Account receiver = trs.get(i).getReceiver();
+            if (receiver != null && receiver.getId().equals(idReceiver)) {
                 l.add(trs.get(i));
             }
         }

@@ -151,9 +151,9 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public List<Transaction> getByFilter(Long idSender, Long idReciver,
+    public List<Transaction> getByFilter(Long idSender, Long idReceiver,
                                          DateTime startTime, DateTime endTime) {
-        return dao.getByFilter(idSender, idReciver, startTime, endTime);
+        return dao.getByFilter(idSender, idReceiver, startTime, endTime);
     }
 
 }
