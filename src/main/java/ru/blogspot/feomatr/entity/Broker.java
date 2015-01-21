@@ -18,8 +18,8 @@ import lombok.ToString;
 @NoArgsConstructor
 public class Broker {
 
-	Long accountFrom;
-	Long accountTo;
-	Long amount;
+    Long accountFrom;
+    Long accountTo;
+    Long amount;
 
 }

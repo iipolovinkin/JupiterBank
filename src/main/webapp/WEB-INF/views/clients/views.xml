@@ -4,7 +4,7 @@
 	<definition extends="default" name="home">
 		<put-attribute name="body" value="/WEB-INF/views/home.jsp"/>
 	</definition>
-	
+
 	<definition extends="default" name="clients">
 		<put-attribute name="body" value="/WEB-INF/views/clients/clients.jsp"/>
 	</definition>
@@ -15,7 +15,7 @@
 	<definition extends="default" name="clients/edit">
 		<put-attribute name="body" value="/WEB-INF/views/clients/edit.jsp"/>
 	</definition>
-	
+
 	<definition extends="default" name="accounts">
 		<put-attribute name="body" value="/WEB-INF/views/accounts/accounts.jsp"/>
 	</definition>
@@ -27,13 +27,13 @@
 	<definition extends="default" name="transfer">
 		<put-attribute name="body" value="/WEB-INF/views/accounts/transfer.jsp"/>
 	</definition>
-	
+
 	<definition extends="default" name="transferTo">
 		<put-attribute name="body" value="/WEB-INF/views/accounts/transferTo.jsp"/>
 	</definition>
-	
+
 	<definition extends="default" name="transferFrom">
 		<put-attribute name="body" value="/WEB-INF/views/accounts/transferFrom.jsp"/>
 	</definition>
-	
+
 </tiles-definitions>

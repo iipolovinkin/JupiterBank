@@ -1,74 +1,70 @@
 /**
- * 
+ *
  */
 package ru.blogspot.feomatr.entity;
 
-import java.io.Serializable;
-
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.joda.time.DateTime;
+
+import java.io.Serializable;
 
 /**
  * Account transactions.
- * 
- * @author iipolovinkin
  *
+ * @author iipolovinkin
  */
 @Getter
 @Setter
+@RequiredArgsConstructor
 @ToString
 @EqualsAndHashCode
 @AllArgsConstructor
 public class Transaction implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	private Long id;
-	private Long amount;
-	private Account sender;
-	private Account receiver;
-	private DateTime time;
+    private static final long serialVersionUID = 1L;
+    private Long id;
+    private Long amount;
+    private Account sender;
+    private Account receiver;
+    private DateTime time;
 
-	/**
-	 * @param amount
-	 * @param sender
-	 * @param receiver
-	 * @param time
-	 */
-	public Transaction(Long amount, Account sender, Account receiver,
-	                   DateTime time) {
-		super();
-		this.amount = amount;
-		this.sender = sender;
-		this.receiver = receiver;
-		this.time = time;
-	}
+    /**
+     * @param amount
+     * @param sender
+     * @param receiver
+     * @param time
+     */
+    public Transaction(Long amount, Account sender, Account receiver,
+                       DateTime time) {
+        super();
+        this.amount = amount;
+        this.sender = sender;
+        this.receiver = receiver;
+        this.time = time;
+    }
 
 
-	/**
-	 * @param id
-	 * @param amount
-	 * @param sender
-	 * @param receiver
-	 */
-	public Transaction(Long id, Long amount, Account sender, Account receiver) {
-		this(id, amount, sender, receiver, new DateTime());
-	}
+    /**
+     * @param id
+     * @param amount
+     * @param sender
+     * @param receiver
+     */
+    public Transaction(Long id, Long amount, Account sender, Account receiver) {
+        this(id, amount, sender, receiver, new DateTime());
+    }
 
-	/**
-	 * @param amount
-	 * @param sender
-	 * @param receiver
-	 */
-	public Transaction(Long amount, Account sender, Account receiver) {
-		super();
-		this.amount = amount;
-		this.sender = sender;
-		this.receiver = receiver;
-		this.time = new DateTime();
-	}
+    /**
+     * @param amount
+     * @param sender
+     * @param receiver
+     */
+    public Transaction(Long amount, Account sender, Account receiver) {
+        super();
+        this.amount = amount;
+        this.sender = sender;
+        this.receiver = receiver;
+        this.time = new DateTime();
+    }
 
 }

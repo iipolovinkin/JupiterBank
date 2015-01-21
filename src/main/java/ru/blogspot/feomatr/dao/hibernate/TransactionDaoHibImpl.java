@@ -3,17 +3,16 @@
  */
 package ru.blogspot.feomatr.dao.hibernate;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.joda.time.DateTime;
-
 import ru.blogspot.feomatr.dao.TransactionDAO;
 import ru.blogspot.feomatr.entity.Account;
 import ru.blogspot.feomatr.entity.Transaction;
 import ru.blogspot.feomatr.persistence.hibernate.util.HibernateUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author iipolovinkin
@@ -39,6 +38,7 @@ public class TransactionDaoHibImpl implements TransactionDAO {
      * @see ru.blogspot.feomatr.dao.TransactionDAO#getAll()
      */
     @Override
+    @SuppressWarnings("unchecked")
     public List<Transaction> getAll() {
         List<Transaction> l;
         try {

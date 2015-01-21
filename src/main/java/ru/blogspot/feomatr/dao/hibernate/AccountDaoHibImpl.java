@@ -3,15 +3,14 @@
  */
 package ru.blogspot.feomatr.dao.hibernate;
 
-import java.util.List;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-
 import org.jetbrains.annotations.NotNull;
 import ru.blogspot.feomatr.dao.AccountDAO;
 import ru.blogspot.feomatr.entity.Account;
 import ru.blogspot.feomatr.persistence.hibernate.util.HibernateUtil;
+
+import java.util.List;
 
 /**
  * @author iipolovinkin
@@ -31,6 +30,7 @@ public class AccountDaoHibImpl implements AccountDAO {
      */
     @Override
     @NotNull
+    @SuppressWarnings("unchecked")
     public List<Account> getAllAccounts() {
         List<Account> l;
         try {
