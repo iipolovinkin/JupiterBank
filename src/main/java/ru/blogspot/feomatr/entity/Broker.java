@@ -23,5 +23,6 @@ public class Broker {
     Long accountFrom;
     Long accountTo;
     BigDecimal amount;
+    String dateTime;
 
 }

@@ -40,6 +40,7 @@ public class AccountsController {
     public String showAllAccounts(Model model) {
         LOGGER.info(" {}", "showAccounts");
         model.addAttribute("accounts", accountService.getAllAccounts());
+
         return "accounts";
     }
 
@@ -47,18 +48,15 @@ public class AccountsController {
     public String showTransferFrom(Broker broker, Model model) {
         LOGGER.info(" {}", "GET TransferFrom");
         model.addAttribute("broker", new Broker());
+
         return "transferFrom";
     }
 
     @RequestMapping(method = RequestMethod.POST, params = "transferFrom")
     public String doTransferFromAccount(Broker broker, Model model) {
         LOGGER.info("POST TransferFrom");
-        BigDecimal amount = broker.getAmount();
-        Account accountFrom;
-        accountFrom = accountService.getAccountById(broker.getAccountFrom());
-        LOGGER.info("a1 {}, a2 {}", accountFrom);
-        boolean transfer = transferService.transferFrom(accountFrom, amount);
-        LOGGER.info("transfer = {}, {}", transfer, accountFrom);
+        boolean transfer = transferService.transferFrom(broker);
+        LOGGER.info("transfer = {}, broker = {}", transfer, broker);
 
         return "transferFrom";
     }
@@ -67,20 +65,16 @@ public class AccountsController {
     public String showTransferTo(Broker broker, Model model) {
         LOGGER.info(" {}", "GET TransferTo");
         model.addAttribute("broker", new Broker());
+
         return "transferTo";
     }
 
     @RequestMapping(method = RequestMethod.POST, params = "transferTo")
     public String doTransferToAccount(Broker broker, Model model) {
         LOGGER.info("POST TransferTo");
-        BigDecimal amount = broker.getAmount();
-        Account accountTo;
-        Long aTo = broker.getAccountTo();
-        LOGGER.info(String.valueOf(aTo));
-        accountTo = accountService.getAccountById(aTo);
-        LOGGER.info("a1 {}, a2 {}", accountTo, aTo);
-        boolean transfer = transferService.transferTo(accountTo, amount);
-        LOGGER.info("transfer = {}, {}", transfer, accountTo);
+        boolean transfer = transferService.transferTo(broker);
+        LOGGER.info("transfer = {}, broker = {}", transfer, broker);
+
         return "transferTo";
     }
 
@@ -88,21 +82,16 @@ public class AccountsController {
     public String showTransfer(Broker broker, Model model) {
         LOGGER.info(" {}", "GET Transfer");
         model.addAttribute("broker", new Broker());
+
         return "transfer";
     }
 
     @RequestMapping(method = RequestMethod.POST, params = "transfer")
     public String doTransfer(Broker broker, Model model) {
         LOGGER.info("POST Transfer");
-        BigDecimal amount = broker.getAmount();
-        Account accountFrom;
-        Account accountTo;
-        accountFrom = accountService.getAccountById(broker.getAccountFrom());
-        accountTo = accountService.getAccountById(broker.getAccountTo());
-        LOGGER.info("from: {}, to: {}", accountFrom, accountTo);
-        boolean transfer = transferService.transfer(accountFrom, accountTo,
-                amount);
-        LOGGER.info("transfer = {}", transfer);
+        boolean transfer = transferService.transfer(broker);
+        LOGGER.info("transfer = {}, broker = {}", transfer, broker);
+
         return "transfer";
     }
 }

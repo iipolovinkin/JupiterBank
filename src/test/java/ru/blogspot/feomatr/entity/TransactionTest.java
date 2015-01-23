@@ -50,7 +50,7 @@ public class TransactionTest {
 	public void testTransactionLongLongAccountAccount() {
 		assertEquals(t1.getAmount(), BigDecimal.valueOf(50));
 		assertEquals(t2.getAmount(), BigDecimal.valueOf(550));
-		assertEquals(t3.getAmount(), BigDecimal.valueOf(550));
+		assertEquals(t3.getAmount(), BigDecimal.valueOf(560));
 		assertFalse(new Transaction(null, 10L, accs[0], accs[1])
 				.equals(new Transaction()));
 	}
