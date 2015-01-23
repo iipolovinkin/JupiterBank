@@ -4,71 +4,25 @@
 package ru.blogspot.feomatr.entity;
 
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+import java.math.BigDecimal;
+
 /**
  * @author iipolovinkin
  */
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
 public class Broker {
 
-    Long accountFrom, accountTo;
-    Long amount;
+    Long accountFrom;
+    Long accountTo;
+    BigDecimal amount;
+    String dateTime;
 
-    /**
-     * @return the accountFrom
-     */
-    public Long getAccountFrom() {
-        return accountFrom;
-    }
-
-    /**
-     * @param accountFrom the accountFrom to set
-     */
-    public void setAccountFrom(Long accountFrom) {
-        this.accountFrom = accountFrom;
-    }
-
-    /**
-     * @return the accountTo
-     */
-    public Long getAccountTo() {
-        return accountTo;
-    }
-
-    /**
-     * @param accountTo the accountTo to set
-     */
-    public void setAccountTo(Long accountTo) {
-        this.accountTo = accountTo;
-    }
-
-    /**
-     * @return the amount
-     */
-    public Long getAmount() {
-        return amount;
-    }
-
-    /**
-     * @param amount the amount to set
-     */
-    public void setAmount(Long amount) {
-        this.amount = amount;
-    }
-
-    /**
-     *
-     */
-    public Broker() {
-        super();
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-        return "Broker [accountFrom=" + accountFrom + ", accountTo="
-                + accountTo + ", amount=" + amount + "]";
-    }
 }

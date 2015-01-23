@@ -1,65 +1,63 @@
 /**
- * 
+ *
  */
 package ru.blogspot.feomatr.service;
 
-import java.util.List;
-
 import org.joda.time.DateTime;
-
 import ru.blogspot.feomatr.entity.Account;
 import ru.blogspot.feomatr.entity.Transaction;
 
+import java.util.List;
+
 /**
  * @author iipolovinkin
- *
  */
 public interface TransactionService {
-	void saveTransaction(Transaction tr);
+    void saveTransaction(Transaction tr);
 
-	List<Transaction> getAll();
+    List<Transaction> getAll();
 
-	Transaction getById(Long id);
+    Transaction getById(Long id);
 
-	List<Transaction> getBySender(Account sender);
+    List<Transaction> getBySender(Account sender);
 
-	List<Transaction> getByReciver(Account reciver);
+    List<Transaction> getByReciver(Account reciver);
 
-	/**
-	 * @param idSender
-	 * @param idReciver
-	 * @param startTime
-	 * @param endTime
-	 * @return
-	 */
-	List<Transaction> getByFilter(Long idSender, Long idReciver,
-			DateTime startTime, DateTime endTime);
+    /**
+     * @param idSender
+     * @param idReceiver
+     * @param startTime
+     * @param endTime
+     * @return
+     */
+    List<Transaction> getByFilter(Long idSender, Long idReceiver,
+                                  DateTime startTime, DateTime endTime);
 
-	/**
-	 * @param t
-	 * @return
-	 */
-	List<Transaction> getAfterTime(DateTime t);
+    /**
+     * @param t
+     * @return
+     */
+    List<Transaction> getAfterTime(DateTime t);
 
-	/**
-	 * @param t
-	 * @return
-	 */
-	List<Transaction> getBeforeTime(DateTime t);
+    /**
+     * @param t
+     * @return
+     */
+    List<Transaction> getBeforeTime(DateTime t);
 
-	/**
-	 * @param startTime
-	 * @param endTime
-	 * @return
-	 */
-	List<Transaction> getBetweenTimes(DateTime startTime, DateTime endTime);
+    /**
+     * @param startTime
+     * @param endTime
+     * @return
+     */
+    List<Transaction> getBetweenTimes(DateTime startTime, DateTime endTime);
 
-	void delete(Transaction tr);
+    void delete(Transaction tr);
 
-	void delete(Long id);
+    void delete(Long id);
 
-	void update(Transaction tr);
+    void update(Transaction tr);
 
-	void create(Transaction tr);
+    void create(Transaction tr);
 
 }

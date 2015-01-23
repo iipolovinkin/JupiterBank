@@ -3,17 +3,16 @@
  */
 package ru.blogspot.feomatr.dao.hibernate;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.joda.time.DateTime;
-
 import ru.blogspot.feomatr.dao.TransactionDAO;
 import ru.blogspot.feomatr.entity.Account;
 import ru.blogspot.feomatr.entity.Transaction;
 import ru.blogspot.feomatr.persistence.hibernate.util.HibernateUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author iipolovinkin
@@ -39,6 +38,7 @@ public class TransactionDaoHibImpl implements TransactionDAO {
      * @see ru.blogspot.feomatr.dao.TransactionDAO#getAll()
      */
     @Override
+    @SuppressWarnings("unchecked")
     public List<Transaction> getAll() {
         List<Transaction> l;
         try {
@@ -159,12 +159,12 @@ public class TransactionDaoHibImpl implements TransactionDAO {
     }
 
     @Override
-    public List<Transaction> getByFilter(Long idSender, Long idReciver,
+    public List<Transaction> getByFilter(Long idSender, Long idReceiver,
                                          DateTime startTime, DateTime endTime) {
         List<Transaction> l = new ArrayList<Transaction>();
         l.addAll(filterAfterTime(getAll(), startTime));
         l = filterBeforeTime(l, endTime);
-        l = filterReciver(l, idReciver);
+        l = filterReciver(l, idReceiver);
         l = filterSender(l, idSender);
         return l;
     }
@@ -213,14 +213,14 @@ public class TransactionDaoHibImpl implements TransactionDAO {
     }
 
     public static List<Transaction> filterReciver(List<Transaction> trs,
-                                                  Long idReciver) {
-        if (idReciver == null) {
+                                                  Long idReceiver) {
+        if (idReceiver == null) {
             return trs;
         }
         List<Transaction> l = new ArrayList<>();
         for (int i = 0; i < trs.size(); ++i) {
-            Account reciver = trs.get(i).getReceiver();
-            if (reciver != null && reciver.getId().equals(idReciver)) {
+            Account receiver = trs.get(i).getReceiver();
+            if (receiver != null && receiver.getId().equals(idReceiver)) {
                 l.add(trs.get(i));
             }
         }

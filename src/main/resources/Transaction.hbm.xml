@@ -7,7 +7,7 @@
         <id name="id" column="transaction_id" type="java.lang.Long">
             <generator class="native"/>
         </id>
-        <property name="amount" type="java.lang.Long" column="amount"/>
+        <property name="amount" type="java.math.BigDecimal" column="amount"/>
 
         <many-to-one name="sender" class="Account" fetch="join" insert="true" update="true">
             <column name="sender_id" not-null="false"/>

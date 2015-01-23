@@ -1,23 +1,22 @@
 /**
- * 
+ *
  */
 package ru.blogspot.feomatr.service;
 
-import java.util.List;
-
 import ru.blogspot.feomatr.entity.Client;
+
+import java.util.List;
 
 /**
  * @author iipolovinkin
- *
  */
 public interface ClientService {
-	Client saveClient(Client client);
+    Client saveClient(Client client);
 
-	int updateClient(Client client);
+    int updateClient(Client client);
 
-	List<Client> getAllClients();
+    List<Client> getAllClients();
 
-	Client getClientById(Long id);
+    Client getClientById(Long id);
 
 }

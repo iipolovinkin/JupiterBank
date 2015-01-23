@@ -1,25 +1,24 @@
 /**
- * 
+ *
  */
 package ru.blogspot.feomatr.dao;
 
-import java.util.List;
-
 import ru.blogspot.feomatr.entity.Client;
+
+import java.util.List;
 
 /**
  * @author iipolovinkin
- *
  */
 public interface ClientDAO {
-	List<Client> getAllClients();
-	
-	Client getById(Long id);
+    List<Client> getAllClients();
 
-	Client create(Client cl);
+    Client getById(Long id);
 
-	boolean delete(Client cl);
+    Client create(Client cl);
 
-	int update(Client cl);
+    boolean delete(Client cl);
+
+    int update(Client cl);
 
 }

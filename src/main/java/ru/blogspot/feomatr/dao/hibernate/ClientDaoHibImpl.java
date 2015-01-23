@@ -3,14 +3,13 @@
  */
 package ru.blogspot.feomatr.dao.hibernate;
 
-import java.util.List;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-
 import ru.blogspot.feomatr.dao.ClientDAO;
 import ru.blogspot.feomatr.entity.Client;
 import ru.blogspot.feomatr.persistence.hibernate.util.HibernateUtil;
+
+import java.util.List;
 
 /**
  * @author iipolovinkin

@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package ru.blogspot.feomatr.controller;
 
@@ -12,17 +12,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * @author iipolovinkin
- *
  */
 @Controller
 public class HomeController {
-	private static final Logger LOGGER = LoggerFactory
-			.getLogger(HomeController.class);
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(HomeController.class);
 
-	@RequestMapping(value = { "/home", "/" }, method = RequestMethod.GET)
-	public String showHome(Model model) {
-		LOGGER.info("showHome");
-		return "home";
-	}
+    @RequestMapping(value = {"/home", "/"}, method = RequestMethod.GET)
+    public String showHome(Model model) {
+        LOGGER.info("showHome");
+        return "home";
+    }
 
 }
