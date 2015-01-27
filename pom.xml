@@ -22,6 +22,7 @@
         <apache.tiles.version>3.0.0</apache.tiles.version>
         <jstl.version>1.2</jstl.version>
         <junit.version>4.10</junit.version>
+        <selenide.version>2.15</selenide.version>
 
         <joda.time.version>2.4</joda.time.version>
         <joda.time.jsptags>1.1.1</joda.time.jsptags>
@@ -36,9 +37,11 @@
         <jetty.plugin.version>8.1.16.v20140903</jetty.plugin.version>
         <jetbrains.annotations.version>12.0</jetbrains.annotations.version>
         <lombok.version>1.14.8</lombok.version>
+        <guava.version>18.0</guava.version>
 
         <skipTest>true</skipTest>
-        <AA></AA>
+
+        <selenide.browser>chrome</selenide.browser>
     </properties>
     <dependencies>
         <!-- Apache Tiles -->
@@ -227,6 +230,12 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>com.codeborne</groupId>
+            <artifactId>selenide</artifactId>
+            <version>${selenide.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>org.mortbay.jetty</groupId>
             <artifactId>servlet-api</artifactId>
             <version>${servlet.api.version}</version>
@@ -242,6 +251,11 @@
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
         </dependency>
 
     </dependencies>
@@ -318,6 +332,45 @@
                         <goals>
                             <goal>stop</goal>
                         </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>1.7</version>
+                <executions>
+                    <execution>
+                        <id>add-test-source</id>
+                        <phase>generate-test-sources</phase>
+                        <goals>
+                            <goal>add-test-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>src/integration-test/java</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>integration-tests</id>
+                        <phase>integration-test</phase>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                        <configuration>
+                            <skip>false</skip>
+                            <includes>
+                                <include>**/*IT.java</include>
+                            </includes>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
