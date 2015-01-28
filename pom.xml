@@ -21,8 +21,8 @@
         <org.slf4j-version>1.6.6</org.slf4j-version>
         <apache.tiles.version>3.0.0</apache.tiles.version>
         <jstl.version>1.2</jstl.version>
-        <junit.version>4.10</junit.version>
-        <selenide.version>2.15</selenide.version>
+        <javax.servlet.version>1.2</javax.servlet.version>
+        <servlet.api.version>3.0.20100224</servlet.api.version>
 
         <joda.time.version>2.4</joda.time.version>
         <joda.time.jsptags>1.1.1</joda.time.jsptags>
@@ -33,15 +33,23 @@
         <jetty.host>127.0.0.1</jetty.host>
         <jetty.port>8081</jetty.port>
 
-        <servlet.api.version>3.0.20100224</servlet.api.version>
-        <jetty.plugin.version>8.1.16.v20140903</jetty.plugin.version>
         <jetbrains.annotations.version>12.0</jetbrains.annotations.version>
         <lombok.version>1.14.8</lombok.version>
         <guava.version>18.0</guava.version>
 
-        <skipTest>true</skipTest>
-
+        <junit.version>4.10</junit.version>
+        <selenide.version>2.15</selenide.version>
         <selenide.browser>chrome</selenide.browser>
+
+        <skipTest>true</skipTest>
+        <skipTests>false</skipTests>
+
+        <jetty.plugin.version>8.1.16.v20140903</jetty.plugin.version>
+        <maven.compiler.plugin.version>2.5.1</maven.compiler.plugin.version>
+        <maven.failsafe.plugin.version>2.18.1</maven.failsafe.plugin.version>
+        <build.helper.maven.plugin>1.7</build.helper.maven.plugin>
+        <exec.maven.plugin.version>1.2.1</exec.maven.plugin.version>
+
     </properties>
     <dependencies>
         <!-- Apache Tiles -->
@@ -190,7 +198,7 @@
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
-            <version>1.2</version>
+            <version>${javax.servlet.version}</version>
         </dependency>
 
         <!-- Joda Time -->
@@ -278,7 +286,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.5.1</version>
+                <version>${maven.compiler.plugin.version}</version>
                 <configuration>
                     <source>${java-version}</source>
                     <target>${java-version}</target>
@@ -290,7 +298,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
-                <version>1.2.1</version>
+                <version>${exec.maven.plugin.version}</version>
                 <configuration>
                     <mainClass>org.test.int1.Main</mainClass>
                 </configuration>
@@ -310,6 +318,9 @@
                     </connectors>
                     <stopPort>9966</stopPort>
                     <stopKey>jetty-stop-signal</stopKey>
+                    <webAppConfig>
+                        <allowDuplicateFragmentNames>true</allowDuplicateFragmentNames>
+                    </webAppConfig>
                     <webAppSourceDirectory>
                         ${project.build.directory}/${project.build.finalName}
                     </webAppSourceDirectory>
@@ -320,9 +331,10 @@
                         <id>start-jetty</id>
                         <phase>pre-integration-test</phase>
                         <goals>
-                            <goal>run-war</goal>
+                            <goal>start</goal>
                         </goals>
                         <configuration>
+                            <scanIntervalSeconds>0</scanIntervalSeconds>
                             <daemon>true</daemon>
                         </configuration>
                     </execution>
@@ -338,7 +350,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
-                <version>1.7</version>
+                <version>${build.helper.maven.plugin}</version>
                 <executions>
                     <execution>
                         <id>add-test-source</id>
@@ -357,6 +369,14 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
+                <version>${maven.failsafe.plugin.version}</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.maven.surefire</groupId>
+                        <artifactId>surefire-junit47</artifactId>
+                        <version>${maven.failsafe.plugin.version}</version>
+                    </dependency>
+                </dependencies>
                 <executions>
                     <execution>
                         <id>integration-tests</id>
