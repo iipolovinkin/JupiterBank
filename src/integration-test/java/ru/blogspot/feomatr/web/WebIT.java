@@ -45,6 +45,7 @@ public class WebIT {
     }
 
     @Test
+    @Ignore
     public void showAndFilterTransactions() {
         int count = 5;
 
@@ -65,7 +66,25 @@ public class WebIT {
     }
 
     @Test
-    @Ignore
+    public void createInvalidClient(){
+        open("/clients?new");
+
+        $(By.id(client_name)).setValue("1");
+        $(By.id(client_address)).setValue("1");
+        $(By.id(client_age)).setValue("1");
+
+        String title = title();
+
+        $(By.name("commit")).pressEnter();
+
+        title.equals(title());
+
+        sleep(3000l);
+    }
+
+    // todo Add Language Check
+
+    @Test
     public void createClientAndFiveAccounts() {
         open("/clients?new");
 
