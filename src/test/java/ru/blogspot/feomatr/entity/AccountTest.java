@@ -13,6 +13,7 @@ import java.math.BigDecimal;
 import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
+import static ru.blogspot.feomatr.entity.ClientTest.validationMsgs;
 
 public class AccountTest {
     private static Validator validator;
@@ -41,7 +42,7 @@ public class AccountTest {
         account.setBalance(new BigDecimal(-3));
         Set<ConstraintViolation<Account>> constraintViolations = validator.validate(account);
         assertEquals(1, constraintViolations.size());
-        assertEquals("Balance should be not less than 0", constraintViolations.iterator().next().getMessage());
+        assertEquals(validationMsgs.getString("account.balance.min"), constraintViolations.iterator().next().getMessage());
     }
 
 }

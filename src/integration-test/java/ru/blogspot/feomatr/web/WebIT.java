@@ -16,6 +16,7 @@ import java.util.List;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.*;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author iipolovinkin
@@ -71,13 +72,13 @@ public class WebIT {
 
         $(By.id(client_name)).setValue("1");
         $(By.id(client_address)).setValue("1");
-        $(By.id(client_age)).setValue("1");
+        $(By.id(client_age)).setValue("0");
 
         String title = title();
 
         $(By.name("commit")).pressEnter();
 
-        title.equals(title());
+        assertTrue(title.equals(title()));
 
         sleep(3000l);
     }
