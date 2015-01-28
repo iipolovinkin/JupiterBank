@@ -21,7 +21,7 @@ public class Account implements Serializable {
 
     private Long id;
     private Client owner;
-    @Min(value = 0, message = "Balance can not be less then zero")
+    @Min(value = 0, message = "{account.balance.min}")
     private BigDecimal balance;
 
     public Account(Client owner) {

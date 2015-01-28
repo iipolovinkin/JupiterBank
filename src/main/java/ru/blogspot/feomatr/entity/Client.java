@@ -4,6 +4,7 @@
 package ru.blogspot.feomatr.entity;
 
 import lombok.*;
+import org.hibernate.validator.constraints.Email;
 
 import javax.validation.constraints.*;
 import java.io.Serializable;
@@ -23,14 +24,14 @@ public class Client implements Serializable {
     private static final long serialVersionUID = -9162969037731987965L;
 
     private Long id;
-    @Size(min = 3, max = 30, message = "Name must be between 3 and 30 characters long.")
-    @Pattern(regexp = "^[a-zA-Z0-9]+$", message = "Name must be alphanumeric with no spaces.")
+    @Size(min = 3, max = 30, message = "{client.firstname.size}")
+    @Pattern(regexp = "^[a-zA-Z0-9]+$", message = "{client.firstname.pattern}")
     private String firstname;
-    @Size(min = 10, max = 50, message = "Address must be between 10 and 50 characters long.")
+    @Size(min = 10, max = 50, message = "{client.address.size}")
     private String address;
-    @NotNull(message = "Age should not be empty.")
-    @Min(1)
-    @Max(value = 150, message = "Age can not be more than 150")
+    @NotNull(message = "{client.age.notnull}")
+    @Min(value = 1, message = "{client.age.between}")
+    @Max(value = 150, message = "{client.age.between}")
     private Integer age;
 
     public Client(Long id, String firstname, String address, Integer age) {
