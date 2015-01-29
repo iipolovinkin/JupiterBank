@@ -3,6 +3,7 @@
  */
 package ru.blogspot.feomatr.controller;
 
+import org.apache.velocity.exception.ResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import ru.blogspot.feomatr.entity.Account;
 import ru.blogspot.feomatr.entity.Client;
+import ru.blogspot.feomatr.exceptions.ClientNotFoundException;
 import ru.blogspot.feomatr.service.AccountService;
 import ru.blogspot.feomatr.service.ClientService;
 
@@ -47,15 +49,9 @@ public class ClientListController {
 
         Client client = clientService.getClientById(id);
         Account account = new Account(client);
-//		client.getAccounts();//.add(account);
         LOGGER.info("account:  {}", account);
         accountService.saveAccount(account);
-//		client.getAccounts().add(account);
-//		clientService.updateClient(client);
         LOGGER.info("account saved:  {}", account);
-//		List<Account> accs = accountService.getAllAccounts();
-//		for (Account a : accs) {
-//			LOGGER.info("a {}", a);
 //		}
 
         return "redirect:/clients/" + client.getId();
@@ -98,10 +94,17 @@ public class ClientListController {
         LOGGER.info("showClient");
         Client cl = clientService.getClientById(id);
         model.addAttribute("client", cl);
-//		List<Account> accounts = accountService.getAccountsByOwner(cl);
-        Set<Account> accounts = cl.getAccounts();
-        LOGGER.info("s: {}", accounts.size());
-        model.addAttribute("accounts", accounts);
+        if(cl == null) {
+            try {
+                throw new ClientNotFoundException(id);
+            }catch (ResourceNotFoundException e){
+                LOGGER.error("CLIENT NOT FOUND");
+            }
+            return "clients/show";
+        }
+            Set<Account> accounts = cl.getAccounts();
+            LOGGER.info("s: {}", accounts.size());
+            model.addAttribute("accounts", accounts);
         return "clients/show";
     }
 
