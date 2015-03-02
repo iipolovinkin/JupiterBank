@@ -5,26 +5,24 @@
     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
     <!-- Bean declaration go here. -->
 
+    <!--todo Split configuration to few files: dao-context, services-context, etc. -->
+
+     <!--DAO Beans-->
     <bean id="clientDaoHibImpl" class="ru.blogspot.feomatr.dao.hibernate.ClientDaoHibImpl"/>
     <bean id="accountDaoHibImpl" class="ru.blogspot.feomatr.dao.hibernate.AccountDaoHibImpl"/>
     <bean id="transactionDaoHibImpl" class="ru.blogspot.feomatr.dao.hibernate.TransactionDaoHibImpl"/>
 
-
+    <!--Services-->
     <bean id="clientServiceImpl" class="ru.blogspot.feomatr.service.ClientServiceImpl">
         <constructor-arg ref="clientDaoHibImpl"/>
     </bean>
 
-    <bean id="initTestData" class="ru.blogspot.feomatr.dao.hibernate.InitTestData"/>
-
     <bean id="accountServiceImpl" class="ru.blogspot.feomatr.service.AccountServiceImpl">
         <constructor-arg ref="accountDaoHibImpl"/>
     </bean>
+
     <bean id="transactionServiceImpl" class="ru.blogspot.feomatr.service.TransactionServiceImpl">
         <constructor-arg ref="transactionDaoHibImpl"/>
-    </bean>
-
-    <bean id="transactionsController" class="ru.blogspot.feomatr.controller.TransactionsController">
-        <constructor-arg ref="transactionServiceImpl"/>
     </bean>
 
     <bean id="transferServiceImpl" class="ru.blogspot.feomatr.service.TransferServiceImpl">
@@ -32,26 +30,30 @@
         <constructor-arg ref="transactionServiceImpl"/>
     </bean>
 
+    <!--Controllers-->
+    <bean id="clientListController" class="ru.blogspot.feomatr.controller.ClientListController">
+        <constructor-arg ref="clientServiceImpl"/>
+        <constructor-arg ref="accountServiceImpl"/>
+    </bean>
+
     <bean id="accountsController" class="ru.blogspot.feomatr.controller.AccountsController">
         <constructor-arg ref="accountServiceImpl"/>
         <constructor-arg ref="transferServiceImpl"/>
     </bean>
 
+    <bean id="transactionsController" class="ru.blogspot.feomatr.controller.TransactionsController">
+        <constructor-arg ref="transactionServiceImpl"/>
+    </bean>
 
     <!--
-
         <bean id="clientDaoStub" class="ru.blogspot.feomatr.dao.stub.ClientDaoStubImpl" />
         <bean id="accountDaoStub" class="ru.blogspot.feomatr.dao.stub.AccountDaoStubImpl" />
         <bean id="transactionDaoStub" class="ru.blogspot.feomatr.dao.stub.TransactionDaoStubImpl" />
 
-
         <bean id="hibernateUtil"
             class="ru.blogspot.feomatr.persistence.hibernate.util.HibernateUtil" />
             -->
-    <bean id="clientListController" class="ru.blogspot.feomatr.controller.ClientListController">
-        <!-- <property name="clientService" ref="clientServiceImpl" /> <property
-            name="accountService" ref="accountServiceImpl" /> -->
-        <constructor-arg ref="clientServiceImpl"/>
-        <constructor-arg ref="accountServiceImpl"/>
-    </bean>
+
+    <bean id="initTestData" class="ru.blogspot.feomatr.dao.hibernate.InitTestData"/>
+
 </beans>
