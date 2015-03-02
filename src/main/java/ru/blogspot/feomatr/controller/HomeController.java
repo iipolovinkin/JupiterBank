@@ -24,4 +24,9 @@ public class HomeController {
         return "home";
     }
 
+    @RequestMapping(value = {"/login"}, method = RequestMethod.GET)
+    public String showHomeLogin(Model model) {
+        LOGGER.info("login");
+        return "login";
+    }
 }

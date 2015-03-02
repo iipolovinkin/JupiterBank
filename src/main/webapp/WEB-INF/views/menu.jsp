@@ -66,5 +66,10 @@
 		|
 		<a href="?lang=ru_RU">ru</a>
 	</span>
+	<span style="float:right" >
+    	<a href="/login">login</a>
+    	|
+    	<a href="/logout">logout</a>
+    </span>
 	</ul>
 </div>
