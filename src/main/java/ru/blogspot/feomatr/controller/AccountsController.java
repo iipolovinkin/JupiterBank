@@ -9,13 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import ru.blogspot.feomatr.entity.Account;
 import ru.blogspot.feomatr.entity.Broker;
 import ru.blogspot.feomatr.service.AccountService;
 import ru.blogspot.feomatr.service.TransferService;
-
-import javax.inject.Inject;
-import java.math.BigDecimal;
 
 /**
  * @author iipolovinkin
@@ -29,11 +25,7 @@ public class AccountsController {
     private AccountService accountService;
     private TransferService transferService;
 
-    @Inject
-    public AccountsController(AccountService accountService,
-                              TransferService transferService) {
-        this.accountService = accountService;
-        this.transferService = transferService;
+    public AccountsController() {
     }
 
     @RequestMapping()
@@ -93,5 +85,13 @@ public class AccountsController {
         LOGGER.info("transfer = {}, broker = {}", transfer, broker);
 
         return "transfer";
+    }
+
+    public void setAccountService(AccountService accountService) {
+        this.accountService = accountService;
+    }
+
+    public void setTransferService(TransferService transferService) {
+        this.transferService = transferService;
     }
 }

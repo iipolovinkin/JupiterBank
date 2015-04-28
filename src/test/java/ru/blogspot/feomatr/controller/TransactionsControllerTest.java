@@ -11,6 +11,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.List;
 
+import com.google.common.collect.Lists;
 import org.junit.Test;
 import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
@@ -31,10 +32,12 @@ public class TransactionsControllerTest {
 	@Test
 	public void testShowTransactions() throws Exception {
 		TransactionService transactionService = mock(TransactionService.class);
-		List<Transaction> expectedTransactions= asList();
+		List<Transaction> expectedTransactions= Lists.newArrayList();
 		when(transactionService.getAll()).thenReturn(expectedTransactions);
-		
-		TransactionsController controller = new TransactionsController(transactionService);
+
+//		TODO use spring test configuration
+		TransactionsController controller = new TransactionsController();
+		controller.setTransactionService(transactionService);
 		
 		Model model = new ExtendedModelMap();
 		String viewName = controller.showTransactions(model);
@@ -51,10 +54,11 @@ public class TransactionsControllerTest {
 	public void testDoFilter() throws Exception {
 		FormFilter formFilter = new FormFilter();
 		TransactionService transactionService = mock(TransactionService.class);
-		List<Transaction> expectedTransactions= asList();
+		List<Transaction> expectedTransactions= Lists.newArrayList();
 		when(transactionService.getByFilter(null, null, null, null)).thenReturn(expectedTransactions);
 		
-		TransactionsController controller = new TransactionsController(transactionService);
+		TransactionsController controller = new TransactionsController();
+		controller.setTransactionService(transactionService);
 		
 		Model model = new ExtendedModelMap();
 		String viewName = controller.doFilter(formFilter, model);

@@ -16,8 +16,7 @@ import java.util.List;
  * @author iipolovinkin
  */
 public class AccountDaoStubImpl implements AccountDAO {
-    private ClientService clientService = new ClientServiceImpl(
-            new ClientDaoStubImpl());
+    private ClientService clientService = new ClientServiceImpl();
     private List<Account> accounts = new ArrayList<Account>(
             Arrays.asList(new Account[]{
 
@@ -65,16 +64,18 @@ public class AccountDaoStubImpl implements AccountDAO {
      */
     @Override
     public Account create(Account acc) {
-        if (acc == null)
+        if (acc == null) {
             return acc;
+        }
         if (acc.getId() == null) {
             acc.setId((long) accounts.size());
             accounts.add(acc);
             return acc;
         }
         Account acc1 = getAccountById(acc.getId());
-        if (acc1 == null)
+        if (acc1 == null) {
             accounts.add(acc);
+        }
         return acc;
     }
 

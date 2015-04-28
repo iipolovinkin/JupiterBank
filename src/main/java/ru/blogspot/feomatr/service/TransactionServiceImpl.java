@@ -14,33 +14,15 @@ import java.util.List;
  * @author iipolovinkin
  */
 public class TransactionServiceImpl implements TransactionService {
-    private TransactionDAO dao;
+    private TransactionDAO transactionDAO;
 
-    /**
-     *
-     */
     public TransactionServiceImpl() {
         super();
     }
 
-    /**
-     * @param dao
-     */
-    public TransactionServiceImpl(TransactionDAO dao) {
-        super();
-        this.dao = dao;
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * ru.blogspot.feomatr.service.TransactionService#saveTransaction(ru.blogspot
-     * .feomatr.entity.Transaction)
-     */
     @Override
     public void saveTransaction(Transaction tr) {
-        dao.create(tr);
+        transactionDAO.create(tr);
     }
 
     /*
@@ -50,7 +32,7 @@ public class TransactionServiceImpl implements TransactionService {
      */
     @Override
     public List<Transaction> getAll() {
-        return dao.getAll();
+        return transactionDAO.getAll();
     }
 
     /*
@@ -61,7 +43,7 @@ public class TransactionServiceImpl implements TransactionService {
      */
     @Override
     public Transaction getById(Long id) {
-        return dao.get(id);
+        return transactionDAO.get(id);
     }
 
     /*
@@ -74,7 +56,7 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public List<Transaction> getBySender(Account sender) {
         if (sender != null) {
-            return dao.getByFilter(sender.getId(), null, null, null);
+            return transactionDAO.getByFilter(sender.getId(), null, null, null);
         }
         return null;
     }
@@ -89,7 +71,7 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public List<Transaction> getByReciver(Account reciver) {
         if (reciver != null) {
-            return dao.getByFilter(null, reciver.getId(), null, null);
+            return transactionDAO.getByFilter(null, reciver.getId(), null, null);
         }
         return null;
     }
@@ -103,7 +85,7 @@ public class TransactionServiceImpl implements TransactionService {
      */
     @Override
     public void delete(Transaction tr) {
-        dao.delete(tr);
+        transactionDAO.delete(tr);
     }
 
     /*
@@ -114,7 +96,7 @@ public class TransactionServiceImpl implements TransactionService {
      */
     @Override
     public void delete(Long id) {
-        dao.delete(id);
+        transactionDAO.delete(id);
     }
 
     /*
@@ -126,34 +108,37 @@ public class TransactionServiceImpl implements TransactionService {
      */
     @Override
     public void update(Transaction tr) {
-        dao.update(tr);
+        transactionDAO.update(tr);
     }
 
     @Override
     public void create(Transaction tr) {
-        dao.create(tr);
+        transactionDAO.create(tr);
     }
 
     @Override
     public List<Transaction> getAfterTime(DateTime t) {
-        return dao.getAfterTime(t);
+        return transactionDAO.getAfterTime(t);
     }
 
     @Override
     public List<Transaction> getBeforeTime(DateTime t) {
-        return dao.getBeforeTime(t);
+        return transactionDAO.getBeforeTime(t);
     }
 
     @Override
     public List<Transaction> getBetweenTimes(DateTime startTime,
                                              DateTime endTime) {
-        return dao.getBetweenTimes(startTime, endTime);
+        return transactionDAO.getBetweenTimes(startTime, endTime);
     }
 
     @Override
     public List<Transaction> getByFilter(Long idSender, Long idReceiver,
                                          DateTime startTime, DateTime endTime) {
-        return dao.getByFilter(idSender, idReceiver, startTime, endTime);
+        return transactionDAO.getByFilter(idSender, idReceiver, startTime, endTime);
     }
 
+    public void setTransactionDAO(TransactionDAO transactionDAO) {
+        this.transactionDAO = transactionDAO;
+    }
 }

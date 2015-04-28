@@ -18,7 +18,6 @@ import ru.blogspot.feomatr.exceptions.ClientNotFoundException;
 import ru.blogspot.feomatr.service.AccountService;
 import ru.blogspot.feomatr.service.ClientService;
 
-import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.Set;
@@ -36,11 +35,7 @@ public class ClientListController {
     private ClientService clientService;
     private AccountService accountService;
 
-    @Inject
-    public ClientListController(ClientService clientService,
-                                AccountService accountService) {
-        this.clientService = clientService;
-        this.accountService = accountService;
+    public ClientListController() {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.POST)
@@ -108,4 +103,11 @@ public class ClientListController {
         return "clients/show";
     }
 
+    public void setClientService(ClientService clientService) {
+        this.clientService = clientService;
+    }
+
+    public void setAccountService(AccountService accountService) {
+        this.accountService = accountService;
+    }
 }

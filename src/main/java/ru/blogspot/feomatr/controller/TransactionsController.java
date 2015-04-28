@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import ru.blogspot.feomatr.formBean.FormFilter;
 import ru.blogspot.feomatr.service.TransactionService;
 
-import javax.inject.Inject;
 
 /**
  * @author iipolovinkin
@@ -28,9 +27,7 @@ public class TransactionsController {
             .getLogger(TransactionsController.class);
     private TransactionService transactionService;
 
-    @Inject
-    public TransactionsController(TransactionService transactionService) {
-        this.transactionService = transactionService;
+    public TransactionsController() {
     }
 
     @RequestMapping()
@@ -61,5 +58,9 @@ public class TransactionsController {
         model.addAttribute("transactions", transactionService.getByFilter(formFilter.getIdFrom(), formFilter.getIdTo(), startTime, endTime));
 
         return "transactions";
+    }
+
+    public void setTransactionService(TransactionService transactionService) {
+        this.transactionService = transactionService;
     }
 }

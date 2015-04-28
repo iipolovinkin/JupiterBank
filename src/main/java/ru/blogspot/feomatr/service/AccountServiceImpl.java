@@ -3,7 +3,6 @@
  */
 package ru.blogspot.feomatr.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import ru.blogspot.feomatr.dao.AccountDAO;
 import ru.blogspot.feomatr.entity.Account;
 import ru.blogspot.feomatr.entity.Client;
@@ -15,11 +14,9 @@ import java.util.List;
  * @author iipolovinkin
  */
 public class AccountServiceImpl implements AccountService {
-    @Autowired
     private AccountDAO accountDAO;
 
-    public AccountServiceImpl(AccountDAO accountDAO) {
-        this.accountDAO = accountDAO;
+    public AccountServiceImpl() {
     }
 
     /*
@@ -73,4 +70,7 @@ public class AccountServiceImpl implements AccountService {
         accountDAO.update(acc);
     }
 
+    public void setAccountDAO(AccountDAO accountDAO) {
+        this.accountDAO = accountDAO;
+    }
 }

@@ -6,7 +6,6 @@ package ru.blogspot.feomatr.service;
 import ru.blogspot.feomatr.dao.ClientDAO;
 import ru.blogspot.feomatr.entity.Client;
 
-import javax.inject.Inject;
 import java.util.List;
 
 /**
@@ -15,10 +14,7 @@ import java.util.List;
 public class ClientServiceImpl implements ClientService {
     private ClientDAO clientDAO;
 
-    @Inject
-    public ClientServiceImpl(ClientDAO clientDAO) {
-        this.clientDAO = clientDAO;
-    }
+    public ClientServiceImpl() { }
 
     /*
      * (non-Javadoc)
@@ -47,4 +43,7 @@ public class ClientServiceImpl implements ClientService {
         return clientDAO.getById(id);
     }
 
+    public void setClientDAO(ClientDAO clientDAO) {
+        this.clientDAO = clientDAO;
+    }
 }

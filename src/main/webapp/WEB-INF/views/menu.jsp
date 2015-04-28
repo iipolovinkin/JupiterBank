@@ -8,6 +8,7 @@
 <s:message code="menu_header_text" var="menuHeaderText" />
 <s:message code="menu_client_list" var="menuClientList" />
 <s:message code="add_client" var="addClient" />
+<s:message code="adminPage" var="adminPage" />
 <s:message code="menu_account_list" var="menuAccountList" />
 <s:message code="accounts_menu_transfer" var="accountsMenuTransfer" />
 <s:message code="accounts_menu_transferTo" var="accountsMenuTransferTo" />
@@ -59,6 +60,14 @@
 				<li role="presentation"><a role="menuitem" tabindex="-1"
 					href="/transactions">${menuTransactionList}</a></li>
 			</ul></li>
+		<li class="dropdown active"><a href="#" data-toggle="dropdown"
+        			role="button" id="drop7">${adminPage}<span
+        				class="caret"></span></a>
+        			<ul aria-labelledby="drop7" role="menu" class="dropdown-menu"
+        				id="menu4">
+        				<li role="presentation"><a role="menuitem" tabindex="-1"
+                        					href="${adminPage}">${adminPage}</a></li>
+        			</ul></li>
 	<!-- /pills -->
 	<span style="float:right" >
 	${lang}:

@@ -32,6 +32,10 @@
 		<put-attribute name="body" value="/WEB-INF/views/transactions/transactions.jsp"/>
 	</definition>
 
+	<definition extends="default" name="admin_page">
+		<put-attribute name="body" value="/WEB-INF/views/admin_page.jsp"/>
+	</definition>
+
 	<definition extends="default" name="transfer">
 		<put-attribute name="body" value="/WEB-INF/views/accounts/transfer.jsp"/>
 	</definition>

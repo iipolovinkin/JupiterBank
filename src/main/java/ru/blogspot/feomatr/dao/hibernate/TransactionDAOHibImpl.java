@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * @author iipolovinkin
  */
-public class TransactionDaoHibImpl implements TransactionDAO {
+public class TransactionDAOHibImpl implements TransactionDAO {
     private Class<Transaction> clazz = Transaction.class;
     private SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
@@ -28,7 +28,7 @@ public class TransactionDaoHibImpl implements TransactionDAO {
     /**
      *
      */
-    public TransactionDaoHibImpl() {
+    public TransactionDAOHibImpl() {
         super();
     }
 
@@ -76,8 +76,9 @@ public class TransactionDaoHibImpl implements TransactionDAO {
      */
     @Override
     public void create(Transaction tr) {
-        if (tr == null)
+        if (tr == null) {
             return;
+        }
         try {
             getCurrentSession().beginTransaction();
             getCurrentSession().save(tr);

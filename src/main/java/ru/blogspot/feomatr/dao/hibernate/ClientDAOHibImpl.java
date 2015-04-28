@@ -5,9 +5,8 @@ package ru.blogspot.feomatr.dao.hibernate;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.jetbrains.annotations.NotNull;
-import ru.blogspot.feomatr.dao.AccountDAO;
-import ru.blogspot.feomatr.entity.Account;
+import ru.blogspot.feomatr.dao.ClientDAO;
+import ru.blogspot.feomatr.entity.Client;
 import ru.blogspot.feomatr.persistence.hibernate.util.HibernateUtil;
 
 import java.util.List;
@@ -15,27 +14,30 @@ import java.util.List;
 /**
  * @author iipolovinkin
  */
-public class AccountDaoHibImpl implements AccountDAO {
-    private Class<Account> clazz = Account.class;
+public class ClientDAOHibImpl implements ClientDAO {
+
     private SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
     private Session getCurrentSession() {
         return sessionFactory.getCurrentSession();
     }
 
+    public ClientDAOHibImpl() {
+    }
+
     /*
      * (non-Javadoc)
      *
-     * @see ru.blogspot.feomatr.dao.AccountDAO#getAllAccounts()
+     * @see ru.blogspot.feomatr.dao.ClientDAO#getAllClients()
      */
-    @Override
-    @NotNull
     @SuppressWarnings("unchecked")
-    public List<Account> getAllAccounts() {
-        List<Account> l;
+    @Override
+    public List<Client> getAllClients() {
+        List<Client> l;
         try {
             getCurrentSession().beginTransaction();
-            l = getCurrentSession().createQuery("from Account a").list();
+            l = getCurrentSession().createQuery("from Client c")
+                    .list();
         } finally {
             getCurrentSession().getTransaction().rollback();
         }
@@ -45,52 +47,54 @@ public class AccountDaoHibImpl implements AccountDAO {
     /*
      * (non-Javadoc)
      *
-     * @see ru.blogspot.feomatr.dao.AccountDAO#getAccountById()
+     * @see ru.blogspot.feomatr.dao.ClientDAO#getById(java.lang.Long)
      */
     @Override
-    public Account getAccountById(Long id) {
-        Account a;
+    public Client getById(Long id) {
+        Client c;
         try {
             getCurrentSession().beginTransaction();
-            a = (Account) getCurrentSession().get(clazz, id);
+            c = (Client) getCurrentSession().get(
+                    ru.blogspot.feomatr.entity.Client.class, id);
         } finally {
             getCurrentSession().getTransaction().commit();
         }
-        return a;
+        return c;
     }
 
     /*
      * (non-Javadoc)
      *
      * @see
-     * ru.blogspot.feomatr.dao.AccountDAO#create(ru.blogspot.feomatr.entity.
-     * Account)
+     * ru.blogspot.feomatr.dao.ClientDAO#create(ru.blogspot.feomatr.entity.Client
+     * )
      */
     @Override
-    public Account create(Account acc) {
-        if (acc == null)
-            return acc;
+    public Client create(Client cl) {
+        if (cl == null) {
+            return cl;
+        }
         try {
             getCurrentSession().beginTransaction();
-            getCurrentSession().save(acc);
+            getCurrentSession().save(cl);
         } finally {
             getCurrentSession().getTransaction().commit();
         }
-        return acc;
+        return cl;
     }
 
     /*
      * (non-Javadoc)
      *
      * @see
-     * ru.blogspot.feomatr.dao.AccountDAO#delete(ru.blogspot.feomatr.entity.
-     * Account)
+     * ru.blogspot.feomatr.dao.ClientDAO#delete(ru.blogspot.feomatr.entity.Client
+     * )
      */
     @Override
-    public boolean delete(Account acc) {
+    public boolean delete(Client cl) {
         try {
             getCurrentSession().beginTransaction();
-            getCurrentSession().delete(acc);
+            getCurrentSession().delete(cl);
         } finally {
             getCurrentSession().getTransaction().commit();
         }
@@ -101,17 +105,18 @@ public class AccountDaoHibImpl implements AccountDAO {
      * (non-Javadoc)
      *
      * @see
-     * ru.blogspot.feomatr.dao.AccountDAO#update(ru.blogspot.feomatr.entity.
-     * Account)
+     * ru.blogspot.feomatr.dao.ClientDAO#update(ru.blogspot.feomatr.entity.Client
+     * )
      */
     @Override
-    public void update(Account acc) {
+    public int update(Client cl) {
         try {
             getCurrentSession().beginTransaction();
-            getCurrentSession().update(acc);
+            getCurrentSession().update(cl);
         } finally {
             getCurrentSession().getTransaction().commit();
         }
+        return 1;
     }
 
 }

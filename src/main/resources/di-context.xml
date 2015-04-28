@@ -8,42 +8,54 @@
     <!--todo Split configuration to few files: dao-context, services-context, etc. -->
 
      <!--DAO Beans-->
-    <bean id="clientDaoHibImpl" class="ru.blogspot.feomatr.dao.hibernate.ClientDaoHibImpl"/>
-    <bean id="accountDaoHibImpl" class="ru.blogspot.feomatr.dao.hibernate.AccountDaoHibImpl"/>
-    <bean id="transactionDaoHibImpl" class="ru.blogspot.feomatr.dao.hibernate.TransactionDaoHibImpl"/>
+    <bean id="clientDAO" class="ru.blogspot.feomatr.dao.hibernate.ClientDAOHibImpl"/>
+    <bean id="accountDAO" class="ru.blogspot.feomatr.dao.hibernate.AccountDAOHibImpl"/>
+    <bean id="transactionDAO" class="ru.blogspot.feomatr.dao.hibernate.TransactionDAOHibImpl"/>
 
     <!--Services-->
-    <bean id="clientServiceImpl" class="ru.blogspot.feomatr.service.ClientServiceImpl">
-        <constructor-arg ref="clientDaoHibImpl"/>
+    <bean id="clientService" class="ru.blogspot.feomatr.service.ClientServiceImpl">
+        <property name="clientDAO" ref="clientDAO"/>
     </bean>
 
-    <bean id="accountServiceImpl" class="ru.blogspot.feomatr.service.AccountServiceImpl">
-        <constructor-arg ref="accountDaoHibImpl"/>
+    <bean id="accountService" class="ru.blogspot.feomatr.service.AccountServiceImpl">
+        <property name="accountDAO" ref="accountDAO"/>
     </bean>
 
-    <bean id="transactionServiceImpl" class="ru.blogspot.feomatr.service.TransactionServiceImpl">
-        <constructor-arg ref="transactionDaoHibImpl"/>
+    <bean id="transactionService" class="ru.blogspot.feomatr.service.TransactionServiceImpl">
+        <property name="transactionDAO" ref="transactionDAO"/>
     </bean>
 
-    <bean id="transferServiceImpl" class="ru.blogspot.feomatr.service.TransferServiceImpl">
-        <constructor-arg ref="accountServiceImpl"/>
-        <constructor-arg ref="transactionServiceImpl"/>
+    <bean id="transferService" class="ru.blogspot.feomatr.service.TransferServiceImpl">
+        <property name="accountService" ref="accountService"/>
+        <property name="transactionService" ref="transactionService"/>
     </bean>
 
     <!--Controllers-->
     <bean id="clientListController" class="ru.blogspot.feomatr.controller.ClientListController">
-        <constructor-arg ref="clientServiceImpl"/>
-        <constructor-arg ref="accountServiceImpl"/>
+        <property name="clientService" ref="clientService"/>
+        <property name="accountService" ref="accountService"/>
     </bean>
 
     <bean id="accountsController" class="ru.blogspot.feomatr.controller.AccountsController">
-        <constructor-arg ref="accountServiceImpl"/>
-        <constructor-arg ref="transferServiceImpl"/>
+        <property name="accountService" ref="accountService"/>
+        <property name="transferService" ref="transferService"/>
     </bean>
 
     <bean id="transactionsController" class="ru.blogspot.feomatr.controller.TransactionsController">
-        <constructor-arg ref="transactionServiceImpl"/>
+        <property name="transactionService" ref="transactionService"/>
     </bean>
+
+    <bean id="controllerHelper" class="ru.blogspot.feomatr.controller.ControllerHelper">
+        <property name="clientService" ref="clientService"/>
+        <property name="accountService" ref="accountService"/>
+        <property name="transferService" ref="transferService"/>
+    </bean>
+
+    <bean id="homeController" class="ru.blogspot.feomatr.controller.HomeController">
+        <property name="controllerHelper" ref="controllerHelper"/>
+    </bean>
+
+
 
     <!--
         <bean id="clientDaoStub" class="ru.blogspot.feomatr.dao.stub.ClientDaoStubImpl" />

@@ -9,7 +9,6 @@ import ru.blogspot.feomatr.entity.Account;
 import ru.blogspot.feomatr.entity.Broker;
 import ru.blogspot.feomatr.entity.Transaction;
 
-import javax.inject.Inject;
 import java.math.BigDecimal;
 
 /**
@@ -19,18 +18,6 @@ public class TransferServiceImpl implements TransferService {
 
     private AccountService accountService;
     private TransactionService transactionService;
-
-    /**
-     * @param accountService
-     * @param transactionService
-     */
-    @Inject
-    public TransferServiceImpl(AccountService accountService,
-                               TransactionService transactionService) {
-        super();
-        this.accountService = accountService;
-        this.transactionService = transactionService;
-    }
 
     public boolean transfer(Account accountFrom, Account accountTo, BigDecimal amount) {
         return transfer(accountFrom, accountTo, amount, new DateTime());
@@ -73,6 +60,7 @@ public class TransferServiceImpl implements TransferService {
     }
 
 
+    @Override
     public boolean transfer(Broker broker) {
         DateTime time;
         if (StringUtils.isEmpty(broker.getDateTime())) {
@@ -169,4 +157,11 @@ public class TransferServiceImpl implements TransferService {
         return false;
     }
 
+    public void setAccountService(AccountService accountService) {
+        this.accountService = accountService;
+    }
+
+    public void setTransactionService(TransactionService transactionService) {
+        this.transactionService = transactionService;
+    }
 }
