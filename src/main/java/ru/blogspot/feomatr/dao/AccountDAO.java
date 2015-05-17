@@ -9,10 +9,10 @@ public interface AccountDAO {
 
     Account getAccountById(Long id);
 
-    Account create(Account acc);
+    Account create(Account account);
 
-    boolean delete(Account acc);
+    boolean delete(Account account);
 
-    void update(Account acc);
+    void update(Account account);
 
 }

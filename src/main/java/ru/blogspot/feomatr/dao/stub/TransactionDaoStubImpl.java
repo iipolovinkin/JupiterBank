@@ -44,21 +44,11 @@ public class TransactionDaoStubImpl implements TransactionDAO {
         this.transactions = transactions;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see ru.blogspot.feomatr.dao.TransactionDAO#getAll()
-     */
     @Override
     public List<Transaction> getAll() {
         return transactions;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see ru.blogspot.feomatr.dao.TransactionDAO#getById(java.lang.Long)
-     */
     @Override
     public Transaction get(Long id) {
         for (Transaction transaction : transactions) {
@@ -69,13 +59,6 @@ public class TransactionDaoStubImpl implements TransactionDAO {
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * ru.blogspot.feomatr.dao.TransactionDAO#create(ru.blogspot.feomatr.entity
-     * .Transaction)
-     */
     @Override
     public void create(Transaction tr) {
         if (tr.getId() == null) {
@@ -84,25 +67,11 @@ public class TransactionDaoStubImpl implements TransactionDAO {
         transactions.add(tr);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * ru.blogspot.feomatr.dao.TransactionDAO#delete(ru.blogspot.feomatr.entity
-     * .Transaction)
-     */
     @Override
     public boolean delete(Transaction tr) {
         return transactions.remove(tr);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * ru.blogspot.feomatr.dao.TransactionDAO#update(ru.blogspot.feomatr.entity
-     * .Transaction)
-     */
     @Override
     public void update(Transaction tr) {
         transactions.contains(tr);
@@ -118,36 +87,10 @@ public class TransactionDaoStubImpl implements TransactionDAO {
         return (get(id) != null ? true : false);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public List<Transaction> getAfterTime(DateTime t) {
-        return filterAfterTime(transactions, t);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public List<Transaction> getBeforeTime(DateTime t) {
-        return filterBeforeTime(transactions, t);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public List<Transaction> getBetweenTimes(DateTime startTime,
-                                             DateTime endTime) {
-        List<Transaction> l = filterAfterTime(transactions, startTime);
-        l = filterBeforeTime(l, endTime);
-        return l;
-    }
-
     @Override
     public List<Transaction> getByFilter(Long idSender, Long idReciver,
                                          DateTime startTime, DateTime endTime) {
+        // todo use guava predicates or apache commons
         List<Transaction> l = filterAfterTime(transactions, startTime);
         l = filterBeforeTime(l, endTime);
         l = filterReciver(l, idReciver);

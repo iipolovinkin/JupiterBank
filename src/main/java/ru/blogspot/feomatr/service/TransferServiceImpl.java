@@ -23,13 +23,6 @@ public class TransferServiceImpl implements TransferService {
         return transfer(accountFrom, accountTo, amount, new DateTime());
     }
 
-    /**
-     * Transfer amount money from accountFrom to accountTo
-     *
-     * @param accountFrom
-     * @param accountTo
-     * @param amount
-     */
     public boolean transfer(Account accountFrom, Account accountTo, BigDecimal amount, DateTime dateTime) {
         if (accountFrom == null || accountTo == null || amount == null) {
             return false;
@@ -106,13 +99,6 @@ public class TransferServiceImpl implements TransferService {
         return transfer(accountService.getAccountById(accountFrom), accountService.getAccountById(accountTo), amount, dateTime);
     }
 
-    /**
-     * Transfer amount money to account
-     *
-     * @param account
-     * @param amount
-     */
-
     public boolean transferTo(Account account, BigDecimal amount, DateTime dateTime) {
         if (account == null || amount == null) {
             return false;
@@ -129,14 +115,6 @@ public class TransferServiceImpl implements TransferService {
         transactionService.create(new Transaction(amount, null, account, dateTime));
         return true;
     }
-
-    /**
-     * Transfer amount money from account
-     *
-     * @param account
-     * @param amount
-     * @return
-     */
 
     public boolean transferFrom(Account account, BigDecimal amount, DateTime dateTime) {
         if (account == null || amount == null) {

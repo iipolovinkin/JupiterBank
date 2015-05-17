@@ -19,10 +19,6 @@ public interface TransactionService {
 
     Transaction getById(Long id);
 
-    List<Transaction> getBySender(Account sender);
-
-    List<Transaction> getByReciver(Account reciver);
-
     /**
      * @param idSender
      * @param idReceiver
@@ -32,25 +28,6 @@ public interface TransactionService {
      */
     List<Transaction> getByFilter(Long idSender, Long idReceiver,
                                   DateTime startTime, DateTime endTime);
-
-    /**
-     * @param t
-     * @return
-     */
-    List<Transaction> getAfterTime(DateTime t);
-
-    /**
-     * @param t
-     * @return
-     */
-    List<Transaction> getBeforeTime(DateTime t);
-
-    /**
-     * @param startTime
-     * @param endTime
-     * @return
-     */
-    List<Transaction> getBetweenTimes(DateTime startTime, DateTime endTime);
 
     void delete(Transaction tr);
 

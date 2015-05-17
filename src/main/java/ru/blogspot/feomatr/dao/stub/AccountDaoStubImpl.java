@@ -63,20 +63,20 @@ public class AccountDaoStubImpl implements AccountDAO {
      * Account)
      */
     @Override
-    public Account create(Account acc) {
-        if (acc == null) {
-            return acc;
+    public Account create(Account account) {
+        if (account == null) {
+            return account;
         }
-        if (acc.getId() == null) {
-            acc.setId((long) accounts.size());
-            accounts.add(acc);
-            return acc;
+        if (account.getId() == null) {
+            account.setId((long) accounts.size());
+            accounts.add(account);
+            return account;
         }
-        Account acc1 = getAccountById(acc.getId());
+        Account acc1 = getAccountById(account.getId());
         if (acc1 == null) {
-            accounts.add(acc);
+            accounts.add(account);
         }
-        return acc;
+        return account;
     }
 
     /*
@@ -87,8 +87,8 @@ public class AccountDaoStubImpl implements AccountDAO {
      * Account)
      */
     @Override
-    public boolean delete(Account acc) {
-        return accounts.remove(acc);
+    public boolean delete(Account account) {
+        return accounts.remove(account);
     }
 
     /*
@@ -99,14 +99,14 @@ public class AccountDaoStubImpl implements AccountDAO {
      * Account)
      */
     @Override
-    public void update(Account acc) {
-        Account acc1 = getAccountById(acc.getId());
+    public void update(Account account) {
+        Account acc1 = getAccountById(account.getId());
         if (acc1 == null) {
             return;
         }
-        acc1.setId(acc.getId());
-        acc1.setOwner(acc.getOwner());
-        acc1.setBalance(acc.getBalance());
+        acc1.setId(account.getId());
+        acc1.setOwner(account.getOwner());
+        acc1.setBalance(account.getBalance());
     }
 
 }

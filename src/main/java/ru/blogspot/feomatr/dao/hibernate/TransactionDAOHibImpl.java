@@ -3,11 +3,13 @@
  */
 package ru.blogspot.feomatr.dao.hibernate;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.joda.time.DateTime;
 import ru.blogspot.feomatr.dao.TransactionDAO;
-import ru.blogspot.feomatr.entity.Account;
 import ru.blogspot.feomatr.entity.Transaction;
 import ru.blogspot.feomatr.persistence.hibernate.util.HibernateUtil;
 
@@ -18,62 +20,44 @@ import java.util.List;
  * @author iipolovinkin
  */
 public class TransactionDAOHibImpl implements TransactionDAO {
-    private Class<Transaction> clazz = Transaction.class;
     private SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
     private Session getCurrentSession() {
         return sessionFactory.getCurrentSession();
     }
 
-    /**
-     *
-     */
     public TransactionDAOHibImpl() {
         super();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see ru.blogspot.feomatr.dao.TransactionDAO#getAll()
-     */
     @Override
     @SuppressWarnings("unchecked")
     public List<Transaction> getAll() {
         List<Transaction> l;
+        Session session = null;
         try {
-            getCurrentSession().beginTransaction();
-            l = getCurrentSession().createQuery("from Transaction t").list();
+            session = getCurrentSession();
+            session.beginTransaction();
+            Criteria criteria = session.createCriteria(Transaction.class);
+            l = criteria.list();
         } finally {
-            getCurrentSession().getTransaction().rollback();
+            if (session != null) session.close();
         }
         return l;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see ru.blogspot.feomatr.dao.TransactionDAO#getById(java.lang.Long)
-     */
     @Override
     public Transaction get(Long id) {
         Transaction e;
         try {
             getCurrentSession().beginTransaction();
-            e = (Transaction) getCurrentSession().get(clazz, id);
+            e = (Transaction) getCurrentSession().get(Transaction.class, id);
         } finally {
             getCurrentSession().getTransaction().commit();
         }
         return e;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * ru.blogspot.feomatr.dao.TransactionDAO#create(ru.blogspot.feomatr.entity
-     * .Transaction)
-     */
     @Override
     public void create(Transaction tr) {
         if (tr == null) {
@@ -87,13 +71,6 @@ public class TransactionDAOHibImpl implements TransactionDAO {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * ru.blogspot.feomatr.dao.TransactionDAO#delete(ru.blogspot.feomatr.entity
-     * .Transaction)
-     */
     @Override
     public boolean delete(Transaction tr) {
         try {
@@ -105,13 +82,6 @@ public class TransactionDAOHibImpl implements TransactionDAO {
         return true;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * ru.blogspot.feomatr.dao.TransactionDAO#update(ru.blogspot.feomatr.entity
-     * .Transaction)
-     */
     @Override
     public void update(Transaction tr) {
         try {
@@ -132,99 +102,24 @@ public class TransactionDAOHibImpl implements TransactionDAO {
         return (get(id) != null ? true : false);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public List<Transaction> getAfterTime(DateTime t) {
-        return filterAfterTime(getAll(), t);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public List<Transaction> getBeforeTime(DateTime t) {
-        return filterBeforeTime(getAll(), t);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public List<Transaction> getBetweenTimes(DateTime startTime,
-                                             DateTime endTime) {
-        List<Transaction> l = filterAfterTime(getAll(), startTime);
-        l = filterBeforeTime(l, endTime);
-        return l;
-    }
-
     @Override
     public List<Transaction> getByFilter(Long idSender, Long idReceiver,
                                          DateTime startTime, DateTime endTime) {
         List<Transaction> l = new ArrayList<Transaction>();
-        l.addAll(filterAfterTime(getAll(), startTime));
-        l = filterBeforeTime(l, endTime);
-        l = filterReciver(l, idReceiver);
-        l = filterSender(l, idSender);
-        return l;
-    }
+        DetachedCriteria criteria = DetachedCriteria.forClass(Transaction.class);
+        if (startTime != null) criteria.add(Restrictions.ge("time", startTime));
+        if (endTime != null) criteria.add(Restrictions.le("time", endTime));
+        if (idSender != null) criteria.createCriteria("sender").add(Restrictions.eq("id", idSender));
+        if (idReceiver != null) criteria.createCriteria("receiver").add(Restrictions.eq("id", idReceiver));
+        Session session = null;
+        try {
+            session = getCurrentSession();
+            session.beginTransaction();
+            l = criteria.getExecutableCriteria(session).list();
+        } catch (Exception e) {
+            //log.error()
+        }
 
-    public static List<Transaction> filterAfterTime(List<Transaction> trs,
-                                                    DateTime t) {
-        if (t == null) {
-            return trs;
-        }
-        List<Transaction> l = new ArrayList<>();
-        for (int i = 0; i < trs.size(); ++i) {
-            if (trs.get(i).getTime().isAfter(t)) {
-                l.add(trs.get(i));
-            }
-        }
-        return l;
-    }
-
-    public static List<Transaction> filterBeforeTime(List<Transaction> trs,
-                                                     DateTime t) {
-        if (t == null) {
-            return trs;
-        }
-        List<Transaction> l = new ArrayList<>();
-        for (int i = 0; i < trs.size(); ++i) {
-            if (trs.get(i).getTime().isBefore(t)) {
-                l.add(trs.get(i));
-            }
-        }
-        return l;
-    }
-
-    public static List<Transaction> filterSender(List<Transaction> trs,
-                                                 Long idSender) {
-        if (idSender == null) {
-            return trs;
-        }
-        List<Transaction> l = new ArrayList<>();
-        for (int i = 0; i < trs.size(); ++i) {
-            Account sender = trs.get(i).getSender();
-            if (sender != null && sender.getId().equals(idSender)) {
-                l.add(trs.get(i));
-            }
-        }
-        return l;
-    }
-
-    public static List<Transaction> filterReciver(List<Transaction> trs,
-                                                  Long idReceiver) {
-        if (idReceiver == null) {
-            return trs;
-        }
-        List<Transaction> l = new ArrayList<>();
-        for (int i = 0; i < trs.size(); ++i) {
-            Account receiver = trs.get(i).getReceiver();
-            if (receiver != null && receiver.getId().equals(idReceiver)) {
-                l.add(trs.get(i));
-            }
-        }
         return l;
     }
 }

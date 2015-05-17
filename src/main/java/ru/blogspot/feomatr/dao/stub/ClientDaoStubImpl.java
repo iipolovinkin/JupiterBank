@@ -19,21 +19,11 @@ public class ClientDaoStubImpl implements ClientDAO {
             new Client(3L, "Ivan", "Spb", 39),
             new Client(4L, "Petr", "RnD", 13)}));
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see ru.blogspot.feomatr.dao.ClientDAO#getAllClients()
-     */
     @Override
-    public List<Client> getAllClients() {
+    public List<Client> getAll() {
         return clients;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see ru.blogspot.feomatr.dao.ClientDAO#getById(java.lang.Long)
-     */
     @Override
     public Client getById(Long id) {
         for (Client client : clients) {
@@ -44,56 +34,35 @@ public class ClientDaoStubImpl implements ClientDAO {
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * ru.blogspot.feomatr.dao.ClientDAO#create(ru.blogspot.feomatr.entity.Client
-     * )
-     */
     @Override
-    public Client create(Client cl) {
-        if (cl == null)
-            return cl;
-        Client c = getById(cl.getId());
+    public Client create(Client client) {
+        if (client == null)
+            return client;
+        Client c = getById(client.getId());
         if (c == null)
-            clients.add(cl);
-        return cl;
+            clients.add(client);
+        return client;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * ru.blogspot.feomatr.dao.ClientDAO#delete(ru.blogspot.feomatr.entity.Client
-     * )
-     */
     @Override
-    public boolean delete(Client cl) {
-        Client c = getById(cl.getId());
+    public boolean delete(Client client) {
+        Client c = getById(client.getId());
         if (c == null) {
             return false;
         }
         return clients.remove(c);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * ru.blogspot.feomatr.dao.ClientDAO#update(ru.blogspot.feomatr.entity.Client
-     * )
-     */
     @Override
-    public int update(Client cl) {
-        Client c = getById(cl.getId());
+    public int update(Client client) {
+        Client c = getById(client.getId());
         if (c == null) {
             return 0;
         }
-        c.setId(cl.getId());
-        c.setFirstname(cl.getFirstname());
-        c.setAddress(cl.getAddress());
-        c.setAge(cl.getAge());
+        c.setId(client.getId());
+        c.setFirstname(client.getFirstname());
+        c.setAddress(client.getAddress());
+        c.setAge(client.getAge());
         return 1;
     }
 }

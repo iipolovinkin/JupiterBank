@@ -28,25 +28,6 @@ public interface TransactionDAO {
      */
     List<Transaction> getAll();
 
-    /**
-     * @param t
-     * @return
-     */
-    List<Transaction> getAfterTime(DateTime t);
-
-    /**
-     * @param t
-     * @return
-     */
-    List<Transaction> getBeforeTime(DateTime t);
-
-    /**
-     * @param startTime
-     * @param endTime
-     * @return
-     */
-    List<Transaction> getBetweenTimes(DateTime startTime, DateTime endTime);
-
     Transaction get(Long id);
 
     void create(Transaction tr);

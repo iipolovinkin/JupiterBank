@@ -16,7 +16,6 @@ import java.util.List;
  * @author iipolovinkin
  */
 public class AccountDAOHibImpl implements AccountDAO {
-    private Class<Account> clazz = Account.class;
     private SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
     public AccountDAOHibImpl() {
@@ -26,11 +25,6 @@ public class AccountDAOHibImpl implements AccountDAO {
         return sessionFactory.getCurrentSession();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see ru.blogspot.feomatr.dao.AccountDAO#getAllAccounts()
-     */
     @Override
     @NotNull
     @SuppressWarnings("unchecked")
@@ -38,81 +32,55 @@ public class AccountDAOHibImpl implements AccountDAO {
         List<Account> l;
         try {
             getCurrentSession().beginTransaction();
-            l = getCurrentSession().createQuery("from Account a").list();
+            l = getCurrentSession().createCriteria(Account.class).list();
         } finally {
             getCurrentSession().getTransaction().rollback();
         }
         return l;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see ru.blogspot.feomatr.dao.AccountDAO#getAccountById()
-     */
     @Override
     public Account getAccountById(Long id) {
         Account a;
         try {
             getCurrentSession().beginTransaction();
-            a = (Account) getCurrentSession().get(clazz, id);
+            a = (Account) getCurrentSession().get(Account.class, id);
         } finally {
             getCurrentSession().getTransaction().commit();
         }
         return a;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * ru.blogspot.feomatr.dao.AccountDAO#create(ru.blogspot.feomatr.entity.
-     * Account)
-     */
     @Override
-    public Account create(Account acc) {
-        if (acc == null) {
-            return acc;
+    public Account create(Account account) {
+        if (account == null) {
+            return account;
         }
         try {
             getCurrentSession().beginTransaction();
-            getCurrentSession().save(acc);
+            getCurrentSession().save(account);
         } finally {
             getCurrentSession().getTransaction().commit();
         }
-        return acc;
+        return account;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * ru.blogspot.feomatr.dao.AccountDAO#delete(ru.blogspot.feomatr.entity.
-     * Account)
-     */
     @Override
-    public boolean delete(Account acc) {
+    public boolean delete(Account account) {
         try {
             getCurrentSession().beginTransaction();
-            getCurrentSession().delete(acc);
+            getCurrentSession().delete(account);
         } finally {
             getCurrentSession().getTransaction().commit();
         }
         return true;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * ru.blogspot.feomatr.dao.AccountDAO#update(ru.blogspot.feomatr.entity.
-     * Account)
-     */
     @Override
-    public void update(Account acc) {
+    public void update(Account account) {
         try {
             getCurrentSession().beginTransaction();
-            getCurrentSession().update(acc);
+            getCurrentSession().update(account);
         } finally {
             getCurrentSession().getTransaction().commit();
         }

@@ -11,14 +11,43 @@ import java.util.List;
  * @author iipolovinkin
  */
 public interface ClientDAO {
-    List<Client> getAllClients();
+    /**
+     * Возвращает все объекты
+     *
+     * @return
+     */
+    List<Client> getAll();
 
+    /**
+     * Возвращает объект по id
+     *
+     * @param id
+     * @return
+     */
     Client getById(Long id);
 
-    Client create(Client cl);
+    /**
+     * Создает объект
+     *
+     * @param client
+     * @return
+     */
+    Client create(Client client);
 
-    boolean delete(Client cl);
+    /**
+     * Удаляет объект
+     *
+     * @param client
+     * @return
+     */
+    boolean delete(Client client);
 
-    int update(Client cl);
+    /**
+     * Обновляет объект
+     *
+     * @param client
+     * @return
+     */
+    int update(Client client);
 
 }

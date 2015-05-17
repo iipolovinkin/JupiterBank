@@ -25,94 +25,60 @@ public class ClientDAOHibImpl implements ClientDAO {
     public ClientDAOHibImpl() {
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see ru.blogspot.feomatr.dao.ClientDAO#getAllClients()
-     */
-    @SuppressWarnings("unchecked")
     @Override
-    public List<Client> getAllClients() {
+    public List<Client> getAll() {
         List<Client> l;
         try {
             getCurrentSession().beginTransaction();
-            l = getCurrentSession().createQuery("from Client c")
-                    .list();
+            l = getCurrentSession().createCriteria(Client.class).list();
         } finally {
             getCurrentSession().getTransaction().rollback();
         }
         return l;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see ru.blogspot.feomatr.dao.ClientDAO#getById(java.lang.Long)
-     */
     @Override
     public Client getById(Long id) {
         Client c;
         try {
             getCurrentSession().beginTransaction();
-            c = (Client) getCurrentSession().get(
-                    ru.blogspot.feomatr.entity.Client.class, id);
+            c = (Client) getCurrentSession().get(ru.blogspot.feomatr.entity.Client.class, id);
         } finally {
             getCurrentSession().getTransaction().commit();
         }
         return c;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * ru.blogspot.feomatr.dao.ClientDAO#create(ru.blogspot.feomatr.entity.Client
-     * )
-     */
     @Override
-    public Client create(Client cl) {
-        if (cl == null) {
-            return cl;
+    public Client create(Client client) {
+        if (client == null) {
+            return client;
         }
         try {
             getCurrentSession().beginTransaction();
-            getCurrentSession().save(cl);
+            getCurrentSession().save(client);
         } finally {
             getCurrentSession().getTransaction().commit();
         }
-        return cl;
+        return client;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * ru.blogspot.feomatr.dao.ClientDAO#delete(ru.blogspot.feomatr.entity.Client
-     * )
-     */
     @Override
-    public boolean delete(Client cl) {
+    public boolean delete(Client client) {
         try {
             getCurrentSession().beginTransaction();
-            getCurrentSession().delete(cl);
+            getCurrentSession().delete(client);
         } finally {
             getCurrentSession().getTransaction().commit();
         }
         return true;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * ru.blogspot.feomatr.dao.ClientDAO#update(ru.blogspot.feomatr.entity.Client
-     * )
-     */
     @Override
-    public int update(Client cl) {
+    public int update(Client client) {
         try {
             getCurrentSession().beginTransaction();
-            getCurrentSession().update(cl);
+            getCurrentSession().update(client);
         } finally {
             getCurrentSession().getTransaction().commit();
         }
