@@ -5,6 +5,8 @@ package ru.blogspot.feomatr.service;
 
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import ru.blogspot.feomatr.entity.Account;
 import ru.blogspot.feomatr.entity.Broker;
 import ru.blogspot.feomatr.entity.Transaction;
@@ -18,6 +20,7 @@ public class TransferServiceImpl implements TransferService {
 
     private AccountService accountService;
     private TransactionService transactionService;
+    DateTimeFormatter formatter = DateTimeFormat.forPattern("dd.MM.yyyy");
 
     public boolean transfer(Account accountFrom, Account accountTo, BigDecimal amount) {
         return transfer(accountFrom, accountTo, amount, new DateTime());
@@ -59,7 +62,7 @@ public class TransferServiceImpl implements TransferService {
         if (StringUtils.isEmpty(broker.getDateTime())) {
             time = new DateTime();
         } else {
-            time = DateTime.parse(broker.getDateTime());
+            time = DateTime.parse(broker.getDateTime(), formatter);
         }
         return transfer(broker.getAccountFrom(), broker.getAccountTo(), broker.getAmount(), time);
     }
@@ -70,7 +73,7 @@ public class TransferServiceImpl implements TransferService {
         if (StringUtils.isEmpty(broker.getDateTime())) {
             time = new DateTime();
         } else {
-            time = DateTime.parse(broker.getDateTime());
+            time = DateTime.parse(broker.getDateTime(), formatter);
         }
         return transferTo(broker.getAccountTo(), broker.getAmount(), time);
     }
@@ -81,7 +84,7 @@ public class TransferServiceImpl implements TransferService {
         if (StringUtils.isEmpty(broker.getDateTime())) {
             time = new DateTime();
         } else {
-            time = DateTime.parse(broker.getDateTime());
+            time = DateTime.parse(broker.getDateTime(), formatter);
         }
         return transferFrom(broker.getAccountFrom(), broker.getAmount(), time);
     }

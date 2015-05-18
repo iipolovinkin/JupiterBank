@@ -33,6 +33,10 @@
 						required="true" value="" /></td>
 			</tr>
 			<tr>
+				<th>${time}:</th>
+				<td><sf:input path="dateTime" class="form-control date" type="text" value="" /></td>
+			</tr>
+			<tr>
 				<th></th>
 				<td><br></td>
 			</tr>
@@ -44,5 +48,16 @@
 		</table>
 
 	</sf:form>
+	<script>
+    		$(document).ready(function() {
+    			$('.date').datepicker({
+        			format: "dd.mm.yyyy",
+       				clearBtn: true,
+        			todayBtn: "linked",
+        			autoclose: true,
+        			language: "${locale}"
+        		});
+             });
+    </script>
 </div>
 
