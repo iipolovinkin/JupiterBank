@@ -11,6 +11,7 @@
 	<s:message code="accountFrom" var="accountFrom" />
 	<s:message code="amount" var="amount" />
 	<s:message code="Transfer" var="Transfer" />
+	<s:message code="time" var="time" />
 	<sf:form method="POST" modelAttribute="broker">
 		<table>
 

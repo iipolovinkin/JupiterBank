@@ -34,14 +34,15 @@ public class TransactionDAOHibImpl implements TransactionDAO {
     @SuppressWarnings("unchecked")
     public List<Transaction> getAll() {
         List<Transaction> l;
-        Session session = null;
+        Session session = getCurrentSession();
+        org.hibernate.Transaction tx = session.beginTransaction();
         try {
-            session = getCurrentSession();
-            session.beginTransaction();
             Criteria criteria = session.createCriteria(Transaction.class);
             l = criteria.list();
         } finally {
-            if (session != null) session.close();
+            if (session != null) {
+                session.close();
+            }
         }
         return l;
     }
@@ -49,11 +50,12 @@ public class TransactionDAOHibImpl implements TransactionDAO {
     @Override
     public Transaction get(Long id) {
         Transaction e;
+        Session session = getCurrentSession();
+        org.hibernate.Transaction tx = session.beginTransaction();
         try {
-            getCurrentSession().beginTransaction();
-            e = (Transaction) getCurrentSession().get(Transaction.class, id);
+            e = (Transaction) session.get(Transaction.class, id);
         } finally {
-            getCurrentSession().getTransaction().commit();
+            tx.commit();
         }
         return e;
     }
@@ -63,32 +65,35 @@ public class TransactionDAOHibImpl implements TransactionDAO {
         if (tr == null) {
             return;
         }
+        Session session = getCurrentSession();
+        org.hibernate.Transaction tx = session.beginTransaction();
         try {
-            getCurrentSession().beginTransaction();
-            getCurrentSession().save(tr);
+            session.save(tr);
         } finally {
-            getCurrentSession().getTransaction().commit();
+            tx.commit();
         }
     }
 
     @Override
     public boolean delete(Transaction tr) {
+        Session session = getCurrentSession();
+        org.hibernate.Transaction tx = session.beginTransaction();
         try {
-            getCurrentSession().beginTransaction();
-            getCurrentSession().delete(tr);
+            session.delete(tr);
         } finally {
-            getCurrentSession().getTransaction().commit();
+            tx.commit();
         }
         return true;
     }
 
     @Override
     public void update(Transaction tr) {
+        Session session = getCurrentSession();
+        org.hibernate.Transaction tx = session.beginTransaction();
         try {
-            getCurrentSession().beginTransaction();
-            getCurrentSession().update(tr);
+            session.update(tr);
         } finally {
-            getCurrentSession().getTransaction().commit();
+            tx.commit();
         }
     }
 
@@ -107,14 +112,21 @@ public class TransactionDAOHibImpl implements TransactionDAO {
                                          DateTime startTime, DateTime endTime) {
         List<Transaction> l = new ArrayList<Transaction>();
         DetachedCriteria criteria = DetachedCriteria.forClass(Transaction.class);
-        if (startTime != null) criteria.add(Restrictions.ge("time", startTime));
-        if (endTime != null) criteria.add(Restrictions.le("time", endTime));
-        if (idSender != null) criteria.createCriteria("sender").add(Restrictions.eq("id", idSender));
-        if (idReceiver != null) criteria.createCriteria("receiver").add(Restrictions.eq("id", idReceiver));
-        Session session = null;
+        if (startTime != null) {
+            criteria.add(Restrictions.ge("time", startTime));
+        }
+        if (endTime != null) {
+            criteria.add(Restrictions.le("time", endTime));
+        }
+        if (idSender != null) {
+            criteria.createCriteria("sender").add(Restrictions.eq("id", idSender));
+        }
+        if (idReceiver != null) {
+            criteria.createCriteria("receiver").add(Restrictions.eq("id", idReceiver));
+        }
+        Session session = getCurrentSession();
+        org.hibernate.Transaction tx = session.beginTransaction();
         try {
-            session = getCurrentSession();
-            session.beginTransaction();
             l = criteria.getExecutableCriteria(session).list();
         } catch (Exception e) {
             //log.error()

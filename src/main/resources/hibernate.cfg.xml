@@ -24,6 +24,8 @@
         <property name="dialect">org.hibernate.dialect.H2Dialect</property>
         <property name="hibernate.hbm2ddl.auto">create</property>
         <property name="hibernate.current_session_context_class">thread</property>
+        <!--<property name="hibernate.transaction.manager_lookup_class">lookup</property>-->
+        <!--<property name="hibernate.transaction.factory_class">org.hibernate.transaction.JTATransactionFactory</property>-->
         <!-- Mapping files -->
         <mapping resource="Client.hbm.xml"/>
         <mapping resource="Account.hbm.xml"/>

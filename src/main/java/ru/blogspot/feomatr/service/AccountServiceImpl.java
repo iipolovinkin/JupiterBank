@@ -26,7 +26,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public List<Account> getAllAccounts() {
-        return accountDAO.getAllAccounts();
+        return accountDAO.getAll();
     }
 
     @Override
@@ -37,7 +37,7 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public List<Account> getAccountsByOwner(Client cl) {
         List<Account> l = new ArrayList<Account>();
-        List<Account> list = accountDAO.getAllAccounts();
+        List<Account> list = accountDAO.getAll();
         for (Account account : list) {
             if (account.getOwner().getId().equals(cl.getId())) {
                 l.add(account);

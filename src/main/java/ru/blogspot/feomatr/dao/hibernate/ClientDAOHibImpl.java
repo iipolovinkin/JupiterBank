@@ -5,6 +5,7 @@ package ru.blogspot.feomatr.dao.hibernate;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import ru.blogspot.feomatr.dao.ClientDAO;
 import ru.blogspot.feomatr.entity.Client;
 import ru.blogspot.feomatr.persistence.hibernate.util.HibernateUtil;
@@ -28,11 +29,12 @@ public class ClientDAOHibImpl implements ClientDAO {
     @Override
     public List<Client> getAll() {
         List<Client> l;
+        Session session = getCurrentSession();
+        Transaction tx = session.beginTransaction();
         try {
-            getCurrentSession().beginTransaction();
-            l = getCurrentSession().createCriteria(Client.class).list();
+            l = session.createCriteria(Client.class).list();
         } finally {
-            getCurrentSession().getTransaction().rollback();
+            tx.commit();
         }
         return l;
     }
@@ -40,11 +42,12 @@ public class ClientDAOHibImpl implements ClientDAO {
     @Override
     public Client getById(Long id) {
         Client c;
+        Session session = getCurrentSession();
+        Transaction tx = session.beginTransaction();
         try {
-            getCurrentSession().beginTransaction();
-            c = (Client) getCurrentSession().get(ru.blogspot.feomatr.entity.Client.class, id);
+            c = (Client) session.get(ru.blogspot.feomatr.entity.Client.class, id);
         } finally {
-            getCurrentSession().getTransaction().commit();
+            tx.commit();
         }
         return c;
     }
@@ -54,33 +57,36 @@ public class ClientDAOHibImpl implements ClientDAO {
         if (client == null) {
             return client;
         }
+        Session session = getCurrentSession();
+        Transaction tx = session.beginTransaction();
         try {
-            getCurrentSession().beginTransaction();
-            getCurrentSession().save(client);
+            session.save(client);
         } finally {
-            getCurrentSession().getTransaction().commit();
+            tx.commit();
         }
         return client;
     }
 
     @Override
     public boolean delete(Client client) {
+        Session session = getCurrentSession();
+        Transaction tx = session.beginTransaction();
         try {
-            getCurrentSession().beginTransaction();
-            getCurrentSession().delete(client);
+            session.delete(client);
         } finally {
-            getCurrentSession().getTransaction().commit();
+            tx.commit();
         }
         return true;
     }
 
     @Override
     public int update(Client client) {
+        Session session = getCurrentSession();
+        Transaction tx = session.beginTransaction();
         try {
-            getCurrentSession().beginTransaction();
-            getCurrentSession().update(client);
+            session.update(client);
         } finally {
-            getCurrentSession().getTransaction().commit();
+            tx.commit();
         }
         return 1;
     }

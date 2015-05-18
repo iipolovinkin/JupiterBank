@@ -33,10 +33,10 @@ public class AccountDaoStubImpl implements AccountDAO {
     /*
      * (non-Javadoc)
      *
-     * @see ru.blogspot.feomatr.dao.AccountDAO#getAllAccounts()
+     * @see ru.blogspot.feomatr.dao.AccountDAO#getAll()
      */
     @Override
-    public List<Account> getAllAccounts() {
+    public List<Account> getAll() {
         return accounts;
     }
 

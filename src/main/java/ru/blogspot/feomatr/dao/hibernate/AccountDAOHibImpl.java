@@ -5,6 +5,7 @@ package ru.blogspot.feomatr.dao.hibernate;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.jetbrains.annotations.NotNull;
 import ru.blogspot.feomatr.dao.AccountDAO;
 import ru.blogspot.feomatr.entity.Account;
@@ -28,13 +29,14 @@ public class AccountDAOHibImpl implements AccountDAO {
     @Override
     @NotNull
     @SuppressWarnings("unchecked")
-    public List<Account> getAllAccounts() {
+    public List<Account> getAll() {
         List<Account> l;
+        Session session = getCurrentSession();
+        Transaction tx = session.beginTransaction();
         try {
-            getCurrentSession().beginTransaction();
-            l = getCurrentSession().createCriteria(Account.class).list();
+            l = session.createCriteria(Account.class).list();
         } finally {
-            getCurrentSession().getTransaction().rollback();
+            tx.commit();
         }
         return l;
     }
@@ -42,11 +44,12 @@ public class AccountDAOHibImpl implements AccountDAO {
     @Override
     public Account getAccountById(Long id) {
         Account a;
+        Session session = getCurrentSession();
+        Transaction tx = session.beginTransaction();
         try {
-            getCurrentSession().beginTransaction();
-            a = (Account) getCurrentSession().get(Account.class, id);
+            a = (Account) session.get(Account.class, id);
         } finally {
-            getCurrentSession().getTransaction().commit();
+            tx.commit();
         }
         return a;
     }
@@ -56,33 +59,36 @@ public class AccountDAOHibImpl implements AccountDAO {
         if (account == null) {
             return account;
         }
+        Session session = getCurrentSession();
+        Transaction tx = session.beginTransaction();
         try {
-            getCurrentSession().beginTransaction();
-            getCurrentSession().save(account);
+            session.save(account);
         } finally {
-            getCurrentSession().getTransaction().commit();
+            tx.commit();
         }
         return account;
     }
 
     @Override
     public boolean delete(Account account) {
+        Session session = getCurrentSession();
+        Transaction tx = session.beginTransaction();
         try {
-            getCurrentSession().beginTransaction();
-            getCurrentSession().delete(account);
+            session.delete(account);
         } finally {
-            getCurrentSession().getTransaction().commit();
+            tx.commit();
         }
         return true;
     }
 
     @Override
     public void update(Account account) {
+        Session session = getCurrentSession();
+        Transaction tx = session.beginTransaction();
         try {
-            getCurrentSession().beginTransaction();
-            getCurrentSession().update(account);
+            session.update(account);
         } finally {
-            getCurrentSession().getTransaction().commit();
+            tx.commit();
         }
     }
 
