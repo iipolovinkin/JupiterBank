@@ -9,7 +9,6 @@ import org.hibernate.Transaction;
 import org.jetbrains.annotations.NotNull;
 import ru.blogspot.feomatr.dao.AccountDAO;
 import ru.blogspot.feomatr.entity.Account;
-import ru.blogspot.feomatr.persistence.hibernate.util.HibernateUtil;
 
 import java.util.List;
 
@@ -17,7 +16,7 @@ import java.util.List;
  * @author iipolovinkin
  */
 public class AccountDAOHibImpl implements AccountDAO {
-    private SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+    private SessionFactory sessionFactory;
 
     public AccountDAOHibImpl() {
     }
@@ -92,4 +91,7 @@ public class AccountDAOHibImpl implements AccountDAO {
         }
     }
 
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 }

@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class ClientDAOHibImpl implements ClientDAO {
 
-    private SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+    private SessionFactory sessionFactory;
 
     private Session getCurrentSession() {
         return sessionFactory.getCurrentSession();
@@ -91,4 +91,7 @@ public class ClientDAOHibImpl implements ClientDAO {
         return 1;
     }
 
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 }

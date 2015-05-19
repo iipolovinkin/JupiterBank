@@ -11,7 +11,6 @@ import org.hibernate.criterion.Restrictions;
 import org.joda.time.DateTime;
 import ru.blogspot.feomatr.dao.TransactionDAO;
 import ru.blogspot.feomatr.entity.Transaction;
-import ru.blogspot.feomatr.persistence.hibernate.util.HibernateUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +19,7 @@ import java.util.List;
  * @author iipolovinkin
  */
 public class TransactionDAOHibImpl implements TransactionDAO {
-    private SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+    private SessionFactory sessionFactory;
 
     private Session getCurrentSession() {
         return sessionFactory.getCurrentSession();
@@ -133,5 +132,9 @@ public class TransactionDAOHibImpl implements TransactionDAO {
         }
 
         return l;
+    }
+
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 }

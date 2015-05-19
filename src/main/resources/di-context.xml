@@ -7,10 +7,18 @@
 
     <!--todo Split configuration to few files: dao-context, services-context, etc. -->
 
-     <!--DAO Beans-->
-    <bean id="clientDAO" class="ru.blogspot.feomatr.dao.hibernate.ClientDAOHibImpl"/>
-    <bean id="accountDAO" class="ru.blogspot.feomatr.dao.hibernate.AccountDAOHibImpl"/>
-    <bean id="transactionDAO" class="ru.blogspot.feomatr.dao.hibernate.TransactionDAOHibImpl"/>
+    <bean id="sessionFactory" class="ru.blogspot.feomatr.persistence.hibernate.util.HibernateUtil" factory-method="getSessionFactory"/>
+
+    <!--DAO Beans-->
+    <bean id="clientDAO" class="ru.blogspot.feomatr.dao.hibernate.ClientDAOHibImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean id="accountDAO" class="ru.blogspot.feomatr.dao.hibernate.AccountDAOHibImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean id="transactionDAO" class="ru.blogspot.feomatr.dao.hibernate.TransactionDAOHibImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
 
     <!--Services-->
     <bean id="clientService" class="ru.blogspot.feomatr.service.ClientServiceImpl">
@@ -54,7 +62,6 @@
     <bean id="homeController" class="ru.blogspot.feomatr.controller.HomeController">
         <property name="controllerHelper" ref="controllerHelper"/>
     </bean>
-
 
 
     <!--
