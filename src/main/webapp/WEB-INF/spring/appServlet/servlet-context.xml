@@ -10,25 +10,21 @@
     <!-- DispatcherServlet Context: defines this servlet's request-processing
         infrastructure -->
     <!-- Register the welcome.properties -->
-    <bean id="messageSource"
-          class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
         <property name="basename" value="classpath:messages"/>
         <property name="defaultEncoding" value="UTF-8"/>
     </bean>
 
-    <bean id="localeChangeInterceptor"
-          class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+    <bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
         <property name="paramName" value="lang"/>
     </bean>
 
-    <bean id="localeResolver"
-          class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
         <property name="defaultLocale" value="en_US"/>
     </bean>
     <!--class="org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver" />-->
 
-    <bean id="handlerMapping"
-          class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping">
+    <bean id="handlerMapping" class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping">
         <property name="interceptors">
                 <ref bean="localeChangeInterceptor"/>
         </property>
@@ -54,14 +50,10 @@
     <!-- Resolves views selected for rendering by @Controllers to .jsp resources
         in the /WEB-INF/views directory -->
     <!-- beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" -->
-    <bean class="org.springframework.web.servlet.view.UrlBasedViewResolver"
-          id="tilesViewResolver">
-        <property name="viewClass"
-                  value="org.springframework.web.servlet.view.tiles3.TilesView"/>
+    <bean id="tilesViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView"/>
     </bean>
-    <bean
-            class="org.springframework.web.servlet.view.tiles3.TilesConfigurer"
-            id="tilesConfigurer">
+    <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
         <property name="definitions">
             <list>
                 <value>/WEB-INF/layouts/layouts.xml</value>
@@ -70,6 +62,5 @@
             </list>
         </property>
     </bean>
-    <bean id="validator"
-          class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
 </beans>
