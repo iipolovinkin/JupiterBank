@@ -8,7 +8,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import ru.blogspot.feomatr.dao.ClientDAO;
 import ru.blogspot.feomatr.entity.Client;
-import ru.blogspot.feomatr.persistence.hibernate.util.HibernateUtil;
 
 import java.util.List;
 

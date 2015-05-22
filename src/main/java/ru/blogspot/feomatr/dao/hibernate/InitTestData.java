@@ -20,7 +20,7 @@ import java.math.BigDecimal;
  */
 public final class InitTestData {
 
-    private static SessionFactory sf = HibernateUtil.getSessionFactory();
+    private static SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
     private static Client clients[] = new Client[7];
     private static Account accounts[];
     private static Transaction transactions[];
@@ -47,7 +47,7 @@ public final class InitTestData {
             dates[i] = formatter.parseDateTime(DTS[i]);
         }
         transactions = new Transaction[7];
-        Session s = sf.getCurrentSession();
+        Session s = sessionFactory.getCurrentSession();
         s.beginTransaction();
         for (int i = 0; i < transactions.length; ++i) {
             BigDecimal bd10 = new BigDecimal(10);
@@ -64,7 +64,7 @@ public final class InitTestData {
                 new Account(clients[1], 140L), new Account(clients[2], 670L),
                 new Account(clients[2], 1400L), new Account(clients[3], 10L),
                 new Account(clients[4], 1040L)};
-        Session s = sf.getCurrentSession();
+        Session s = sessionFactory.getCurrentSession();
         s.beginTransaction();
         for (int i = 0; i < accounts.length; ++i) {
             s.save(accounts[i]);
@@ -73,7 +73,7 @@ public final class InitTestData {
     }
 
     static void initClients() {
-        Session s = sf.getCurrentSession();
+        Session s = sessionFactory.getCurrentSession();
         s.beginTransaction();
         for (int i = 0; i < clients.length; ++i) {
             clients[i] = new Client(NAMES[i], ADDRS[i], AGES[i]);
@@ -88,4 +88,7 @@ public final class InitTestData {
         initTransactions();
     }
 
+    public static void setSessionFactory(SessionFactory sessionFactory) {
+        InitTestData.sessionFactory = sessionFactory;
+    }
 }
