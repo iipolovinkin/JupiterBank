@@ -1,6 +1,3 @@
-/**
- * 
- */
 package ru.blogspot.feomatr.controller;
 
 import static java.util.Arrays.asList;

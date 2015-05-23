@@ -1,6 +1,3 @@
-/**
- *
- */
 package ru.blogspot.feomatr.entity;
 
 import lombok.*;

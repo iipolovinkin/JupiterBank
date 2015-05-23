@@ -1,6 +1,3 @@
-/**
- *
- */
 package ru.blogspot.feomatr.service;
 
 import org.joda.time.DateTime;
@@ -15,10 +12,10 @@ import java.math.BigDecimal;
 public interface TransferService {
 
 
-    public boolean transfer(Broker broker);
+    boolean transfer(Broker broker);
 
-    public boolean transferTo(Broker broker);
+    boolean transferTo(Broker broker);
 
-    public boolean transferFrom(Broker broker);
+    boolean transferFrom(Broker broker);
 
 }

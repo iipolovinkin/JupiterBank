@@ -1,6 +1,3 @@
-/**
- *
- */
 package ru.blogspot.feomatr.controller;
 
 import org.slf4j.Logger;
@@ -20,7 +17,7 @@ import ru.blogspot.feomatr.service.TransferService;
 @Controller
 @RequestMapping(value = "accounts")
 public class AccountsController {
-    private static final Logger LOGGER = LoggerFactory
+    private static final Logger log = LoggerFactory
             .getLogger(AccountsController.class);
     private AccountService accountService;
     private TransferService transferService;
@@ -30,7 +27,7 @@ public class AccountsController {
 
     @RequestMapping()
     public String showAllAccounts(Model model) {
-        LOGGER.info(" {}", "showAccounts");
+        log.info(" {}", "showAccounts");
         model.addAttribute("accounts", accountService.getAllAccounts());
 
         return "accounts";
@@ -38,7 +35,7 @@ public class AccountsController {
 
     @RequestMapping(method = RequestMethod.GET, params = "transferFrom")
     public String showTransferFrom(Broker broker, Model model) {
-        LOGGER.info(" {}", "GET TransferFrom");
+        log.info(" {}", "GET TransferFrom");
         model.addAttribute("broker", new Broker());
 
         return "transferFrom";
@@ -46,16 +43,16 @@ public class AccountsController {
 
     @RequestMapping(method = RequestMethod.POST, params = "transferFrom")
     public String doTransferFromAccount(Broker broker, Model model) {
-        LOGGER.info("POST TransferFrom");
+        log.info("POST TransferFrom");
         boolean transfer = transferService.transferFrom(broker);
-        LOGGER.info("transfer = {}, broker = {}", transfer, broker);
+        log.info("transfer = {}, broker = {}", transfer, broker);
 
         return "transferFrom";
     }
 
     @RequestMapping(method = RequestMethod.GET, params = "transferTo")
     public String showTransferTo(Broker broker, Model model) {
-        LOGGER.info(" {}", "GET TransferTo");
+        log.info(" {}", "GET TransferTo");
         model.addAttribute("broker", new Broker());
 
         return "transferTo";
@@ -63,16 +60,16 @@ public class AccountsController {
 
     @RequestMapping(method = RequestMethod.POST, params = "transferTo")
     public String doTransferToAccount(Broker broker, Model model) {
-        LOGGER.info("POST TransferTo");
+        log.info("POST TransferTo");
         boolean transfer = transferService.transferTo(broker);
-        LOGGER.info("transfer = {}, broker = {}", transfer, broker);
+        log.info("transfer = {}, broker = {}", transfer, broker);
 
         return "transferTo";
     }
 
     @RequestMapping(method = RequestMethod.GET, params = "transfer")
     public String showTransfer(Broker broker, Model model) {
-        LOGGER.info(" {}", "GET Transfer");
+        log.info(" {}", "GET Transfer");
         model.addAttribute("broker", new Broker());
 
         return "transfer";
@@ -80,9 +77,9 @@ public class AccountsController {
 
     @RequestMapping(method = RequestMethod.POST, params = "transfer")
     public String doTransfer(Broker broker, Model model) {
-        LOGGER.info("POST Transfer");
+        log.info("POST Transfer");
         boolean transfer = transferService.transfer(broker);
-        LOGGER.info("transfer = {}, broker = {}", transfer, broker);
+        log.info("transfer = {}, broker = {}", transfer, broker);
 
         return "transfer";
     }

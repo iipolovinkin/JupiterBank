@@ -1,6 +1,3 @@
-/**
- *
- */
 package ru.blogspot.feomatr.controller;
 
 import org.slf4j.Logger;
@@ -19,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Controller
 public class HomeController {
-    private static final Logger LOGGER = LoggerFactory.getLogger(HomeController.class);
+    private static final Logger log = LoggerFactory.getLogger(HomeController.class);
     private ControllerHelper controllerHelper;
 
     public HomeController() {
@@ -27,19 +24,19 @@ public class HomeController {
 
     @RequestMapping(value = {"/home", "/"}, method = RequestMethod.GET)
     public String showHome(Model model) {
-        LOGGER.info("showHome");
+        log.info("showHome");
         return "home";
     }
 
     @RequestMapping(value = {"/login"}, method = RequestMethod.GET)
     public String showHomeLogin(Model model) {
-        LOGGER.info("login");
+        log.info("login");
         return "login";
     }
 
     @RequestMapping(value = {"/admin_page"}, method = RequestMethod.GET)
     public String showAdminPage(Model model) {
-        LOGGER.info("admin_page");
+        log.info("admin_page");
         AdminClass adminClass = new AdminClass();
         adminClass.setAttr01(30);
         adminClass.setAttr02(40);
@@ -51,7 +48,7 @@ public class HomeController {
 
     @RequestMapping(value = {"/admin_page"}, method = RequestMethod.POST)
     public String doTransferToAccount(AdminClass adminClass, BindingResult bindingResult, Model model, HttpServletRequest request) {
-        LOGGER.info("POST admin_page");
+        log.info("POST admin_page");
         System.out.println("adminClass = " + adminClass);
         int clientCount = adminClass.getAttr01();
         int accountCount = adminClass.getAttr02();
@@ -61,7 +58,7 @@ public class HomeController {
         controllerHelper.generateThreadCATs(50, 50, 50, 10);
         long finish = System.currentTimeMillis();
         long l = finish - start;
-        LOGGER.debug("Time: {}", l);
+        log.debug("Time: {}", l);
 
 
         return "admin_page";

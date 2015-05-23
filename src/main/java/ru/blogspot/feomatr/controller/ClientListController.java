@@ -1,6 +1,3 @@
-/**
- *
- */
 package ru.blogspot.feomatr.controller;
 
 import org.apache.velocity.exception.ResourceNotFoundException;
@@ -30,7 +27,7 @@ import java.util.Set;
 @Controller
 @RequestMapping(value = "clients")
 public class ClientListController {
-    private static final Logger LOGGER = LoggerFactory
+    private static final Logger log = LoggerFactory
             .getLogger(ClientListController.class);
     private ClientService clientService;
     private AccountService accountService;
@@ -40,13 +37,13 @@ public class ClientListController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.POST)
     public String addAccountFromForm(@PathVariable("id") Long id, Model model) {
-        LOGGER.info("addAccountFromForm {}", id);
+        log.info("addAccountFromForm {}", id);
 
         Client client = clientService.getClientById(id);
         Account account = new Account(client);
-        LOGGER.info("account:  {}", account);
+        log.info("account:  {}", account);
         accountService.saveAccount(account);
-        LOGGER.info("account saved:  {}", account);
+        log.info("account saved:  {}", account);
 //		}
 
         return "redirect:/clients/" + client.getId();
@@ -55,22 +52,22 @@ public class ClientListController {
     @RequestMapping(method = RequestMethod.POST, params = "new")
     public String addClientFromForm(@Valid Client client,
                                     BindingResult bindingResult, Model model, HttpServletRequest request) {
-        LOGGER.info("addClientFromForm");
-        LOGGER.info("bindingResult.hasErrors {}", bindingResult.hasErrors());
+        log.info("addClientFromForm");
+        log.info("bindingResult.hasErrors {}", bindingResult.hasErrors());
         if (bindingResult.hasErrors()) {
-            LOGGER.info("fieldErrors: {}", bindingResult.getFieldErrors());
+            log.info("fieldErrors: {}", bindingResult.getFieldErrors());
             return "clients/edit";
         }
 
         clientService.saveClient(client);
-        LOGGER.info(client.toString());
+        log.info(client.toString());
 
         return "redirect:/clients/" + client.getId();
     }
 
     @RequestMapping(params = "new", method = RequestMethod.GET)
     public String createClientProfile(Model model) {
-        LOGGER.info("createClientProfile");
+        log.info("createClientProfile");
         Client client = new Client("John", "45 Green Park Street", 18);
         model.addAttribute(client);
         return "clients/edit";
@@ -78,7 +75,7 @@ public class ClientListController {
 
     @RequestMapping()
     public String showClients(Model model) {
-        LOGGER.info("showClients {} {} {}", clientService);
+        log.info("showClients {} {} {}", clientService);
 
         model.addAttribute("clientList", clientService.getAllClients());
         return "clients";
@@ -86,19 +83,19 @@ public class ClientListController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String showClient(@PathVariable("id") Long id, Model model) {
-        LOGGER.info("showClient");
+        log.info("showClient");
         Client cl = clientService.getClientById(id);
         model.addAttribute("client", cl);
         if(cl == null) {
             try {
                 throw new ClientNotFoundException(id);
             }catch (ResourceNotFoundException e){
-                LOGGER.error("CLIENT NOT FOUND");
+                log.error("CLIENT NOT FOUND");
             }
             return "clients/show";
         }
             Set<Account> accounts = cl.getAccounts();
-            LOGGER.info("s: {}", accounts.size());
+            log.info("s: {}", accounts.size());
             model.addAttribute("accounts", accounts);
         return "clients/show";
     }

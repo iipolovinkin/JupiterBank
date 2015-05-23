@@ -1,6 +1,3 @@
-/**
- *
- */
 package ru.blogspot.feomatr.controller;
 
 import org.joda.time.DateTime;
@@ -23,7 +20,7 @@ import ru.blogspot.feomatr.service.TransactionService;
 @Controller
 @RequestMapping(value = "transactions")
 public class TransactionsController {
-    private static final Logger LOGGER = LoggerFactory
+    private static final Logger log = LoggerFactory
             .getLogger(TransactionsController.class);
     private TransactionService transactionService;
 
@@ -32,7 +29,7 @@ public class TransactionsController {
 
     @RequestMapping()
     public String showTransactions(Model model) {
-        LOGGER.debug(" {}", "showTransactions");
+        log.debug(" {}", "showTransactions");
         model.addAttribute("transactions", transactionService.getAll());
         model.addAttribute("formFilter", new FormFilter());
         return "transactions";
@@ -41,7 +38,7 @@ public class TransactionsController {
     @RequestMapping(method = RequestMethod.POST)
     public String doFilter(FormFilter formFilter, Model model) {
         DateTimeFormatter formatter = DateTimeFormat.forPattern("dd.MM.yyyy");
-        LOGGER.debug("doFilter formFilter: {}", formFilter);
+        log.debug("doFilter formFilter: {}", formFilter);
 
         DateTime startTime = null;
         DateTime endTime = null;
