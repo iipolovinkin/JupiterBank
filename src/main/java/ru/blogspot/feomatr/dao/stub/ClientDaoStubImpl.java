@@ -1,6 +1,3 @@
-/**
- *
- */
 package ru.blogspot.feomatr.dao.stub;
 
 import ru.blogspot.feomatr.dao.ClientDAO;

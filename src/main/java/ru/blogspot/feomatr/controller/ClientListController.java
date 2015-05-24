@@ -44,7 +44,6 @@ public class ClientListController {
         log.info("account:  {}", account);
         accountService.saveAccount(account);
         log.info("account saved:  {}", account);
-//		}
 
         return "redirect:/clients/" + client.getId();
     }

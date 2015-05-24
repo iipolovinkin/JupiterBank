@@ -1,6 +1,3 @@
-/**
- *
- */
 package ru.blogspot.feomatr.dao.stub;
 
 import ru.blogspot.feomatr.dao.AccountDAO;
@@ -30,21 +27,11 @@ public class AccountDaoStubImpl implements AccountDAO {
                     new Account(8L, clientService.getClientById(3L), 10L),
                     new Account(9L, clientService.getClientById(4L), 1040L)}));
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see ru.blogspot.feomatr.dao.AccountDAO#getAll()
-     */
     @Override
     public List<Account> getAll() {
         return accounts;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see ru.blogspot.feomatr.dao.AccountDAO#getAccountById()
-     */
     @Override
     public Account getAccountById(Long id) {
         for (Account account : accounts) {
@@ -55,14 +42,7 @@ public class AccountDaoStubImpl implements AccountDAO {
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * ru.blogspot.feomatr.dao.AccountDAO#create(ru.blogspot.feomatr.entity.
-     * Account)
-     */
-    @Override
+      @Override
     public Account create(Account account) {
         if (account == null) {
             return account;
@@ -79,25 +59,11 @@ public class AccountDaoStubImpl implements AccountDAO {
         return account;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * ru.blogspot.feomatr.dao.AccountDAO#delete(ru.blogspot.feomatr.entity.
-     * Account)
-     */
     @Override
     public boolean delete(Account account) {
         return accounts.remove(account);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * ru.blogspot.feomatr.dao.AccountDAO#update(ru.blogspot.feomatr.entity.
-     * Account)
-     */
     @Override
     public void update(Account account) {
         Account acc1 = getAccountById(account.getId());

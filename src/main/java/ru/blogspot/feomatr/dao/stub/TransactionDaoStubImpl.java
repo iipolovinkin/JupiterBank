@@ -1,6 +1,3 @@
-/**
- *
- */
 package ru.blogspot.feomatr.dao.stub;
 
 import org.joda.time.DateTime;

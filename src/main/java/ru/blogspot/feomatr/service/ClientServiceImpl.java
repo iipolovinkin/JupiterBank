@@ -1,6 +1,3 @@
-/**
- *
- */
 package ru.blogspot.feomatr.service;
 
 import ru.blogspot.feomatr.dao.ClientDAO;
@@ -16,13 +13,6 @@ public class ClientServiceImpl implements ClientService {
 
     public ClientServiceImpl() { }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * ru.blogspot.feomatr.service.ClientService#saveClient(ru.blogspot.feomatr
-     * .entity.Client)
-     */
     @Override
     public Client saveClient(Client client) {
         return clientDAO.create(client);
