@@ -63,7 +63,11 @@ public class AccountsController {
         log.info("POST TransferTo");
         boolean transfer = transferService.transferTo(broker);
         log.info("transfer = {}, broker = {}", transfer, broker);
-
+        if (transfer) {
+            model.addAttribute("resultMessage", "transfer is success");
+        } else {
+            model.addAttribute("resultMessage", "transfer is unsuccess");
+        }
         return "transferTo";
     }
 

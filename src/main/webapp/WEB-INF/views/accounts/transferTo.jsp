@@ -12,7 +12,7 @@
 	<s:message code="amount" var="amount" />
 	<s:message code="Transfer" var="Transfer" />
 	<s:message code="time" var="time" />
-	<sf:form method="POST" modelAttribute="broker">
+	<sf:form method="POST" modelAttribute="broker" message="test">
 		<table>
 
 			<tr>
@@ -40,6 +40,20 @@
 			</tr>
 		</table>
 	</sf:form>
+	<c:if test="${not empty resultMessage}">
+    		<table class="table">
+    			<thead>
+    				<tr>
+    					<th>Message</th>
+    				</tr>
+    			</thead>
+    			<tbody>
+    				<tr>
+    					<td>${resultMessage.toString()}</td>
+    				</tr>
+    			</tbody>
+    		</table>
+    	</c:if>
 	<script>
     		$(document).ready(function() {
     			$('.date').datepicker({
