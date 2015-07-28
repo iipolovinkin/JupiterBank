@@ -17,8 +17,7 @@ import ru.blogspot.feomatr.service.TransferService;
 @Controller
 @RequestMapping(value = "accounts")
 public class AccountsController {
-    private static final Logger log = LoggerFactory
-            .getLogger(AccountsController.class);
+    private static final Logger log = LoggerFactory.getLogger(AccountsController.class);
     private AccountService accountService;
     private TransferService transferService;
 

@@ -11,7 +11,7 @@
 	<s:message code="accountFrom" var="accountFrom" />
 	<s:message code="accountTo" var="accountTo" />
 	<s:message code="amount" var="amount" />
-	<s:message code="Transfer" var="Transfer" />
+	<s:message code="transfer" var="transfer" />
 	<s:message code="time" var="time" />
 
 	<sf:form method="POST" modelAttribute="broker">
@@ -44,7 +44,7 @@
 			<tr>
 				<th></th>
 				<td><input name="submit" class="btn btn-success" type="submit"
-					value="${Transfer}" /></td>
+					value="${transfer}" /></td>
 			</tr>
 		</table>
 

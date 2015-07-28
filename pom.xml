@@ -46,11 +46,13 @@
         <skipTest>true</skipTest>
         <skipTests>false</skipTests>
 
+        <!-- Plugin versions -->
         <jetty.plugin.version>8.1.16.v20140903</jetty.plugin.version>
         <maven.compiler.plugin.version>2.5.1</maven.compiler.plugin.version>
         <maven.failsafe.plugin.version>2.18.1</maven.failsafe.plugin.version>
         <build.helper.maven.plugin>1.7</build.helper.maven.plugin>
         <exec.maven.plugin.version>1.2.1</exec.maven.plugin.version>
+        <native2ascii.plugin.version>1.0-beta-1</native2ascii.plugin.version>
 
     </properties>
     <dependencies>
@@ -419,6 +421,21 @@
                                 <include>**/*IT.java</include>
                             </includes>
                         </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>native2ascii-maven-plugin</artifactId>
+                <version>${native2ascii.plugin.version}</version>
+                <configuration>
+                    <workDir>${project.build.directory}/classes</workDir>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>native2ascii</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>
