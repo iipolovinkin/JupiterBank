@@ -18,30 +18,24 @@ import java.math.BigDecimal;
 public final class InitTestData {
 
     private static SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-    private static Client clients[] = new Client[7];
-    private static Account accounts[];
-    private static Transaction transactions[];
+    private static Client[] clients = new Client[7];
+    private static Account[] accounts;
+    private static Transaction[] transactions;
 
-    private final static String ADDRS[] = {"New York, Yellow st, 64",
+    private static final String[] addresses = {"New York, Yellow st, 64",
             "Washington, Black st, 77", "Minesote, White st, 12",
             "Dallas, Red square, 1", "Springfield, Simpson st, 1",
             "Springfield, Simpson st, 2", "Springfield, Simpson st, 3"};
-    private final static String NAMES[] = {"John", "John2", "John3", "Lisa",
-            "Bart", "Homer", "Marge"};
-    private final static Integer AGES[] = {21, 22, 25, 12, 14, 35, 34};
-    private final static String DTS[] = {"2014/01/10", "2014/01/20",
-            "2014/02/15", "2014/03/11", "2014/03/22", "2014/04/07",
-            "2014/07/07"};
-
-    private InitTestData() {
-
-    }
+    private static final String[] names = {"John", "John2", "John3", "Lisa", "Bart", "Homer", "Marge"};
+    private static final Integer[] ages = {21, 22, 25, 12, 14, 35, 34};
+    private static final String[] dates = {"2014/01/10", "2014/01/20", "2014/02/15", "2014/03/11",
+            "2014/03/22", "2014/04/07", "2014/07/07"};
 
     static void initTransactions() {
         DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy/MM/dd");
-        DateTime dates[] = new DateTime[7];
+        DateTime[] dates = new DateTime[7];
         for (int i = 0; i < dates.length; ++i) {
-            dates[i] = formatter.parseDateTime(DTS[i]);
+            dates[i] = formatter.parseDateTime(InitTestData.dates[i]);
         }
         transactions = new Transaction[7];
         Session s = sessionFactory.getCurrentSession();
@@ -73,7 +67,7 @@ public final class InitTestData {
         Session s = sessionFactory.getCurrentSession();
         s.beginTransaction();
         for (int i = 0; i < clients.length; ++i) {
-            clients[i] = new Client(NAMES[i], ADDRS[i], AGES[i]);
+            clients[i] = new Client(names[i], addresses[i], ages[i]);
             s.save(clients[i]);
         }
         s.getTransaction().commit();

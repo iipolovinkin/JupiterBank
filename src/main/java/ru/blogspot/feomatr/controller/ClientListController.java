@@ -1,5 +1,7 @@
 package ru.blogspot.feomatr.controller;
 
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.apache.velocity.exception.ResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,16 +26,14 @@ import java.util.Set;
  *
  * @author iipolovinkin
  */
+@Setter
+@NoArgsConstructor
 @Controller
 @RequestMapping(value = "clients")
 public class ClientListController {
-    private static final Logger log = LoggerFactory
-            .getLogger(ClientListController.class);
+    private static final Logger log = LoggerFactory.getLogger(ClientListController.class);
     private ClientService clientService;
     private AccountService accountService;
-
-    public ClientListController() {
-    }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.POST)
     public String addAccountFromForm(@PathVariable("id") Long id, Model model) {
@@ -83,9 +83,9 @@ public class ClientListController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String showClient(@PathVariable("id") Long id, Model model) {
         log.info("showClient");
-        Client cl = clientService.getClientById(id);
-        model.addAttribute("client", cl);
-        if (cl == null) {
+        Client client = clientService.getClientById(id);
+        model.addAttribute("client", client);
+        if (client == null) {
             try {
                 throw new ClientNotFoundException(id);
             } catch (ResourceNotFoundException e) {
@@ -93,17 +93,10 @@ public class ClientListController {
             }
             return "clients/show";
         }
-        Set<Account> accounts = cl.getAccounts();
-        log.info("s: {}", accounts.size());
+        Set<Account> accounts = client.getAccounts();
+        log.info("accounts.size: {}", accounts.size());
         model.addAttribute("accounts", accounts);
         return "clients/show";
     }
 
-    public void setClientService(ClientService clientService) {
-        this.clientService = clientService;
-    }
-
-    public void setAccountService(AccountService accountService) {
-        this.accountService = accountService;
-    }
 }

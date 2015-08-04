@@ -1,20 +1,21 @@
 package ru.blogspot.feomatr.service;
 
+import com.google.common.collect.Lists;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import ru.blogspot.feomatr.dao.AccountDAO;
 import ru.blogspot.feomatr.entity.Account;
 import ru.blogspot.feomatr.entity.Client;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author iipolovinkin
  */
+@Setter
+@NoArgsConstructor
 public class AccountServiceImpl implements AccountService {
     private AccountDAO accountDAO;
-
-    public AccountServiceImpl() {
-    }
 
     @Override
     public Account saveAccount(Account acc) {
@@ -33,7 +34,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public List<Account> getAccountsByOwner(Client cl) {
-        List<Account> l = new ArrayList<Account>();
+        List<Account> l = Lists.newArrayList();
         List<Account> list = accountDAO.getAll();
         for (Account account : list) {
             if (account.getOwner().getId().equals(cl.getId())) {
@@ -41,7 +42,6 @@ public class AccountServiceImpl implements AccountService {
             }
         }
         return l;
-
     }
 
     @Override
@@ -49,7 +49,4 @@ public class AccountServiceImpl implements AccountService {
         accountDAO.update(acc);
     }
 
-    public void setAccountDAO(AccountDAO accountDAO) {
-        this.accountDAO = accountDAO;
-    }
 }

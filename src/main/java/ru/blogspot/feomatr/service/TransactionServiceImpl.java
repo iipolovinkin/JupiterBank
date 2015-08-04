@@ -1,5 +1,7 @@
 package ru.blogspot.feomatr.service;
 
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.joda.time.DateTime;
 import ru.blogspot.feomatr.dao.TransactionDAO;
 import ru.blogspot.feomatr.entity.Transaction;
@@ -9,12 +11,10 @@ import java.util.List;
 /**
  * @author iipolovinkin
  */
+@Setter
+@NoArgsConstructor
 public class TransactionServiceImpl implements TransactionService {
     private TransactionDAO transactionDAO;
-
-    public TransactionServiceImpl() {
-        super();
-    }
 
     @Override
     public void saveTransaction(Transaction tr) {
@@ -57,7 +57,4 @@ public class TransactionServiceImpl implements TransactionService {
         return transactionDAO.getByFilter(idSender, idReceiver, startTime, endTime);
     }
 
-    public void setTransactionDAO(TransactionDAO transactionDAO) {
-        this.transactionDAO = transactionDAO;
-    }
 }

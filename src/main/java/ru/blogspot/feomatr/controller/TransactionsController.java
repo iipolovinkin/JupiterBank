@@ -1,5 +1,7 @@
 package ru.blogspot.feomatr.controller;
 
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -16,15 +18,13 @@ import ru.blogspot.feomatr.service.TransactionService;
 /**
  * @author iipolovinkin
  */
-
+@Setter
+@NoArgsConstructor
 @Controller
 @RequestMapping(value = "transactions")
 public class TransactionsController {
     private static final Logger log = LoggerFactory.getLogger(TransactionsController.class);
     private TransactionService transactionService;
-
-    public TransactionsController() {
-    }
 
     @RequestMapping()
     public String showTransactions(Model model) {
@@ -53,9 +53,5 @@ public class TransactionsController {
         model.addAttribute("transactions", transactionService.getByFilter(formFilter.getIdFrom(), formFilter.getIdTo(), startTime, endTime));
 
         return "transactions";
-    }
-
-    public void setTransactionService(TransactionService transactionService) {
-        this.transactionService = transactionService;
     }
 }

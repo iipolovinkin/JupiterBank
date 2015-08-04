@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- export MAVEN_OPTS="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005" -->
+<!--todo move this: export MAVEN_OPTS="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005" -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
@@ -7,46 +7,55 @@
     <artifactId>jupiterbank</artifactId>
     <name>JupiterBank</name>
     <packaging>war</packaging>
-    <version>0.1.0-BUILD-SNAPSHOT</version>
+    <version>0.2.0-BUILD-SNAPSHOT</version>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.7</java.version>
-        <hibernate.version>4.3.6.Final</hibernate.version>
-        <hibernate.validator.version>5.1.2.Final</hibernate.validator.version>
-        <validation.api.version>1.1.0.Final</validation.api.version>
-        <el.impl.version>2.2</el.impl.version>
-        <h2.version>1.2.140</h2.version>
-        <mysql.version>5.1.32</mysql.version>
-        <springframework.version>3.2.2.RELEASE</springframework.version>
-        <springsecurity.version>3.2.5.RELEASE</springsecurity.version>
-        <org.aspectj.version>1.6.10</org.aspectj.version>
-        <org.slf4j.version>1.6.6</org.slf4j.version>
-        <apache.tiles.version>3.0.0</apache.tiles.version>
-        <jstl.version>1.2</jstl.version>
-        <javax.servlet.version>1.2</javax.servlet.version>
-        <servlet.api.version>3.0.20100224</servlet.api.version>
 
-        <joda.time.version>2.4</joda.time.version>
-        <joda.time.jsptags>1.1.1</joda.time.jsptags>
-        <jadira.usertype.version>3.2.0.GA</jadira.usertype.version>
-        <mockito.core.version>1.10.8</mockito.core.version>
-        <AA></AA>
+        <skipTests>false</skipTests>
 
         <jetty.host>127.0.0.1</jetty.host>
         <jetty.port>8081</jetty.port>
 
         <jetbrains.annotations.version>12.0</jetbrains.annotations.version>
-        <lombok.version>1.14.8</lombok.version>
         <guava.version>18.0</guava.version>
+        <fluentjava>0.3</fluentjava>
+        <org.slf4j.version>1.6.6</org.slf4j.version>
 
+        <lombok.version>1.14.8</lombok.version>
+
+        <apache.tiles.version>3.0.0</apache.tiles.version>
+        <jstl.version>1.2</jstl.version>
+        <javax.servlet.version>1.2</javax.servlet.version>
+
+        <joda.time.version>2.4</joda.time.version>
+        <joda.time.jsptags>1.1.1</joda.time.jsptags>
+        <jadira.usertype.version>3.2.0.GA</jadira.usertype.version>
+
+        <servlet.api.version>3.0.20100224</servlet.api.version>
+
+        <el.impl.version>2.2</el.impl.version>
+
+        <org.aspectj.version>1.6.10</org.aspectj.version>
+
+        <springframework.version>3.2.2.RELEASE</springframework.version>
+        <springsecurity.version>3.2.5.RELEASE</springsecurity.version>
+
+        <hibernate.validator.version>5.1.2.Final</hibernate.validator.version>
+        <validation.api.version>1.1.0.Final</validation.api.version>
+
+        <hibernate.version>4.3.6.Final</hibernate.version>
+
+        <h2.version>1.2.140</h2.version>
+        <mysql.version>5.1.32</mysql.version>
+
+        <!--Testing libs-->
+        <mockito.core.version>1.10.8</mockito.core.version>
         <junit.version>4.10</junit.version>
         <selenide.version>2.15</selenide.version>
         <selenide.browser>chrome</selenide.browser>
 
-        <skipTest>true</skipTest>
-        <skipTests>false</skipTests>
-
-        <!-- Plugin versions -->
+        <!--Plugin versions-->
         <jetty.plugin.version>8.1.16.v20140903</jetty.plugin.version>
         <maven.compiler.plugin.version>2.5.1</maven.compiler.plugin.version>
         <maven.failsafe.plugin.version>2.18.1</maven.failsafe.plugin.version>
@@ -294,6 +303,11 @@
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>${guava.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.fluentjava</groupId>
+            <artifactId>fluentjava</artifactId>
+            <version>${fluentjava}</version>
         </dependency>
 
     </dependencies>

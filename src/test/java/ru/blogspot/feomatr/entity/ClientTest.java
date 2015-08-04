@@ -1,6 +1,5 @@
 package ru.blogspot.feomatr.entity;
 
-import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -27,11 +26,6 @@ public class ClientTest {
     public static void setUpClass() {
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         validator = factory.getValidator();
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
-
     }
 
     @Before

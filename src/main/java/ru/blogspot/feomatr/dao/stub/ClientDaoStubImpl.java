@@ -3,18 +3,18 @@ package ru.blogspot.feomatr.dao.stub;
 import ru.blogspot.feomatr.dao.ClientDAO;
 import ru.blogspot.feomatr.entity.Client;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+
+import static org.fluentjava.FluentUtils.list;
 
 /**
  * @author iipolovinkin
  */
 public class ClientDaoStubImpl implements ClientDAO {
-    List<Client> clients = new ArrayList<Client>(Arrays.asList(new Client[]{
+    private List<Client> clients = list(
             new Client(1L, "Alex", "NY", 22), new Client(2L, "Nick", "LA", 27),
             new Client(3L, "Ivan", "Spb", 39),
-            new Client(4L, "Petr", "RnD", 13)}));
+            new Client(4L, "Petr", "RnD", 13));
 
     @Override
     public List<Client> getAll() {
@@ -33,11 +33,13 @@ public class ClientDaoStubImpl implements ClientDAO {
 
     @Override
     public Client create(Client client) {
-        if (client == null)
+        if (client == null) {
             return client;
+        }
         Client c = getById(client.getId());
-        if (c == null)
+        if (c == null) {
             clients.add(client);
+        }
         return client;
     }
 

@@ -22,9 +22,6 @@ import static org.mockito.Mockito.when;
  */
 public class TransactionsControllerTest {
 
-    /**
-     * Test method for {@link ru.blogspot.feomatr.controller.TransactionsController#showTransactions(org.springframework.ui.Model)}.
-     */
     @Test
     public void testShowTransactions() throws Exception {
         TransactionService transactionService = mock(TransactionService.class);
@@ -43,9 +40,6 @@ public class TransactionsControllerTest {
         assertEquals(new FormFilter().toString(), model.asMap().get("formFilter").toString());
     }
 
-    /**
-     * Test method for {@link ru.blogspot.feomatr.controller.TransactionsController#doFilter(ru.blogspot.feomatr.formBean.FormFilter, org.springframework.ui.Model)}.
-     */
     @Test
     public void testDoFilter() throws Exception {
         FormFilter formFilter = new FormFilter();

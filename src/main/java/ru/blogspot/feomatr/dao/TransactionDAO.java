@@ -17,8 +17,7 @@ public interface TransactionDAO {
      * @param endTime
      * @return
      */
-    List<Transaction> getByFilter(Long idSender, Long idReciver,
-                                  DateTime startTime, DateTime endTime);
+    List<Transaction> getByFilter(Long idSender, Long idReciver, DateTime startTime, DateTime endTime);
 
     /**
      * @return

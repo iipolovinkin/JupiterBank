@@ -16,7 +16,6 @@ import java.util.Set;
 @ToString(exclude = "accounts")
 @EqualsAndHashCode(exclude = "accounts")
 public class Client implements Serializable {
-
     private static final long serialVersionUID = -9162969037731987965L;
 
     private Long id;

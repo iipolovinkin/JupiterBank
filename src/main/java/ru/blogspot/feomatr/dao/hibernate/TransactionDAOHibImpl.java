@@ -1,5 +1,7 @@
 package ru.blogspot.feomatr.dao.hibernate;
 
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -15,15 +17,13 @@ import java.util.List;
 /**
  * @author iipolovinkin
  */
+@Setter
+@NoArgsConstructor
 public class TransactionDAOHibImpl implements TransactionDAO {
     private SessionFactory sessionFactory;
 
     private Session getCurrentSession() {
         return sessionFactory.getCurrentSession();
-    }
-
-    public TransactionDAOHibImpl() {
-        super();
     }
 
     @Override
@@ -131,7 +131,4 @@ public class TransactionDAOHibImpl implements TransactionDAO {
         return l;
     }
 
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
 }

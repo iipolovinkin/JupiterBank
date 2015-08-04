@@ -16,7 +16,7 @@ import static org.junit.Assert.assertEquals;
 import static ru.blogspot.feomatr.entity.ClientTest.validationMsgs;
 
 /**
- * todo use  human readable naming, use AAA, use assertThat
+ * todo use human readable naming, use AAA, use assertThat
  */
 public class AccountTest {
     private static Validator validator;
@@ -27,11 +27,6 @@ public class AccountTest {
     public static void setUpClass() {
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         validator = factory.getValidator();
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
-
     }
 
     @Before

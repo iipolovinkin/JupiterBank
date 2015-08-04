@@ -1,5 +1,7 @@
 package ru.blogspot.feomatr.controller;
 
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -14,13 +16,12 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * @author iipolovinkin
  */
+@Setter
+@NoArgsConstructor
 @Controller
 public class HomeController {
     private static final Logger log = LoggerFactory.getLogger(HomeController.class);
     private ControllerHelper controllerHelper;
-
-    public HomeController() {
-    }
 
     @RequestMapping(value = {"/home", "/"}, method = RequestMethod.GET)
     public String showHome(Model model) {
@@ -45,11 +46,10 @@ public class HomeController {
         return "admin_page";
     }
 
-
     @RequestMapping(value = {"/admin_page"}, method = RequestMethod.POST)
     public String doTransferToAccount(AdminClass adminClass, BindingResult bindingResult, Model model, HttpServletRequest request) {
         log.info("POST admin_page");
-        System.out.println("adminClass = " + adminClass);
+        log.info("adminClass = {}", adminClass);
         int clientCount = adminClass.getAttr01();
         int accountCount = adminClass.getAttr02();
         int transferCount = adminClass.getAttr05();
@@ -60,11 +60,6 @@ public class HomeController {
         long l = finish - start;
         log.debug("Time: {}", l);
 
-
         return "admin_page";
-    }
-
-    public void setControllerHelper(ControllerHelper controllerHelper) {
-        this.controllerHelper = controllerHelper;
     }
 }

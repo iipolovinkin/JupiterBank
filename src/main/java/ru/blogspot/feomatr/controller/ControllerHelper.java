@@ -1,5 +1,7 @@
 package ru.blogspot.feomatr.controller;
 
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import ru.blogspot.feomatr.entity.Account;
 import ru.blogspot.feomatr.entity.Broker;
 import ru.blogspot.feomatr.entity.Client;
@@ -11,13 +13,12 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Random;
 
+@Setter
+@NoArgsConstructor
 public class ControllerHelper {
-    ClientService clientService;
-    AccountService accountService;
-    TransferService transferService;
-
-    public ControllerHelper() {
-    }
+    private ClientService clientService;
+    private AccountService accountService;
+    private TransferService transferService;
 
     void generateThreadCATs(final int clientCount, final int accountCount, final int transferCount, int threads) {
         for (int i = 0; i < threads; i++) {
@@ -73,17 +74,5 @@ public class ControllerHelper {
             account.setBalance(new BigDecimal(1000));
             accountService.saveAccount(account);
         }
-    }
-
-    public void setAccountService(AccountService accountService) {
-        this.accountService = accountService;
-    }
-
-    public void setTransferService(TransferService transferService) {
-        this.transferService = transferService;
-    }
-
-    public void setClientService(ClientService clientService) {
-        this.clientService = clientService;
     }
 }

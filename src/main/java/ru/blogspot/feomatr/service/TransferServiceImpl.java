@@ -1,5 +1,7 @@
 package ru.blogspot.feomatr.service;
 
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -13,11 +15,13 @@ import java.math.BigDecimal;
 /**
  * @author iipolovinkin
  */
+@Setter
+@NoArgsConstructor
 public class TransferServiceImpl implements TransferService {
 
     private AccountService accountService;
     private TransactionService transactionService;
-    DateTimeFormatter formatter = DateTimeFormat.forPattern("dd.MM.yyyy");
+    private DateTimeFormatter formatter = DateTimeFormat.forPattern("dd.MM.yyyy");
 
     public boolean transfer(Account accountFrom, Account accountTo, BigDecimal amount) {
         return transfer(accountFrom, accountTo, amount, new DateTime());
@@ -51,7 +55,6 @@ public class TransferServiceImpl implements TransferService {
         return true;
 
     }
-
 
     @Override
     public boolean transfer(Broker broker) {
@@ -135,11 +138,4 @@ public class TransferServiceImpl implements TransferService {
         return false;
     }
 
-    public void setAccountService(AccountService accountService) {
-        this.accountService = accountService;
-    }
-
-    public void setTransactionService(TransactionService transactionService) {
-        this.transactionService = transactionService;
-    }
 }

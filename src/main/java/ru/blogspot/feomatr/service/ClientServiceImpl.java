@@ -1,5 +1,7 @@
 package ru.blogspot.feomatr.service;
 
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import ru.blogspot.feomatr.dao.ClientDAO;
 import ru.blogspot.feomatr.entity.Client;
 
@@ -8,10 +10,10 @@ import java.util.List;
 /**
  * @author iipolovinkin
  */
+@Setter
+@NoArgsConstructor
 public class ClientServiceImpl implements ClientService {
     private ClientDAO clientDAO;
-
-    public ClientServiceImpl() { }
 
     @Override
     public Client saveClient(Client client) {
@@ -33,7 +35,4 @@ public class ClientServiceImpl implements ClientService {
         return clientDAO.getById(id);
     }
 
-    public void setClientDAO(ClientDAO clientDAO) {
-        this.clientDAO = clientDAO;
-    }
 }

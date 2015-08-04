@@ -1,5 +1,7 @@
 package ru.blogspot.feomatr.dao.hibernate;
 
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -12,11 +14,11 @@ import java.util.List;
 /**
  * @author iipolovinkin
  */
+@Setter
+@NoArgsConstructor
 public class AccountDAOHibImpl implements AccountDAO {
-    private SessionFactory sessionFactory;
 
-    public AccountDAOHibImpl() {
-    }
+    private SessionFactory sessionFactory;
 
     private Session getCurrentSession() {
         return sessionFactory.getCurrentSession();
@@ -86,9 +88,5 @@ public class AccountDAOHibImpl implements AccountDAO {
         } finally {
             tx.commit();
         }
-    }
-
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
     }
 }

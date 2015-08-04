@@ -1,5 +1,7 @@
 package ru.blogspot.feomatr.controller;
 
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -13,16 +15,15 @@ import ru.blogspot.feomatr.service.TransferService;
 /**
  * @author iipolovinkin
  */
-
+@Setter
+@NoArgsConstructor
 @Controller
 @RequestMapping(value = "accounts")
 public class AccountsController {
     private static final Logger log = LoggerFactory.getLogger(AccountsController.class);
+
     private AccountService accountService;
     private TransferService transferService;
-
-    public AccountsController() {
-    }
 
     @RequestMapping()
     public String showAllAccounts(Model model) {
@@ -87,11 +88,4 @@ public class AccountsController {
         return "transfer";
     }
 
-    public void setAccountService(AccountService accountService) {
-        this.accountService = accountService;
-    }
-
-    public void setTransferService(TransferService transferService) {
-        this.transferService = transferService;
-    }
 }
