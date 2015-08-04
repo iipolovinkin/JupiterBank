@@ -85,17 +85,17 @@ public class ClientListController {
         log.info("showClient");
         Client cl = clientService.getClientById(id);
         model.addAttribute("client", cl);
-        if(cl == null) {
+        if (cl == null) {
             try {
                 throw new ClientNotFoundException(id);
-            }catch (ResourceNotFoundException e){
+            } catch (ResourceNotFoundException e) {
                 log.error("CLIENT NOT FOUND");
             }
             return "clients/show";
         }
-            Set<Account> accounts = cl.getAccounts();
-            log.info("s: {}", accounts.size());
-            model.addAttribute("accounts", accounts);
+        Set<Account> accounts = cl.getAccounts();
+        log.info("s: {}", accounts.size());
+        model.addAttribute("accounts", accounts);
         return "clients/show";
     }
 

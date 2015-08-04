@@ -20,8 +20,7 @@ import ru.blogspot.feomatr.service.TransactionService;
 @Controller
 @RequestMapping(value = "transactions")
 public class TransactionsController {
-    private static final Logger log = LoggerFactory
-            .getLogger(TransactionsController.class);
+    private static final Logger log = LoggerFactory.getLogger(TransactionsController.class);
     private TransactionService transactionService;
 
     public TransactionsController() {
@@ -46,11 +45,10 @@ public class TransactionsController {
         if (!formFilter.getStartTime().isEmpty()) {
             startTime = DateTime.parse(formFilter.getStartTime(), formatter);
         }
-        ;
+
         if (!formFilter.getEndTime().isEmpty()) {
             endTime = DateTime.parse(formFilter.getEndTime(), formatter);
         }
-
 
         model.addAttribute("transactions", transactionService.getByFilter(formFilter.getIdFrom(), formFilter.getIdTo(), startTime, endTime));
 

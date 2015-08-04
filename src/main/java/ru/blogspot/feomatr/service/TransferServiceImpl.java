@@ -1,6 +1,3 @@
-/**
- *
- */
 package ru.blogspot.feomatr.service;
 
 import org.apache.commons.lang.StringUtils;

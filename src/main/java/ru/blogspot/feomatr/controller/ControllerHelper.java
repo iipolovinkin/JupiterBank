@@ -20,7 +20,6 @@ public class ControllerHelper {
     }
 
     void generateThreadCATs(final int clientCount, final int accountCount, final int transferCount, int threads) {
-//        Thread thread =
         for (int i = 0; i < threads; i++) {
             final int finalI = i;
             new Thread(new Runnable() {
@@ -32,7 +31,6 @@ public class ControllerHelper {
                 }
             }).start();
         }
-
     }
 
 

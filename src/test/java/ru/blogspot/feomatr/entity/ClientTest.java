@@ -14,6 +14,9 @@ import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * todo use  human readable naming, use AAA, use assertThat
+ */
 public class ClientTest {
     public static ResourceBundle validationMsgs = ResourceBundle.getBundle("ValidationMessages");
     private static Validator validator;

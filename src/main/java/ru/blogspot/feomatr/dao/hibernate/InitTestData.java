@@ -1,6 +1,3 @@
-/**
- *
- */
 package ru.blogspot.feomatr.dao.hibernate;
 
 import org.hibernate.Session;
@@ -41,7 +38,7 @@ public final class InitTestData {
     }
 
     static void initTransactions() {
-        DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy/MM/dd");// HH:mm:ss
+        DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy/MM/dd");
         DateTime dates[] = new DateTime[7];
         for (int i = 0; i < dates.length; ++i) {
             dates[i] = formatter.parseDateTime(DTS[i]);

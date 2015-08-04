@@ -1,11 +1,7 @@
-/**
- *
- */
 package ru.blogspot.feomatr.service;
 
 import org.joda.time.DateTime;
 import ru.blogspot.feomatr.dao.TransactionDAO;
-import ru.blogspot.feomatr.entity.Account;
 import ru.blogspot.feomatr.entity.Transaction;
 
 import java.util.List;

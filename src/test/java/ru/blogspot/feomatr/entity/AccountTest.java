@@ -15,6 +15,9 @@ import java.util.Set;
 import static org.junit.Assert.assertEquals;
 import static ru.blogspot.feomatr.entity.ClientTest.validationMsgs;
 
+/**
+ * todo use  human readable naming, use AAA, use assertThat
+ */
 public class AccountTest {
     private static Validator validator;
     private Account account;

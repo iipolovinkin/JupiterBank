@@ -1,6 +1,3 @@
-/**
- *
- */
 package ru.blogspot.feomatr.web;
 
 import com.codeborne.selenide.Configuration;
@@ -34,7 +31,7 @@ public class WebIT {
 
     @BeforeClass
     public static void setUp() {
-        //todo move parameters to configuration file
+//        todo move parameters to configuration file
         Configuration.browser = "chrome";
         Configuration.baseUrl = appHost;
         System.setProperty("webdriver.chrome.driver", "/opt/chromedriver");
@@ -52,7 +49,6 @@ public class WebIT {
 
         open("/clients");
         clientId = Long.valueOf(getIdOfLastClient());
-//        clientId = Long.valueOf(getTRStrings().size());
         open("/clients/" + clientId);
         accs = getTDStrings(count);
 
@@ -67,7 +63,7 @@ public class WebIT {
     }
 
     @Test
-    public void createInvalidClient(){
+    public void createInvalidClient() {
         open("/clients?new");
 
         $(By.id(client_name)).setValue("1");
@@ -118,7 +114,7 @@ public class WebIT {
         ElementsCollection fcs = $$(By.className("form-control"));
         SelenideElement btn = $(By.className(btnClass));
 
-//      transferTo
+//      todo move transferTo
         for (int i = 0; i < count; i++) {
             fcs.get(0).setValue(accs.get(i));
             fcs.get(1).setValue("200.34");
@@ -127,7 +123,7 @@ public class WebIT {
 
         open("/accounts?transfer");
         btn = $(By.className(btnClass));
-//      transfer
+//      todo move transfer
         for (int i = 0; i < 4; i++) {
             fcs.get(0).setValue(accs.get(i));
             fcs.get(1).setValue(accs.get(i + 1));

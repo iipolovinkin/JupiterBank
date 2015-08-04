@@ -1,6 +1,3 @@
-/**
- *
- */
 package ru.blogspot.feomatr.dao.hibernate;
 
 import org.hibernate.Criteria;
@@ -128,7 +125,7 @@ public class TransactionDAOHibImpl implements TransactionDAO {
         try {
             l = criteria.getExecutableCriteria(session).list();
         } catch (Exception e) {
-            //log.error()
+            //todo Resolve this issue
         }
 
         return l;

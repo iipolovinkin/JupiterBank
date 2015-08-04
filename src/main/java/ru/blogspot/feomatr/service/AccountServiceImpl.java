@@ -1,6 +1,3 @@
-/**
- *
- */
 package ru.blogspot.feomatr.service;
 
 import ru.blogspot.feomatr.dao.AccountDAO;

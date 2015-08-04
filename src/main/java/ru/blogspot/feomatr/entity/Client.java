@@ -1,7 +1,6 @@
 package ru.blogspot.feomatr.entity;
 
 import lombok.*;
-import org.hibernate.validator.constraints.Email;
 
 import javax.validation.constraints.*;
 import java.io.Serializable;

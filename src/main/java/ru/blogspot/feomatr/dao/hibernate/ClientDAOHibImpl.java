@@ -1,6 +1,3 @@
-/**
- *
- */
 package ru.blogspot.feomatr.dao.hibernate;
 
 import org.hibernate.Session;

@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 /**
  * TODO: comment
  *
- * @author feo
+ * @author iipolovinkin
  * @since 30.03.2015
  */
 @Getter
