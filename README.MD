@@ -1,8 +1,8 @@
-Web application which perform the functions of a bank. The Bank named Jupiter Bank.
+Web application which performs the functions of a bank. The Bank named Jupiter Bank.
 Web application should keep information about
   * clients(id, name, address, age),
   * accounts(id, owner, amount),
-  * transactions(id, sender, reciever, amount, time) between accounts.
+  * transactions(id, sender, receiver, amount, time) between accounts.
 
 It provides the following functions:
 
