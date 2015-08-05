@@ -22,11 +22,11 @@ public class Client implements Serializable {
     @Size(min = 3, max = 30, message = "{client.firstname.size}")
     @Pattern(regexp = "^[a-zA-Z0-9]+$", message = "{client.firstname.pattern}")
     private String firstname;
-    @Size(min = 10, max = 50, message = "{client.address.size}")
+    @Size(min = 10, max = 100, message = "{client.address.size}")
     private String address;
     @NotNull(message = "{client.age.notnull}")
-    @Min(value = 1, message = "{client.age.between}")
-    @Max(value = 150, message = "{client.age.between}")
+    @Min(value = 1, message = "{client.age.lessThanValue}")
+    @Max(value = 150, message = "{client.age.greaterThanValue}")
     private Integer age;
 
     public Client(Long id, String firstname, String address, Integer age) {
