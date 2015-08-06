@@ -1,7 +1,10 @@
 package ru.blogspot.feomatr.controller;
 
+import com.google.common.base.Stopwatch;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.blogspot.feomatr.entity.Account;
 import ru.blogspot.feomatr.entity.Broker;
 import ru.blogspot.feomatr.entity.Client;
@@ -16,6 +19,8 @@ import java.util.Random;
 @Setter
 @NoArgsConstructor
 public class ControllerHelper {
+    private static final Logger log = LoggerFactory.getLogger(ControllerHelper.class);
+
     private ClientService clientService;
     private AccountService accountService;
     private TransferService transferService;
@@ -26,9 +31,11 @@ public class ControllerHelper {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    System.out.println("starting thread # " + finalI);
+                    Stopwatch stopwatch = Stopwatch.createStarted();
+                    log.info("starting thread # " + finalI);
                     generateCATs(clientCount, accountCount, transferCount);
-                    System.out.println("stopping thread # " + finalI);
+                    stopwatch.stop();
+                    log.info("stopping thread # {}, time: {}", finalI, stopwatch);
                 }
             }).start();
         }

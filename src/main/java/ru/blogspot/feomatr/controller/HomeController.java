@@ -41,7 +41,7 @@ public class HomeController {
         AdminClass adminClass = new AdminClass();
         adminClass.setAttr01(30);
         adminClass.setAttr02(40);
-        adminClass.setAttr05(1040);
+        adminClass.setAttr05(40);
         model.addAttribute(adminClass);
         return "admin_page";
     }
@@ -53,12 +53,8 @@ public class HomeController {
         int clientCount = adminClass.getAttr01();
         int accountCount = adminClass.getAttr02();
         int transferCount = adminClass.getAttr05();
-        long start = System.currentTimeMillis();
 //        controllerHelper.generateThreadCATs(clientCount, accountCount, transferCount, 4);
         controllerHelper.generateThreadCATs(50, 50, 50, 10);
-        long finish = System.currentTimeMillis();
-        long l = finish - start;
-        log.debug("Time: {}", l);
 
         return "admin_page";
     }
