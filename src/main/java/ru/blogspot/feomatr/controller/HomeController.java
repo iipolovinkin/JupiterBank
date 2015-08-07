@@ -39,9 +39,10 @@ public class HomeController {
     public String showAdminPage(Model model) {
         log.info("admin_page");
         AdminClass adminClass = new AdminClass();
-        adminClass.setAttr01(30);
-        adminClass.setAttr02(40);
-        adminClass.setAttr05(40);
+        adminClass.setClientsCount(50);
+        adminClass.setAccountsCount(50);
+        adminClass.setTransfersCount(50);
+        adminClass.setThreadsCount(5);
         model.addAttribute(adminClass);
         return "admin_page";
     }
@@ -50,11 +51,11 @@ public class HomeController {
     public String doTransferToAccount(AdminClass adminClass, BindingResult bindingResult, Model model, HttpServletRequest request) {
         log.info("POST admin_page");
         log.info("adminClass = {}", adminClass);
-        int clientCount = adminClass.getAttr01();
-        int accountCount = adminClass.getAttr02();
-        int transferCount = adminClass.getAttr05();
-//        controllerHelper.generateThreadCATs(clientCount, accountCount, transferCount, 4);
-        controllerHelper.generateThreadCATs(50, 50, 50, 10);
+        int clientsCount = adminClass.getClientsCount();
+        int accountsCount = adminClass.getAccountsCount();
+        int transfersCount = adminClass.getTransfersCount();
+        int threadsCount = adminClass.getThreadsCount();
+        controllerHelper.generateThreadCATs(clientsCount, accountsCount, transfersCount, threadsCount);
 
         return "admin_page";
     }
