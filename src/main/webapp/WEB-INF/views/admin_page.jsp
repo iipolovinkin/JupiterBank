@@ -29,14 +29,10 @@
 				<td>4:</td>
 			</tr>
 			<tr>
-				<td><sf:input path="attr01" class="form-control" value="" /></td>
-				<td><sf:input path="attr02" class="form-control" value="" /></td>
-				<td>
-				    <sf:input path="attr03" class="form-control date" type="text" value="" />
-				</td>
-				<td>
-				    <sf:input path="attr04" class="form-control date" type="text" value="" />
-				</td>
+				<td><sf:input path="clientsCount" class="form-control" value="" /></td>
+				<td><sf:input path="accountsCount" class="form-control" value="" /></td>
+				<td><sf:input path="transfersCount" class="form-control"value="" /></td>
+				<td><sf:input path="threadsCount" class="form-control" value="" /></td>
 			</tr>
 		</table>
 		<br/>
@@ -51,12 +47,8 @@
         			<tr>
         				<td><sf:input path="attr05" class="form-control" value="" /></td>
         				<td><sf:input path="attr06" class="form-control" value="" /></td>
-        				<td>
-        				    <sf:input path="attr07" class="form-control date" type="text" value="" />
-        				</td>
-        				<td>
-        				    <sf:input path="attr08" class="form-control date" type="text" value="" />
-        				</td>
+        				<td><sf:input path="attr07" class="form-control date" type="text" value="" /></td>
+        				<td><sf:input path="attr08" class="form-control date" type="text" value="" /></td>
         			</tr>
         		</table>
         		<br/>
@@ -68,12 +60,6 @@
 	<br/>
 
 	<script>
-		function clearInput() {
-			document.getElementById('attr01').value = '';
-			document.getElementById('attr02').value = '';
-			document.getElementById('attr03').value = '';
-			document.getElementById('attr04').value = '';
-		}
 		$(document).ready(function() {
 			$('.date').datepicker({
     			format: "dd.mm.yyyy",
