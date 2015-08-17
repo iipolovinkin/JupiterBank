@@ -1,5 +1,6 @@
 package ru.blogspot.feomatr.entity;
 
+import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -9,13 +10,13 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.Set;
 
 import static java.util.Collections.emptySet;
-import static org.fluentjava.FluentUtils.set;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -70,7 +71,7 @@ public class ClientTest {
 
     @Test
     public void testSetNullAgeGetValidationMessage() {
-        Set<String> expected = set(clientAgeIsNotNull);
+        Set<String> expected = Collections.singleton(clientAgeIsNotNull);
 
         client.setAge(null);
         Set<String> actual = getConstraintMessages(client);
@@ -80,7 +81,7 @@ public class ClientTest {
 
     @Test
     public void testSetAgeLessThanBottomAgeGetValidationMessage() {
-        Set<String> expected = set(clientAgeLessThanValue);
+        Set<String> expected = Collections.singleton(clientAgeLessThanValue);
         int lessThanBottomAge = bottomAge - 1;
 
         client.setAge(lessThanBottomAge);
@@ -91,7 +92,7 @@ public class ClientTest {
 
     @Test
     public void testSetAgeGreaterThanUpperAgeGetValidationMessage() {
-        Set<String> expected = set(clientAgeGreaterThanValue);
+        Set<String> expected = Collections.singleton(clientAgeGreaterThanValue);
         int greaterThanUpperAge = upperAge + 1;
 
         client.setAge(greaterThanUpperAge);
@@ -113,7 +114,7 @@ public class ClientTest {
 
     @Test
     public void testSetShortFirstnameGetValidationMessage() {
-        Set<String> expected = set(clientFirstnameSize);
+        Set<String> expected = Collections.singleton(clientFirstnameSize);
         String shortName = "BO";
 
         client.setFirstname(shortName);
@@ -124,7 +125,7 @@ public class ClientTest {
 
     @Test
     public void testSetLpngFirstnameGetValidationMessage() {
-        Set<String> expected = set(clientFirstnameSize);
+        Set<String> expected = Collections.singleton(clientFirstnameSize);
         String longName = "ItIsVeryLongNameForOurCurrentSystem";
 
         client.setFirstname(longName);
@@ -135,7 +136,7 @@ public class ClientTest {
 
     @Test
     public void testSetValidFirstname() {
-        Set<String> expected = set();
+        Set<String> expected = emptySet();
         String validName = "Jake";
 
         client.setFirstname(validName);
@@ -146,7 +147,7 @@ public class ClientTest {
 
     @Test
     public void testSetNonAlphabeticFirstnameGetValidationMessages() {
-        Set<String> expected = set(clientFirstnamePattern);
+        Set<String> expected = Collections.singleton(clientFirstnamePattern);
         String nonAlpabeticName = "Bill_M$W|NDOW$";
 
         client.setFirstname(nonAlpabeticName);
@@ -157,7 +158,7 @@ public class ClientTest {
 
     @Test
     public void testSetShortAddressGetValidationMessage() {
-        Set<String> expected = set(clientAddressSize);
+        Set<String> expected = Collections.singleton(clientAddressSize);
         String shortAddress = "Address";
 
         client.setAddress(shortAddress);
@@ -168,7 +169,7 @@ public class ClientTest {
 
     @Test
     public void testSetLongAddressThenGetValidationMessage() {
-        Set<String> expected = set(clientAddressSize);
+        Set<String> expected = Collections.singleton(clientAddressSize);
         String longString = "AddressTooLongAddressTooLongAddressTooLongAddressTooLongAddressTooLong";
         String longAddress = longString + longString + longString;
 
@@ -195,7 +196,9 @@ public class ClientTest {
         Integer negativeAge = -10;
         String shortName = "2";
         String shortAddress = "10st";
-        Set<String> expected = set(clientAgeLessThanValue, clientFirstnameSize, clientAddressSize);
+
+        Set<String> expected = ImmutableSet.of(clientAgeLessThanValue, clientFirstnameSize, clientAddressSize);
+
 
         client.setAge(negativeAge);
         client.setFirstname(shortName);

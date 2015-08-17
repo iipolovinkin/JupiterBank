@@ -7,14 +7,14 @@ import ru.blogspot.feomatr.service.ClientServiceImpl;
 
 import java.util.List;
 
-import static org.fluentjava.FluentUtils.list;
+import static java.util.Arrays.asList;
 
 /**
  * @author iipolovinkin
  */
 public class AccountDaoStubImpl implements AccountDAO {
     private ClientService clientService = new ClientServiceImpl();
-    private List<Account> accounts = list(
+    private List<Account> accounts = asList(
             new Account(1L, clientService.getClientById(1L), 100L),
             new Account(2L, clientService.getClientById(1L), 500L),
             new Account(3L, clientService.getClientById(1L), 140L),

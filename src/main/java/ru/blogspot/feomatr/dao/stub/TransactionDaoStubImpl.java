@@ -6,15 +6,15 @@ import ru.blogspot.feomatr.dao.TransactionDAO;
 import ru.blogspot.feomatr.entity.Account;
 import ru.blogspot.feomatr.entity.Transaction;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
-
-import static org.fluentjava.FluentUtils.list;
 
 /**
  * @author iipolovinkin
  */
 public class TransactionDaoStubImpl implements TransactionDAO {
-    private List<Transaction> transactions = list(
+    private List<Transaction> transactions = Arrays.asList(
             new Transaction(1L, 100L, new Account(1L, null, 400L), new Account(2L, null, 500L)),
             new Transaction(2L, 140L, new Account(3L, null, 300L), new Account(4L, null, 560L)));
 
@@ -28,6 +28,7 @@ public class TransactionDaoStubImpl implements TransactionDAO {
 
     public static List<Transaction> filterAfterTime(List<Transaction> trs,
                                                     DateTime t) {
+        Collections.singleton("");
         if (t == null) {
             return trs;
         }

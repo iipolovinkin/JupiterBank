@@ -5,13 +5,13 @@ import ru.blogspot.feomatr.entity.Client;
 
 import java.util.List;
 
-import static org.fluentjava.FluentUtils.list;
+import static java.util.Arrays.asList;
 
 /**
  * @author iipolovinkin
  */
 public class ClientDaoStubImpl implements ClientDAO {
-    private List<Client> clients = list(
+    private List<Client> clients = asList(
             new Client(1L, "Alex", "NY", 22), new Client(2L, "Nick", "LA", 27),
             new Client(3L, "Ivan", "Spb", 39),
             new Client(4L, "Petr", "RnD", 13));

@@ -1,12 +1,12 @@
 package ru.blogspot.feomatr.entity;
 
+import com.google.common.collect.ImmutableSet;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.math.BigDecimal;
 import java.util.Set;
 
-import static org.fluentjava.FluentUtils.set;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
@@ -43,7 +43,7 @@ public class TransactionTest {
 
     @Test
     public void testTransactionHash() {
-        Set<Transaction> t = set(t1, t2, t3);
+        Set<Transaction> t = ImmutableSet.of(t1, t2, t3);
         Transaction tt = new Transaction();
         tt.setId(t1.getId());
         t.add(tt);
