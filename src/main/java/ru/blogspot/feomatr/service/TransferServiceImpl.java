@@ -94,7 +94,7 @@ public class TransferServiceImpl implements TransferService {
     }
 
     private boolean transferFrom(Long accountFrom, BigDecimal amount, DateTime dateTime) {
-        return transferTo(accountService.getAccountById(accountFrom), amount, dateTime);
+        return transferFrom(accountService.getAccountById(accountFrom), amount, dateTime);
     }
 
 
