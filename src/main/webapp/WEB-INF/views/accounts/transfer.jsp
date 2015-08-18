@@ -13,6 +13,9 @@
 	<s:message code="amount" var="amount" />
 	<s:message code="transfer" var="transfer" />
 	<s:message code="time" var="time" />
+	<s:message code="message" var="message" />
+    <s:message code="remittancePassed" var="remittancePassed" />
+    <s:message code="remittanceFailed" var="remittanceFailed" />
 
 	<sf:form method="POST" modelAttribute="broker">
 		<table>
@@ -49,6 +52,25 @@
 		</table>
 
 	</sf:form>
+	<c:if test="${not empty isTransfered}">
+    			<table class="table">
+    				<thead>
+    					<tr><th>${message}</th></tr>
+    				</thead>
+    				<tbody>
+    					<tr>
+    					<c:choose>
+    	                     <c:when test="${isTransfered == true}" >
+    	                        <td>${remittancePassed}</td>
+    	                     </c:when>
+    	                     <c:when test="${isTransfered == false}" >
+    	                        <td>${remittanceFailed}</td>
+    	                     </c:when>
+    					</c:choose>
+    					</tr>
+    				</tbody>
+    			</table>
+    	</c:if>
 	<script>
     		$(document).ready(function() {
     			$('.date').datepicker({

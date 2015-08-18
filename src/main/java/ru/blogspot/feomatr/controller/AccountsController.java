@@ -27,7 +27,7 @@ public class AccountsController {
 
     @RequestMapping()
     public String showAllAccounts(Model model) {
-        log.info(" {}", "showAccounts");
+        log.info("showAccounts");
         model.addAttribute("accounts", accountService.getAllAccounts());
 
         return "accounts";
@@ -35,7 +35,7 @@ public class AccountsController {
 
     @RequestMapping(method = RequestMethod.GET, params = "transferFrom")
     public String showTransferFrom(Broker broker, Model model) {
-        log.info(" {}", "GET TransferFrom");
+        log.info("GET TransferFrom");
         model.addAttribute("broker", new Broker());
 
         return "transferFrom";
@@ -46,13 +46,14 @@ public class AccountsController {
         log.info("POST TransferFrom");
         boolean transfer = transferService.transferFrom(broker);
         log.info("transfer = {}, broker = {}", transfer, broker);
+        model.addAttribute("isTransfered", transfer);
 
         return "transferFrom";
     }
 
     @RequestMapping(method = RequestMethod.GET, params = "transferTo")
     public String showTransferTo(Broker broker, Model model) {
-        log.info(" {}", "GET TransferTo");
+        log.info("GET TransferTo");
         model.addAttribute("broker", new Broker());
 
         return "transferTo";
@@ -63,17 +64,14 @@ public class AccountsController {
         log.info("POST TransferTo");
         boolean transfer = transferService.transferTo(broker);
         log.info("transfer = {}, broker = {}", transfer, broker);
-        if (transfer) {
-            model.addAttribute("resultMessage", "transfer is success");
-        } else {
-            model.addAttribute("resultMessage", "transfer is unsuccess");
-        }
+        model.addAttribute("isTransfered", transfer);
+
         return "transferTo";
     }
 
     @RequestMapping(method = RequestMethod.GET, params = "transfer")
     public String showTransfer(Broker broker, Model model) {
-        log.info(" {}", "GET Transfer");
+        log.info("GET Transfer");
         model.addAttribute("broker", new Broker());
 
         return "transfer";
@@ -84,6 +82,7 @@ public class AccountsController {
         log.info("POST Transfer");
         boolean transfer = transferService.transfer(broker);
         log.info("transfer = {}, broker = {}", transfer, broker);
+        model.addAttribute("isTransfered", transfer);
 
         return "transfer";
     }

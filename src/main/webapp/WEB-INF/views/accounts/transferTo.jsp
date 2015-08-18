@@ -12,7 +12,11 @@
 	<s:message code="amount" var="amount" />
 	<s:message code="transfer" var="transfer" />
 	<s:message code="time" var="time" />
-	<sf:form method="POST" modelAttribute="broker" message="test">
+	<s:message code="message" var="message" />
+	<s:message code="remittancePassed" var="remittancePassed" />
+	<s:message code="remittanceFailed" var="remittanceFailed" />
+
+	<sf:form method="POST" modelAttribute="broker">
 		<table>
 
 			<tr>
@@ -40,29 +44,25 @@
 			</tr>
 		</table>
 	</sf:form>
-	<c:if test="${not empty resultMessage}">
+	<c:if test="${not empty isTransfered}">
 			<table class="table">
 				<thead>
-					<tr>
-						<th>Message</th>
-					</tr>
+					<tr><th>${message}</th></tr>
 				</thead>
 				<tbody>
 					<tr>
-						<td>${resultMessage.toString()}</td>
+					<c:choose>
+	                     <c:when test="${isTransfered == true}" >
+	                        <td>${remittancePassed}</td>
+	                     </c:when>
+	                     <c:when test="${isTransfered == false}" >
+	                        <td>${remittanceFailed}</td>
+	                     </c:when>
+					</c:choose>
 					</tr>
 				</tbody>
 			</table>
 	</c:if>
-	<c:if test="${not empty resultMessage}">
-       <!-- <div id='message' style="display: none;">
-            c
-        </div> -->
-		<div id='message' data-role="footer" data-theme="c" data-position="fixed"  data-tap-toggle="false">
-			<span>Hey, This is my Message.</span>
-            <a href="#" class="close-notify">X</a>
-		</div>
-    </c:if>
 	<script>
 			$(document).ready(function() {
 				$('.date').datepicker({
