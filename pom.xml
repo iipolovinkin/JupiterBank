@@ -28,6 +28,10 @@
         <jstl.version>1.2</jstl.version>
         <javax.servlet.version>1.2</javax.servlet.version>
 
+        <jquery.version>2.1.4</jquery.version>
+        <bootstrap.version>3.3.5</bootstrap.version>
+        <bootstrap-datepicker.version>1.4.0</bootstrap-datepicker.version>
+
         <joda.time.version>2.4</joda.time.version>
         <joda.time.jsptags>1.1.1</joda.time.jsptags>
         <jadira.usertype.version>3.2.0.GA</jadira.usertype.version>
@@ -80,25 +84,32 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <!-- WEB ASSETS -->
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap</artifactId>
+            <version>${bootstrap.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap-datepicker</artifactId>
+            <version>${bootstrap-datepicker.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>jquery</artifactId>
+            <version>${jquery.version}</version>
+            <scope>runtime</scope>
+        </dependency>
         <!-- Hibernate-core -->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
             <version>${hibernate.version}</version>
             <scope>compile</scope>
-            <!--<exclusions>-->
-            <!--<exclusion>-->
-            <!--<artifactId>javassist</artifactId>-->
-            <!--<groupId>org.javassist</groupId>-->
-            <!--</exclusion>-->
-            <!--</exclusions>-->
         </dependency>
-        <!--<dependency>-->
-        <!--<groupId>org.javassist</groupId>-->
-        <!--<artifactId>javassist</artifactId>-->
-        <!--<version>3.18.2-GA</version>-->
-        <!--<scope>compile</scope>-->
-        <!--</dependency>-->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
@@ -190,30 +201,6 @@
             <version>${org.slf4j.version}</version>
             <scope>runtime</scope>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>log4j</groupId>-->
-            <!--<artifactId>log4j</artifactId>-->
-            <!--<version>1.2.15</version>-->
-            <!--<exclusions>-->
-                <!--<exclusion>-->
-                    <!--<groupId>javax.mail</groupId>-->
-                    <!--<artifactId>mail</artifactId>-->
-                <!--</exclusion>-->
-                <!--<exclusion>-->
-                    <!--<groupId>javax.jms</groupId>-->
-                    <!--<artifactId>jms</artifactId>-->
-                <!--</exclusion>-->
-                <!--<exclusion>-->
-                    <!--<groupId>com.sun.jdmk</groupId>-->
-                    <!--<artifactId>jmxtools</artifactId>-->
-                <!--</exclusion>-->
-                <!--<exclusion>-->
-                    <!--<groupId>com.sun.jmx</groupId>-->
-                    <!--<artifactId>jmxri</artifactId>-->
-                <!--</exclusion>-->
-            <!--</exclusions>-->
-            <!--<scope>runtime</scope>-->
-        <!--</dependency>-->
 
         <!-- @Inject -->
         <dependency>
