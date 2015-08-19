@@ -19,7 +19,6 @@
 
         <jetbrains.annotations.version>12.0</jetbrains.annotations.version>
         <guava.version>18.0</guava.version>
-        <fluentjava>0.3</fluentjava>
         <org.slf4j.version>1.6.6</org.slf4j.version>
 
         <lombok.version>1.14.8</lombok.version>
@@ -296,11 +295,6 @@
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>${guava.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.fluentjava</groupId>
-            <artifactId>fluentjava</artifactId>
-            <version>${fluentjava}</version>
         </dependency>
 
     </dependencies>
