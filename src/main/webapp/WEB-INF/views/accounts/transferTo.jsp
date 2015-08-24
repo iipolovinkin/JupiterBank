@@ -53,30 +53,18 @@
 					<tr>
 					<c:choose>
 	                     <c:when test="${isTransfered == true}" >
-	                        <td>${remittancePassed}</td>
+	                        <td class='success'>
+	                        <div id='message'><span>${remittancePassed}</span></div></td>
 	                     </c:when>
 	                     <c:when test="${isTransfered == false}" >
-	                        <td>${remittanceFailed}</td>
+	                        <td class='danger'>
+	                        <div id='message'><span>${remittanceFailed}</span></div></td>
 	                     </c:when>
 					</c:choose>
 					</tr>
 				</tbody>
 			</table>
 	</c:if>
-	<script>
-			$(document).ready(function() {
-				$('.date').datepicker({
-					format: "dd.mm.yyyy",
-					clearBtn: true,
-					todayBtn: "linked",		autoclose: true,
-					language: "${locale}"
-				});
-				$("#message").slideDown("slow");
-				$("#message a.close-notify").click(function() {
-					$("#message").fadeOut("slow");
-						return false;
-					 });
-			 });
-	</script>
+	<script/>
 </div>
 

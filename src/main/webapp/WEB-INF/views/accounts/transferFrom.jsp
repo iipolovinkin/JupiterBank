@@ -45,34 +45,26 @@
 		</table>
 	</sf:form>
 	<c:if test="${not empty isTransfered}">
-    			<table class="table">
-    				<thead>
-    					<tr><th>${message}</th></tr>
-    				</thead>
-    				<tbody>
-    					<tr>
-    					<c:choose>
-    	                     <c:when test="${isTransfered == true}" >
-    	                        <td>${remittancePassed}</td>
-    	                     </c:when>
-    	                     <c:when test="${isTransfered == false}" >
-    	                        <td>${remittanceFailed}</td>
-    	                     </c:when>
-    					</c:choose>
-    					</tr>
-    				</tbody>
-    			</table>
+            <table class="table">
+                <thead>
+                    <tr><th>${message}</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    <c:choose>
+                         <c:when test="${isTransfered == true}" >
+                            <td class='success'>
+                            <div id='message'><span>${remittancePassed}</span></div></td>
+                         </c:when>
+                         <c:when test="${isTransfered == false}" >
+                            <td class='danger'>
+                            <div id='message'><span>${remittanceFailed}</span></div></td>
+                         </c:when>
+                    </c:choose>
+                    </tr>
+                </tbody>
+            </table>
     	</c:if>
-	<script>
-    		$(document).ready(function() {
-    			$('.date').datepicker({
-        			format: "dd.mm.yyyy",
-       				clearBtn: true,
-        			todayBtn: "linked",
-        			autoclose: true,
-        			language: "${locale}"
-        		});
-             });
-    </script>
+	<script/>
 </div>
 

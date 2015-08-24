@@ -40,7 +40,17 @@
 <script src="/webjars/bootstrap-datepicker/1.4.0/locales/bootstrap-datepicker.ru.min.js"></script>
 <script>
 	window.jQuery
-			|| document.write('<script src="/var/js/bootstrap.min.js"><\/script>')
+			|| document.write('<script src="/var/js/bootstrap.min.js"><\/script>');
+	$(document).ready(function() {
+        $('.date').datepicker({
+            format: "dd.mm.yyyy",
+            clearBtn: true,
+            todayBtn: "linked",		autoclose: true,
+            language: "${locale}"
+        });
+        $("#message").fadeOut("fast");
+        $("#message").fadeIn("fast");
+     });
 </script>
 </head>
 <body class="container">
@@ -56,4 +66,7 @@
 		</div>
 	</div>
 </body>
+<script>
+
+</script>
 </html>
