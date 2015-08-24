@@ -2,6 +2,7 @@ package ru.blogspot.feomatr.entity;
 
 import lombok.*;
 
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -22,6 +23,7 @@ public class Account implements Serializable {
     private Long id;
     private Client owner;
     @Min(value = 0, message = "{account.balance.min}")
+    @Max(value = 10000000, message = "{account.balance.max}")
     private BigDecimal balance;
 
     public Account(Client owner) {

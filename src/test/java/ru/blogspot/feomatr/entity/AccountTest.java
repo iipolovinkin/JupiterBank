@@ -1,6 +1,6 @@
 package ru.blogspot.feomatr.entity;
 
-import org.junit.AfterClass;
+import com.google.common.collect.Sets;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -10,21 +10,25 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import java.math.BigDecimal;
-import java.util.Set;
+import java.util.*;
 
-import static org.junit.Assert.assertEquals;
-import static ru.blogspot.feomatr.entity.ClientTest.validationMsgs;
+import static java.util.Collections.emptySet;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
 
 /**
  * todo use human readable naming, use AAA, use assertThat
  */
 public class AccountTest {
     private static Validator validator;
+    private static ResourceBundle validationMsgs;
     private Account account;
     private Client client;
 
     @BeforeClass
     public static void setUpClass() {
+        Locale.setDefault(Locale.US);
+        validationMsgs = ResourceBundle.getBundle("ValidationMessages");
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         validator = factory.getValidator();
     }
@@ -36,11 +40,49 @@ public class AccountTest {
     }
 
     @Test
-    public void balanceMustBeGE0() {
-        account.setBalance(new BigDecimal(-3));
+    public void balanceMustBeLETopBalance() {
+        BigDecimal topBalance = new BigDecimal(10000000);
+        BigDecimal greaterThanTopBalance = topBalance.add(BigDecimal.ONE);
+
+        String accountBalanceGreaterThanValue = validationMsgs.getString("account.balance.max")
+                .replace("{value}", String.valueOf(topBalance));
+
+        Set<String> expected = Collections.singleton(accountBalanceGreaterThanValue);
+
+        account.setBalance(greaterThanTopBalance);
+        Set<String> actual = getConstraintMessages(account);
+
+        assertThat(actual, is(expected));
+    }
+    @Test
+    public void balanceMustBeGEBottomBalance() {
+        BigDecimal bottomBalance = BigDecimal.ZERO;
+        BigDecimal lessThanBottomBalance = bottomBalance.subtract(BigDecimal.ONE);
+
+        String accountBalanceLessThanValue = validationMsgs.getString("account.balance.min")
+                .replace("{value}", String.valueOf(bottomBalance));
+
+
+        Set<String> expected = Collections.singleton(accountBalanceLessThanValue);
+
+        account.setBalance(lessThanBottomBalance);
+        Set<String> actual = getConstraintMessages(account);
+
+        assertThat(actual, is(expected));
+    }
+
+    private Set<String> getConstraintMessages(Account account) {
         Set<ConstraintViolation<Account>> constraintViolations = validator.validate(account);
-        assertEquals(1, constraintViolations.size());
-        assertEquals(validationMsgs.getString("account.balance.min"), constraintViolations.iterator().next().getMessage());
+        if (constraintViolations.isEmpty()) {
+            return emptySet();
+        } else {
+            Set<String> messages = Sets.newHashSet();
+            Iterator<ConstraintViolation<Account>> iterator = constraintViolations.iterator();
+            for (; iterator.hasNext(); ) {
+                messages.add(iterator.next().getMessage());
+            }
+            return messages;
+        }
     }
 
 }

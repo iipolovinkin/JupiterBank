@@ -1,6 +1,6 @@
 package ru.blogspot.feomatr.entity;
 
-import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Sets;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -43,7 +43,7 @@ public class TransactionTest {
 
     @Test
     public void testTransactionHash() {
-        Set<Transaction> t = ImmutableSet.of(t1, t2, t3);
+        Set<Transaction> t = Sets.newHashSet(t1, t2, t3);
         Transaction tt = new Transaction();
         tt.setId(t1.getId());
         t.add(tt);
