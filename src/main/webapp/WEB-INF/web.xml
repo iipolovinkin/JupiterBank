@@ -10,7 +10,6 @@
         <param-value>
             /WEB-INF/spring/root-context.xml
             /WEB-INF/spring/security.xml
-            classpath:di-context.xml
         </param-value>
     </context-param>
 
