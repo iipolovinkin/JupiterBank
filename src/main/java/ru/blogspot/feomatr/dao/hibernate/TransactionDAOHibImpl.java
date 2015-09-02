@@ -126,8 +126,9 @@ public class TransactionDAOHibImpl implements TransactionDAO {
             l = criteria.getExecutableCriteria(session).list();
         } catch (Exception e) {
             //todo Resolve this issue
+        } finally {
+            tx.commit();
         }
-
         return l;
     }
 
