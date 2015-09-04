@@ -102,6 +102,12 @@
             <version>${jquery.version}</version>
             <scope>runtime</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>3.6</version>
+        </dependency>
         <!-- Hibernate-core -->
         <dependency>
             <groupId>org.hibernate</groupId>

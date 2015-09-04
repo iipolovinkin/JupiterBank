@@ -63,5 +63,11 @@
             </list>
         </property>
     </bean>
+
+    <bean class="org.springframework.web.servlet.view.XmlViewResolver">
+        <property name="location">
+            <value>/WEB-INF/views/reports/spring-excel-views.xml</value>
+        </property>
+    </bean>
     <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
 </beans>

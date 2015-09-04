@@ -19,7 +19,10 @@
 				class="btn btn-success" />
 		</sf:form>
 	</c:if>
-
+	<c:if test="${empty client }">
+	<br>
+		<a href="/accounts?output=excel">excel</a>
+	</c:if>
 	<c:if test="${not empty accounts}">
 		<br>
 		<table class="table">
