@@ -61,6 +61,7 @@
     		});
          });
 	</script>
+	<a href="/transactions.xls?output=excel">excel</a>
 	<c:if test="${not empty transactions}">
 		<br>
 		<table class="table">

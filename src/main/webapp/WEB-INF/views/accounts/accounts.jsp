@@ -21,7 +21,7 @@
 	</c:if>
 	<c:if test="${empty client }">
 	<br>
-		<a href="/accounts?output=excel">excel</a>
+		<a href="/accounts.xls?output=excel">excel</a>
 	</c:if>
 	<c:if test="${not empty accounts}">
 		<br>

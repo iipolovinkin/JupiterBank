@@ -1,7 +1,5 @@
 package ru.blogspot.feomatr.dao.hibernate;
 
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -22,13 +20,8 @@ import java.math.BigDecimal;
  * @author iipolovinkin
  */
 public class InitTestData implements InitializingBean {
-    private static final Logger log = LoggerFactory.getLogger(InitTestData.class);
     public static final int CLIENT_COUNT = 7;
-
-    private ClientService clientService;
-    private AccountService accountService;
-    private TransferService transferService;
-
+    private static final Logger log = LoggerFactory.getLogger(InitTestData.class);
     private final String[] addresses = {"New York, Yellow st, 64",
             "Washington, Black st, 77", "Minesote, White st, 12",
             "Dallas, Red square, 1", "Springfield, Simpson st, 1",
@@ -36,6 +29,9 @@ public class InitTestData implements InitializingBean {
     private final String[] names = {"John", "John2", "John3", "Lisa", "Bart", "Homer", "Marge"};
     private final Integer[] ages = {21, 22, 25, 12, 14, 35, 34};
     private final String[] dates = {"10.01.14", "20.01.14", "15.02.14", "11.03.14", "22.03.14", "07.04.14", "07.07.14"};
+    private ClientService clientService;
+    private AccountService accountService;
+    private TransferService transferService;
 
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -46,11 +42,11 @@ public class InitTestData implements InitializingBean {
 
     private void initTransactions() {
         for (int i = 0; i < CLIENT_COUNT * 2 - 1; ++i) {
-            transferService.transferTo(new Broker(1l + i, 1l + i, new BigDecimal(i * 10), dates[0]));
+            transferService.transferTo(new Broker(1l + i, 1l + i, new BigDecimal(i * 10), dates[i % 7]));
         }
 
         for (int i = 0; i < CLIENT_COUNT * 2 - 1; ++i) {
-            transferService.transfer(new Broker(0l + i, 1l + i, new BigDecimal(i * 2), dates[0]));
+            transferService.transfer(new Broker(0l + i, 1l + i, new BigDecimal(i * 2), dates[i % 7]));
         }
     }
 

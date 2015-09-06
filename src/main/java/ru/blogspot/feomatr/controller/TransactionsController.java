@@ -9,10 +9,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.ServletRequestBindingException;
+import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+import ru.blogspot.feomatr.entity.Transaction;
 import ru.blogspot.feomatr.formBean.FormFilter;
 import ru.blogspot.feomatr.service.TransactionService;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 
 /**
@@ -32,6 +39,21 @@ public class TransactionsController {
         model.addAttribute("transactions", transactionService.getAll());
         model.addAttribute("formFilter", new FormFilter());
         return "transactions";
+    }
+
+    @RequestMapping(method = RequestMethod.GET, params = "output")
+    public ModelAndView saveAllTransactions(Model model, HttpServletRequest request) throws ServletRequestBindingException {
+        String output = ServletRequestUtils.getStringParameter(request, "output");
+        List<Transaction> transactions = transactionService.getAll();
+        model.addAttribute("list", transactions);
+
+        if ("EXCEL".equals(output.toUpperCase())) {
+            //return excel view
+            ModelAndView modelAndView = new ModelAndView("ExcelTransactionsReportView", "data", model);
+        }
+
+        //return excel view too
+        return new ModelAndView("ExcelTransactionsReportView", "data", model);
     }
 
     @RequestMapping(method = RequestMethod.POST)

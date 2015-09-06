@@ -27,7 +27,7 @@ public class Account implements Serializable {
     private BigDecimal balance;
 
     public Account(Client owner) {
-        this.owner = owner;
+        this(owner, new BigDecimal(0));
     }
 
     public Account(Client owner, BigDecimal balance) {
@@ -35,12 +35,17 @@ public class Account implements Serializable {
         this.balance = balance;
     }
 
-    // todo it is  hack for tests
+    /**
+     * Constructor for tests
+     */
     public Account(Client owner, Long balance) {
         this.owner = owner;
         this.balance = new BigDecimal(balance);
     }
 
+    /**
+     * Constructor for tests
+     */
     public Account(Long id, Client owner, Long balance) {
         this.id = id;
         this.owner = owner;

@@ -6,4 +6,8 @@
     <bean id="ExcelAccountsReportView"
           class="ru.blogspot.feomatr.view.ExcelAccountsReportView">
     </bean>
+
+    <bean id="ExcelTransactionsReportView"
+          class="ru.blogspot.feomatr.view.ExcelTransactionsReportView">
+    </bean>
 </beans>
