@@ -8,7 +8,6 @@ import ru.blogspot.feomatr.entity.Account;
 import ru.blogspot.feomatr.entity.Transaction;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -108,8 +107,8 @@ public class TransactionDaoStubImpl implements TransactionDAO {
     }
 
     @Override
-    public boolean delete(Transaction tr) {
-        return transactions.remove(tr);
+    public void delete(Transaction tr) {
+        transactions.remove(tr);
     }
 
     @Override
@@ -118,13 +117,8 @@ public class TransactionDaoStubImpl implements TransactionDAO {
     }
 
     @Override
-    public boolean delete(Long id) {
-        return transactions.remove(get(id));
-    }
-
-    @Override
-    public boolean isExist(Long id) {
-        return (get(id) != null ? true : false);
+    public void delete(Long id) {
+        transactions.remove(get(id));
     }
 
     @Override

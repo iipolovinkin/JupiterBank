@@ -10,7 +10,7 @@ import java.util.List;
 public interface ClientService {
     Client saveClient(Client client);
 
-    int updateClient(Client client);
+    void updateClient(Client client);
 
     List<Client> getAllClients();
 

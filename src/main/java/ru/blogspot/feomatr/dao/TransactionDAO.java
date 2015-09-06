@@ -19,20 +19,15 @@ public interface TransactionDAO {
      */
     List<Transaction> getByFilter(Long idSender, Long idReciver, DateTime startTime, DateTime endTime);
 
-    /**
-     * @return
-     */
     List<Transaction> getAll();
 
     Transaction get(Long id);
 
     void create(Transaction tr);
 
-    boolean delete(Transaction tr);
+    void delete(Transaction tr);
 
-    boolean delete(Long id);
+    void delete(Long id);
 
     void update(Transaction tr);
-
-    boolean isExist(Long id);
 }

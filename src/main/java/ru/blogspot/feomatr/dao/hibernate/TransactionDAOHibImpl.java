@@ -68,7 +68,7 @@ public class TransactionDAOHibImpl implements TransactionDAO {
     }
 
     @Override
-    public boolean delete(Transaction tr) {
+    public void delete(Transaction tr) {
         Session session = getCurrentSession();
         org.hibernate.Transaction tx = session.beginTransaction();
         try {
@@ -76,7 +76,6 @@ public class TransactionDAOHibImpl implements TransactionDAO {
         } finally {
             tx.commit();
         }
-        return true;
     }
 
     @Override
@@ -91,13 +90,8 @@ public class TransactionDAOHibImpl implements TransactionDAO {
     }
 
     @Override
-    public boolean delete(Long id) {
-        return delete(get(id));
-    }
-
-    @Override
-    public boolean isExist(Long id) {
-        return (get(id) != null ? true : false);
+    public void delete(Long id) {
+        delete(get(id));
     }
 
     @Override

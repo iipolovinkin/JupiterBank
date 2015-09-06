@@ -66,7 +66,7 @@ public class ClientDAOHibImpl implements ClientDAO {
     }
 
     @Override
-    public boolean delete(Client client) {
+    public void delete(Client client) {
         Session session = getCurrentSession();
         Transaction tx = session.beginTransaction();
         try {
@@ -74,11 +74,10 @@ public class ClientDAOHibImpl implements ClientDAO {
         } finally {
             tx.commit();
         }
-        return true;
     }
 
     @Override
-    public int update(Client client) {
+    public void update(Client client) {
         Session session = getCurrentSession();
         Transaction tx = session.beginTransaction();
         try {
@@ -86,7 +85,6 @@ public class ClientDAOHibImpl implements ClientDAO {
         } finally {
             tx.commit();
         }
-        return 1;
     }
 
 }

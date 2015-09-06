@@ -58,8 +58,8 @@ public class AccountDaoStubImpl implements AccountDAO {
     }
 
     @Override
-    public boolean delete(Account account) {
-        return accounts.remove(account);
+    public void delete(Account account) {
+        accounts.remove(account);
     }
 
     @Override

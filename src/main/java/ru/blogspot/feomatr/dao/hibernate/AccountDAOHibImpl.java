@@ -68,7 +68,7 @@ public class AccountDAOHibImpl implements AccountDAO {
     }
 
     @Override
-    public boolean delete(Account account) {
+    public void delete(Account account) {
         Session session = getCurrentSession();
         Transaction tx = session.beginTransaction();
         try {
@@ -76,7 +76,6 @@ public class AccountDAOHibImpl implements AccountDAO {
         } finally {
             tx.commit();
         }
-        return true;
     }
 
     @Override

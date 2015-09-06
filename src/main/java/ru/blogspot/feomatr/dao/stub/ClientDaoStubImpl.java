@@ -44,24 +44,19 @@ public class ClientDaoStubImpl implements ClientDAO {
     }
 
     @Override
-    public boolean delete(Client client) {
-        Client c = getById(client.getId());
-        if (c == null) {
-            return false;
-        }
-        return clients.remove(c);
+    public void delete(Client client) {
+        clients.remove(client);
     }
 
     @Override
-    public int update(Client client) {
+    public void update(Client client) {
         Client c = getById(client.getId());
         if (c == null) {
-            return 0;
+            return;
         }
         c.setId(client.getId());
         c.setFirstname(client.getFirstname());
         c.setAddress(client.getAddress());
         c.setAge(client.getAge());
-        return 1;
     }
 }
