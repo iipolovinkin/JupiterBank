@@ -45,7 +45,6 @@ public class InitTestData implements InitializingBean {
     }
 
     private void initTransactions() {
-        DateTimeFormatter formatter = DateTimeFormat.forPattern("dd.MM.yy");
         for (int i = 0; i < CLIENT_COUNT * 2 - 1; ++i) {
             transferService.transferTo(new Broker(1l + i, 1l + i, new BigDecimal(i * 10), dates[0]));
         }

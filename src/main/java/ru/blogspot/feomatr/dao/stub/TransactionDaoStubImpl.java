@@ -1,6 +1,7 @@
 package ru.blogspot.feomatr.dao.stub;
 
 import com.google.common.collect.Lists;
+import org.apache.commons.lang.NotImplementedException;
 import org.joda.time.DateTime;
 import ru.blogspot.feomatr.dao.TransactionDAO;
 import ru.blogspot.feomatr.entity.Account;
@@ -28,7 +29,6 @@ public class TransactionDaoStubImpl implements TransactionDAO {
 
     public static List<Transaction> filterAfterTime(List<Transaction> trs,
                                                     DateTime t) {
-        Collections.singleton("");
         if (t == null) {
             return trs;
         }
@@ -114,7 +114,7 @@ public class TransactionDaoStubImpl implements TransactionDAO {
 
     @Override
     public void update(Transaction tr) {
-        transactions.contains(tr);
+        throw new NotImplementedException();
     }
 
     @Override
