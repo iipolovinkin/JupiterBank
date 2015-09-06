@@ -10,4 +10,8 @@
     <bean id="ExcelTransactionsReportView"
           class="ru.blogspot.feomatr.view.ExcelTransactionsReportView">
     </bean>
+
+    <bean id="ExcelClientsReportView"
+          class="ru.blogspot.feomatr.view.ExcelClientsReportView">
+    </bean>
 </beans>

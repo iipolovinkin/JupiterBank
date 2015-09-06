@@ -12,6 +12,7 @@
 	class="container">
 	<jsp:directive.page contentType="text/html; charset=UTF-8"
 		pageEncoding="UTF-8" session="false" />
+	<a href="/clients.xls?output=excel">excel</a>
 	<c:if test="${not empty clientList}">
 		<br>
 		<table class="table">
