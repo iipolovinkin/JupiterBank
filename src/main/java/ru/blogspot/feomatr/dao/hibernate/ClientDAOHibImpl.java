@@ -24,12 +24,13 @@ public class ClientDAOHibImpl implements ClientDAO {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<Client> getAll() {
         List<Client> l;
         Session session = getCurrentSession();
         Transaction tx = session.beginTransaction();
         try {
-            l = session.createCriteria(Client.class).list();
+            l = (List<Client>) session.createCriteria(Client.class).list();
         } finally {
             tx.commit();
         }

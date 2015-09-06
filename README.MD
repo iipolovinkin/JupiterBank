@@ -23,7 +23,7 @@ It provides the following functions:
 and so on
 
 How to run it?
-Requirments: maven 3, git, internet connection(download libraries).
+Requirements: maven 3, git, internet connection(download libraries).
 clone, compile & run , open
 
 - git clone https://github.com/iipolovinkin/JupiterBank.git
@@ -36,3 +36,7 @@ Some of used technologies:
 
     java 1.7+, SpringMVC 3.2+, Hibernate 4.+, SLF4J 1.6+, JUnit 4.10+, Apache tiles 3.+, Bootstrap 3.+, Mockito 1.10.+, 
     jquery, etc.
+
+Command to run findbugs check:
+
+mvn clean findbugs:check

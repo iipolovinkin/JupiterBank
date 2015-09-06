@@ -11,7 +11,6 @@ import org.joda.time.DateTime;
 import ru.blogspot.feomatr.dao.TransactionDAO;
 import ru.blogspot.feomatr.entity.Transaction;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,11 +33,9 @@ public class TransactionDAOHibImpl implements TransactionDAO {
         org.hibernate.Transaction tx = session.beginTransaction();
         try {
             Criteria criteria = session.createCriteria(Transaction.class);
-            l = criteria.list();
+            l = (List<Transaction>) criteria.list();
         } finally {
-            if (session != null) {
-                session.close();
-            }
+            tx.commit();
         }
         return l;
     }
@@ -104,9 +101,10 @@ public class TransactionDAOHibImpl implements TransactionDAO {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<Transaction> getByFilter(Long idSender, Long idReceiver,
                                          DateTime startTime, DateTime endTime) {
-        List<Transaction> l = new ArrayList<Transaction>();
+        List<Transaction> l = null;
         DetachedCriteria criteria = DetachedCriteria.forClass(Transaction.class);
         if (startTime != null) {
             criteria.add(Restrictions.ge("time", startTime));
@@ -123,7 +121,7 @@ public class TransactionDAOHibImpl implements TransactionDAO {
         Session session = getCurrentSession();
         org.hibernate.Transaction tx = session.beginTransaction();
         try {
-            l = criteria.getExecutableCriteria(session).list();
+            l = (List<Transaction>) criteria.getExecutableCriteria(session).list();
         } catch (Exception e) {
             //todo Resolve this issue
         } finally {
