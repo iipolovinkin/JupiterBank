@@ -10,11 +10,14 @@ import ru.blogspot.feomatr.entity.Broker;
 import ru.blogspot.feomatr.entity.Client;
 import ru.blogspot.feomatr.service.AccountService;
 import ru.blogspot.feomatr.service.ClientService;
+import ru.blogspot.feomatr.service.ServiceException;
 import ru.blogspot.feomatr.service.TransferService;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Random;
+
+import static ru.blogspot.feomatr.controller.UIUtils.showErrorMessage;
 
 @Setter
 @NoArgsConstructor
@@ -43,12 +46,17 @@ public class ControllerHelper {
 
 
     void generateCATs(int clientCount, int accountCount, int transferCount) {
-        createClients(clientCount);
-        createAccounts(clientCount, accountCount);
-        createTransfers(accountCount, transferCount);
+        try {
+            createClients(clientCount);
+            createAccounts(clientCount, accountCount);
+            createTransfers(accountCount, transferCount);
+        } catch (ServiceException e) {
+            log.error("Operation failed", e);
+            showErrorMessage("Operation failed", e);
+        }
     }
 
-    void createClients(int clientCount) {
+    void createClients(int clientCount) throws ServiceException {
         Random random = new Random();
         for (int i = 0; i < clientCount; i++) {
             Client client = new Client("Name", "Address Bingo st. ", 20 + random.nextInt(40));
@@ -56,7 +64,7 @@ public class ControllerHelper {
         }
     }
 
-    void createTransfers(int accountCount, int transferCount) {
+    void createTransfers(int accountCount, int transferCount) throws ServiceException {
         Random random = new Random();
         List<Account> accounts = accountService.getAllAccounts();
         for (int i = 0; i < transferCount; i++) {
@@ -70,7 +78,7 @@ public class ControllerHelper {
         }
     }
 
-    void createAccounts(int clientCount, int accountCount) {
+    void createAccounts(int clientCount, int accountCount) throws ServiceException {
         Random random = new Random();
         List<Client> allClients = clientService.getAllClients();
         for (int i = 0; i < accountCount; i++) {

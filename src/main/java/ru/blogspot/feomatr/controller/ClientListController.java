@@ -1,5 +1,6 @@
 package ru.blogspot.feomatr.controller;
 
+import com.google.common.collect.Lists;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.velocity.exception.ResourceNotFoundException;
@@ -19,11 +20,14 @@ import ru.blogspot.feomatr.entity.Client;
 import ru.blogspot.feomatr.exceptions.ClientNotFoundException;
 import ru.blogspot.feomatr.service.AccountService;
 import ru.blogspot.feomatr.service.ClientService;
+import ru.blogspot.feomatr.service.ServiceException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Set;
+
+import static ru.blogspot.feomatr.controller.UIUtils.showErrorMessage;
 
 /**
  * Handles requests for the application Client List page
@@ -43,10 +47,21 @@ public class ClientListController {
     public String addAccountFromForm(@PathVariable("id") Long id, Model model) {
         log.info("addAccountFromForm {}", id);
 
-        Client client = clientService.getClientById(id);
+        Client client = null;
+        try {
+            client = clientService.getClientById(id);
+        } catch (ServiceException e) {
+            log.error("Operation failed", e);
+            showErrorMessage("Operation failed", e);
+        }
         Account account = new Account(client);
         log.info("account:  {}", account);
-        accountService.saveAccount(account);
+        try {
+            accountService.saveAccount(account);
+        } catch (ServiceException e) {
+            log.error("Operation failed", e);
+            showErrorMessage("Operation failed", e);
+        }
         log.info("account saved:  {}", account);
 
         return "redirect:/clients/" + client.getId();
@@ -62,7 +77,12 @@ public class ClientListController {
             return "clients/edit";
         }
 
-        clientService.saveClient(client);
+        try {
+            clientService.saveClient(client);
+        } catch (ServiceException e) {
+            log.error("Operation failed", e);
+            showErrorMessage("Operation failed", e);
+        }
         log.info(client.toString());
 
         return "redirect:/clients/" + client.getId();
@@ -78,9 +98,18 @@ public class ClientListController {
 
     @RequestMapping()
     public String showClients(Model model) {
-        log.info("showClients {} {} {}", clientService);
+        log.info("showClients");
 
-        model.addAttribute("clientList", clientService.getAllClients());
+        List<Client> clients = null;
+        try {
+            clients = clientService.getAllClients();
+        } catch (ServiceException e) {
+            log.error("Operation failed", e);
+            showErrorMessage("Operation failed", e);
+        }
+        if (clients != null) {
+            model.addAttribute("clientList", clients);
+        }
         return "clients";
     }
 
@@ -88,12 +117,19 @@ public class ClientListController {
     @RequestMapping(method = RequestMethod.GET, params = "output")
     public ModelAndView saveAllClients(Model model, HttpServletRequest request) throws ServletRequestBindingException {
         String output = ServletRequestUtils.getStringParameter(request, "output");
-        List<Client> clients = clientService.getAllClients();
+        List<Client> clients = Lists.newArrayList();
+        try {
+            clients = clientService.getAllClients();
+        } catch (ServiceException e) {
+            log.error("Operation failed", e);
+            showErrorMessage("Operation failed", e);
+        }
         model.addAttribute("list", clients);
 
         if ("EXCEL".equals(output.toUpperCase())) {
             //return excel view
             ModelAndView modelAndView = new ModelAndView("ExcelClientsReportView", "data", model);
+            return modelAndView;
         }
 
         //return excel view too
@@ -103,7 +139,13 @@ public class ClientListController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String showClient(@PathVariable("id") Long id, Model model) {
         log.info("showClient");
-        Client client = clientService.getClientById(id);
+        Client client = null;
+        try {
+            client = clientService.getClientById(id);
+        } catch (ServiceException e) {
+            log.error("Operation failed", e);
+            showErrorMessage("Operation failed", e);
+        }
         model.addAttribute("client", client);
         if (client == null) {
             try {

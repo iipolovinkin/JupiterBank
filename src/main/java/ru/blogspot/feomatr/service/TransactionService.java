@@ -9,11 +9,11 @@ import java.util.List;
  * @author iipolovinkin
  */
 public interface TransactionService {
-    void saveTransaction(Transaction tr);
+    void saveTransaction(Transaction tr) throws ServiceException;
 
-    List<Transaction> getAll();
+    List<Transaction> getAll() throws ServiceException;
 
-    Transaction getById(Long id);
+    Transaction getById(Long id) throws ServiceException;
 
     /**
      * @param idSender
@@ -23,14 +23,14 @@ public interface TransactionService {
      * @return
      */
     List<Transaction> getByFilter(Long idSender, Long idReceiver,
-                                  DateTime startTime, DateTime endTime);
+                                  DateTime startTime, DateTime endTime) throws ServiceException;
 
-    void delete(Transaction tr);
+    void delete(Transaction tr) throws ServiceException;
 
-    void delete(Long id);
+    void delete(Long id) throws ServiceException;
 
-    void update(Transaction tr);
+    void update(Transaction tr) throws ServiceException;
 
-    void create(Transaction tr);
+    void create(Transaction tr) throws ServiceException;
 
 }

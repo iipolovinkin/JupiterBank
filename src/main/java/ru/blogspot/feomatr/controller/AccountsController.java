@@ -1,5 +1,6 @@
 package ru.blogspot.feomatr.controller;
 
+import com.google.common.collect.Lists;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.slf4j.Logger;
@@ -11,11 +12,16 @@ import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import ru.blogspot.feomatr.entity.Account;
 import ru.blogspot.feomatr.entity.Broker;
 import ru.blogspot.feomatr.service.AccountService;
+import ru.blogspot.feomatr.service.ServiceException;
 import ru.blogspot.feomatr.service.TransferService;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+
+import static ru.blogspot.feomatr.controller.UIUtils.showErrorMessage;
 
 /**
  * @author iipolovinkin
@@ -33,7 +39,14 @@ public class AccountsController {
     @RequestMapping()
     public String showAllAccounts(Model model) {
         log.info("showAccounts");
-        model.addAttribute("accounts", accountService.getAllAccounts());
+        List<Account> accounts;
+        try {
+            accounts = accountService.getAllAccounts();
+            model.addAttribute("accounts", accounts);
+        } catch (ServiceException e) {
+            log.error("Operation failed", e);
+            showErrorMessage("Operation failed", e);
+        }
 
         return "accounts";
     }
@@ -42,11 +55,19 @@ public class AccountsController {
     public ModelAndView saveAllAccounts(Model model, HttpServletRequest request) throws ServletRequestBindingException {
         String output = ServletRequestUtils.getStringParameter(request, "output");
 
-        model.addAttribute("list", accountService.getAllAccounts());
+        List<Account> accounts = Lists.newArrayList();
+        try {
+            accounts = accountService.getAllAccounts();
+        } catch (ServiceException e) {
+            log.error("Operation failed", e);
+            showErrorMessage("Operation failed", e);
+        }
+        model.addAttribute("list", accounts);
 
         if ("EXCEL".equals(output.toUpperCase())) {
             //return excel view
             ModelAndView modelAndView = new ModelAndView("ExcelAccountsReportView", "data", model);
+            return modelAndView;
         }
 
         //return excel view too
@@ -63,7 +84,13 @@ public class AccountsController {
 
     @RequestMapping(method = RequestMethod.POST, params = "transferFrom")
     public String doTransferFromAccount(Broker broker, Model model) {
-        boolean transfer = transferService.transferFrom(broker);
+        boolean transfer = false;
+        try {
+            transfer = transferService.transferFrom(broker);
+        } catch (ServiceException e) {
+            log.error("Operation failed", e);
+            showErrorMessage("Operation failed", e);
+        }
         log.info("POST TransferFrom transfer = {}, broker = {}", transfer, broker);
         model.addAttribute("isTransfered", transfer);
 
@@ -80,7 +107,13 @@ public class AccountsController {
 
     @RequestMapping(method = RequestMethod.POST, params = "transferTo")
     public String doTransferToAccount(Broker broker, Model model) {
-        boolean transfer = transferService.transferTo(broker);
+        boolean transfer = false;
+        try {
+            transfer = transferService.transferTo(broker);
+        } catch (ServiceException e) {
+            log.error("Operation failed", e);
+            showErrorMessage("Operation failed", e);
+        }
         log.info("POST TransferTo, transfer = {}, broker = {}", transfer, broker);
         model.addAttribute("isTransfered", transfer);
 
@@ -97,11 +130,16 @@ public class AccountsController {
 
     @RequestMapping(method = RequestMethod.POST, params = "transfer")
     public String doTransfer(Broker broker, Model model) {
-        boolean transfer = transferService.transfer(broker);
+        boolean transfer = false;
+        try {
+            transfer = transferService.transfer(broker);
+        } catch (ServiceException e) {
+            log.error("Operation failed", e);
+            showErrorMessage("Operation failed", e);
+        }
         log.info("POST Transfer transfer = {}, broker = {}", transfer, broker);
         model.addAttribute("isTransfered", transfer);
 
         return "transfer";
     }
-
 }

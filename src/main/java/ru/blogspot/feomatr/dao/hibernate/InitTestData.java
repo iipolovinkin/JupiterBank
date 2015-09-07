@@ -8,6 +8,7 @@ import ru.blogspot.feomatr.entity.Broker;
 import ru.blogspot.feomatr.entity.Client;
 import ru.blogspot.feomatr.service.AccountService;
 import ru.blogspot.feomatr.service.ClientService;
+import ru.blogspot.feomatr.service.ServiceException;
 import ru.blogspot.feomatr.service.TransferService;
 
 import java.math.BigDecimal;
@@ -40,7 +41,7 @@ public class InitTestData implements InitializingBean {
         initTransactions();
     }
 
-    private void initTransactions() {
+    private void initTransactions() throws ServiceException {
         for (int i = 0; i < CLIENT_COUNT * 2 - 1; ++i) {
             transferService.transferTo(new Broker(1l + i, 1l + i, new BigDecimal(i * 10), dates[i % 7]));
         }
@@ -50,7 +51,7 @@ public class InitTestData implements InitializingBean {
         }
     }
 
-    private void initClients() {
+    private void initClients() throws ServiceException {
         for (int i = 0; i < CLIENT_COUNT; ++i) {
             Client client = new Client(names[i], addresses[i], ages[i]);
             clientService.saveClient(client);

@@ -8,12 +8,12 @@ import java.util.List;
  * @author iipolovinkin
  */
 public interface ClientService {
-    Client saveClient(Client client);
+    Client saveClient(Client client) throws ServiceException;
 
-    void updateClient(Client client);
+    void updateClient(Client client) throws ServiceException;
 
-    List<Client> getAllClients();
+    List<Client> getAllClients() throws ServiceException;
 
-    Client getClientById(Long id);
+    Client getClientById(Long id) throws ServiceException;
 
 }

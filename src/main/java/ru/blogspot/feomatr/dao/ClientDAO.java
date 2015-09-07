@@ -9,14 +9,14 @@ import java.util.List;
  */
 public interface ClientDAO {
 
-    List<Client> getAll();
+    List<Client> getAll() throws DAOException;
 
-    Client getById(Long id);
+    Client getById(Long id) throws DAOException;
 
-    Client create(Client client);
+    Client create(Client client) throws DAOException;
 
-    void delete(Client client);
+    void delete(Client client) throws DAOException;
 
-    void update(Client client);
+    void update(Client client) throws DAOException;
 
 }

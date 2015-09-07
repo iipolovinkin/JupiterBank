@@ -1,10 +1,6 @@
 package ru.blogspot.feomatr.service;
 
-import org.joda.time.DateTime;
-import ru.blogspot.feomatr.entity.Account;
 import ru.blogspot.feomatr.entity.Broker;
-
-import java.math.BigDecimal;
 
 /**
  * @author iipolovinkin
@@ -12,10 +8,10 @@ import java.math.BigDecimal;
 public interface TransferService {
 
 
-    boolean transfer(Broker broker);
+    boolean transfer(Broker broker) throws ServiceException;
 
-    boolean transferTo(Broker broker);
+    boolean transferTo(Broker broker) throws ServiceException;
 
-    boolean transferFrom(Broker broker);
+    boolean transferFrom(Broker broker) throws ServiceException;
 
 }

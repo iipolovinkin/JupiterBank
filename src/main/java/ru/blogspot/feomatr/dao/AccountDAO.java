@@ -5,14 +5,14 @@ import ru.blogspot.feomatr.entity.Account;
 import java.util.List;
 
 public interface AccountDAO {
-    List<Account> getAll();
+    List<Account> getAll() throws DAOException;
 
-    Account getAccountById(Long id);
+    Account getById(Long id) throws DAOException;
 
-    Account create(Account account);
+    Account create(Account account) throws DAOException;
 
-    void delete(Account account);
+    void delete(Account account) throws DAOException;
 
-    void update(Account account);
+    void update(Account account) throws DAOException;
 
 }

@@ -68,15 +68,15 @@ public class TransactionDaoStubImpl implements TransactionDAO {
         return l;
     }
 
-    public static List<Transaction> filterReciver(List<Transaction> trs,
-                                                  Long idReciver) {
-        if (idReciver == null) {
+    public static List<Transaction> filterReceiver(List<Transaction> trs,
+                                                   Long idReceiver) {
+        if (idReceiver == null) {
             return trs;
         }
         List<Transaction> l = Lists.newArrayList();
         for (int i = 0; i < trs.size(); ++i) {
-            Account reciver = trs.get(i).getReceiver();
-            if (reciver != null && reciver.getId().equals(idReciver)) {
+            Account Receiver = trs.get(i).getReceiver();
+            if (Receiver != null && Receiver.getId().equals(idReceiver)) {
                 l.add(trs.get(i));
             }
         }
@@ -89,7 +89,7 @@ public class TransactionDaoStubImpl implements TransactionDAO {
     }
 
     @Override
-    public Transaction get(Long id) {
+    public Transaction getById(Long id) {
         for (Transaction transaction : transactions) {
             if (transaction.getId().equals(id)) {
                 return transaction;
@@ -118,16 +118,16 @@ public class TransactionDaoStubImpl implements TransactionDAO {
 
     @Override
     public void delete(Long id) {
-        transactions.remove(get(id));
+        transactions.remove(getById(id));
     }
 
     @Override
-    public List<Transaction> getByFilter(Long idSender, Long idReciver,
+    public List<Transaction> getByFilter(Long idSender, Long idReceiver,
                                          DateTime startTime, DateTime endTime) {
         // todo use guava predicates or apache commons
         List<Transaction> l = filterAfterTime(transactions, startTime);
         l = filterBeforeTime(l, endTime);
-        l = filterReciver(l, idReciver);
+        l = filterReceiver(l, idReceiver);
         l = filterSender(l, idSender);
         return l;
     }

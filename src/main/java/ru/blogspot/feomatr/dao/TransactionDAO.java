@@ -17,17 +17,17 @@ public interface TransactionDAO {
      * @param endTime
      * @return
      */
-    List<Transaction> getByFilter(Long idSender, Long idReciver, DateTime startTime, DateTime endTime);
+    List<Transaction> getByFilter(Long idSender, Long idReciver, DateTime startTime, DateTime endTime) throws DAOException;
 
-    List<Transaction> getAll();
+    List<Transaction> getAll() throws DAOException;
 
-    Transaction get(Long id);
+    Transaction getById(Long id) throws DAOException;
 
-    void create(Transaction tr);
+    void create(Transaction tr) throws DAOException;
 
-    void delete(Transaction tr);
+    void delete(Transaction tr) throws DAOException;
 
-    void delete(Long id);
+    void delete(Long id) throws DAOException;
 
-    void update(Transaction tr);
+    void update(Transaction tr) throws DAOException;
 }
