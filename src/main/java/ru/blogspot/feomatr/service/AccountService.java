@@ -9,14 +9,14 @@ import java.util.List;
  * @author iipolovinkin
  */
 public interface AccountService {
-    Account saveAccount(Account acc) throws ServiceException;
+    Account saveAccount(Account account) throws ServiceException;
 
     List<Account> getAllAccounts() throws ServiceException;
 
     Account getAccountById(Long id) throws ServiceException;
 
-    List<Account> getAccountsByOwner(Client cl) throws ServiceException;
+    List<Account> getAccountsByOwner(Client client) throws ServiceException;
 
-    void update(Account acc) throws ServiceException;
+    void update(Account account) throws ServiceException;
 
 }

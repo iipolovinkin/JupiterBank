@@ -23,11 +23,11 @@ public interface TransactionDAO {
 
     Transaction getById(Long id) throws DAOException;
 
-    void create(Transaction tr) throws DAOException;
+    void create(Transaction transaction) throws DAOException;
 
-    void delete(Transaction tr) throws DAOException;
+    void delete(Transaction transaction) throws DAOException;
 
     void delete(Long id) throws DAOException;
 
-    void update(Transaction tr) throws DAOException;
+    void update(Transaction transaction) throws DAOException;
 }
