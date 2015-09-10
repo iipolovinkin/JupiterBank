@@ -48,7 +48,7 @@ public class HomeController {
     }
 
     @RequestMapping(value = {"/admin_page"}, method = RequestMethod.POST)
-    public String doTransferToAccount(AdminClass adminClass, BindingResult bindingResult, Model model, HttpServletRequest request) {
+    public String doGenerateData(AdminClass adminClass, BindingResult bindingResult, Model model, HttpServletRequest request) {
         log.info("POST admin_page");
         log.info("adminClass = {}", adminClass);
         int clientsCount = adminClass.getClientsCount();
