@@ -27,11 +27,11 @@ import static org.junit.Assert.assertThat;
 public class TransactionsControllerSpringTest {
 
     @Autowired
-    TransactionsController transactionsController;
+    private TransactionsController transactionsController;
 
     @Qualifier("transactionService")
     @Autowired
-    TransactionService transactionService;
+    private TransactionService transactionService;
 
     private ExtendedModelMap model;
 

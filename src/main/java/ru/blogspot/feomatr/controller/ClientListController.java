@@ -114,6 +114,41 @@ public class ClientListController {
     }
 
 
+    @RequestMapping(method = RequestMethod.GET, params = {"page", "count"})
+    public String showClientsPage(Model model, HttpServletRequest request) throws ServletRequestBindingException {
+        log.info("showClients");
+
+        Integer page = Integer.valueOf(ServletRequestUtils.getStringParameter(request, "page"));
+        Integer count = Integer.valueOf(ServletRequestUtils.getStringParameter(request, "count"));
+
+        List<Client> clients = null;
+        try {
+            clients = clientService.getAllClients();
+        } catch (ServiceException e) {
+            log.error("Operation failed", e);
+            showErrorMessage("Operation failed", e);
+        }
+        if (count < 1 || page < 1) {
+            model.addAttribute("clientList", clients);
+            return "clients";
+        }
+        int pageCount = clients.size() / count;
+        if (clients.size() % count > 0) {
+            ++pageCount;
+        }
+        if (page > pageCount) {
+            model.addAttribute("clientList", clients);
+            return "clients";
+        } else {
+            int toIndex = page * count;
+            toIndex = toIndex > clients.size() ? clients.size() : toIndex;
+            List<Client> clientSublist = clients.subList((page - 1) * count, toIndex);
+            model.addAttribute("clientList", clientSublist);
+            return "clients";
+        }
+    }
+
+
     @RequestMapping(method = RequestMethod.GET, params = "output")
     public ModelAndView saveAllClients(Model model, HttpServletRequest request) throws ServletRequestBindingException {
         String output = ServletRequestUtils.getStringParameter(request, "output");
