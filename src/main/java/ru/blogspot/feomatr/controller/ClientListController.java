@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import ru.blogspot.feomatr.entity.Account;
 import ru.blogspot.feomatr.entity.Client;
 import ru.blogspot.feomatr.exceptions.ClientNotFoundException;
+import ru.blogspot.feomatr.formBean.Paginator;
 import ru.blogspot.feomatr.service.AccountService;
 import ru.blogspot.feomatr.service.ClientService;
 import ru.blogspot.feomatr.service.ServiceException;
@@ -96,56 +97,30 @@ public class ClientListController {
         return "clients/edit";
     }
 
-    @RequestMapping()
-    public String showClients(Model model) {
+    @RequestMapping(method = RequestMethod.GET)
+    public String showClients(Model model, HttpServletRequest request) throws ServletRequestBindingException {
         log.info("showClients");
 
+        String page = ServletRequestUtils.getStringParameter(request, "page");
+        Integer pageNumber = page == null ? 1 : Integer.valueOf(page);
+        Integer count = Paginator.CLIENTS_COUNT_PER_PAGE;
+
         List<Client> clients = null;
+        int size = -1;
         try {
             clients = clientService.getAllClients();
+            size = clients.size();
         } catch (ServiceException e) {
             log.error("Operation failed", e);
             showErrorMessage("Operation failed", e);
         }
-        if (clients != null) {
-            model.addAttribute("clientList", clients);
-        }
+
+        Paginator paginator = new Paginator(pageNumber, count, size);
+
+        List<Client> clientSublist = clients.subList(paginator.getFirstIndex(), paginator.getLastIndex());
+        model.addAttribute("clientList", clientSublist);
+        model.addAttribute("paginator", paginator);
         return "clients";
-    }
-
-
-    @RequestMapping(method = RequestMethod.GET, params = {"page", "count"})
-    public String showClientsPage(Model model, HttpServletRequest request) throws ServletRequestBindingException {
-        log.info("showClients");
-
-        Integer page = Integer.valueOf(ServletRequestUtils.getStringParameter(request, "page"));
-        Integer count = Integer.valueOf(ServletRequestUtils.getStringParameter(request, "count"));
-
-        List<Client> clients = null;
-        try {
-            clients = clientService.getAllClients();
-        } catch (ServiceException e) {
-            log.error("Operation failed", e);
-            showErrorMessage("Operation failed", e);
-        }
-        if (count < 1 || page < 1) {
-            model.addAttribute("clientList", clients);
-            return "clients";
-        }
-        int pageCount = clients.size() / count;
-        if (clients.size() % count > 0) {
-            ++pageCount;
-        }
-        if (page > pageCount) {
-            model.addAttribute("clientList", clients);
-            return "clients";
-        } else {
-            int toIndex = page * count;
-            toIndex = toIndex > clients.size() ? clients.size() : toIndex;
-            List<Client> clientSublist = clients.subList((page - 1) * count, toIndex);
-            model.addAttribute("clientList", clientSublist);
-            return "clients";
-        }
     }
 
 
