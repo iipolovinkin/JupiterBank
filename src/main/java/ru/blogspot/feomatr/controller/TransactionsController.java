@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import ru.blogspot.feomatr.entity.Transaction;
 import ru.blogspot.feomatr.formBean.FormFilter;
+import ru.blogspot.feomatr.formBean.Paginator;
 import ru.blogspot.feomatr.service.ServiceException;
 import ru.blogspot.feomatr.service.TransactionService;
 
@@ -38,16 +39,34 @@ public class TransactionsController {
     private TransactionService transactionService;
 
     @RequestMapping()
-    public String showTransactions(Model model) {
-        log.debug(" {}", "showTransactions");
+    public String showTransactions(Model model, HttpServletRequest request) throws ServletRequestBindingException {
+        log.info(" {}", "showTransactions");
+        List<Transaction> transactions = null;
+        int size = -1;
         try {
-            List<Transaction> transactions = transactionService.getAll();
-            model.addAttribute("transactions", transactions);
+            transactions = transactionService.getAll();
+            size=transactions.size();
         } catch (ServiceException e) {
             log.error("Operation failed", e);
             showErrorMessage("Operation failed", e);
         }
+
+        String page = ServletRequestUtils.getStringParameter(request, "page");
+        Integer pageNumber = page == null ? 1 : Integer.valueOf(page);
+        Integer count = Paginator.CLIENTS_COUNT_PER_PAGE;
+
+        Paginator paginator = new Paginator(pageNumber, count, size);
+        if (paginator.getLastIndex() == -1) {
+            model.addAttribute("transactions", transactions);
+            return "transactions";
+        }
+
+        List<Transaction> transactionSublist = transactions.subList(paginator.getFirstIndex(), paginator.getLastIndex());
+        model.addAttribute("transactions", transactionSublist);
+        model.addAttribute("paginator", paginator);
+
         model.addAttribute("formFilter", new FormFilter());
+
         return "transactions";
     }
 

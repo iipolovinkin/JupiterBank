@@ -101,10 +101,6 @@ public class ClientListController {
     public String showClients(Model model, HttpServletRequest request) throws ServletRequestBindingException {
         log.info("showClients");
 
-        String page = ServletRequestUtils.getStringParameter(request, "page");
-        Integer pageNumber = page == null ? 1 : Integer.valueOf(page);
-        Integer count = Paginator.CLIENTS_COUNT_PER_PAGE;
-
         List<Client> clients = null;
         int size = -1;
         try {
@@ -115,8 +111,15 @@ public class ClientListController {
             showErrorMessage("Operation failed", e);
         }
 
-        Paginator paginator = new Paginator(pageNumber, count, size);
+        String page = ServletRequestUtils.getStringParameter(request, "page");
+        Integer pageNumber = page == null ? 1 : Integer.valueOf(page);
+        Integer count = Paginator.CLIENTS_COUNT_PER_PAGE;
 
+        Paginator paginator = new Paginator(pageNumber, count, size);
+        if (paginator.getLastIndex() == -1) {
+            model.addAttribute("clientList", clients);
+            return "clients";
+        }
         List<Client> clientSublist = clients.subList(paginator.getFirstIndex(), paginator.getLastIndex());
         model.addAttribute("clientList", clientSublist);
         model.addAttribute("paginator", paginator);

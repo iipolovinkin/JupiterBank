@@ -11,10 +11,12 @@ import org.springframework.ui.ExtendedModelMap;
 import ru.blogspot.feomatr.entity.Transaction;
 import ru.blogspot.feomatr.service.TransactionService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.mock;
 
 /**
  * TODO: implement IT
@@ -46,7 +48,7 @@ public class TransactionsControllerSpringTest {
         List<Transaction> transactions = transactionService.getAll();
         model.addAttribute("transactions", transactions);
 
-        String actualView = transactionsController.showTransactions(model);
+        String actualView = transactionsController.showTransactions(model, mock(HttpServletRequest.class));
 
         assertThat(actualView, is(expectedView));
 

@@ -9,13 +9,12 @@ import ru.blogspot.feomatr.entity.Transaction;
 import ru.blogspot.feomatr.formBean.FormFilter;
 import ru.blogspot.feomatr.service.TransactionService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -25,7 +24,7 @@ import static org.mockito.Mockito.when;
  * @author iipolovinkin
  */
 public class TransactionsControllerTest {
-    TransactionService transactionService;
+    private TransactionService transactionService;
     private TransactionsController controller;
     private Model model;
     private String transactionsView = "transactions";
@@ -43,7 +42,7 @@ public class TransactionsControllerTest {
         List<Transaction> expectedTransactions = Lists.newArrayList(new Transaction());
         when(transactionService.getAll()).thenReturn(Arrays.asList(new Transaction()));
 
-        String actualView = controller.showTransactions(model);
+        String actualView = controller.showTransactions(model, mock(HttpServletRequest.class));
 
         assertEquals(transactionsView, actualView);
         assertThat((List<Transaction>) model.asMap().get("transactions"), is(expectedTransactions));

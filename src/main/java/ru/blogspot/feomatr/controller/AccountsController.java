@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import ru.blogspot.feomatr.entity.Account;
 import ru.blogspot.feomatr.entity.Broker;
+import ru.blogspot.feomatr.formBean.Paginator;
 import ru.blogspot.feomatr.service.AccountService;
 import ru.blogspot.feomatr.service.ServiceException;
 import ru.blogspot.feomatr.service.TransferService;
@@ -37,16 +38,30 @@ public class AccountsController {
     private TransferService transferService;
 
     @RequestMapping()
-    public String showAllAccounts(Model model) {
+    public String showAllAccounts(Model model, HttpServletRequest request) throws ServletRequestBindingException {
         log.info("showAccounts");
-        List<Account> accounts;
+        List<Account> accounts = null;
+        int size = -1;
         try {
             accounts = accountService.getAllAccounts();
-            model.addAttribute("accounts", accounts);
+            size = accounts.size();
         } catch (ServiceException e) {
             log.error("Operation failed", e);
             showErrorMessage("Operation failed", e);
         }
+
+        String page = ServletRequestUtils.getStringParameter(request, "page");
+        Integer pageNumber = page == null ? 1 : Integer.valueOf(page);
+        Integer count = Paginator.CLIENTS_COUNT_PER_PAGE;
+
+        Paginator paginator = new Paginator(pageNumber, count, size);
+        if (paginator.getLastIndex() == -1) {
+            model.addAttribute("accounts", accounts);
+            return "accounts";
+        }
+        List<Account> accountSublist = accounts.subList(paginator.getFirstIndex(), paginator.getLastIndex());
+        model.addAttribute("accounts", accountSublist);
+        model.addAttribute("paginator", paginator);
 
         return "accounts";
     }
