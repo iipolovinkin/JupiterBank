@@ -113,7 +113,7 @@ public class ClientListController {
 
         String page = ServletRequestUtils.getStringParameter(request, "page");
         Integer pageNumber = page == null ? 1 : Integer.valueOf(page);
-        Integer count = Paginator.CLIENTS_COUNT_PER_PAGE;
+        Integer count = Paginator.ROWS_COUNT_PER_PAGE;
 
         Paginator paginator = new Paginator(pageNumber, count, size);
         if (paginator.getLastIndex() == -1) {
@@ -151,6 +151,7 @@ public class ClientListController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String showClient(@PathVariable("id") Long id, Model model) {
+        // todo implement pagination for accounts of one client
         log.info("showClient");
         Client client = null;
         try {

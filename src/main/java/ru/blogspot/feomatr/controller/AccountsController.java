@@ -52,7 +52,7 @@ public class AccountsController {
 
         String page = ServletRequestUtils.getStringParameter(request, "page");
         Integer pageNumber = page == null ? 1 : Integer.valueOf(page);
-        Integer count = Paginator.CLIENTS_COUNT_PER_PAGE;
+        Integer count = Paginator.ROWS_COUNT_PER_PAGE;
 
         Paginator paginator = new Paginator(pageNumber, count, size);
         if (paginator.getLastIndex() == -1) {

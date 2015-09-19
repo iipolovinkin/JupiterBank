@@ -49,7 +49,7 @@ public class AccountsControllerTest {
         String viewName = accountsController.showAllAccounts(model, mock(HttpServletRequest.class));
 
         assertEquals(expectedViewName, viewName);
-        assertEquals(expectedAccounts, model.asMap().get("accounts"));
+        assertEquals(expectedAccounts, (List<Account>) model.asMap().get("accounts"));
     }
 
     @Test

@@ -17,7 +17,7 @@ public class Paginator {
 
     private static final Logger log = LoggerFactory.getLogger(Paginator.class);
 
-    public static final int CLIENTS_COUNT_PER_PAGE = 10;
+    public static final int ROWS_COUNT_PER_PAGE = 10;
 
     private int size;
     private int pageCount;

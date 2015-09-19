@@ -29,6 +29,7 @@ import static org.mockito.Mockito.when;
  */
 @RunWith(MockitoJUnitRunner.class)
 public class ClientListControllerTest {
+    private final HttpServletRequest requestMock = mock(HttpServletRequest.class);
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
     @Mock
@@ -61,7 +62,7 @@ public class ClientListControllerTest {
     public void testAddClientFromForm_WithoutErrors() throws Exception {
         String expectedView = "redirect:/clients/" + id;
         BindingResult bindingResult = mock(BindingResult.class);
-        HttpServletRequest request = mock(HttpServletRequest.class);
+        HttpServletRequest request = this.requestMock;
 
         when(bindingResult.hasErrors()).thenReturn(false);
         when(clientService.saveClient(expectedClient)).thenReturn(expectedClient);
@@ -75,7 +76,7 @@ public class ClientListControllerTest {
     public void testAddClientFromForm_WithBindingResultError() throws Exception {
         String expectedView = "clients/edit";
         BindingResult bindingResult = mock(BindingResult.class);
-        HttpServletRequest request = mock(HttpServletRequest.class);
+        HttpServletRequest request = this.requestMock;
 
         when(bindingResult.hasErrors()).thenReturn(true);
         when(clientService.saveClient(expectedClient)).thenReturn(expectedClient);
@@ -101,7 +102,7 @@ public class ClientListControllerTest {
         List<Client> expectedClients = newArrayList();
         when(clientService.getAllClients()).thenReturn(expectedClients);
 
-        String view = clientListController.showClients(model, mock(HttpServletRequest.class));
+        String view = clientListController.showClients(model, requestMock);
 
         assertEquals(expectedView, view);
         assertSame(expectedClients, model.asMap().get("clientList"));

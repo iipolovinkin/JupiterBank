@@ -30,7 +30,6 @@ public class Client implements Serializable {
     private Integer age;
 
     public Client(Long id, String firstname, String address, Integer age) {
-        super();
         this.id = id;
         this.firstname = firstname;
         this.address = address;
@@ -38,7 +37,6 @@ public class Client implements Serializable {
     }
 
     public Client(String firstname, String address, Integer age) {
-        super();
         this.firstname = firstname;
         this.address = address;
         this.age = age;
