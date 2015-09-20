@@ -48,4 +48,8 @@
 		<put-attribute name="body" value="/WEB-INF/views/accounts/transferFrom.jsp"/>
 	</definition>
 
+	<definition extends="default" name="confirmation">
+		<put-attribute name="body" value="/WEB-INF/views/confirmation.jsp"/>
+	</definition>
+
 </tiles-definitions>

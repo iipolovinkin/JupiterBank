@@ -6,6 +6,23 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+
+    <bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="mappings">
+            <value>
+                /upload.form=fileUploadController
+            </value>
+        </property>
+    </bean>
+
+    <bean id="fileUploadController" class="ru.blogspot.feomatr.controller.FileUploadController">
+        <property name="commandClass" value="ru.blogspot.feomatr.controller.FileUploadBean"/>
+        <property name="formView" value="fileuploadform"/>
+        <property name="successView" value="confirmation"/>
+    </bean>
+
     <import resource="classpath:di-context.xml"/>
     <!-- DispatcherServlet Context: defines this servlet's request-processing
         infrastructure -->
@@ -26,13 +43,13 @@
 
     <bean id="handlerMapping" class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping">
         <property name="interceptors">
-                <ref bean="localeChangeInterceptor"/>
+            <ref bean="localeChangeInterceptor"/>
         </property>
     </bean>
 
     <mvc:interceptors>
         <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
-            <property name="paramName" value="lang" />
+            <property name="paramName" value="lang"/>
         </bean>
     </mvc:interceptors>
 

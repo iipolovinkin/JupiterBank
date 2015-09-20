@@ -27,7 +27,11 @@
     <c:if test="${paginator.getCurrentPage() < (paginator.getPageCount()-1) }">
         <a href="/clients?page=${paginator.getPageCount()}">>></a>
     </c:if>
-
+	<br/>
+     <form method="post" action="upload.form" enctype="multipart/form-data">
+                <input type="file" name="file"/>
+                <input type="submit"/>
+            </form>
 	<c:if test="${not empty clientList}">
 		<br>
 		<table class="table">
