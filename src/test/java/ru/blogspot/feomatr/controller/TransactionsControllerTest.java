@@ -3,8 +3,10 @@ package ru.blogspot.feomatr.controller;
 import com.google.common.collect.Lists;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
+import org.springframework.web.servlet.ModelAndView;
 import ru.blogspot.feomatr.entity.Transaction;
 import ru.blogspot.feomatr.formBean.FormFilter;
 import ru.blogspot.feomatr.service.TransactionService;
@@ -25,16 +27,18 @@ import static org.mockito.Mockito.when;
  */
 public class TransactionsControllerTest {
     private TransactionService transactionService;
-    private TransactionsController controller;
+    private TransactionsController transactionsController;
     private Model model;
     private String transactionsView = "transactions";
+    private MockHttpServletRequest request;
 
     @Before
     public void setUp() throws Exception {
         model = new ExtendedModelMap();
-        controller = new TransactionsController();
+        transactionsController = new TransactionsController();
         transactionService = mock(TransactionService.class);
-        controller.setTransactionService(transactionService);
+        transactionsController.setTransactionService(transactionService);
+        request = new MockHttpServletRequest();
     }
 
     @Test
@@ -42,7 +46,7 @@ public class TransactionsControllerTest {
         List<Transaction> expectedTransactions = Lists.newArrayList(new Transaction());
         when(transactionService.getAll()).thenReturn(Arrays.asList(new Transaction()));
 
-        String actualView = controller.showTransactions(model, mock(HttpServletRequest.class));
+        String actualView = transactionsController.showTransactions(model, mock(HttpServletRequest.class));
 
         assertEquals(transactionsView, actualView);
         assertThat((List<Transaction>) model.asMap().get("transactions"), is(expectedTransactions));
@@ -55,10 +59,21 @@ public class TransactionsControllerTest {
         List<Transaction> expectedTransactions = Lists.newArrayList();
         when(transactionService.getByFilter(null, null, null, null)).thenReturn(expectedTransactions);
 
-        String actualView = controller.doFilter(formFilter, model);
+        String actualView = transactionsController.doFilter(formFilter, model);
 
         assertEquals(transactionsView, actualView);
         assertSame("transaction objects differs", expectedTransactions, model.asMap().get("transactions"));
     }
 
+    @Test
+    public void testSaveAllTransactions() throws Exception {
+        ModelAndView modelAndView = new ModelAndView("ExcelTransactionsReportView", "data", model);
+        request.setParameter("output", "excel");
+
+        ModelAndView actualModelAndView = transactionsController.saveAllTransactions(model, request);
+
+        assertThat(actualModelAndView.getViewName(), is(modelAndView.getViewName()));
+        assertTrue(actualModelAndView.getModel().containsKey("data"));
+
+    }
 }

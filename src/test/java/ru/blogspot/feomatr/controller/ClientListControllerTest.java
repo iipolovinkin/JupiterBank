@@ -8,9 +8,11 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.servlet.ModelAndView;
 import ru.blogspot.feomatr.entity.Client;
 import ru.blogspot.feomatr.exceptions.ClientNotFoundException;
 import ru.blogspot.feomatr.service.AccountService;
@@ -20,6 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
+import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -29,7 +32,7 @@ import static org.mockito.Mockito.when;
  */
 @RunWith(MockitoJUnitRunner.class)
 public class ClientListControllerTest {
-    private final HttpServletRequest requestMock = mock(HttpServletRequest.class);
+    private MockHttpServletRequest request;
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
     @Mock
@@ -45,6 +48,7 @@ public class ClientListControllerTest {
     @Before
     public void setUp() throws Exception {
         model = new ExtendedModelMap();
+        request = new MockHttpServletRequest();
         expectedClient = new Client(id, "name", "address rnd", 20);
     }
 
@@ -62,7 +66,7 @@ public class ClientListControllerTest {
     public void testAddClientFromForm_WithoutErrors() throws Exception {
         String expectedView = "redirect:/clients/" + id;
         BindingResult bindingResult = mock(BindingResult.class);
-        HttpServletRequest request = this.requestMock;
+        HttpServletRequest request = this.request;
 
         when(bindingResult.hasErrors()).thenReturn(false);
         when(clientService.saveClient(expectedClient)).thenReturn(expectedClient);
@@ -76,7 +80,7 @@ public class ClientListControllerTest {
     public void testAddClientFromForm_WithBindingResultError() throws Exception {
         String expectedView = "clients/edit";
         BindingResult bindingResult = mock(BindingResult.class);
-        HttpServletRequest request = this.requestMock;
+        HttpServletRequest request = this.request;
 
         when(bindingResult.hasErrors()).thenReturn(true);
         when(clientService.saveClient(expectedClient)).thenReturn(expectedClient);
@@ -102,7 +106,7 @@ public class ClientListControllerTest {
         List<Client> expectedClients = newArrayList();
         when(clientService.getAllClients()).thenReturn(expectedClients);
 
-        String view = clientListController.showClients(model, requestMock);
+        String view = clientListController.showClients(model, request);
 
         assertEquals(expectedView, view);
         assertSame(expectedClients, model.asMap().get("clientList"));
@@ -129,5 +133,17 @@ public class ClientListControllerTest {
 
         assertEquals(expectedView, resultView);
         assertSame(expectedClient, model.asMap().get("client"));
+    }
+
+    @Test
+    public void testSaveAllClients() throws Exception {
+        ModelAndView modelAndView = new ModelAndView("ExcelClientsReportView", "data", model);
+        request.setParameter("output", "excel");
+
+        ModelAndView actualModelAndView = clientListController.saveAllClients(model, request);
+
+        assertThat(actualModelAndView.getViewName(), is(modelAndView.getViewName()));
+        assertTrue(actualModelAndView.getModel().containsKey("data"));
+
     }
 }
