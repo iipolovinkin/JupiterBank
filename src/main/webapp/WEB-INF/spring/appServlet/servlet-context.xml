@@ -21,6 +21,8 @@
         <property name="commandClass" value="ru.blogspot.feomatr.controller.FileUploadBean"/>
         <property name="formView" value="fileuploadform"/>
         <property name="successView" value="confirmation"/>
+        <property name="clientService" ref="clientService"/>
+        <property name="accountService" ref="accountService"/>
     </bean>
 
     <import resource="classpath:di-context.xml"/>

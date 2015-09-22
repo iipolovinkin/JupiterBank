@@ -11,6 +11,8 @@ import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import ru.blogspot.feomatr.entity.Client;
+import ru.blogspot.feomatr.service.AccountService;
+import ru.blogspot.feomatr.service.ClientService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +27,8 @@ import java.io.ByteArrayInputStream;
  */
 public class FileUploadController extends SimpleFormController {
     private static final Logger log = LoggerFactory.getLogger(FileUploadController.class);
+    private ClientService clientService;
+    private AccountService accountService;
 
     protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response,
                                     Object command, BindException errors) throws Exception {
@@ -45,6 +49,7 @@ public class FileUploadController extends SimpleFormController {
 
 //			return десериализованного объекта
             System.out.println("client = " + client);
+            clientService.saveClient(client);
 
         } catch (XStreamException ex) {
             ex.printStackTrace();
@@ -62,5 +67,12 @@ public class FileUploadController extends SimpleFormController {
         // now Spring knows how to handle multipart object and convert them
     }
 
+    public void setClientService(ClientService clientService) {
+        this.clientService = clientService;
+    }
+
+    public void setAccountService(AccountService accountService) {
+        this.accountService = accountService;
+    }
 }
 

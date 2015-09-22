@@ -1,5 +1,6 @@
 package ru.blogspot.feomatr.entity;
 
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import lombok.*;
 
 import javax.validation.constraints.Max;
@@ -21,6 +22,7 @@ public class Account implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Long id;
+    @XStreamOmitField
     private Client owner;
     @Min(value = 0, message = "{account.balance.min}")
     @Max(value = 10000000, message = "{account.balance.max}")

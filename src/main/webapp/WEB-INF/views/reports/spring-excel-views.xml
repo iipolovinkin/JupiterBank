@@ -14,4 +14,8 @@
     <bean id="ExcelClientsReportView"
           class="ru.blogspot.feomatr.view.ExcelClientsReportView">
     </bean>
+
+    <bean id="XmlClientView"
+          class="ru.blogspot.feomatr.view.XmlClientView">
+    </bean>
 </beans>

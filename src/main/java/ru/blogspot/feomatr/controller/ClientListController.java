@@ -25,6 +25,7 @@ import ru.blogspot.feomatr.service.ServiceException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -147,6 +148,31 @@ public class ClientListController {
 
         //return excel view too
         return new ModelAndView("ExcelClientsReportView", "data", model);
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, params = "output")
+    public ModelAndView saveClient(@PathVariable("id") Long id, Model model, HttpServletRequest request) throws ServletRequestBindingException {
+        String output = ServletRequestUtils.getStringParameter(request, "output");
+        Client client = null;
+        try {
+            client = clientService.getClientById(id);
+        } catch (ServiceException e) {
+            log.error("Operation failed", e);
+            showErrorMessage("Operation failed", e);
+        }
+        Client client_ = new Client(client.getId(), client.getFirstname(), client.getAddress(), client.getAge());
+        Set<Account> accounts = new HashSet<>();
+        for (Account account : client.getAccounts()) {
+            accounts.add(new Account(account.getId(), client_, account.getBalance()));
+        }
+        client_.setAccounts(accounts);
+        if ("XML".equals(output.toUpperCase())) {
+            //return xml view
+            return new ModelAndView("XmlClientView", "data", client_);
+        }
+
+        //return xml view too
+        return new ModelAndView("XmlClientView", "data", client_);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
