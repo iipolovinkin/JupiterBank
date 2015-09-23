@@ -10,6 +10,7 @@ import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
+import ru.blogspot.feomatr.entity.Account;
 import ru.blogspot.feomatr.entity.Client;
 import ru.blogspot.feomatr.service.AccountService;
 import ru.blogspot.feomatr.service.ClientService;
@@ -20,8 +21,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayInputStream;
 
 /**
- * TODO: comment
- *
  * @author iipolovinkin
  * @since 20.09.2015
  */
@@ -47,16 +46,16 @@ public class FileUploadController extends SimpleFormController {
             Client client = new Client();
             xs.fromXML(new ByteArrayInputStream(file), client);
 
-//			return десериализованного объекта
-            System.out.println("client = " + client);
             clientService.saveClient(client);
+            for (Account account : client.getAccounts()) {
+                accountService.saveAccount(account);
+            }
 
         } catch (XStreamException ex) {
             ex.printStackTrace();
         }
         // well, let's do nothing with the bean for now and return
         return super.onSubmit(request, response, command, errors);
-//        return new ModelAndView("FileUploadSuccess","fileName",fileName);
     }
 
     protected void initBinder(HttpServletRequest request, ServletRequestDataBinder binder)

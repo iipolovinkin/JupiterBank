@@ -150,7 +150,7 @@ public class ClientListController {
         return new ModelAndView("ExcelClientsReportView", "data", model);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET, params = "output")
+    @RequestMapping(value = "/{id}.xml", method = RequestMethod.GET, params = "output")
     public ModelAndView saveClient(@PathVariable("id") Long id, Model model, HttpServletRequest request) throws ServletRequestBindingException {
         String output = ServletRequestUtils.getStringParameter(request, "output");
         Client client = null;

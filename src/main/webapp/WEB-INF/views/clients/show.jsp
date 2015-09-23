@@ -12,6 +12,7 @@
 	<jsp:directive.page contentType="text/html; charset=UTF-8"
 		pageEncoding="UTF-8" session="false" />
 	<c:if test="${not empty client}">
+	<a id="param" class="textLink" href="<c:url value="/clients/${client.getId()}.xml?output=xml" />">xml</a>
 		<table class="table">
 			<thead>
 				<tr>

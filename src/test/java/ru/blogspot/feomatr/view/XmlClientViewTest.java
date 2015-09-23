@@ -41,7 +41,6 @@ public class XmlClientViewTest {
         MockHttpServletResponse response = new MockHttpServletResponse();
         xmlClientView.renderMergedOutputModel(map, request, response);
 
-//        ServletOutputStream outputStream = response.gs();
         ServletOutputStream outputStream = response.getOutputStream();
         assertThat(response.getContentType(), is("text/xml; charset=ISO-8859-1"));
     }
