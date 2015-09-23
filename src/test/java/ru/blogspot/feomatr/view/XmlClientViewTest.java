@@ -7,7 +7,6 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import ru.blogspot.feomatr.entity.Account;
 import ru.blogspot.feomatr.entity.Client;
 
-import javax.servlet.ServletOutputStream;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -41,7 +40,6 @@ public class XmlClientViewTest {
         MockHttpServletResponse response = new MockHttpServletResponse();
         xmlClientView.renderMergedOutputModel(map, request, response);
 
-        ServletOutputStream outputStream = response.getOutputStream();
-        assertThat(response.getContentType(), is("text/xml; charset=ISO-8859-1"));
+        assertThat(response.getContentType(), is("binary/xml; charset=ISO-8859-1"));
     }
 }
