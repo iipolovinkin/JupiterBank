@@ -13,11 +13,12 @@ import java.util.List;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.*;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author iipolovinkin
  */
+@Ignore
 public class WebIT {
 
     private static String appHost = "http://127.0.0.1:8081";
@@ -74,7 +75,7 @@ public class WebIT {
 
         $(By.name("commit")).pressEnter();
 
-        assertTrue(title.equals(title()));
+        assertEquals(title, title());
 
         sleep(3000l);
     }

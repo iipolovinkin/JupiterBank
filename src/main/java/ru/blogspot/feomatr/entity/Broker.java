@@ -1,11 +1,7 @@
 package ru.blogspot.feomatr.entity;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.math.BigDecimal;
 
@@ -19,9 +15,9 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class Broker {
 
-    Long accountFrom;
-    Long accountTo;
-    BigDecimal amount;
-    String dateTime;
+    private Long accountFrom;
+    private Long accountTo;
+    private BigDecimal amount;
+    private String dateTime;
 
 }

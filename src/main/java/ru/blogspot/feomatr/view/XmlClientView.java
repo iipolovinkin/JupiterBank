@@ -25,7 +25,6 @@ public class XmlClientView extends AbstractView {
 
         String xml = null;
         if (model != null) {
-//            xStream.omitField(Client.class, "owner");
             xml = xStream.toXML(model);
         } else {
             xml = xStream.toXML(map);

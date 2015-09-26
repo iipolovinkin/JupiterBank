@@ -58,6 +58,17 @@ public class PaginatorTest {
     }
 
     @Test
+    public void testIncreaseLastPage() throws Exception {
+        paginator = new Paginator(3, 10, 23);
+
+        paginator.increase();
+
+        assertThat(paginator.getPrevPage(), is(2));
+        assertThat(paginator.getCurrentPage(), is(3));
+        assertThat(paginator.getNextPage(), is(-1));
+    }
+
+    @Test
     public void testDecreasePage() throws Exception {
         paginator = new Paginator(3, 10, 23);
 
@@ -71,6 +82,17 @@ public class PaginatorTest {
     @Test
     public void testDecreaseToFirstPage() throws Exception {
         paginator = new Paginator(2, 10, 23);
+
+        paginator.decrease();
+
+        assertThat(paginator.getPrevPage(), is(-1));
+        assertThat(paginator.getCurrentPage(), is(1));
+        assertThat(paginator.getNextPage(), is(2));
+    }
+
+    @Test
+    public void testDecreaseFirstPage() throws Exception {
+        paginator = new Paginator(1, 10, 23);
 
         paginator.decrease();
 
@@ -105,4 +127,27 @@ public class PaginatorTest {
         assertThat(actualFirstIndex, is(20));
         assertThat(actualLastIndex, is(23));
     }
+
+    @Test
+    public void testGetPaginatorForZeroPageCount() throws Exception {
+        paginator = new Paginator(1, 0, 23);
+
+        assertThat(paginator.getSize(), is(-1));
+    }
+
+    @Test
+    public void testGetPaginatorForZeroSize() throws Exception {
+        paginator = new Paginator(1, 0, 23);
+
+        assertThat(paginator.getSize(), is(-1));
+    }
+
+
+    @Test
+    public void testGetPaginatorForCurrentPageGreaterPageCount() throws Exception {
+        paginator = new Paginator(10, 5, 23);
+
+        assertThat(paginator.getSize(), is(-1));
+    }
+
 }
