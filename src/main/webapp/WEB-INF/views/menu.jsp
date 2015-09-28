@@ -9,12 +9,17 @@
 <s:message code="menu_client_list" var="menuClientList" />
 <s:message code="add_client" var="addClient" />
 <s:message code="adminPage" var="adminPage" />
+<s:message code="lang.en" var="lang_en" />
+<s:message code="lang.ru" var="lang_ru" />
+<s:message code="label.logout" var="label_logout" />
+<s:message code="label.login" var="label_login" />
 <s:message code="menu_account_list" var="menuAccountList" />
 <s:message code="accounts_menu_transfer" var="accountsMenuTransfer" />
 <s:message code="accounts_menu_transferTo" var="accountsMenuTransferTo" />
 <s:message code="accounts_menu_transferFrom"
 	var="accountsMenuTransferFrom" />
 <s:url value="/accounts" var="accountsUrl" />
+<s:url value="/admin_page" var="adminPageUrl" />
 <s:url value="${accountsUrl}?transfer" var="transferUrl" />
 <s:url value="${accountsUrl}?transferTo" var="transferUrlTo" />
 <s:url value="${accountsUrl}?transferFrom" var="transferUrlFrom" />
@@ -66,19 +71,19 @@
         			<ul aria-labelledby="drop7" role="menu" class="dropdown-menu"
         				id="menu4">
         				<li role="presentation"><a role="menuitem" tabindex="-1"
-                        					href="${adminPage}">${adminPage}</a></li>
+                        					href="${adminPageUrl}">${adminPage}</a></li>
         			</ul></li>
 	<!-- /pills -->
 	<span style="float:right" >
 	${lang}:
-		<a href="?lang=en_US">en</a>
+		<a href="?lang=en_US">${lang_en}</a>
 		|
-		<a href="?lang=ru_RU">ru</a>
+		<a href="?lang=ru_RU">${lang_ru}</a>
 	</span>
 	<span style="float:right" >
-    	<a href="/login">login</a>
+    	<a href="/login">${label_login}</a>
     	|
-    	<a href="/logout">logout</a>
+    	<a href="/logout">${label_logout}</a>
     </span>
 	</ul>
 </div>
