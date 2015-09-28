@@ -18,7 +18,7 @@
     </bean>
 
     <bean id="fileUploadController" class="ru.blogspot.feomatr.controller.FileUploadController">
-        <property name="commandClass" value="ru.blogspot.feomatr.controller.FileUploadBean"/>
+        <property name="commandClass" value="ru.blogspot.feomatr.formBean.FileUploadBean"/>
         <property name="formView" value="fileuploadform"/>
         <property name="successView" value="confirmation"/>
         <property name="clientService" ref="clientService"/>

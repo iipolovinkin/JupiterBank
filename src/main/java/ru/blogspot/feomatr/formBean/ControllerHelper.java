@@ -1,4 +1,4 @@
-package ru.blogspot.feomatr.controller;
+package ru.blogspot.feomatr.formBean;
 
 import com.google.common.base.Stopwatch;
 import lombok.NoArgsConstructor;
@@ -17,8 +17,6 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Random;
 
-import static ru.blogspot.feomatr.controller.UIUtils.showErrorMessage;
-
 @Setter
 @NoArgsConstructor
 public class ControllerHelper {
@@ -28,7 +26,7 @@ public class ControllerHelper {
     private AccountService accountService;
     private TransferService transferService;
 
-    void generateThreadCATs(final int clientCount, final int accountCount, final int transferCount, int threads) {
+    public void generateThreadCATs(final int clientCount, final int accountCount, final int transferCount, int threads) {
         for (int i = 0; i < threads; i++) {
             final int finalI = i;
             new Thread(new Runnable() {
@@ -45,18 +43,18 @@ public class ControllerHelper {
     }
 
 
-    void generateCATs(int clientCount, int accountCount, int transferCount) {
+    public void generateCATs(int clientCount, int accountCount, int transferCount) {
         try {
             createClients(clientCount);
             createAccounts(clientCount, accountCount);
             createTransfers(accountCount, transferCount);
         } catch (ServiceException e) {
             log.error("Operation failed", e);
-            showErrorMessage("Operation failed", e);
+            UIUtils.showErrorMessage("Operation failed", e);
         }
     }
 
-    void createClients(int clientCount) throws ServiceException {
+    public void createClients(int clientCount) throws ServiceException {
         Random random = new Random();
         for (int i = 0; i < clientCount; i++) {
             Client client = new Client("Name", "Address Bingo st. ", 20 + random.nextInt(40));
@@ -64,7 +62,7 @@ public class ControllerHelper {
         }
     }
 
-    void createTransfers(int accountCount, int transferCount) throws ServiceException {
+    public void createTransfers(int accountCount, int transferCount) throws ServiceException {
         Random random = new Random();
         List<Account> accounts = accountService.getAllAccounts();
         for (int i = 0; i < transferCount; i++) {
@@ -78,7 +76,7 @@ public class ControllerHelper {
         }
     }
 
-    void createAccounts(int clientCount, int accountCount) throws ServiceException {
+    public void createAccounts(int clientCount, int accountCount) throws ServiceException {
         Random random = new Random();
         List<Client> allClients = clientService.getAllClients();
         for (int i = 0; i < accountCount; i++) {

@@ -56,7 +56,7 @@
         <property name="transactionService" ref="transactionService"/>
     </bean>
 
-    <bean id="controllerHelper" class="ru.blogspot.feomatr.controller.ControllerHelper">
+    <bean id="controllerHelper" class="ru.blogspot.feomatr.formBean.ControllerHelper">
         <property name="clientService" ref="clientService"/>
         <property name="accountService" ref="accountService"/>
         <property name="transferService" ref="transferService"/>

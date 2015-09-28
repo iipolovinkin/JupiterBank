@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
 import ru.blogspot.feomatr.formBean.AdminClass;
+import ru.blogspot.feomatr.formBean.ControllerHelper;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;

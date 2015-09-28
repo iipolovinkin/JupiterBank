@@ -16,7 +16,7 @@
     </bean>
 
     <bean id="controllerHelper" class="org.mockito.Mockito" factory-method="mock">
-        <constructor-arg value="ru.blogspot.feomatr.controller.ControllerHelper"/>
+        <constructor-arg value="ru.blogspot.feomatr.formBean.ControllerHelper"/>
     </bean>
 
 </beans>

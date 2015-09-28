@@ -1,4 +1,4 @@
-package ru.blogspot.feomatr.controller;
+package ru.blogspot.feomatr.formBean;
 
 import org.apache.commons.lang.NotImplementedException;
 import org.slf4j.Logger;

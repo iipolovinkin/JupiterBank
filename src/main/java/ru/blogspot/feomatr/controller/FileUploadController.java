@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import ru.blogspot.feomatr.entity.Account;
 import ru.blogspot.feomatr.entity.Client;
+import ru.blogspot.feomatr.formBean.FileUploadBean;
 import ru.blogspot.feomatr.service.AccountService;
 import ru.blogspot.feomatr.service.ClientService;
 

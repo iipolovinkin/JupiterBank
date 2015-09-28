@@ -29,7 +29,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static ru.blogspot.feomatr.controller.UIUtils.showErrorMessage;
+import static ru.blogspot.feomatr.formBean.UIUtils.showErrorMessage;
 
 /**
  * Handles requests for the application Client List page
@@ -112,8 +112,7 @@ public class ClientListController {
             showErrorMessage("Operation failed", e);
         }
 
-        String page = ServletRequestUtils.getStringParameter(request, "page");
-        Integer pageNumber = page == null ? 1 : Integer.valueOf(page);
+        Integer pageNumber = ServletRequestUtils.getIntParameter(request, "page", 1);
         Integer count = Paginator.ROWS_COUNT_PER_PAGE;
 
         Paginator paginator = new Paginator(pageNumber, count, size);

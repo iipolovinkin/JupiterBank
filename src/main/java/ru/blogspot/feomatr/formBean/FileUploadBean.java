@@ -1,4 +1,4 @@
-package ru.blogspot.feomatr.controller;
+package ru.blogspot.feomatr.formBean;
 
 public class FileUploadBean {
 
