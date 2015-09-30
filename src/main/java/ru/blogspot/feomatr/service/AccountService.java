@@ -19,4 +19,5 @@ public interface AccountService {
 
     void update(Account account) throws ServiceException;
 
+    void delete(Account account) throws ServiceException;
 }

@@ -79,4 +79,14 @@ public class AccountServiceImpl implements AccountService {
         }
     }
 
+    @Override
+    public void delete(Account account) throws ServiceException {
+        try {
+            accountDAO.delete(account);
+        } catch (DAOException e) {
+            log.error("ServiceException", e);
+            throw new ServiceException("ServiceException", e);
+        }
+    }
+
 }

@@ -61,4 +61,16 @@ public class ClientServiceImpl implements ClientService {
         }
     }
 
+    @Override
+    public void delete(Client client) throws ServiceException {
+        try {
+            clientDAO.delete(client);
+        } catch (DAOException e) {
+            log.error("Cannot delete client", e);
+            throw new ServiceException("Cannot delete client", e);
+
+        }
+
+    }
+
 }

@@ -16,4 +16,5 @@ public interface ClientService {
 
     Client getClientById(Long id) throws ServiceException;
 
+    void delete(Client client) throws ServiceException;
 }
