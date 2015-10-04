@@ -51,6 +51,8 @@ public class TransactionsController {
             showErrorMessage("Operation failed", e);
         }
 
+        model.addAttribute("formFilter", new FormFilter());
+
         Integer pageNumber = ServletRequestUtils.getIntParameter(request, "page", 1);
         Integer count = Paginator.ROWS_COUNT_PER_PAGE;
 
@@ -63,8 +65,6 @@ public class TransactionsController {
         List<Transaction> transactionSublist = transactions.subList(paginator.getFirstIndex(), paginator.getLastIndex());
         model.addAttribute("transactions", transactionSublist);
         model.addAttribute("paginator", paginator);
-
-        model.addAttribute("formFilter", new FormFilter());
 
         return "transactions";
     }
