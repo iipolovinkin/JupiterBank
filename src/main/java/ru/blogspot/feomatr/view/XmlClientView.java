@@ -8,6 +8,7 @@ import org.springframework.web.servlet.view.AbstractView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 /**
@@ -30,7 +31,8 @@ public class XmlClientView extends AbstractView {
             xml = xStream.toXML(map);
         }
 
-        response.getOutputStream().write(xml.getBytes());
+        byte[] bytes = xml.getBytes(StandardCharsets.UTF_8);
+        response.getOutputStream().write(bytes);
 
         setContentType("binary/xml; charset=ISO-8859-1");
         response.setContentType(getContentType());
