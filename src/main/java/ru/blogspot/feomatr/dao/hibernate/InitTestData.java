@@ -2,7 +2,6 @@ package ru.blogspot.feomatr.dao.hibernate;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.InitializingBean;
 import ru.blogspot.feomatr.entity.Account;
 import ru.blogspot.feomatr.entity.Broker;
 import ru.blogspot.feomatr.entity.Client;
@@ -11,6 +10,7 @@ import ru.blogspot.feomatr.service.ClientService;
 import ru.blogspot.feomatr.service.ServiceException;
 import ru.blogspot.feomatr.service.TransferService;
 
+import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
 
 /**
@@ -20,7 +20,7 @@ import java.math.BigDecimal;
  *
  * @author iipolovinkin
  */
-public class InitTestData implements InitializingBean {
+public class InitTestData {
     public static final int CLIENT_COUNT = 7;
     private static final Logger log = LoggerFactory.getLogger(InitTestData.class);
     private final String[] addresses = {"New York, Yellow st, 64",
@@ -34,8 +34,8 @@ public class InitTestData implements InitializingBean {
     private AccountService accountService;
     private TransferService transferService;
 
-    @Override
-    public void afterPropertiesSet() throws Exception {
+    @PostConstruct
+    public void init() throws Exception {
         log.info("InitTestData initializing ");
         initClients();
         initTransactions();
