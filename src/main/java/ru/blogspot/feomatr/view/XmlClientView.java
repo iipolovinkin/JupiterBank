@@ -36,7 +36,5 @@ public class XmlClientView extends AbstractView {
 
         setContentType("binary/xml; charset=ISO-8859-1");
         response.setContentType(getContentType());
-
-        logger.info("xml = " + xml);
     }
 }

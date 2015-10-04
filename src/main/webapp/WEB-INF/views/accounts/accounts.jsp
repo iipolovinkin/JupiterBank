@@ -1,10 +1,11 @@
-<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
+	<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="t" uri="http://tiles.apache.org/tags-tiles"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <s:message code="add_account" var="addAccount" />
+<s:message code="accountNo" var="accountNo" />
 <s:message code="amount" var="amount" />
 <s:message code="id" var="id" />
 <div id="accounts" class="container">
@@ -43,6 +44,7 @@
 			<thead>
 				<tr>
 					<th>${id}</th>
+					<th>${accountNo}</th>
 					<th>${amount}</th>
 				</tr>
 			</thead>
@@ -54,6 +56,7 @@
 							href="<c:url value="/accounts/${account.getId()}/" />">
 							</a> --> <c:out value="${account.getId()}" />
 						</td>
+						<td><c:out value="${account.getAccountNo()}" /></td>
 						<td><c:out value="${account.getBalance()}" /></td>
 					</tr>
 				</c:forEach>

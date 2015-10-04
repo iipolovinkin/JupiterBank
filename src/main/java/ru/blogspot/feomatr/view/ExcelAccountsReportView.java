@@ -30,7 +30,7 @@ public class ExcelAccountsReportView extends AbstractExcelView {
         HSSFSheet sheet = workbook.createSheet("Accounts Report");
 
         //create header (filling row)
-        List<String> head = Lists.newArrayList("ID", "Balance");
+        List<String> head = Lists.newArrayList("ID", "AccountNo", "Balance");
         HSSFRow header = sheet.createRow(0);
         for (int i = 0; i < head.size(); i++) {
             header.createCell(i).setCellValue(head.get(i));
@@ -43,7 +43,8 @@ public class ExcelAccountsReportView extends AbstractExcelView {
             HSSFRow row = sheet.createRow(rowNum++);
             Account a = list.get(i);
             row.createCell(0).setCellValue(a.getId().toString());
-            row.createCell(1).setCellValue(a.getBalance().toString());
+            row.createCell(1).setCellValue(a.getAccountNo());
+            row.createCell(2).setCellValue(a.getBalance().toString());
         }
     }
 }

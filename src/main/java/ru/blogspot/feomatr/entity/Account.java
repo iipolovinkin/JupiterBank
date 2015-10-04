@@ -27,12 +27,26 @@ public class Account implements Serializable {
     @Min(value = 0, message = "{account.balance.min}")
     @Max(value = 10000000, message = "{account.balance.max}")
     private BigDecimal balance;
+    @NonNull
+    private String accountNo = AccountNo.generatePrivateBankAccountNo();
 
     public Account(Client owner) {
         this(owner, new BigDecimal(0));
     }
 
     public Account(Client owner, BigDecimal balance) {
+        this(null, owner, balance);
+    }
+
+    /**
+     * Constructor for tests
+     */
+    public Account(Client owner, Long balance) {
+        this(null, owner, balance);
+    }
+
+    public Account(Long id, Client owner, BigDecimal balance) {
+        this.id = id;
         this.owner = owner;
         this.balance = balance;
     }
@@ -40,17 +54,8 @@ public class Account implements Serializable {
     /**
      * Constructor for tests
      */
-    public Account(Client owner, Long balance) {
-        this.owner = owner;
-        this.balance = new BigDecimal(balance);
+    public Account(Long id, Client owner, Long balance) {
+        this(id, owner, new BigDecimal(balance));
     }
 
-    /**
-     * Constructor for tests
-     */
-    public Account(Long id, Client owner, Long balance) {
-        this.id = id;
-        this.owner = owner;
-        this.balance = new BigDecimal(balance);
-    }
 }

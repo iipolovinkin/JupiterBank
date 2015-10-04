@@ -6,6 +6,7 @@ import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.blogspot.feomatr.entity.Account;
+import ru.blogspot.feomatr.entity.AccountNo;
 import ru.blogspot.feomatr.entity.Broker;
 import ru.blogspot.feomatr.entity.Client;
 import ru.blogspot.feomatr.service.AccountService;
@@ -78,6 +79,7 @@ public class ControllerHelper {
 
     public void createAccounts(int clientCount, int accountCount) throws ServiceException {
         Random random = new Random();
+        int clientCountX10k = clientCount * 10000;
         List<Client> allClients = clientService.getAllClients();
         for (int i = 0; i < accountCount; i++) {
             Account account = new Account();
@@ -85,6 +87,8 @@ public class ControllerHelper {
             int n = random.nextInt(clientCount);
             account.setOwner(allClients.get(n));
             account.setBalance(new BigDecimal(1000));
+            int clientNum = clientCountX10k + i;
+            account.setAccountNo(AccountNo.generatePrivateBankAccountNo(clientNum));
             accountService.saveAccount(account);
         }
     }
