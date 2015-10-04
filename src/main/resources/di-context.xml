@@ -67,15 +67,6 @@
     </bean>
 
 
-    <!--
-        <bean id="clientDaoStub" class="ru.blogspot.feomatr.dao.stub.ClientDaoStubImpl" />
-        <bean id="accountDaoStub" class="ru.blogspot.feomatr.dao.stub.AccountDaoStubImpl" />
-        <bean id="transactionDaoStub" class="ru.blogspot.feomatr.dao.stub.TransactionDaoStubImpl" />
-
-        <bean id="hibernateUtil"
-            class="ru.blogspot.feomatr.persistence.hibernate.util.HibernateUtil" />
-            -->
-
     <bean id="initTestData" class="ru.blogspot.feomatr.dao.hibernate.InitTestData">
         <property name="clientService" ref="clientService"/>
         <property name="accountService" ref="accountService"/>
