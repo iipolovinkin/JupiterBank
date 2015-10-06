@@ -20,7 +20,9 @@ import ru.blogspot.feomatr.service.ServiceException;
 import ru.blogspot.feomatr.service.TransferService;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static ru.blogspot.feomatr.formBean.UIUtils.showErrorMessage;
 
@@ -37,7 +39,7 @@ public class AccountsController {
     private AccountService accountService;
     private TransferService transferService;
 
-    @RequestMapping()
+    @RequestMapping(method = RequestMethod.GET)
     public String showAllAccounts(Model model, HttpServletRequest request) throws ServletRequestBindingException {
         log.info("showAccounts");
         List<Account> accounts = null;
@@ -88,15 +90,15 @@ public class AccountsController {
     }
 
     @RequestMapping(method = RequestMethod.GET, params = "transferFrom")
-    public String showTransferFrom(Broker broker, Model model) {
+    public String showTransferFrom(Model model) {
         log.info("GET TransferFrom");
         model.addAttribute("broker", new Broker());
-
         return "transferFrom";
     }
 
     @RequestMapping(method = RequestMethod.POST, params = "transferFrom")
-    public String doTransferFromAccount(Broker broker, Model model) {
+    public ModelAndView doTransferFromAccount(HttpServletRequest request) {
+        Broker broker = (Broker) request.getAttribute("broker");
         boolean transfer = false;
         try {
             transfer = transferService.transferFrom(broker);
@@ -105,13 +107,14 @@ public class AccountsController {
             showErrorMessage("Operation failed", e);
         }
         log.info("POST TransferFrom transfer = {}, broker = {}", transfer, broker);
-        model.addAttribute("isTransfered", transfer);
-
-        return "transferFrom";
+        Map model = new HashMap();
+        model.put("isTransfered", transfer);
+        ModelAndView modelAndView = new ModelAndView("transferFrom", model);
+        return modelAndView;
     }
 
     @RequestMapping(method = RequestMethod.GET, params = "transferTo")
-    public String showTransferTo(Broker broker, Model model) {
+    public String showTransferTo(Model model) {
         log.info("GET TransferTo");
         model.addAttribute("broker", new Broker());
 
@@ -119,7 +122,8 @@ public class AccountsController {
     }
 
     @RequestMapping(method = RequestMethod.POST, params = "transferTo")
-    public String doTransferToAccount(Broker broker, Model model) {
+    public String doTransferToAccount(Model model, HttpServletRequest request) {
+        Broker broker = (Broker) request.getAttribute("broker");
         boolean transfer = false;
         try {
             transfer = transferService.transferTo(broker);
@@ -134,7 +138,7 @@ public class AccountsController {
     }
 
     @RequestMapping(method = RequestMethod.GET, params = "transfer")
-    public String showTransfer(Broker broker, Model model) {
+    public String showTransfer(Model model) {
         log.info("GET Transfer");
         model.addAttribute("broker", new Broker());
 
@@ -142,7 +146,8 @@ public class AccountsController {
     }
 
     @RequestMapping(method = RequestMethod.POST, params = "transfer")
-    public String doTransfer(Broker broker, Model model) {
+    public String doTransfer(Model model, HttpServletRequest request) {
+        Broker broker = (Broker) request.getAttribute("broker");
         boolean transfer = false;
         try {
             transfer = transferService.transfer(broker);

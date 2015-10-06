@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
+
+    <!-- use hibernate4.LocalSessionFactoryBean-->
+    <bean id="hibernateSessionFactory" name="systemHibernateSessionFactory"
+          class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"
+          depends-on="dataSource">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.connection.driver_class">org.h2.Driver</prop>
+                <prop key="hibernate.connection.url">jdbc:h2:Jupiter</prop>
+                <prop key="hibernate.connection.username">sa</prop>
+                <prop key="hibernate.connection.password"></prop>
+                <prop key="hibernate.connection.autocommit">true</prop>
+                <prop key="hibernate.show_sql">false</prop>
+                <prop key="hibernate.format_sql">true</prop>
+                <prop key="hibernate.dialect">org.hibernate.dialect.H2Dialect</prop>
+                <prop key="hibernate.hbm2ddl.auto">create</prop>
+                <prop key="hibernate.current_session_context_class">thread</prop>
+
+                <prop key="hibernate.connection.autocommit">true</prop>
+                <prop key="hibernate.transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</prop>
+            </props>
+        </property>
+        <!--<property name="entityInterceptor">-->
+            <!--<bean class="com.otr.sufd.core.dao.HibernateCompositeInterceptor">-->
+                <!--<property name="interceptors">-->
+                    <!--<list>-->
+                        <!--<bean class="com.otr.sufd.core.cache.CachedEntityModificationInterceptor">-->
+                            <!--<property name="cacheValidationEnabled" value="true"/>-->
+                        <!--</bean>-->
+                    <!--</list>-->
+                <!--</property>-->
+            <!--</bean>-->
+        <!--</property>-->
+
+        <property name="mappingLocations">
+            <list>
+                <value>../resources/Client.hbm.xml</value>
+                <value>../resources/Account.hbm.xml</value>
+                <value>../resources/Transaction.hbm.xml</value>
+            </list>
+        </property>
+    </bean>
+
+    <jdbc:embedded-database id="dataSource" type="H2"/>
+
+
+</beans>

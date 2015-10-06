@@ -53,9 +53,9 @@ public class AccountDAOHibImpl implements AccountDAO {
         Transaction tx = session.beginTransaction();
         try {
             a = (Account) session.get(Account.class, id);
-        } catch (HibernateException e) {
-            log.error("Cannot get account by id", e);
-            throw new DAOException("Cannot get account by id", e);
+        } catch (Exception e) {
+            log.error("Cannot get account by id: " + id, e);
+            throw new DAOException("Cannot get account by id: " + id, e);
         } finally {
             tx.commit();
         }

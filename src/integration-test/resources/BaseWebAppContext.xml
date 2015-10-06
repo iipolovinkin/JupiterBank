@@ -4,8 +4,8 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
@@ -30,6 +30,22 @@
     <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
         <property name="basename" value="classpath:messages"/>
         <property name="defaultEncoding" value="UTF-8"/>
+    </bean>
+
+    <bean id="ExcelAccountsReportView"
+          class="ru.blogspot.feomatr.view.ExcelAccountsReportView">
+    </bean>
+
+    <bean id="ExcelTransactionsReportView"
+          class="ru.blogspot.feomatr.view.ExcelTransactionsReportView">
+    </bean>
+
+    <bean id="ExcelClientsReportView"
+          class="ru.blogspot.feomatr.view.ExcelClientsReportView">
+    </bean>
+
+    <bean id="XmlClientView"
+          class="ru.blogspot.feomatr.view.XmlClientView">
     </bean>
 
 </beans>

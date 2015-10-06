@@ -20,7 +20,9 @@ import java.util.List;
 
 import static java.util.Arrays.asList;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -61,7 +63,7 @@ public class AccountsControllerTest {
     public void testShowTransferFrom() throws Exception {
         String expectedViewName = "transferFrom";
 
-        String viewName = accountsController.showTransferFrom(new Broker(), model);
+        String viewName = accountsController.showTransferFrom(model);
 
         assertEquals(expectedViewName, viewName);
         assertEquals(new Broker().toString(), model.asMap().get("broker").toString());
@@ -72,7 +74,7 @@ public class AccountsControllerTest {
     public void testShowTransferTo() throws Exception {
         String expectedViewName = "transferTo";
 
-        String viewName = accountsController.showTransferTo(new Broker(), model);
+        String viewName = accountsController.showTransferTo(model);
 
         assertEquals(expectedViewName, viewName);
         assertEquals(new Broker().toString(), model.asMap().get("broker").toString());
@@ -82,7 +84,7 @@ public class AccountsControllerTest {
     public void testShowTransfer() throws Exception {
         String expectedViewName = "transfer";
 
-        String viewName = accountsController.showTransfer(new Broker(), model);
+        String viewName = accountsController.showTransfer(model);
 
         assertEquals(expectedViewName, viewName);
         assertEquals(new Broker().toString(), model.asMap().get("broker").toString());
