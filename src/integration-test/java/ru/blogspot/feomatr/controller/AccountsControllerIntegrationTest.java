@@ -25,7 +25,9 @@ import javax.annotation.Resource;
 import java.math.BigDecimal;
 
 import static org.hamcrest.core.Is.is;
+import static org.hamcrest.number.BigDecimalCloseTo.closeTo;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -79,6 +81,7 @@ public class AccountsControllerIntegrationTest {
         }
         assertTrue(clientService.getAllClients().isEmpty());
         assertTrue(accountService.getAllAccounts().isEmpty());
+        assertTrue(transactionService.getAll().isEmpty());
     }
 
     /**
@@ -103,6 +106,8 @@ public class AccountsControllerIntegrationTest {
     public void testShowAllAccounts() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/accounts"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.view().name("accounts"))
+                .andExpect(MockMvcResultMatchers.model().size(2))
                 .andExpect(MockMvcResultMatchers.request().attribute("accounts", is(accountService.getAllAccounts())));
     }
 
@@ -110,6 +115,7 @@ public class AccountsControllerIntegrationTest {
     public void testShowAllAccounts2() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/accounts").param("page", "2"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.model().attributeExists("accounts"))
                 .andExpect(MockMvcResultMatchers.view().name("accounts"));
     }
 
@@ -155,34 +161,55 @@ public class AccountsControllerIntegrationTest {
     public void shouldDoTransferFromAccount() throws Exception {
         Long idFrom = accountService.getAllAccounts().get(0).getId();
         Long idTo = 0L;
-        Broker broker = new Broker(idFrom, idTo, new BigDecimal(3), null);
-        mockMvc.perform(MockMvcRequestBuilders.post("/accounts").param("transferFrom", "").requestAttr("broker", broker))
+	    BigDecimal amount = new BigDecimal(3);
+	    Broker broker = new Broker(idFrom, idTo, amount, null);
+	    mockMvc.perform(MockMvcRequestBuilders.post("/accounts").param("transferFrom", "").requestAttr("broker", broker))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.model().attribute("isTransfered", true))
                 .andExpect(MockMvcResultMatchers.view().name("transferFrom"));
+
+	    int size = transactionService.getAll().size();
+	    assertThat(size, is(1));
+
+	    BigDecimal actualAmount = transactionService.getByFilter(idFrom, null, null, null).get(0).getAmount();
+	    assertThat(actualAmount, is(closeTo(amount, BigDecimal.ZERO)));
     }
 
     @Test
-    public void shouldDoTransferToAccount() throws Exception {
+    public void shouldDoOneTransferToAccount() throws Exception {
         Long idFrom = 0L;
         Long idTo = accountService.getAllAccounts().get(1).getId();
-        Broker broker = new Broker(idFrom, idTo, new BigDecimal(2), null);
+	    BigDecimal amount = new BigDecimal(2);
+	    Broker broker = new Broker(idFrom, idTo, amount, null);
         mockMvc.perform(MockMvcRequestBuilders.post("/accounts").param("transferTo", "").requestAttr("broker", broker))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.model().attribute("isTransfered", true))
                 .andExpect(MockMvcResultMatchers.view().name("transferTo"));
+
+	    int size = transactionService.getAll().size();
+	    assertThat(size, is(1));
+
+	    BigDecimal actualAmount = transactionService.getByFilter(null, idTo, null, null).get(0).getAmount();
+	    assertThat(actualAmount, is(closeTo(amount, BigDecimal.ZERO)));
     }
 
     @Test
     public void shouldDoTransferAccount() throws Exception {
         Long idFrom = accountService.getAllAccounts().get(0).getId();
         Long idTo = accountService.getAllAccounts().get(1).getId();
-        Broker broker = new Broker(idFrom, idTo, new BigDecimal(1), null);
+	    BigDecimal amount = new BigDecimal(1);
+	    Broker broker = new Broker(idFrom, idTo, amount, null);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/accounts").param("transfer", "").requestAttr("broker", broker))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.model().attribute("isTransfered", true))
                 .andExpect(MockMvcResultMatchers.view().name("transfer"));
+
+	    int size = transactionService.getAll().size();
+	    assertThat(size, is(1));
+
+	    BigDecimal actualAmount = transactionService.getByFilter(idFrom, idTo, null, null).get(0).getAmount();
+	    assertThat(actualAmount, is(closeTo(amount, BigDecimal.ZERO)));
     }
 
     // todo fix and rename when will realised JB-50
