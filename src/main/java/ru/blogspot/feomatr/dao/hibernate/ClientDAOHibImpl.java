@@ -70,7 +70,7 @@ public class ClientDAOHibImpl implements ClientDAO {
         Transaction tx = session.beginTransaction();
         try {
             session.save(client);
-        } catch (HibernateException e) {
+        } catch (Exception e) {
             log.error("Cannot create client", e);
             throw new DAOException("Cannot create client", e);
         } finally {

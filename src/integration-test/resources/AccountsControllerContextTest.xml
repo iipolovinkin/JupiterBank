@@ -13,7 +13,7 @@
 
     <import resource="BaseWebAppContext.xml"/>
     <import resource="CommonEntities.xml"/>
-    <import resource="servlet-context.xml"/>
+    c
 
     <bean id="accountsController" class="ru.blogspot.feomatr.controller.AccountsController">
         <property name="accountService" ref="accountService"/>

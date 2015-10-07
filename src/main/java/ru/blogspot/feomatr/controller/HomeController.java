@@ -39,17 +39,15 @@ public class HomeController {
     @RequestMapping(value = {"/admin_page"}, method = RequestMethod.GET)
     public String showAdminPage(Model model) {
         log.info("admin_page");
-        AdminClass adminClass = new AdminClass();
-        adminClass.setClientsCount(50);
-        adminClass.setAccountsCount(50);
-        adminClass.setTransfersCount(50);
-        adminClass.setThreadsCount(5);
+        AdminClass adminClass = AdminClass.createAdminFromCATT(50, 50, 50, 5);
         model.addAttribute(adminClass);
         return "admin_page";
     }
 
     @RequestMapping(value = {"/admin_page"}, method = RequestMethod.POST)
-    public String doGenerateData(AdminClass adminClass, BindingResult bindingResult, Model model, HttpServletRequest request) {
+    public String doGenerateData(Model model, HttpServletRequest request) {
+        AdminClass adminClass = (AdminClass) request.getAttribute("adminClass");
+        BindingResult bindingResult = (BindingResult) request.getAttribute("bindingResult");
         log.info("POST admin_page");
         log.info("adminClass = {}", adminClass);
         int clientsCount = adminClass.getClientsCount();

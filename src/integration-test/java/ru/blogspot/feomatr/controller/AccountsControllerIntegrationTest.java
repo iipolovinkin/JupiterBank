@@ -79,6 +79,7 @@ public class AccountsControllerIntegrationTest {
         for (Client client : clientService.getAllClients()) {
             clientService.delete(client);
         }
+
         assertTrue(clientService.getAllClients().isEmpty());
         assertTrue(accountService.getAllAccounts().isEmpty());
         assertTrue(transactionService.getAll().isEmpty());

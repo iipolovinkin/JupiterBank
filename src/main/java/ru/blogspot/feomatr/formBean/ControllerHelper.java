@@ -15,9 +15,17 @@ import ru.blogspot.feomatr.service.ServiceException;
 import ru.blogspot.feomatr.service.TransferService;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
+/**
+ * todo write test
+ */
 @Setter
 @NoArgsConstructor
 public class ControllerHelper {
@@ -28,21 +36,33 @@ public class ControllerHelper {
     private TransferService transferService;
 
     public void generateThreadCATs(final int clientCount, final int accountCount, final int transferCount, int threads) {
-        for (int i = 0; i < threads; i++) {
-            final int finalI = i;
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    Stopwatch stopwatch = Stopwatch.createStarted();
-                    log.info("starting thread # " + finalI);
-                    generateCATs(clientCount, accountCount, transferCount);
-                    stopwatch.stop();
-                    log.info("stopping thread # {}, time: {}", finalI, stopwatch);
-                }
-            }).start();
+        try {
+            ExecutorService pool = Executors.newCachedThreadPool();
+            //use Callable
+            List<Callable<String>> tasks = new ArrayList<Callable<String>>();
+
+            for (int i = 0; i < threads; i++) {
+                final int finalI = i;
+                tasks.add(new Callable<String>() {
+                    @Override
+                    public String call() throws Exception {
+                        Stopwatch stopwatch = Stopwatch.createStarted();
+                        log.info("starting thread # " + finalI);
+                        generateCATs(clientCount, accountCount, transferCount);
+                        stopwatch.stop();
+                        log.info("stopping thread # {}, time: {}", finalI, stopwatch);
+                        return null;
+                    }
+                }); //prepare tasks
+            }
+
+            List<Future<String>> answers = pool.invokeAll(tasks); // run, wait and get answers
+            pool.shutdown();
+        } catch (InterruptedException e) {
+            log.error("", e);
+
         }
     }
-
 
     public void generateCATs(int clientCount, int accountCount, int transferCount) {
         try {
@@ -66,9 +86,12 @@ public class ControllerHelper {
     public void createTransfers(int accountCount, int transferCount) throws ServiceException {
         Random random = new Random();
         List<Account> accounts = accountService.getAllAccounts();
+        int bound = transferCount - 6;
+        bound = bound < 2 ? 10 : bound;
+
         for (int i = 0; i < transferCount; i++) {
 
-            int n = random.nextInt(transferCount - 6);
+            int n = random.nextInt(bound);
             Broker broker = new Broker();
             BigDecimal amount = new BigDecimal(n);
             broker.setAccountTo(accounts.get((i + 1) % accountCount).getId());

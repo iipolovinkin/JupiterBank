@@ -67,7 +67,7 @@ public class HomeControllerTest {
         String expectedView = "admin_page";
         controller.setControllerHelper(mock(ControllerHelper.class));
 
-        String actualView = controller.doGenerateData(mock(AdminClass.class), null, null, null);
+        String actualView = controller.doGenerateData(null, null);
 
         assertEquals(expectedView, actualView);
     }

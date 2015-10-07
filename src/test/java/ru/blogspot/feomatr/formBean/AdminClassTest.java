@@ -29,4 +29,19 @@ public class AdminClassTest {
                 is("AdminClass(clientsCount=0, accountsCount=0, transfersCount=0, " +
                         "threadsCount=0, attr05=, attr06=, attr07=, attr08=, attr09=, attr10=)"));
     }
+
+    @Test
+    public void testCreateAdminFromCATT() throws Exception {
+        int clientsCount = 1;
+        int accountsCount = 2;
+        int transfersCount = 3;
+        int threadsCount = 4;
+
+        AdminClass adminFromCATT = AdminClass.createAdminFromCATT(clientsCount, accountsCount, transfersCount, threadsCount);
+
+        assertThat(adminFromCATT.getClientsCount(), is(clientsCount));
+        assertThat(adminFromCATT.getAccountsCount(), is(accountsCount));
+        assertThat(adminFromCATT.getTransfersCount(), is(transfersCount));
+        assertThat(adminFromCATT.getThreadsCount(), is(threadsCount));
+    }
 }
