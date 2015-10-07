@@ -2,10 +2,13 @@ package ru.blogspot.feomatr.controller;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
 import ru.blogspot.feomatr.formBean.AdminClass;
 import ru.blogspot.feomatr.formBean.ControllerHelper;
+
+import javax.servlet.http.HttpServletRequest;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -66,8 +69,10 @@ public class HomeControllerTest {
     public void testDoTransferToAccount() throws Exception {
         String expectedView = "admin_page";
         controller.setControllerHelper(mock(ControllerHelper.class));
+        HttpServletRequest request = new MockHttpServletRequest();
+        request.setAttribute("adminClass", new AdminClass());
 
-        String actualView = controller.doGenerateData(null, null);
+        String actualView = controller.doGenerateData(null, request);
 
         assertEquals(expectedView, actualView);
     }
