@@ -1,8 +1,16 @@
 package ru.blogspot.feomatr.entity;
 
-import lombok.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
-import javax.validation.constraints.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -29,6 +37,8 @@ public class Client implements Serializable {
     @Max(value = 150, message = "{client.age.greaterThanValue}")
     private Integer age;
 
+    private Set<Account> accounts = new HashSet<>();
+
     public Client(Long id, String firstname, String address, Integer age) {
         this.id = id;
         this.firstname = firstname;
@@ -42,6 +52,11 @@ public class Client implements Serializable {
         this.age = age;
     }
 
-    private Set<Account> accounts = new HashSet<>();
+    public Client(Client client) {
+        id = client.id;
+        firstname = client.firstname;
+        address = client.address;
+        age = client.age;
+    }
 
 }

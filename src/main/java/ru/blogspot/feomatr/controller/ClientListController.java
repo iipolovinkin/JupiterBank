@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import ru.blogspot.feomatr.entity.Account;
 import ru.blogspot.feomatr.entity.Client;
 import ru.blogspot.feomatr.exceptions.ClientNotFoundException;
+import ru.blogspot.feomatr.formBean.ConverterUtils;
 import ru.blogspot.feomatr.formBean.Paginator;
 import ru.blogspot.feomatr.service.AccountService;
 import ru.blogspot.feomatr.service.ClientService;
@@ -25,7 +26,6 @@ import ru.blogspot.feomatr.service.ServiceException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -159,12 +159,7 @@ public class ClientListController {
             log.error("Operation failed", e);
             showErrorMessage("Operation failed", e);
         }
-        Client client_ = new Client(client.getId(), client.getFirstname(), client.getAddress(), client.getAge());
-        Set<Account> accounts = new HashSet<>();
-        for (Account account : client.getAccounts()) {
-            accounts.add(new Account(account.getId(), client_, account.getBalance()));
-        }
-        client_.setAccounts(accounts);
+        Client client_ = ConverterUtils.getDetachedClient(client);
         if ("XML".equals(output.toUpperCase())) {
             //return xml view
             return new ModelAndView("XmlClientView", "data", client_);
