@@ -7,11 +7,12 @@ http://www.springframework.org/schema/security
 http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 
     <http access-denied-page="/error403.jsp">
-        <intercept-url pattern="/home*" access="ROLE_USER,ROLE_ANONYMOUS"/>
-        <intercept-url pattern="/clients*" access="ROLE_USER"/>
-        <intercept-url pattern="/accounts*" access="ROLE_USER"/>
-        <intercept-url pattern="/transactions*" access="ROLE_ADMIN"/>
-        <intercept-url pattern="/admin_page*" access="ROLE_ADMIN"/>
+        <intercept-url pattern="/home" access="ROLE_USER,ROLE_ANONYMOUS"/>
+        <intercept-url pattern="/favicon.ico" access="ROLE_USER,ROLE_ANONYMOUS"/>
+        <intercept-url pattern="/clients/**" access="ROLE_USER"/>
+        <intercept-url pattern="/accounts/**" access="ROLE_USER"/>
+        <intercept-url pattern="/transactions/**" access="ROLE_ADMIN"/>
+        <intercept-url pattern="/admin_page/**" access="ROLE_ADMIN"/>
         <form-login login-page="/login" default-target-url="/home"
                     authentication-failure-url="/login.jsp?error=true"/>
         <logout logout-url="/logout" logout-success-url="/home"/>
