@@ -5,6 +5,8 @@ import org.junit.Test;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -32,5 +34,12 @@ public class AccountNoTest {
         Matcher m = p.matcher(actual);
 
         assertTrue(m.matches());
+    }
+
+    @Test
+    public void testGetCurrentNo() throws Exception {
+		int currentNo = AccountNo.getCurrentNo();
+		AccountNo.generatePrivateBankAccountNo();
+	    assertThat(AccountNo.getCurrentNo(), is(currentNo + 1));
     }
 }

@@ -20,6 +20,9 @@ import com.google.common.base.Preconditions;
  * @since 03.10.2015
  */
 public class AccountNo {
+
+    private static int currentNo = 0;
+
     public static String generatePrivateBankAccountNo(int clientNum) {
         Preconditions.checkArgument(clientNum > 0, "ClientNum should be Ge 1.");
         String accountType = "40817";
@@ -33,12 +36,17 @@ public class AccountNo {
     }
 
     public static String generatePrivateBankAccountNo() {
-        int clientNum = getCurrentNo();
+        int clientNum = generateCurrentNo();
         return generatePrivateBankAccountNo(clientNum);
     }
 
-    private static int getCurrentNo() {
-        return 1;
+	private static int generateCurrentNo() {
+		currentNo++;
+		return currentNo;
+	}
+
+	public static int getCurrentNo() {
+        return currentNo;
     }
 
 }
