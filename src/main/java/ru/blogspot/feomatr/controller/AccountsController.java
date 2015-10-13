@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.ServletRequestUtils;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -20,9 +21,7 @@ import ru.blogspot.feomatr.service.ServiceException;
 import ru.blogspot.feomatr.service.TransferService;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static ru.blogspot.feomatr.formBean.UIUtils.showErrorMessage;
 
@@ -97,8 +96,7 @@ public class AccountsController {
     }
 
     @RequestMapping(method = RequestMethod.POST, params = "transferFrom")
-    public ModelAndView doTransferFromAccount(HttpServletRequest request) {
-        Broker broker = (Broker) request.getAttribute("broker");
+    public String doTransferFromAccount(@ModelAttribute Broker broker, Model model) {
         boolean transfer = false;
         try {
             transfer = transferService.transferFrom(broker);
@@ -107,10 +105,8 @@ public class AccountsController {
             showErrorMessage("Operation failed", e);
         }
         log.info("POST TransferFrom transfer = {}, broker = {}", transfer, broker);
-        Map model = new HashMap();
-        model.put("isTransfered", transfer);
-        ModelAndView modelAndView = new ModelAndView("transferFrom", model);
-        return modelAndView;
+        model.addAttribute("isTransfered", transfer);
+        return "transferFrom";
     }
 
     @RequestMapping(method = RequestMethod.GET, params = "transferTo")
@@ -122,8 +118,7 @@ public class AccountsController {
     }
 
     @RequestMapping(method = RequestMethod.POST, params = "transferTo")
-    public String doTransferToAccount(Model model, HttpServletRequest request) {
-        Broker broker = (Broker) request.getAttribute("broker");
+    public String doTransferToAccount(@ModelAttribute Broker broker, Model model) {
         boolean transfer = false;
         try {
             transfer = transferService.transferTo(broker);
@@ -146,8 +141,7 @@ public class AccountsController {
     }
 
     @RequestMapping(method = RequestMethod.POST, params = "transfer")
-    public String doTransfer(Model model, HttpServletRequest request) {
-        Broker broker = (Broker) request.getAttribute("broker");
+    public String doTransfer(@ModelAttribute Broker broker, Model model) {
         boolean transfer = false;
         try {
             transfer = transferService.transfer(broker);

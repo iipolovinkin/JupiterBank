@@ -1,7 +1,14 @@
 package ru.blogspot.feomatr.entity;
 
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -17,6 +24,7 @@ import java.math.BigDecimal;
 @ToString(exclude = "owner")
 @EqualsAndHashCode(exclude = "owner")
 @AllArgsConstructor
+@NoArgsConstructor
 public class Account implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -28,7 +36,7 @@ public class Account implements Serializable {
     @Max(value = 10000000, message = "{account.balance.max}")
     private BigDecimal balance;
     @NonNull
-    private String accountNo = AccountNo.generatePrivateBankAccountNo();
+    private String accountNo;
 
     public Account(Client owner) {
         this(owner, new BigDecimal(0));
@@ -49,6 +57,7 @@ public class Account implements Serializable {
         this.id = id;
         this.owner = owner;
         this.balance = balance;
+        this.accountNo = AccountNo.generatePrivateBankAccountNo();
     }
 
     /**

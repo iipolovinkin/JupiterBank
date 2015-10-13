@@ -9,6 +9,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -163,11 +164,16 @@ public class AccountsControllerIntegrationTest {
         Long idFrom = accountService.getAllAccounts().get(0).getId();
         Long idTo = 0L;
 	    BigDecimal amount = new BigDecimal(3);
-	    Broker broker = new Broker(idFrom, idTo, amount, null);
-	    mockMvc.perform(MockMvcRequestBuilders.post("/accounts").param("transferFrom", "").requestAttr("broker", broker))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.model().attribute("isTransfered", true))
-                .andExpect(MockMvcResultMatchers.view().name("transferFrom"));
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.post("/accounts")
+		        .param("transferFrom", "")
+                .param("accountFrom", idFrom.toString())
+                .param("accountTo", idTo.toString())
+                .param("amount", amount.toString())
+                .param("dateTime", "");
+        mockMvc.perform(request)
+		        .andExpect(MockMvcResultMatchers.status().isOk())
+		        .andExpect(MockMvcResultMatchers.model().attribute("isTransfered", true))
+		        .andExpect(MockMvcResultMatchers.view().name("transferFrom"));
 
 	    int size = transactionService.getAll().size();
 	    assertThat(size, is(1));
@@ -182,10 +188,15 @@ public class AccountsControllerIntegrationTest {
         Long idTo = accountService.getAllAccounts().get(1).getId();
 	    BigDecimal amount = new BigDecimal(2);
 	    Broker broker = new Broker(idFrom, idTo, amount, null);
-        mockMvc.perform(MockMvcRequestBuilders.post("/accounts").param("transferTo", "").requestAttr("broker", broker))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.model().attribute("isTransfered", true))
-                .andExpect(MockMvcResultMatchers.view().name("transferTo"));
+        mockMvc.perform(MockMvcRequestBuilders.post("/accounts").param("transferTo", "")
+		        .param("transferTo", "")
+		        .param("accountFrom", idFrom.toString())
+		        .param("accountTo", idTo.toString())
+		        .param("amount", amount.toString())
+		        .param("dateTime", ""))
+		        .andExpect(MockMvcResultMatchers.status().isOk())
+		        .andExpect(MockMvcResultMatchers.model().attribute("isTransfered", true))
+		        .andExpect(MockMvcResultMatchers.view().name("transferTo"));
 
 	    int size = transactionService.getAll().size();
 	    assertThat(size, is(1));
@@ -201,10 +212,15 @@ public class AccountsControllerIntegrationTest {
 	    BigDecimal amount = new BigDecimal(1);
 	    Broker broker = new Broker(idFrom, idTo, amount, null);
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/accounts").param("transfer", "").requestAttr("broker", broker))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.model().attribute("isTransfered", true))
-                .andExpect(MockMvcResultMatchers.view().name("transfer"));
+        mockMvc.perform(MockMvcRequestBuilders.post("/accounts").param("transfer", "")
+		        .param("transfer", "")
+		        .param("accountFrom", idFrom.toString())
+		        .param("accountTo", idTo.toString())
+		        .param("amount", amount.toString())
+		        .param("dateTime", ""))
+		        .andExpect(MockMvcResultMatchers.status().isOk())
+		        .andExpect(MockMvcResultMatchers.model().attribute("isTransfered", true))
+		        .andExpect(MockMvcResultMatchers.view().name("transfer"));
 
 	    int size = transactionService.getAll().size();
 	    assertThat(size, is(1));
@@ -220,9 +236,9 @@ public class AccountsControllerIntegrationTest {
         Broker broker = new Broker();
 
         mockMvc.perform(MockMvcRequestBuilders.post("/accounts").param("transfer", "").requestAttr("broker", broker))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.model().attribute("isTransfered", false))
-                .andExpect(MockMvcResultMatchers.view().name("transfer"));
+		        .andExpect(MockMvcResultMatchers.status().isOk())
+		        .andExpect(MockMvcResultMatchers.model().attribute("isTransfered", false))
+		        .andExpect(MockMvcResultMatchers.view().name("transfer"));
     }
 
     // todo fix when will realised JB-50
@@ -232,9 +248,9 @@ public class AccountsControllerIntegrationTest {
         Broker broker = new Broker();
 
         mockMvc.perform(MockMvcRequestBuilders.post("/accounts").param("transferFrom", "").requestAttr("broker", broker))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.model().attribute("isTransfered", false))
-                .andExpect(MockMvcResultMatchers.view().name("transfer"));
+		        .andExpect(MockMvcResultMatchers.status().isOk())
+		        .andExpect(MockMvcResultMatchers.model().attribute("isTransfered", false))
+		        .andExpect(MockMvcResultMatchers.view().name("transfer"));
     }
 
     // todo fix when will realised JB-50
@@ -244,8 +260,8 @@ public class AccountsControllerIntegrationTest {
         Broker broker = new Broker();
 
         mockMvc.perform(MockMvcRequestBuilders.post("/accounts").param("transferTo", "").requestAttr("broker", broker))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.model().attribute("isTransfered", false))
-                .andExpect(MockMvcResultMatchers.view().name("transfer"));
+		        .andExpect(MockMvcResultMatchers.status().isOk())
+		        .andExpect(MockMvcResultMatchers.model().attribute("isTransfered", false))
+		        .andExpect(MockMvcResultMatchers.view().name("transfer"));
     }
 }

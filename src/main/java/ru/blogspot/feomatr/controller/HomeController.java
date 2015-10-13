@@ -6,13 +6,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import ru.blogspot.feomatr.formBean.AdminClass;
 import ru.blogspot.feomatr.formBean.ControllerHelper;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author iipolovinkin
@@ -45,10 +43,7 @@ public class HomeController {
     }
 
     @RequestMapping(value = {"/admin_page"}, method = RequestMethod.POST)
-    public String doGenerateData(Model model, HttpServletRequest request) {
-        AdminClass adminClass = (AdminClass) request.getAttribute("adminClass");
-        BindingResult bindingResult = (BindingResult) request.getAttribute("bindingResult");
-        log.info("POST admin_page");
+    public String doGenerateData(@ModelAttribute AdminClass adminClass, Model model) {
         log.info("adminClass = {}", adminClass);
         int clientsCount = adminClass.getClientsCount();
         int accountsCount = adminClass.getAccountsCount();

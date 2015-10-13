@@ -72,7 +72,7 @@ public class HomeControllerTest {
         HttpServletRequest request = new MockHttpServletRequest();
         request.setAttribute("adminClass", new AdminClass());
 
-        String actualView = controller.doGenerateData(null, request);
+        String actualView = controller.doGenerateData(mock(AdminClass.class), null);
 
         assertEquals(expectedView, actualView);
     }

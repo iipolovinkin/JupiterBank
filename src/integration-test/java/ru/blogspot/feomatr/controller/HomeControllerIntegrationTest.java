@@ -8,13 +8,13 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import ru.blogspot.feomatr.entity.Client;
 import ru.blogspot.feomatr.entity.Transaction;
-import ru.blogspot.feomatr.formBean.AdminClass;
 import ru.blogspot.feomatr.service.AccountService;
 import ru.blogspot.feomatr.service.ClientService;
 import ru.blogspot.feomatr.service.TransactionService;
@@ -69,7 +69,9 @@ public class HomeControllerIntegrationTest {
 
     @Test
     public void testShowHome() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/"))
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get("/");
+
+        mockMvc.perform(request)
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.model().size(0))
                 .andExpect(MockMvcResultMatchers.view().name("home"));
@@ -77,7 +79,9 @@ public class HomeControllerIntegrationTest {
 
     @Test
     public void testShowHomeHome() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/home"))
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get("/home");
+
+        mockMvc.perform(request)
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.model().size(0))
                 .andExpect(MockMvcResultMatchers.view().name("home"));
@@ -85,7 +89,9 @@ public class HomeControllerIntegrationTest {
 
     @Test
     public void testShowHomeLogin() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/login"))
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get("/login");
+
+        mockMvc.perform(request)
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.model().size(0))
                 .andExpect(MockMvcResultMatchers.view().name("login"));
@@ -93,7 +99,9 @@ public class HomeControllerIntegrationTest {
 
     @Test
     public void testShowAdminPage() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/admin_page"))
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get("/admin_page");
+
+        mockMvc.perform(request)
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.model().size(1))
                 .andExpect(MockMvcResultMatchers.model().attributeExists("adminClass"))
@@ -101,21 +109,28 @@ public class HomeControllerIntegrationTest {
     }
 
     @Test
-    public void testDoGenerate() throws Exception {
-        Integer clientCount = 2;
-        Integer threadsCount = 2;
-        Integer expectedClientCount = clientCount * threadsCount;
-        int accountsCount = 3;
-        int transfersCount = 3;
-        AdminClass adminClass = AdminClass.createAdminFromCATT(clientCount, accountsCount, transfersCount, threadsCount);
+    public void shouldGenerateData() throws Exception {
+        String clientCount = "2";
+        String threadsCount = "2";
+	    String expectedClientCount = String.valueOf(Integer.valueOf(clientCount) * Integer.valueOf(threadsCount));
+	    String accountsCount = "3";
+        String transfersCount = "3";
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/admin_page").requestAttr("adminClass", adminClass))
+	    // admin_page.jsp has 4 parameters: clientsCount, accountsCount, transfersCount, threadsCount.
+	    // well, set them.
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.post("/admin_page")
+                .param("clientsCount", clientCount)
+                .param("accountsCount", accountsCount)
+                .param("transfersCount", transfersCount)
+                .param("threadsCount", threadsCount);
+	    
+        mockMvc.perform(request)
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.view().name("admin_page"));
+		        .andExpect(MockMvcResultMatchers.model().attributeExists("adminClass"))
+		        .andExpect(MockMvcResultMatchers.view().name("admin_page"));
 
-        Integer size = clientService.getAllClients().size();
-        assertEquals(expectedClientCount, size);
-
+        String actualClientCount = String.valueOf(clientService.getAllClients().size());
+        assertEquals(expectedClientCount, actualClientCount);
     }
 
 }
