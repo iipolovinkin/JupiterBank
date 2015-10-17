@@ -21,7 +21,6 @@ import java.util.Random;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 /**
  * todo write test
@@ -56,7 +55,7 @@ public class ControllerHelper {
                 }); //prepare tasks
             }
 
-            List<Future<String>> answers = pool.invokeAll(tasks); // run, wait and get answers
+            pool.invokeAll(tasks); // run, wait and get answers
             pool.shutdown();
         } catch (InterruptedException e) {
             log.error("", e);

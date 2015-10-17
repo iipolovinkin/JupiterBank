@@ -10,7 +10,7 @@
 
     <!--todo Split configuration to few files: dao-context, services-context, etc. -->
 
-    <bean id="sessionFactory" class="ru.blogspot.feomatr.persistence.hibernate.util.HibernateUtil" factory-method="getSessionFactory"/>
+    <import resource="DatasourceContext.xml"/>
 
     <!--DAO Beans-->
     <bean id="clientDAO" class="ru.blogspot.feomatr.dao.hibernate.ClientDAOHibImpl">
@@ -72,6 +72,5 @@
         <property name="accountService" ref="accountService"/>
         <property name="transferService" ref="transferService"/>
     </bean>
-
 
 </beans>

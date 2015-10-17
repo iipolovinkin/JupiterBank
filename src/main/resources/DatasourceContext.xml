@@ -14,13 +14,11 @@
     <!-- use hibernate4.LocalSessionFactoryBean-->
     <alias name="hibernateSessionFactory" alias="sessionFactory"/>
     <bean id="hibernateSessionFactory" name="systemHibernateSessionFactory"
-          class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+          class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"
+          depends-on="dataSource">
+        <property name="dataSource" ref="dataSource"/>
         <property name="hibernateProperties">
             <props>
-                <prop key="hibernate.connection.driver_class">org.h2.Driver</prop>
-                <prop key="hibernate.connection.url">jdbc:h2:Jupiter</prop>
-                <prop key="hibernate.connection.username">sa</prop>
-                <prop key="hibernate.connection.password"></prop>
                 <prop key="hibernate.connection.autocommit">true</prop>
                 <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
                 <prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
@@ -40,4 +38,23 @@
             </list>
         </property>
     </bean>
+
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.LazyConnectionDataSourceProxy">
+        <property name="targetDataSource">
+            <bean class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+                <property name="driverClass" value="${jdbc.driverClassName}"/>
+                <property name="jdbcUrl" value="${jdbc.url}"/>
+                <property name="user" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+                <property name="maxStatements" value="${pool.maxStatements}"/>
+                <property name="maxStatementsPerConnection" value="${pool.maxStatementsPerConnection}"/>
+                <property name="maxPoolSize" value="${pool.maxPoolSize}"/>
+                <property name="idleConnectionTestPeriod" value="${pool.idleConnectionTestPeriod}"/>
+                <property name="checkoutTimeout" value="${pool.checkoutTimeout}"/>
+            </bean>
+        </property>
+    </bean>
+
+    <context:property-placeholder location="classpath:database.properties"/>
+
 </beans>
