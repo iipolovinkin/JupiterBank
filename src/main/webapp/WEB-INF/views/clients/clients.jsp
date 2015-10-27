@@ -12,20 +12,20 @@
 	class="container">
 	<jsp:directive.page contentType="text/html; charset=UTF-8"
 		pageEncoding="UTF-8" session="false" />
-	<a href="/clients.xls?output=excel">excel</a>
+	<a href="clients.xls?output=excel">excel</a>
 
 	<c:if test="${paginator.getPrevPage() > 1 }">
-        <a href="/clients?page=1"><<</a>
+        <a href="clients?page=1"><<</a>
     </c:if>
 	<c:if test="${paginator.getPrevPage() > 0 }">
-		<a href="/clients?page=${paginator.getPrevPage()}">${paginator.getPrevPage()}</a>
+		<a href="clients?page=${paginator.getPrevPage()}">${paginator.getPrevPage()}</a>
 	</c:if>
     ${paginator.getCurrentPage()}
     <c:if test="${paginator.getNextPage() > 0 }">
-        <a href="/clients?page=${paginator.getNextPage()}">${paginator.getNextPage()}</a>
+        <a href="clients?page=${paginator.getNextPage()}">${paginator.getNextPage()}</a>
     </c:if>
     <c:if test="${paginator.getCurrentPage() < (paginator.getPageCount()-1) }">
-        <a href="/clients?page=${paginator.getPageCount()}">>></a>
+        <a href="clients?page=${paginator.getPageCount()}">>></a>
     </c:if>
 	<br/>
      <form method="post" action="upload.form" enctype="multipart/form-data">

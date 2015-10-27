@@ -1,5 +1,6 @@
 package ru.blogspot.feomatr.controller;
 
+import com.google.common.base.Stopwatch;
 import com.google.common.collect.Lists;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -40,7 +41,8 @@ public class TransactionsController {
 
     @RequestMapping()
     public String showTransactions(Model model, HttpServletRequest request) throws ServletRequestBindingException {
-        log.info(" {}", "showTransactions");
+        Stopwatch stopwatch = Stopwatch.createStarted();
+        log.info(" {}", "showTransactions, start:" + stopwatch);
         List<Transaction> transactions = null;
         int size = -1;
         try {
@@ -61,10 +63,12 @@ public class TransactionsController {
             model.addAttribute("transactions", transactions);
             return "transactions";
         }
-
+        log.info(" {}", "showTransactions, middle:" + stopwatch);
         List<Transaction> transactionSublist = transactions.subList(paginator.getFirstIndex(), paginator.getLastIndex());
         model.addAttribute("transactions", transactionSublist);
         model.addAttribute("paginator", paginator);
+        log.info(" {}", "showTransactions, end:" + stopwatch);
+        stopwatch.stop();
 
         return "transactions";
     }
