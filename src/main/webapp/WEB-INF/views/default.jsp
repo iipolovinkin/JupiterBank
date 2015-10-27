@@ -26,21 +26,21 @@
 	rel="stylesheet" type="text/css" />
 
 <!--  JQuery  -->
-<script src="/webjars/jquery/2.1.4/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/webjars/jquery/2.1.4/jquery.min.js"></script>
 <script>
 	window.jQuery
-			|| document.write('<script src="/var/js/jquery.min.js"><\/script>')
+			|| document.write('<script src="${pageContext.request.contextPath}/var/js/jquery.min.js"><\/script>')
 </script>
 
 <!--  Bootstrap  -->
-<script src="/webjars/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/webjars/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <!--  <script src="/webjars/bootstrap-datepicker/1.4.0/js/bootstrap-datepicker.js"></script> -->
-<script src="/resources/js/bootstrap-datepicker.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/bootstrap-datepicker.js"></script>
 <!-- use if -->
-<script src="/webjars/bootstrap-datepicker/1.4.0/locales/bootstrap-datepicker.ru.min.js"></script>
+<script src="${pageContext.request.contextPath}/webjars/bootstrap-datepicker/1.4.0/locales/bootstrap-datepicker.ru.min.js"></script>
 <script>
 	window.jQuery
-			|| document.write('<script src="/var/js/bootstrap.min.js"><\/script>');
+			|| document.write('<script src="${pageContext.request.contextPath}/var/js/bootstrap.min.js"><\/script>');
 	$(document).ready(function() {
         $('.date').datepicker({
             format: "dd.mm.yyyy",

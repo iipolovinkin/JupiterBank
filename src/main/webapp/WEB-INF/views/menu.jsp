@@ -20,9 +20,9 @@
 	var="accountsMenuTransferFrom" />
 <s:url value="/accounts" var="accountsUrl" />
 <s:url value="/admin_page" var="adminPageUrl" />
-<s:url value="${accountsUrl}?transfer" var="transferUrl" />
-<s:url value="${accountsUrl}?transferTo" var="transferUrlTo" />
-<s:url value="${accountsUrl}?transferFrom" var="transferUrlFrom" />
+<s:url value="/accounts?transfer" var="transferUrl" />
+<s:url value="/accounts?transferTo" var="transferUrlTo" />
+<s:url value="/accounts?transferFrom" var="transferUrlFrom" />
 <s:message code="menu_transaction_list" var="menuTransactionList" />
 
 <s:message code="lang" var="lang" />
@@ -39,7 +39,7 @@
 			<ul aria-labelledby="drop4" role="menu" class="dropdown-menu"
 				id="menu1">
 				<li role="presentation"><a role="menuitem" tabindex="-1"
-					href="/clients">${menuClientList}</a></li>
+					href="${pageContext.request.contextPath}/clients">${menuClientList}</a></li>
 				<li role="presentation"><a role="menuitem" tabindex="-1"
 					href="<c:url value="/clients?new" />">${addClient}</a></li>
 				<!--li role="presentation" class="divider"></li-->
@@ -63,7 +63,7 @@
 			<ul aria-labelledby="drop6" role="menu" class="dropdown-menu"
 				id="menu3">
 				<li role="presentation"><a role="menuitem" tabindex="-1"
-					href="/transactions">${menuTransactionList}</a></li>
+					href="${pageContext.request.contextPath}/transactions">${menuTransactionList}</a></li>
 			</ul></li>
 		<li class="dropdown active"><a href="#" data-toggle="dropdown"
         			role="button" id="drop7">${adminPage}<span
@@ -81,9 +81,9 @@
 		<a href="?lang=ru_RU">${lang_ru}</a>
 	</span>
 	<span style="float:right" >
-    	<a href="/login">${label_login}</a>
+    	<a href="${pageContext.request.contextPath}/login">${label_login}</a>
     	|
-    	<a href="/logout">${label_logout}</a>
+    	<a href="${pageContext.request.contextPath}/logout">${label_logout}</a>
     </span>
 	</ul>
 </div>

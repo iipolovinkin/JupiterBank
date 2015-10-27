@@ -61,19 +61,19 @@
     		});
          });
 	</script>
-	<a href="/transactions.xls?output=excel">excel</a>
+	<a href="transactions.xls?output=excel">excel</a>
 	<c:if test="${paginator.getPrevPage() > 1 }">
-        <a href="/transactions?page=1"><<</a>
+        <a href="transactions?page=1"><<</a>
     </c:if>
     <c:if test="${paginator.getPrevPage() > 0 }">
-        <a href="/transactions?page=${paginator.getPrevPage()}">${paginator.getPrevPage()}</a>
+        <a href="transactions?page=${paginator.getPrevPage()}">${paginator.getPrevPage()}</a>
     </c:if>
     ${paginator.getCurrentPage()}
     <c:if test="${paginator.getNextPage() > 0 }">
-        <a href="/transactions?page=${paginator.getNextPage()}">${paginator.getNextPage()}</a>
+        <a href="transactions?page=${paginator.getNextPage()}">${paginator.getNextPage()}</a>
     </c:if>
     <c:if test="${paginator.getCurrentPage() < (paginator.getPageCount()-1) }">
-        <a href="/transactions?page=${paginator.getPageCount()}">>></a>
+        <a href="transactions?page=${paginator.getPageCount()}">>></a>
     </c:if>
 	<c:if test="${not empty transactions}">
 		<br>

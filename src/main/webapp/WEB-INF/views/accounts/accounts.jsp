@@ -22,20 +22,20 @@
 	</c:if>
 	<c:if test="${empty client }">
 	<br>
-		<a href="/accounts.xls?output=excel">excel</a>
+		<a href="accounts.xls?output=excel">excel</a>
 
 		<c:if test="${paginator.getPrevPage() > 1 }">
-            <a href="/accounts?page=1"><<</a>
+            <a href="accounts?page=1"><<</a>
         </c:if>
         <c:if test="${paginator.getPrevPage() > 0 }">
-            <a href="/accounts?page=${paginator.getPrevPage()}">${paginator.getPrevPage()}</a>
+            <a href="accounts?page=${paginator.getPrevPage()}">${paginator.getPrevPage()}</a>
         </c:if>
         ${paginator.getCurrentPage()}
         <c:if test="${paginator.getNextPage() > 0 }">
-            <a href="/accounts?page=${paginator.getNextPage()}">${paginator.getNextPage()}</a>
+            <a href="accounts?page=${paginator.getNextPage()}">${paginator.getNextPage()}</a>
         </c:if>
         <c:if test="${paginator.getCurrentPage() < (paginator.getPageCount()-1) }">
-            <a href="/accounts?page=${paginator.getPageCount()}">>></a>
+            <a href="accounts?page=${paginator.getPageCount()}">>></a>
         </c:if>
 	</c:if>
 	<c:if test="${not empty accounts}">
@@ -53,7 +53,7 @@
 					<tr>
 						<td>
 							<!-- <a id="param" class="textLink"
-							href="<c:url value="/accounts/${account.getId()}/" />">
+							href="<c:url value="accounts/${account.getId()}/" />">
 							</a> --> <c:out value="${account.getId()}" />
 						</td>
 						<td><c:out value="${account.getAccountNo()}" /></td>

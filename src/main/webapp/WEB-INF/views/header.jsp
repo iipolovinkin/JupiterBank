@@ -9,7 +9,7 @@
 	<jsp:directive.page contentType="text/html; charset=UTF-8"
 		pageEncoding="UTF-8" session="false" />
 	<div id="appname">
-		<img height="150" alt="" src="/resources/images/upiter1.gif">${mainTitle}
+		<img height="150" alt="" src="${pageContext.request.contextPath}/resources/images/upiter1.gif">${mainTitle}
 	</div>
 
 
