@@ -111,13 +111,26 @@ public class TransactionsController {
             endTime = DateTime.parse(formFilter.getEndTime(), formatter);
         }
 
-        try {
-            List<Transaction> transactionByFilter = transactionService.getByFilter(formFilter.getIdFrom(), formFilter.getIdTo(), startTime, endTime);
-            model.addAttribute("transactions", transactionByFilter);
+	    int size=0;
+	    List<Transaction> transactionByFilter = Lists.newArrayList();
+	    try {
+		    transactionByFilter = transactionService.getByFilter(formFilter.getIdFrom(), formFilter.getIdTo(), startTime, endTime);
+		    size = transactionByFilter.size();
         } catch (ServiceException e) {
             log.error("Operation failed", e);
             showErrorMessage("Operation failed", e);
         }
+
+	    Integer pageNumber = 1;
+	    Integer count = Paginator.ROWS_COUNT_PER_PAGE;
+        Paginator paginator = new Paginator(pageNumber, count, size);
+        if (paginator.getLastIndex() == -1) {
+            model.addAttribute("transactions", transactionByFilter);
+            return "transactions";
+        }
+        List<Transaction> transactionSublist = transactionByFilter.subList(paginator.getFirstIndex(), paginator.getLastIndex());
+        model.addAttribute("transactions", transactionSublist);
+        model.addAttribute("paginator", paginator);
 
         return "transactions";
     }
