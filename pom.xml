@@ -33,6 +33,7 @@
         <bootstrap-datepicker.version>1.4.0</bootstrap-datepicker.version>
 
         <xstream.version>1.4.7</xstream.version>
+        <jackson-core.version>2.6.3</jackson-core.version>
 
         <joda.time.version>2.4</joda.time.version>
         <joda.time.jsptags>1.1.1</joda.time.jsptags>
@@ -121,6 +122,17 @@
             <groupId>com.thoughtworks.xstream</groupId>
             <artifactId>xstream</artifactId>
             <version>${xstream.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${jackson-core.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson-core.version}</version>
         </dependency>
 
         <!-- Apache Commons Upload -->

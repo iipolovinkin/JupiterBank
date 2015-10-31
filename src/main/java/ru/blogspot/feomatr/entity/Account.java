@@ -1,5 +1,6 @@
 package ru.blogspot.feomatr.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -31,6 +32,7 @@ public class Account implements Serializable {
 
     private Long id;
     @XStreamOmitField
+    @JsonIgnore
     private Client owner;
     @Min(value = 0, message = "{account.balance.min}")
     @Max(value = 10000000, message = "{account.balance.max}")
