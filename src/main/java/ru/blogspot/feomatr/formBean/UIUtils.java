@@ -14,6 +14,6 @@ public class UIUtils {
     private static final Logger log = LoggerFactory.getLogger(UIUtils.class);
 
     public static void showErrorMessage(String message, Throwable e) {
-        throw new NotImplementedException("showErrorMessage");
+        throw new NotImplementedException("showErrorMessage", e);
     }
 }

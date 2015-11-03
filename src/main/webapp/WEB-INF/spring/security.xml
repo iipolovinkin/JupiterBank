@@ -14,6 +14,12 @@ http://www.springframework.org/schema/security/spring-security-3.2.xsd">
         <intercept-url pattern="/ws/clients/update*" access="hasRole('ROLE_ADMIN')" />
         <intercept-url pattern="/ws/clients/delete/*" access="hasRole('ROLE_ADMIN')" />
 
+        <intercept-url pattern="/ws/accounts/index*" access="hasAnyRole('ROLE_USER','ROLE_ANONYMOUS')" />
+        <intercept-url pattern="/ws/accounts/show/*" access="hasRole('ROLE_USER')" />
+        <intercept-url pattern="/ws/accounts/add*" access="hasRole('ROLE_USER')" />
+        <intercept-url pattern="/ws/accounts/update*" access="hasRole('ROLE_ADMIN')" />
+        <intercept-url pattern="/ws/accounts/delete/*" access="hasRole('ROLE_ADMIN')" />
+
         <intercept-url pattern="/ws/accounts/**" access="denyAll" />
         <intercept-url pattern="/ws/clients/**" access="denyAll" />
 
