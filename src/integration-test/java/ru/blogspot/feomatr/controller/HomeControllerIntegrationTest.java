@@ -29,7 +29,7 @@ import static org.junit.Assert.assertTrue;
  * @since 24.09.2015
  */
 @WebAppConfiguration
-@ContextConfiguration(locations = {"classpath:HomeControllerContextTest.xml"})
+@ContextConfiguration(locations = {"classpath:homeControllerITContext.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class HomeControllerIntegrationTest {
 

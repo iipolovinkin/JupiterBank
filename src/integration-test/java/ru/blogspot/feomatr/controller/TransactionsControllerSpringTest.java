@@ -24,7 +24,7 @@ import static org.mockito.Mockito.mock;
  * @author polovinkin.igor
  * @since 10.09.2015
  */
-@ContextConfiguration(locations = {"classpath:TransactionsControllerSpringTest.xml"})
+@ContextConfiguration(locations = {"classpath:transactionsControllerSpringTest.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class TransactionsControllerSpringTest {
 

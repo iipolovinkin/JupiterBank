@@ -26,7 +26,7 @@ import static org.mockito.Mockito.mock;
  * @since 10.09.2015
  */
 @WebAppConfiguration
-@ContextConfiguration(locations = {"classpath:TransactionsControllerContextTest.xml"})
+@ContextConfiguration(locations = {"classpath:transactionsControllerContextTest.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class TransactionsControllerIntegrationTest {
 

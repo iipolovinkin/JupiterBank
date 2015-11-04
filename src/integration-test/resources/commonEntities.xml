@@ -11,7 +11,7 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
 
-    <import resource="BaseDatabaseH2Context.xml"/>
+    <import resource="databaseH2Context.xml"/>
 
     <!--DAO-->
     <bean id="clientDAO" class="ru.blogspot.feomatr.dao.hibernate.ClientDAOHibImpl">

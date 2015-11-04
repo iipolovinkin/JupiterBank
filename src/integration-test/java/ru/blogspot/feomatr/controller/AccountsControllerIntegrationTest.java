@@ -36,7 +36,7 @@ import static org.junit.Assert.assertTrue;
  * @since 24.09.2015
  */
 @WebAppConfiguration
-@ContextConfiguration(locations = {"classpath:AccountsControllerContextTest.xml"})
+@ContextConfiguration(locations = {"classpath:accountsControllerITContext.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class AccountsControllerIntegrationTest {
 
