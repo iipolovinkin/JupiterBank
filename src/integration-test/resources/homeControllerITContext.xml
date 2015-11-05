@@ -9,8 +9,8 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <import resource="BaseWebAppContext.xml"/>
-    <import resource="CommonEntities.xml"/>
+    <import resource="baseWebAppContext.xml"/>
+    <import resource="commonEntities.xml"/>
     <import resource="servlet-context.xml"/>
 
     <bean id="homeController" class="ru.blogspot.feomatr.controller.HomeController">
