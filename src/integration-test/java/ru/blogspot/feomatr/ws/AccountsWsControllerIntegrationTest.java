@@ -50,7 +50,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ContextConfiguration(locations = {"classpath:servlet-context.xml", "classpath:serviceMocks.xml"//})
 		, "classpath:baseWebAppContext.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
-public class AccountsWsControllerIT {
+public class AccountsWsControllerIntegrationTest {
 
 	/**
 	 * This field contains a reference to the used web application context.
