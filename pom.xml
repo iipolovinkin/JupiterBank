@@ -39,13 +39,13 @@
         <joda.time.jsptags>1.1.1</joda.time.jsptags>
         <jadira.usertype.version>3.2.0.GA</jadira.usertype.version>
 
-        <servlet.api.version>3.0.20100224</servlet.api.version>
+        <mortbay.jetty.servlet.api.version>3.0.20100224</mortbay.jetty.servlet.api.version>
 
         <el.impl.version>2.2</el.impl.version>
 
         <org.aspectj.version>1.6.10</org.aspectj.version>
 
-        <springframework.version>3.2.2.RELEASE</springframework.version>
+        <springframework.version>3.2.3.RELEASE</springframework.version>
         <springsecurity.version>3.2.5.RELEASE</springsecurity.version>
 
         <hibernate.validator.version>5.1.2.Final</hibernate.validator.version>
@@ -58,8 +58,10 @@
         <mysql.version>5.1.32</mysql.version>
 
         <!--Testing libs-->
-        <junit.version>4.10</junit.version>
+        <junit.version>4.12</junit.version>
         <hamcrest.version>1.3</hamcrest.version>
+        <!--dependency for spring-test version 3.2*-->
+        <jayway.version>0.8.1</jayway.version>
         <mockito.core.version>1.10.8</mockito.core.version>
         <selenide.version>2.15</selenide.version>
         <selenide.browser>chrome</selenide.browser>
@@ -296,16 +298,36 @@
             <artifactId>junit</artifactId>
             <version>${junit.version}</version>
             <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <artifactId>hamcrest-core</artifactId>
+                    <groupId>org.hamcrest</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest-all</artifactId>
             <version>${hamcrest.version}</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
             <version>${mockito.core.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.jayway.jsonpath</groupId>
+            <artifactId>json-path</artifactId>
+            <version>${jayway.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.jayway.jsonpath</groupId>
+            <artifactId>json-path-assert</artifactId>
+            <version>${jayway.version}</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -322,7 +344,7 @@
         <dependency>
             <groupId>org.mortbay.jetty</groupId>
             <artifactId>servlet-api</artifactId>
-            <version>${servlet.api.version}</version>
+            <version>${mortbay.jetty.servlet.api.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>

@@ -28,7 +28,7 @@ import static ru.blogspot.feomatr.formBean.UIUtils.showErrorMessage;
  * @since 30.10.2015
  */
 @Controller
-@RequestMapping(value = "/ws/accounts", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/ws/accounts", produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8")
 public class AccountsWsController {
 	private static final Logger log = LoggerFactory.getLogger(AccountsWsController.class);
 
@@ -71,7 +71,7 @@ public class AccountsWsController {
 		return map;
 	}
 
-	//you could add account to client, think about it
+	//todo you should add account to a client, think about it
 	@RequestMapping(value = "/add", method = RequestMethod.POST, consumes = MediaType.TEXT_PLAIN_VALUE)
 	@ResponseBody
 	public Map<String, Object> addAccount(@RequestBody String json) throws ServletRequestBindingException {
