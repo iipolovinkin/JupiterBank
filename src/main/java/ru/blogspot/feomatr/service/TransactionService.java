@@ -13,15 +13,10 @@ public interface TransactionService {
 
     List<Transaction> getAll() throws ServiceException;
 
+    List<Transaction> getAll(int pageNumber, int pageSize) throws ServiceException;
+
     Transaction getById(Long id) throws ServiceException;
 
-    /**
-     * @param idSender
-     * @param idReceiver
-     * @param startTime
-     * @param endTime
-     * @return
-     */
     List<Transaction> getByFilter(Long idSender, Long idReceiver,
                                   DateTime startTime, DateTime endTime) throws ServiceException;
 

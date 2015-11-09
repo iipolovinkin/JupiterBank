@@ -2,6 +2,7 @@ package ru.blogspot.feomatr.dao.hibernate;
 
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -13,6 +14,7 @@ import ru.blogspot.feomatr.dao.AccountDAO;
 import ru.blogspot.feomatr.dao.DAOException;
 import ru.blogspot.feomatr.entity.Account;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -45,6 +47,27 @@ public class AccountDAOHibImpl implements AccountDAO {
         }
         return l;
     }
+
+	@Override
+	@NotNull
+	@SuppressWarnings("unchecked")
+	public List<Account> getAll(int pageNumber, int pageSize) throws DAOException {
+		List<Account> l = new ArrayList<>();
+		Session session = getCurrentSession();
+		Transaction tx = session.beginTransaction();
+		try {
+			Criteria criteria = session.createCriteria(Account.class);
+			criteria.setFirstResult((pageNumber - 1) * pageSize);
+			criteria.setMaxResults(pageSize);
+			l = criteria.list();
+			tx.commit();
+		} catch (Exception e) {
+			tx.rollback();
+			log.error("Cannot get all accounts", e);
+			throw new DAOException("Cannot get all accounts", e);
+		}
+		return l;
+	}
 
     @Override
     public Account getById(Long id) throws DAOException {

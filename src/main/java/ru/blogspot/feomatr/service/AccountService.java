@@ -13,6 +13,8 @@ public interface AccountService {
 
     List<Account> getAllAccounts() throws ServiceException;
 
+    List<Account> getAllAccounts(int pageNumber, int pageSize) throws ServiceException;
+
     Account getAccountById(Long id) throws ServiceException;
 
     List<Account> getAccountsByOwner(Client client) throws ServiceException;

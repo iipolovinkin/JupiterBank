@@ -11,6 +11,8 @@ public interface ClientDAO {
 
     List<Client> getAll() throws DAOException;
 
+    List<Client> getAll(int pageNumber, int pageSize) throws DAOException;
+
     Client getById(Long id) throws DAOException;
 
     Client create(Client client) throws DAOException;

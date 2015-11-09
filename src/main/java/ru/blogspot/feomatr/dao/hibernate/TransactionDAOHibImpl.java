@@ -15,6 +15,7 @@ import ru.blogspot.feomatr.dao.DAOException;
 import ru.blogspot.feomatr.dao.TransactionDAO;
 import ru.blogspot.feomatr.entity.Transaction;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -47,6 +48,26 @@ public class TransactionDAOHibImpl implements TransactionDAO {
         }
         return l;
     }
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Transaction> getAll(int pageNumber, int pageSize) throws DAOException {
+		List<Transaction> l = new ArrayList<>();
+		Session session = getCurrentSession();
+		org.hibernate.Transaction tx = session.beginTransaction();
+		try {
+			Criteria criteria = session.createCriteria(Transaction.class);
+			criteria.setFirstResult((pageNumber - 1) * pageSize);
+			criteria.setMaxResults(pageSize);
+			l = (List<Transaction>) criteria.list();
+			tx.commit();
+		} catch (HibernateException e) {
+			tx.rollback();
+			log.error("Cannot get all transactions", e);
+			throw new DAOException("Cannot get all transactions", e);
+		}
+		return l;
+	}
 
     @Override
     public Transaction getById(Long id) throws DAOException {

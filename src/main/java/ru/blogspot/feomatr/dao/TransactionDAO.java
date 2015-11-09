@@ -21,6 +21,8 @@ public interface TransactionDAO {
 
     List<Transaction> getAll() throws DAOException;
 
+    List<Transaction> getAll(int pageNumber, int pageSize) throws DAOException;
+
     Transaction getById(Long id) throws DAOException;
 
     void create(Transaction transaction) throws DAOException;

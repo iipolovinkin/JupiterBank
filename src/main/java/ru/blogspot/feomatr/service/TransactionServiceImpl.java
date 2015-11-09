@@ -41,6 +41,16 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
+    public List<Transaction> getAll(int pageNumber, int pageSize) throws ServiceException {
+        try {
+            return transactionDAO.getAll(pageNumber, pageSize);
+        } catch (DAOException e) {
+            log.error("Cannot get all transactions", e);
+            throw new ServiceException("Cannot get all transactions", e);
+        }
+    }
+
+    @Override
     public Transaction getById(Long id) throws ServiceException {
         try {
             return transactionDAO.getById(id);

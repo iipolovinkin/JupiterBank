@@ -42,6 +42,16 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    public List<Account> getAllAccounts(int pageNumber, int pageSize) throws ServiceException {
+        try {
+            return accountDAO.getAll(pageNumber, pageSize);
+        } catch (DAOException e) {
+            log.error("ServiceException", e);
+            throw new ServiceException("ServiceException", e);
+        }
+    }
+
+    @Override
     public Account getAccountById(Long id) throws ServiceException {
         try {
             return accountDAO.getById(id);

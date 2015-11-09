@@ -14,6 +14,8 @@ public interface ClientService {
 
     List<Client> getAllClients() throws ServiceException;
 
+    List<Client> getAllClients(int pageNumber, int pageSize) throws ServiceException;
+
     Client getClientById(Long id) throws ServiceException;
 
     void delete(Client client) throws ServiceException;

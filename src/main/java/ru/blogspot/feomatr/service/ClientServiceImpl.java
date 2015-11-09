@@ -50,6 +50,16 @@ public class ClientServiceImpl implements ClientService {
         }
     }
 
+	@Override
+	public List<Client> getAllClients(int pageNumber, int pageSize) throws ServiceException {
+		try {
+			return clientDAO.getAll(pageNumber, pageSize);
+		} catch (DAOException e) {
+			log.error("Cannot get all clients", e);
+			throw new ServiceException("Cannot get all clients", e);
+		}
+	}
+
     @Override
     public Client getClientById(Long id) throws ServiceException {
         try {

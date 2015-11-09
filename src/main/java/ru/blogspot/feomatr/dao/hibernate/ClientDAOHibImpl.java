@@ -2,6 +2,7 @@ package ru.blogspot.feomatr.dao.hibernate;
 
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -12,6 +13,7 @@ import ru.blogspot.feomatr.dao.ClientDAO;
 import ru.blogspot.feomatr.dao.DAOException;
 import ru.blogspot.feomatr.entity.Client;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -44,6 +46,26 @@ public class ClientDAOHibImpl implements ClientDAO {
         }
         return l;
     }
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Client> getAll(int pageNumber, int pageSize) throws DAOException {
+		List<Client> l = new ArrayList<>();
+		Session session = getCurrentSession();
+		Transaction tx = session.beginTransaction();
+		try {
+			Criteria criteria = session.createCriteria(Client.class);
+			criteria.setFirstResult((pageNumber - 1) * pageSize);
+			criteria.setMaxResults(pageSize);
+			l = criteria.list();
+			tx.commit();
+		} catch (HibernateException e) {
+			tx.rollback();
+			log.error("Cannot get all clients", e);
+			throw new DAOException("Cannot get all clients", e);
+		}
+		return l;
+	}
 
     @Override
     public Client getById(Long id) throws DAOException {

@@ -7,6 +7,8 @@ import java.util.List;
 public interface AccountDAO {
     List<Account> getAll() throws DAOException;
 
+    List<Account> getAll(int pageNumber, int pageSize) throws DAOException;
+
     Account getById(Long id) throws DAOException;
 
     Account create(Account account) throws DAOException;
