@@ -31,7 +31,6 @@ import static ru.blogspot.feomatr.formBean.UIUtils.showErrorMessage;
 @RequestMapping(value = "/ws/accounts", produces = MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8")
 public class AccountsWsController {
 	private static final Logger log = LoggerFactory.getLogger(AccountsWsController.class);
-
 	@Autowired
 	private AccountService accountService;
 
