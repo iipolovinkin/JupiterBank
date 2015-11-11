@@ -2,6 +2,7 @@ package ru.blogspot.feomatr.dao.hibernate;
 
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.commons.lang.StringUtils;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -137,7 +138,7 @@ public class TransactionDAOHibImpl implements TransactionDAO {
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<Transaction> getByFilter(Long idSender, Long idReceiver,
+    public List<Transaction> getByFilter(String senderAccountNo, String receiverAccountNo,
                                          DateTime startTime, DateTime endTime) throws DAOException {
         List<Transaction> l = null;
         DetachedCriteria criteria = DetachedCriteria.forClass(Transaction.class);
@@ -147,22 +148,25 @@ public class TransactionDAOHibImpl implements TransactionDAO {
         if (endTime != null) {
             criteria.add(Restrictions.le("time", endTime));
         }
-        if (idSender != null) {
-            criteria.createCriteria("sender").add(Restrictions.eq("id", idSender));
-        }
-        if (idReceiver != null) {
-            criteria.createCriteria("receiver").add(Restrictions.eq("id", idReceiver));
-        }
+	    if (StringUtils.isNotBlank(senderAccountNo)) {
+		    criteria.add(Restrictions.eq("senderAccountNo", senderAccountNo));
+	    }
+	    if (StringUtils.isNotBlank(receiverAccountNo)) {
+		    criteria.add(Restrictions.eq("receiverAccountNo", receiverAccountNo));
+	    }
         Session session = getCurrentSession();
         org.hibernate.Transaction tx = session.beginTransaction();
         try {
             l = (List<Transaction>) criteria.getExecutableCriteria(session).list();
+            tx.commit();
         } catch (HibernateException e) {
+	        if (tx != null) {
+		        tx.rollback();
+	        }
             log.error("Cannot get transactions by criteria", e);
             throw new DAOException("Cannot get transactions by criteria", e);
-        } finally {
-            tx.commit();
         }
+
         return l;
     }
 

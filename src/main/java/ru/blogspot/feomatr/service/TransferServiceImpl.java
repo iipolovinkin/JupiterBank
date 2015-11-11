@@ -71,7 +71,7 @@ public class TransferServiceImpl implements TransferService {
         } else {
             time = DateTime.parse(broker.getDateTime(), formatter);
         }
-        return transfer(broker.getAccountFrom(), broker.getAccountTo(), broker.getAmount(), time);
+        return transfer(broker.getSenderAccountNo(), broker.getReceiverAccountNo(), broker.getAmount(), time);
     }
 
     @Override
@@ -82,7 +82,7 @@ public class TransferServiceImpl implements TransferService {
         } else {
             time = DateTime.parse(broker.getDateTime(), formatter);
         }
-        return transferTo(broker.getAccountTo(), broker.getAmount(), time);
+        return transferTo(broker.getReceiverAccountNo(), broker.getAmount(), time);
     }
 
     @Override
@@ -93,21 +93,21 @@ public class TransferServiceImpl implements TransferService {
         } else {
             time = DateTime.parse(broker.getDateTime(), formatter);
         }
-        return transferFrom(broker.getAccountFrom(), broker.getAmount(), time);
+        return transferFrom(broker.getSenderAccountNo(), broker.getAmount(), time);
     }
 
-    private boolean transferTo(Long accountTo, BigDecimal amount, DateTime dateTime) throws ServiceException {
+    private boolean transferTo(String accountTo, BigDecimal amount, DateTime dateTime) throws ServiceException {
         try {
-            return transferTo(accountService.getAccountById(accountTo), amount, dateTime);
+            return transferTo(accountService.getAccountByNo(accountTo), amount, dateTime);
         } catch (ServiceException e) {
             log.error("Cannot transferTo", e);
             throw new ServiceException("Cannot transferTo", e);
         }
     }
 
-    private boolean transferFrom(Long accountFrom, BigDecimal amount, DateTime dateTime) throws ServiceException {
+    private boolean transferFrom(String accountFrom, BigDecimal amount, DateTime dateTime) throws ServiceException {
         try {
-            return transferFrom(accountService.getAccountById(accountFrom), amount, dateTime);
+            return transferFrom(accountService.getAccountByNo(accountFrom), amount, dateTime);
         } catch (ServiceException e) {
             log.error("Cannot transferFrom", e);
             throw new ServiceException("Cannot transferFrom", e);
@@ -115,9 +115,9 @@ public class TransferServiceImpl implements TransferService {
     }
 
 
-    public boolean transfer(Long accountFrom, Long accountTo, BigDecimal amount, DateTime dateTime) throws ServiceException {
+    public boolean transfer(String accountFrom, String accountTo, BigDecimal amount, DateTime dateTime) throws ServiceException {
         try {
-            return transfer(accountService.getAccountById(accountFrom), accountService.getAccountById(accountTo), amount, dateTime);
+            return transfer(accountService.getAccountByNo(accountFrom), accountService.getAccountByNo(accountTo), amount, dateTime);
         } catch (ServiceException e) {
             log.error("Cannot transfer", e);
             throw new ServiceException("Cannot transfer", e);

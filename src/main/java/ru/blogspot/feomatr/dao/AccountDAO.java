@@ -11,10 +11,11 @@ public interface AccountDAO {
 
     Account getById(Long id) throws DAOException;
 
+    Account getByNo(String accountNo) throws DAOException;
+
     Account create(Account account) throws DAOException;
 
     void delete(Account account) throws DAOException;
 
     void update(Account account) throws DAOException;
-
 }

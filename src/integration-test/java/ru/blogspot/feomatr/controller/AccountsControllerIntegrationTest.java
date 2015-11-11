@@ -161,13 +161,13 @@ public class AccountsControllerIntegrationTest {
 
     @Test
     public void shouldDoTransferFromAccount() throws Exception {
-        Long idFrom = accountService.getAllAccounts().get(0).getId();
-        Long idTo = 0L;
+        String idFrom = accountService.getAllAccounts().get(0).getAccountNo();
+        String idTo = "";
 	    BigDecimal amount = new BigDecimal(3);
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders.post("/accounts")
 		        .param("transferFrom", "")
-                .param("accountFrom", idFrom.toString())
-                .param("accountTo", idTo.toString())
+                .param("senderAccountNo", idFrom)
+                .param("receiverAccountNo", idTo)
                 .param("amount", amount.toString())
                 .param("dateTime", "");
         mockMvc.perform(request)
@@ -184,14 +184,14 @@ public class AccountsControllerIntegrationTest {
 
     @Test
     public void shouldDoOneTransferToAccount() throws Exception {
-        Long idFrom = 0L;
-        Long idTo = accountService.getAllAccounts().get(1).getId();
+        String idFrom = "";
+        String idTo = accountService.getAllAccounts().get(1).getAccountNo();
 	    BigDecimal amount = new BigDecimal(2);
 	    Broker broker = new Broker(idFrom, idTo, amount, null);
         mockMvc.perform(MockMvcRequestBuilders.post("/accounts").param("transferTo", "")
 		        .param("transferTo", "")
-		        .param("accountFrom", idFrom.toString())
-		        .param("accountTo", idTo.toString())
+		        .param("senderAccountNo", idFrom)
+		        .param("receiverAccountNo", idTo)
 		        .param("amount", amount.toString())
 		        .param("dateTime", ""))
 		        .andExpect(MockMvcResultMatchers.status().isOk())
@@ -207,15 +207,18 @@ public class AccountsControllerIntegrationTest {
 
     @Test
     public void shouldDoTransferAccount() throws Exception {
-        Long idFrom = accountService.getAllAccounts().get(0).getId();
-        Long idTo = accountService.getAllAccounts().get(1).getId();
+        String idFrom = accountService.getAllAccounts().get(0).getAccountNo();
+        String idTo = accountService.getAllAccounts().get(1).getAccountNo();
+	    System.out.println("accountService.getAllAccounts().get(0) = " + accountService.getAllAccounts().get(0));
+	    System.out.println("accountService.getAllAccounts().get(1) = " + accountService.getAllAccounts().get(1));
 	    BigDecimal amount = new BigDecimal(1);
-	    Broker broker = new Broker(idFrom, idTo, amount, null);
+	    System.out.println("idFrom = " + idFrom);
+	    System.out.println("idTo = " + idTo);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/accounts").param("transfer", "")
 		        .param("transfer", "")
-		        .param("accountFrom", idFrom.toString())
-		        .param("accountTo", idTo.toString())
+		        .param("senderAccountNo", idFrom)
+		        .param("receiverAccountNo", idTo)
 		        .param("amount", amount.toString())
 		        .param("dateTime", ""))
 		        .andExpect(MockMvcResultMatchers.status().isOk())

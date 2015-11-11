@@ -101,10 +101,10 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public List<Transaction> getByFilter(Long idSender, Long idReceiver,
+    public List<Transaction> getByFilter(String senderAccountNo, String receiverAccountNo,
                                          DateTime startTime, DateTime endTime) throws ServiceException {
         try {
-            return transactionDAO.getByFilter(idSender, idReceiver, startTime, endTime);
+            return transactionDAO.getByFilter(senderAccountNo, receiverAccountNo, startTime, endTime);
         } catch (DAOException e) {
             log.error("Cannot transactions by Filter", e);
             throw new ServiceException("Cannot transactions by Filter", e);

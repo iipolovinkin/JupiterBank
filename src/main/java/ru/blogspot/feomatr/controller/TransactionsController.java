@@ -114,7 +114,7 @@ public class TransactionsController {
 	    int size=0;
 	    List<Transaction> transactionByFilter = Lists.newArrayList();
 	    try {
-		    transactionByFilter = transactionService.getByFilter(formFilter.getIdFrom(), formFilter.getIdTo(), startTime, endTime);
+		    transactionByFilter = transactionService.getByFilter(formFilter.getSenderAccountNo(), formFilter.getReceiverAccountNo(), startTime, endTime);
 		    size = transactionByFilter.size();
         } catch (ServiceException e) {
             log.error("Operation failed", e);

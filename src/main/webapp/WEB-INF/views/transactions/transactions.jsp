@@ -9,8 +9,8 @@
 <s:message code="time" var="time" />
 <s:message code="locale" var="locale" />
 <s:message code="amount" var="amount" />
-<s:message code="accountFrom" var="accountFrom" />
-<s:message code="accountTo" var="accountTo" />
+<s:message code="senderAccountNo" var="accountFrom" />
+<s:message code="receiverAccountNo" var="accountTo" />
 <s:message code="filter" var="filter" />
 <s:message code="clear" var="clear" />
 <s:message code="dateFrom" var="dateFrom" />
@@ -28,8 +28,8 @@
 				<td>${dateTo}:</td>
 			</tr>
 			<tr>
-				<td><sf:input path="idFrom" class="form-control" value="" /></td>
-				<td><sf:input path="idTo" class="form-control" value="" /></td>
+				<td><sf:input path="senderAccountNo" class="form-control" value="" /></td>
+				<td><sf:input path="receiverAccountNo" class="form-control" value="" /></td>
 				<td>
 				    <sf:input path="startTime" class="form-control date" type="text" value="" />
 				</td>
@@ -46,8 +46,8 @@
 	</sf:form>
 	<script>
 		function clearInput() {
-			document.getElementById('idFrom').value = '';
-			document.getElementById('idTo').value = '';
+			document.getElementById('senderAccountNo').value = '';
+			document.getElementById('receiverAccountNo').value = '';
 			document.getElementById('startTime').value = '';
 			document.getElementById('endTime').value = '';
 		}

@@ -3,6 +3,7 @@ package ru.blogspot.feomatr.dao.hibernate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.blogspot.feomatr.entity.Account;
+import ru.blogspot.feomatr.entity.AccountNo;
 import ru.blogspot.feomatr.entity.Broker;
 import ru.blogspot.feomatr.entity.Client;
 import ru.blogspot.feomatr.service.AccountService;
@@ -43,11 +44,11 @@ public class InitTestData {
 
     private void initTransactions() throws ServiceException {
         for (int i = 0; i < CLIENT_COUNT * 2 - 1; ++i) {
-            transferService.transferTo(new Broker(1l + i, 1l + i, new BigDecimal(i * 10), dates[i % 7]));
+            transferService.transferTo(new Broker("", AccountNo.generatePrivateBankAccountNo(1 + i), new BigDecimal(i * 10), dates[i % 7]));
         }
 
         for (int i = 0; i < CLIENT_COUNT * 2 - 1; ++i) {
-            transferService.transfer(new Broker(0l + i, 1l + i, new BigDecimal(i * 2), dates[i % 7]));
+            transferService.transfer(new Broker(AccountNo.generatePrivateBankAccountNo(1 + i), AccountNo.generatePrivateBankAccountNo(2 + i), new BigDecimal(i * 2), dates[i % 7]));
         }
     }
 

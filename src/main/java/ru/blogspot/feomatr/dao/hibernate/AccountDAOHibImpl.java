@@ -7,6 +7,8 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -85,6 +87,26 @@ public class AccountDAOHibImpl implements AccountDAO {
         return a;
     }
 
+	@Override
+	public Account getByNo(String accountNo) throws DAOException {
+		Account a;
+		Session session = getCurrentSession();
+		Transaction tx = session.beginTransaction();
+		try {
+			DetachedCriteria criteria = DetachedCriteria.forClass(Account.class);
+			criteria.add(Restrictions.eq("accountNo", accountNo));
+			a = (Account) criteria.getExecutableCriteria(session).uniqueResult();
+			tx.commit();
+		} catch (Exception e) {
+			if (tx != null) {
+				tx.rollback();
+			}
+			log.error("Cannot get account by No: " + accountNo, e);
+			throw new DAOException("Cannot get account by No: " + accountNo, e);
+		}
+		return a;
+	}
+
     @Override
     public Account create(Account account) throws DAOException {
         if (account == null) {
@@ -95,8 +117,8 @@ public class AccountDAOHibImpl implements AccountDAO {
         try {
             session.save(account);
         } catch (HibernateException e) {
-            log.error("Cannot create account", e);
-            throw new DAOException("Cannot create account", e);
+            log.error("Cannot create account" + account, e);
+            throw new DAOException("Cannot create account" + account, e);
         } finally {
             tx.commit();
         }
@@ -110,8 +132,8 @@ public class AccountDAOHibImpl implements AccountDAO {
         try {
             session.delete(account);
         } catch (HibernateException e) {
-            log.error("Cannot delete account", e);
-            throw new DAOException("Cannot delete account", e);
+            log.error("Cannot delete account" + account, e);
+            throw new DAOException("Cannot delete account" + account, e);
         } finally {
             tx.commit();
         }
@@ -124,8 +146,8 @@ public class AccountDAOHibImpl implements AccountDAO {
         try {
             session.update(account);
         } catch (HibernateException e) {
-            log.error("Cannot update account", e);
-            throw new DAOException("Cannot update account", e);
+            log.error("Cannot update account" + account, e);
+            throw new DAOException("Cannot update account" + account, e);
         } finally {
             tx.commit();
         }

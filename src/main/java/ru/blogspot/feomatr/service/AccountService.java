@@ -17,6 +17,8 @@ public interface AccountService {
 
     Account getAccountById(Long id) throws ServiceException;
 
+    Account getAccountByNo(String accountNo) throws ServiceException;
+
     List<Account> getAccountsByOwner(Client client) throws ServiceException;
 
     void update(Account account) throws ServiceException;

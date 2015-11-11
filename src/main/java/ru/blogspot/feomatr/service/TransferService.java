@@ -7,7 +7,6 @@ import ru.blogspot.feomatr.entity.Broker;
  */
 public interface TransferService {
 
-
     boolean transfer(Broker broker) throws ServiceException;
 
     boolean transferTo(Broker broker) throws ServiceException;

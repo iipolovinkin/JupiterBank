@@ -1,6 +1,7 @@
 package ru.blogspot.feomatr.formBean;
 
 import org.junit.Test;
+import ru.blogspot.feomatr.entity.AccountNo;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertNull;
@@ -18,8 +19,8 @@ public class FormFilterTest {
     public void testDefaultConstructor() throws Exception {
         FormFilter formFilter = new FormFilter();
 
-        assertNull(formFilter.getIdFrom());
-        assertNull(formFilter.getIdTo());
+        assertNull(formFilter.getSenderAccountNo());
+        assertNull(formFilter.getReceiverAccountNo());
         assertThat(formFilter.getStartTime(), is(""));
         assertThat(formFilter.getEndTime(), is(""));
     }
@@ -27,9 +28,12 @@ public class FormFilterTest {
     @Test
     public void testToString() throws Exception {
         FormFilter formFilter = new FormFilter();
-        formFilter.setIdFrom(1L);
-        formFilter.setIdTo(2L);
+        String senderAccountNo = AccountNo.generatePrivateBankAccountNo();
+        String receiverAccountNo = AccountNo.generatePrivateBankAccountNo();
+        formFilter.setSenderAccountNo(senderAccountNo);
+        formFilter.setReceiverAccountNo(receiverAccountNo);
 
-        assertThat(formFilter.toString(), is("FormFilter(idFrom=1, idTo=2, startTime=, endTime=)"));
+        assertThat(formFilter.toString(), is("FormFilter(senderAccountNo=" + senderAccountNo + ", receiverAccountNo=" + receiverAccountNo
+		         + ", startTime=, endTime=)"));
     }
 }

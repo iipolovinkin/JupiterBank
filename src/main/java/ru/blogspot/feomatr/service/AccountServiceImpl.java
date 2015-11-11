@@ -62,6 +62,16 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    public Account getAccountByNo(String accountNo) throws ServiceException {
+        try {
+            return accountDAO.getByNo(accountNo);
+        } catch (DAOException e) {
+            log.error("ServiceException", e);
+            throw new ServiceException("ServiceException", e);
+        }
+    }
+
+    @Override
     public List<Account> getAccountsByOwner(Client client) throws ServiceException {
         List<Account> l = Lists.newArrayList();
         List<Account> list = null;

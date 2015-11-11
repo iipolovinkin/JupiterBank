@@ -17,7 +17,7 @@ public interface TransactionService {
 
     Transaction getById(Long id) throws ServiceException;
 
-    List<Transaction> getByFilter(Long idSender, Long idReceiver,
+    List<Transaction> getByFilter(String senderAccountNo, String receiverAccountNo,
                                   DateTime startTime, DateTime endTime) throws ServiceException;
 
     void delete(Transaction transaction) throws ServiceException;

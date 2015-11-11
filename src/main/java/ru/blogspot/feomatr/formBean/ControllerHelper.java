@@ -93,7 +93,7 @@ public class ControllerHelper {
             int n = random.nextInt(bound);
             Broker broker = new Broker();
             BigDecimal amount = new BigDecimal(n);
-            broker.setAccountTo(accounts.get((i + 1) % accountCount).getId());
+            broker.setReceiverAccountNo(accounts.get((i + 1) % accountCount).getAccountNo());
             broker.setAmount(amount.multiply(new BigDecimal(n * 3)));
             transferService.transferTo(broker);
         }
@@ -110,7 +110,8 @@ public class ControllerHelper {
             account.setOwner(allClients.get(n));
             account.setBalance(new BigDecimal(1000));
             int clientNum = clientCountX10k + i;
-            account.setAccountNo(AccountNo.generatePrivateBankAccountNo(clientNum));
+            account.setAccountNo(AccountNo.generatePrivateBankAccountNo());
+            log.info(account.toString());
             accountService.saveAccount(account);
         }
     }

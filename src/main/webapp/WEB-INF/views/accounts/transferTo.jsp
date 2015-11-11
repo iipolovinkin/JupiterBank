@@ -8,7 +8,7 @@
 <div id="transferTo">
 	<jsp:directive.page contentType="text/html; charset=UTF-8"
 		pageEncoding="UTF-8" session="false" />
-	<s:message code="accountTo" var="accountTo" />
+	<s:message code="receiverAccountNo" var="accountTo" />
 	<s:message code="amount" var="amount" />
 	<s:message code="transfer" var="transfer" />
 	<s:message code="time" var="time" />
@@ -21,7 +21,7 @@
 
 			<tr>
 				<th align=left>${accountTo}:</th>
-				<td><sf:input path="accountTo" class="form-control"
+				<td><sf:input path="receiverAccountNo" class="form-control"
 						required="true" value="" /></td>
 			</tr>
 			<tr>

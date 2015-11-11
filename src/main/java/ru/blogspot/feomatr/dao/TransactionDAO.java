@@ -10,14 +10,8 @@ import java.util.List;
  */
 public interface TransactionDAO {
 
-    /**
-     * @param idSender
-     * @param idReciver
-     * @param startTime
-     * @param endTime
-     * @return
-     */
-    List<Transaction> getByFilter(Long idSender, Long idReciver, DateTime startTime, DateTime endTime) throws DAOException;
+    List<Transaction> getByFilter(String senderAccountNo, String receiverAccountNo,
+                                  DateTime startTime, DateTime endTime) throws DAOException;
 
     List<Transaction> getAll() throws DAOException;
 
