@@ -9,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.view.document.AbstractExcelView;
-import ru.blogspot.feomatr.entity.Account;
 import ru.blogspot.feomatr.entity.Transaction;
 
 import javax.servlet.http.HttpServletRequest;
@@ -46,10 +45,8 @@ public class ExcelTransactionsReportView extends AbstractExcelView {
             Transaction t = list.get(i);
             row.createCell(0).setCellValue(t.getId());
             row.createCell(1).setCellValue(t.getAmount().toString());
-            Account sender = t.getSender();
-            row.createCell(2).setCellValue((sender != null ? sender.getId().toString() : ""));
-            Account receiver = t.getReceiver();
-            row.createCell(3).setCellValue((receiver != null ? receiver.getId().toString() : ""));
+            row.createCell(2).setCellValue(t.getSenderAccountNo());
+            row.createCell(3).setCellValue(t.getReceiverAccountNo());
             row.createCell(4).setCellValue(t.getTime().toString(DateTimeFormat.forPattern("dd.MM.yyyy hh:mm:ss")));
         }
     }

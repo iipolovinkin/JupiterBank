@@ -28,9 +28,9 @@ public class TransactionTest {
                 new Account(3L, null, 200L),
                 new Account(4L, null, 400L)};
 
-        t1 = new Transaction(1L, 50L, accs[0], accs[1]);
-        t2 = new Transaction(2L, 550L, accs[1], accs[2]);
-        t3 = new Transaction(3L, 560L, accs[2], accs[3]);
+        t1 = new Transaction(1L, 50L, accs[0].getAccountNo(), accs[1].getAccountNo());
+        t2 = new Transaction(2L, 550L, accs[1].getAccountNo(), accs[2].getAccountNo());
+        t3 = new Transaction(3L, 560L, accs[2].getAccountNo(), accs[3].getAccountNo());
     }
 
     @Test
@@ -38,7 +38,7 @@ public class TransactionTest {
         assertEquals(t1.getAmount(), BigDecimal.valueOf(50));
         assertEquals(t2.getAmount(), BigDecimal.valueOf(550));
         assertEquals(t3.getAmount(), BigDecimal.valueOf(560));
-        assertFalse(new Transaction(null, 10L, accs[0], accs[1]).equals(new Transaction()));
+        assertFalse(new Transaction(null, 10L, accs[0].getAccountNo(), accs[1].getAccountNo()).equals(new Transaction()));
     }
 
     @Test

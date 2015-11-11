@@ -91,8 +91,8 @@
 				<c:forEach var="transaction" items="${transactions}">
 					<tr>
 						<td><c:out value="${transaction.getId()}" /></td>
-						<td><c:out value="${transaction.getSender().getId()}" /></td>
-						<td><c:out value="${transaction.getReceiver().getId()}" /></td>
+						<td><c:out value="${transaction.getSenderAccountNo()}" /></td>
+						<td><c:out value="${transaction.getReceiverAccountNo()}" /></td>
 						<td><c:out value="${transaction.getAmount()}" /></td>
 						<td><joda:format value="${transaction.getTime()}" pattern='dd.MM.yyyy HH:mm:SS' /></td>
 					</tr>

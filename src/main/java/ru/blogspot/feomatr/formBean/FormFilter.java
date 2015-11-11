@@ -13,8 +13,8 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 public class FormFilter {
-    private Long idFrom;
-    private Long idTo;
+    private String idFrom;
+    private String idTo;
     private String startTime = "";
     private String endTime = "";
 }

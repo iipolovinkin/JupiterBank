@@ -53,7 +53,7 @@ public class TransferServiceImpl implements TransferService {
         try {
             accountService.update(accountFrom);
             accountService.update(accountTo);
-            transactionService.create(new Transaction(amount, accountFrom, accountTo, dateTime));
+            transactionService.create(new Transaction(amount, accountFrom.getAccountNo(), accountTo.getAccountNo(), dateTime));
         } catch (ServiceException e) {
             log.error("Cannot transfer", e);
             throw new ServiceException("Cannot transfer", e);
@@ -124,21 +124,21 @@ public class TransferServiceImpl implements TransferService {
         }
     }
 
-    public boolean transferTo(Account account, BigDecimal amount, DateTime dateTime) throws ServiceException {
-        if (account == null || amount == null) {
+    public boolean transferTo(Account accountTo, BigDecimal amount, DateTime dateTime) throws ServiceException {
+        if (accountTo == null || amount == null) {
             return false;
         }
         if (amount.compareTo(BigDecimal.ZERO) < 0) {
             throw new UnsupportedOperationException(
                     "amount < 0, Unsupported operation!");
         }
-        BigDecimal sum = account.getBalance();
+        BigDecimal sum = accountTo.getBalance();
         sum = (sum == null ? BigDecimal.ZERO : sum);
         sum = sum.add(amount);
-        account.setBalance(sum);
+        accountTo.setBalance(sum);
         try {
-            accountService.update(account);
-            transactionService.create(new Transaction(amount, null, account, dateTime));
+            accountService.update(accountTo);
+            transactionService.create(new Transaction(amount, null, accountTo.getAccountNo(), dateTime));
         } catch (ServiceException e) {
             log.error("Cannot transfer", e);
             throw new ServiceException("Cannot transferTo", e);
@@ -146,21 +146,21 @@ public class TransferServiceImpl implements TransferService {
         return true;
     }
 
-    public boolean transferFrom(Account account, BigDecimal amount, DateTime dateTime) throws ServiceException {
-        if (account == null || amount == null) {
+    public boolean transferFrom(Account accountFrom, BigDecimal amount, DateTime dateTime) throws ServiceException {
+        if (accountFrom == null || amount == null) {
             return false;
         }
         if (amount.compareTo(BigDecimal.ZERO) < 0) {
             throw new UnsupportedOperationException(
                     "amount < 0, Unsupported operation!");
         }
-        BigDecimal sum = account.getBalance();
+        BigDecimal sum = accountFrom.getBalance();
         sum = (sum == null ? BigDecimal.ZERO : sum);
         if (sum.compareTo(amount) >= 0) {
-            account.setBalance(sum.subtract(amount));
+            accountFrom.setBalance(sum.subtract(amount));
             try {
-                accountService.update(account);
-                transactionService.create(new Transaction(amount, account, null, dateTime));
+                accountService.update(accountFrom);
+                transactionService.create(new Transaction(amount, accountFrom.getAccountNo(), null, dateTime));
             } catch (ServiceException e) {
                 log.error("Cannot transfer", e);
                 throw new ServiceException("Cannot transfer", e);
