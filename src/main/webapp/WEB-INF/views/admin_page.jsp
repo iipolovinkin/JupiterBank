@@ -36,7 +36,7 @@
 			</tr>
 		</table>
 		<br/>
-		<input class="btn btn-success" name="commit" type="submit" value="processFourAttributes" />
+		<input class="btn btn-success" id="submit1" type="submit" value="processFourAttributes" />
 		<table>
         			<tr>
         				<td>1:</td>
@@ -52,7 +52,7 @@
         			</tr>
         		</table>
         		<br/>
-        		<input class="btn btn-success" name="commit" type="submit" value="processFourAttributes" />
+        		<input class="btn btn-success" id="submit2" type="submit" value="processFourAttributes" />
 		</fieldset>
 		</sf:form>
 		<br>

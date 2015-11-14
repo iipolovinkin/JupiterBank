@@ -39,7 +39,7 @@
 			</tr>
 		</table>
 		<br>
-		<input class="btn btn-success" id="filter" name="submit" type="submit"
+		<input class="btn btn-success" id="filter" id="submit" type="submit"
 			value="${filter}" />
 		<input class="btn btn-default" id="clear" name="clear" type="button"
 			onclick="clearInput()" value="${clear}" />

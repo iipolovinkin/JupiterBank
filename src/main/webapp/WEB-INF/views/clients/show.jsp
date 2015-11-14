@@ -13,7 +13,7 @@
 		pageEncoding="UTF-8" session="false" />
 	<c:if test="${not empty client}">
 	<a id="param" class="textLink" href="<c:url value="/clients/${client.getId()}.xml?output=xml" />">xml</a>
-		<table class="table">
+		<table class="table" id="tableClient">
 			<thead>
 				<tr>
 					<th>${id}</th>

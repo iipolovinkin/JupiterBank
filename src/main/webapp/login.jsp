@@ -21,18 +21,18 @@
 <table>
 	<tr>
 		<td align="right"><spring:message code="label.login" /></td>
-		<td><input type="text" name="j_username" /></td>
+		<td><input type="text" name="j_username" id="username"/></td>
 	</tr>
 	<tr>
 		<td align="right"><spring:message code="label.password" /></td>
-		<td><input type="password" name="j_password" /></td>
+		<td><input type="password" name="j_password" id="password"/></td>
 	</tr>
 	<tr>
 		<td align="right"><spring:message code="label.remember" /></td>
 		<td><input type="checkbox" name="_spring_security_remember_me" /></td>
 	</tr>
 	<tr>
-		<td colspan="2" align="right"><input type="submit" value="Login" />
+		<td colspan="2" align="right"><input type="submit" value="Login" id="loginButton"/>
 		<input type="reset" value="Reset" /></td>
 	</tr>
 </table>

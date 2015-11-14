@@ -34,7 +34,7 @@
             </form>
 	<c:if test="${not empty clientList}">
 		<br>
-		<table class="table">
+		<table class="table" id="tableClients">
 			<thead>
 				<tr>
 					<th>${id}</th>

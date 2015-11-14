@@ -16,7 +16,7 @@
 		<sf:form method="POST" modelAttribute="client" id="addEmptyAccount">
 			<!--  bind form to model attribute  -->
 			<sf:input path="id" type="hidden" value="${client.getId()}" />
-			<input name="submit" type="submit" value="${addAccount}"
+			<input id="submit" type="submit" value="${addAccount}"
 				class="btn btn-success" />
 		</sf:form>
 	</c:if>
@@ -40,7 +40,7 @@
 	</c:if>
 	<c:if test="${not empty accounts}">
 		<br>
-		<table class="table">
+		<table class="table" id="tableAccounts">
 			<thead>
 				<tr>
 					<th>${id}</th>

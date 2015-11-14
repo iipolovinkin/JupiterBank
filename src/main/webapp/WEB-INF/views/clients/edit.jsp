@@ -38,7 +38,7 @@
 				</tr>
 				<tr>
 					<th></th>
-					<td><input class="btn btn-success" name="commit" type="submit"
+					<td><input class="btn btn-success" id="submit" type="submit"
 						value="${addClient}" /></td>
 				</tr>
 			</table>
