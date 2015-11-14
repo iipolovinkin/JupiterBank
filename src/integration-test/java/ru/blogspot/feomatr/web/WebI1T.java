@@ -33,7 +33,7 @@ import static org.junit.Assert.assertTrue;
  * @author iipolovinkin
  */
 @Ignore
-public class WebIT {
+public class WebI1T {
 
 	/*
 	create own UI test for each page\class

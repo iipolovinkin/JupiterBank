@@ -16,7 +16,6 @@ import ru.blogspot.feomatr.dao.DAOException;
 import ru.blogspot.feomatr.dao.TransactionDAO;
 import ru.blogspot.feomatr.entity.Transaction;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -53,7 +52,7 @@ public class TransactionDAOHibImpl implements TransactionDAO {
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Transaction> getAll(int pageNumber, int pageSize) throws DAOException {
-		List<Transaction> l = new ArrayList<>();
+		List<Transaction> l;
 		Session session = getCurrentSession();
 		org.hibernate.Transaction tx = session.beginTransaction();
 		try {

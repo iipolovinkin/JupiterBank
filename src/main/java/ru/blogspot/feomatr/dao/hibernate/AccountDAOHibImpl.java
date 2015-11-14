@@ -16,7 +16,6 @@ import ru.blogspot.feomatr.dao.AccountDAO;
 import ru.blogspot.feomatr.dao.DAOException;
 import ru.blogspot.feomatr.entity.Account;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -54,7 +53,7 @@ public class AccountDAOHibImpl implements AccountDAO {
 	@NotNull
 	@SuppressWarnings("unchecked")
 	public List<Account> getAll(int pageNumber, int pageSize) throws DAOException {
-		List<Account> l = new ArrayList<>();
+		List<Account> l;
 		Session session = getCurrentSession();
 		Transaction tx = session.beginTransaction();
 		try {

@@ -8,16 +8,13 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import ru.blogspot.feomatr.entity.Client;
 
-import java.util.List;
-
+import static com.codeborne.selenide.CollectionCondition.empty;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 import static com.codeborne.selenide.Selenide.close;
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.Selenide.sleep;
-import static com.codeborne.selenide.Selenide.title;
-import static org.junit.Assert.assertEquals;
 
 /**
  * Test clients\client at menu item "Clients"
@@ -32,16 +29,14 @@ public class ClientSpecIT {
 	private String client_name = "client_name";
 	private String client_address = "client_address";
 	private String client_age = "client_age";
-	private String btnClass = "btn";
-	private Long clientId;
 	private Client validClient = new Client("Bill", "Main street, 117", 23);
-	private List<String> accs;
 
 	@BeforeClass
 	public static void setUpClass() {
 //		todo move parameters to configuration file
 		Configuration.browser = "chrome";
 		Configuration.baseUrl = appHost;
+		Configuration.fastSetValue = true;
 		System.setProperty("webdriver.chrome.driver", "/opt/chromedriver");
 
 		open("/login");
@@ -56,24 +51,24 @@ public class ClientSpecIT {
 	}
 
 	@Test
-	public void shouldCreateClient() throws Exception {
+	public void shouldCreateClientWithoutAccounts() throws Exception {
 		open("/clients?new");
+
 		$(By.id(client_name)).setValue("Bill");
 		$(By.id(client_address)).setValue("Main street, 117");
 		$(By.id(client_age)).setValue("23");
-
 		$("#submit").pressEnter();
 
 		$(By.id("firstname.errors")).shouldNotBe(visible);
 		$(By.id("address.errors")).shouldNotBe(visible);
 		$(By.id("age.errors")).shouldNotBe(visible);
+		$$("#tableAccounts tr").shouldBe(empty);
 //	    clientId = Long.valueOf(td.get(0).getText());
 	}
 
 	@Test
 	public void shouldShowErrorsWhenCreateInvalidClient() {
 		open("/clients?new");
-		String title = title();
 		$(By.id("firstname.errors")).shouldNotBe(visible);
 		$(By.id("address.errors")).shouldNotBe(visible);
 		$(By.id("age.errors")).shouldNotBe(visible);
@@ -81,15 +76,23 @@ public class ClientSpecIT {
 		$(By.id(client_name)).val("1");
 		$(By.id(client_address)).val("1");
 		$(By.id(client_age)).val("0");
-
 		$("#submit").pressEnter();
 
-		assertEquals(title, title());
 		$(By.id("firstname.errors")).shouldBe(visible);
 		$(By.id("address.errors")).shouldBe(visible);
 		$(By.id("age.errors")).shouldBe(visible);
 	}
 
+	@Test
+	public void shouldShowAccountsHeadAndCreatedAccount() throws Exception {
+		Long id = createClient(validClient);
+		open("/clients/" + id);
+		int count = $$("#tableAccounts tr").size();
+
+		$("#submit").pressEnter();
+
+		$$("#tableAccounts tr").shouldHaveSize(count + 1 + 1);
+	}
 
 	private Long createClient(Client client) {
 		return createClient(client.getFirstname(), client.getAddress(), client.getAge().toString());
@@ -105,7 +108,7 @@ public class ClientSpecIT {
 
 		sleep(100l);
 		ElementsCollection td = $$(By.tagName("td"));
-//		td.shouldHaveSize(1);
+
 		Long clientId = Long.valueOf(td.get(0).getText());
 
 		return clientId;

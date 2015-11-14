@@ -13,7 +13,6 @@ import ru.blogspot.feomatr.dao.ClientDAO;
 import ru.blogspot.feomatr.dao.DAOException;
 import ru.blogspot.feomatr.entity.Client;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -50,7 +49,7 @@ public class ClientDAOHibImpl implements ClientDAO {
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Client> getAll(int pageNumber, int pageSize) throws DAOException {
-		List<Client> l = new ArrayList<>();
+		List<Client> l;
 		Session session = getCurrentSession();
 		Transaction tx = session.beginTransaction();
 		try {

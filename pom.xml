@@ -64,7 +64,6 @@
         <jayway.version>0.8.1</jayway.version>
         <mockito.core.version>1.10.8</mockito.core.version>
         <selenide.version>2.15</selenide.version>
-        <selenide.browser>chrome</selenide.browser>
 
         <!--Plugin versions-->
         <jetty.plugin.version>8.1.16.v20140903</jetty.plugin.version>
