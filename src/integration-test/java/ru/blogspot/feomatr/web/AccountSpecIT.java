@@ -14,7 +14,7 @@ import static com.codeborne.selenide.Selenide.close;
 import static com.codeborne.selenide.Selenide.open;
 
 /**
- * Test clients\client at menu item "Clients"
+ * Test clients\client at menu item "Accounts"
  * see <a href=https://github.com/codeborne/selenide/wiki/Snippets>Selenide snippets</a>
  *
  * @author iipolovinkin

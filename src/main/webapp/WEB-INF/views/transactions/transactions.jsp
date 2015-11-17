@@ -39,7 +39,7 @@
 			</tr>
 		</table>
 		<br>
-		<input class="btn btn-success" id="filter" id="submit" type="submit"
+		<input class="btn btn-success" id="filter" type="submit"
 			value="${filter}" />
 		<input class="btn btn-default" id="clear" name="clear" type="button"
 			onclick="clearInput()" value="${clear}" />
@@ -77,7 +77,7 @@
     </c:if>
 	<c:if test="${not empty transactions}">
 		<br>
-		<table class="table">
+		<table class="table" id="tableTransactions">
 			<thead>
 				<tr>
 					<th>${id}</th>
