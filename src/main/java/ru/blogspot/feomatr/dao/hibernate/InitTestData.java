@@ -30,7 +30,7 @@ public class InitTestData {
             "Springfield, Simpson st, 2", "Springfield, Simpson st, 3"};
     private final String[] names = {"John", "John2", "John3", "Lisa", "Bart", "Homer", "Marge"};
     private final Integer[] ages = {21, 22, 25, 12, 14, 35, 34};
-    private final String[] dates = {"10.01.14", "20.01.14", "15.02.14", "11.03.14", "22.03.14", "07.04.14", "07.07.14"};
+    private final String[] dates = {"10.01.2014", "20.01.2014", "15.02.2014", "11.03.2014", "22.03.2014", "07.04.2014", "07.07.2014"};
     private ClientService clientService;
     private AccountService accountService;
     private TransferService transferService;
