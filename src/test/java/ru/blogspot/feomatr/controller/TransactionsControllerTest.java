@@ -16,7 +16,10 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -59,7 +62,7 @@ public class TransactionsControllerTest {
         List<Transaction> expectedTransactions = Lists.newArrayList();
         when(transactionService.getByFilter(null, null, null, null)).thenReturn(expectedTransactions);
 
-        String actualView = transactionsController.doFilter(formFilter, model);
+        String actualView = transactionsController.doFilter(formFilter, model, mock(HttpServletRequest.class));
 
         assertEquals(transactionsView, actualView);
         assertSame("transaction objects differs", expectedTransactions, model.asMap().get("transactions"));

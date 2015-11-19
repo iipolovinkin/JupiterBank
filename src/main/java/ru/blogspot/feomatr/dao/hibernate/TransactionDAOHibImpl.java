@@ -9,6 +9,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
+import org.jetbrains.annotations.NotNull;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -135,38 +136,81 @@ public class TransactionDAOHibImpl implements TransactionDAO {
         delete(getById(id));
     }
 
-    @Override
-    @SuppressWarnings("unchecked")
-    public List<Transaction> getByFilter(String senderAccountNo, String receiverAccountNo,
-                                         DateTime startTime, DateTime endTime) throws DAOException {
-        List<Transaction> l = null;
-        DetachedCriteria criteria = DetachedCriteria.forClass(Transaction.class);
-        if (startTime != null) {
-            criteria.add(Restrictions.ge("time", startTime));
-        }
-        if (endTime != null) {
-            criteria.add(Restrictions.le("time", endTime));
-        }
-	    if (StringUtils.isNotBlank(senderAccountNo)) {
-		    criteria.add(Restrictions.eq("senderAccountNo", senderAccountNo));
-	    }
-	    if (StringUtils.isNotBlank(receiverAccountNo)) {
-		    criteria.add(Restrictions.eq("receiverAccountNo", receiverAccountNo));
-	    }
-        Session session = getCurrentSession();
-        org.hibernate.Transaction tx = session.beginTransaction();
-        try {
-            l = (List<Transaction>) criteria.getExecutableCriteria(session).list();
-            tx.commit();
-        } catch (HibernateException e) {
-	        if (tx != null) {
-		        tx.rollback();
-	        }
-            log.error("Cannot get transactions by criteria", e);
-            throw new DAOException("Cannot get transactions by criteria", e);
-        }
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Transaction> getByFilter(String senderAccountNo, String receiverAccountNo,
+	                                     DateTime startTime, DateTime endTime) throws DAOException {
+		List<Transaction> l = null;
+		DetachedCriteria criteria = getFilterCriteria(senderAccountNo, receiverAccountNo, startTime, endTime);
+		return getByCriteria(criteria);
+	}
 
-        return l;
-    }
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Transaction> getByFilter(String senderAccountNo, String receiverAccountNo,
+	                                     DateTime startTime, DateTime endTime, int pageNumber, int pageSize) throws DAOException {
+		List<Transaction> l = null;
+		DetachedCriteria criteria = getFilterCriteria(senderAccountNo, receiverAccountNo, startTime, endTime);
+		return getByCriteria(criteria, pageNumber, pageSize);
+	}
+
+	@NotNull
+	private DetachedCriteria getFilterCriteria(String senderAccountNo, String receiverAccountNo, DateTime startTime, DateTime endTime) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(Transaction.class);
+		if (startTime != null) {
+			criteria.add(Restrictions.ge("time", startTime));
+		}
+		if (endTime != null) {
+			criteria.add(Restrictions.le("time", endTime));
+		}
+		if (StringUtils.isNotBlank(senderAccountNo)) {
+			criteria.add(Restrictions.eq("senderAccountNo", senderAccountNo));
+		}
+		if (StringUtils.isNotBlank(receiverAccountNo)) {
+			criteria.add(Restrictions.eq("receiverAccountNo", receiverAccountNo));
+		}
+		return criteria;
+	}
+
+	//	@SuppressWarnings("unchecked")
+	public List<Transaction> getByCriteria(DetachedCriteria detachedCriteria, int pageNumber, int pageSize) throws DAOException {
+		List<Transaction> l = null;
+		Session session = getCurrentSession();
+		org.hibernate.Transaction tx = session.beginTransaction();
+		try {
+			Criteria criteria = detachedCriteria.getExecutableCriteria(session);
+			criteria.setFirstResult((pageNumber - 1) * pageSize);
+			criteria.setMaxResults(pageSize);
+			l = (List<Transaction>) criteria.list();
+			tx.commit();
+		} catch (HibernateException e) {
+			if (tx != null) {
+				tx.rollback();
+			}
+			log.error("Cannot get transactions by criteria", e);
+			throw new DAOException("Cannot get transactions by criteria", e);
+		}
+
+		return l;
+	}
+
+	public List<Transaction> getByCriteria(DetachedCriteria detachedCriteria) throws DAOException {
+		List<Transaction> l = null;
+		Session session = getCurrentSession();
+		org.hibernate.Transaction tx = session.beginTransaction();
+		try {
+			Criteria criteria = detachedCriteria.getExecutableCriteria(session);
+			l = (List<Transaction>) criteria.list();
+			tx.commit();
+		} catch (HibernateException e) {
+			if (tx != null) {
+				tx.rollback();
+			}
+			log.error("Cannot get transactions by criteria", e);
+			throw new DAOException("Cannot get transactions by criteria", e);
+		}
+
+		return l;
+	}
 
 }

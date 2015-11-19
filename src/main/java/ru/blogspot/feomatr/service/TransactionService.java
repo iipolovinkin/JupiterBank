@@ -19,6 +19,8 @@ public interface TransactionService {
 
     List<Transaction> getByFilter(String senderAccountNo, String receiverAccountNo,
                                   DateTime startTime, DateTime endTime) throws ServiceException;
+    List<Transaction> getByFilter(String senderAccountNo, String receiverAccountNo,
+                                  DateTime startTime, DateTime endTime, int pageNumber, int pageSize) throws ServiceException;
 
     void delete(Transaction transaction) throws ServiceException;
 

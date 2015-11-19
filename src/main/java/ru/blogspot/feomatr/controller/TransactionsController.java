@@ -5,8 +5,6 @@ import com.google.common.collect.Lists;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -31,15 +29,19 @@ import static ru.blogspot.feomatr.formBean.UIUtils.showErrorMessage;
 /**
  * @author iipolovinkin
  */
-@Setter
 @NoArgsConstructor
 @Controller
 @RequestMapping(value = "transactions")
 public class TransactionsController {
     private static final Logger log = LoggerFactory.getLogger(TransactionsController.class);
+	@Setter
     private TransactionService transactionService;
+	private String senderAccountNo;
+	private String receiverAccountNo;
+	private DateTime startTime = null;
+	private DateTime endTime = null;
 
-    @RequestMapping()
+
     public String showTransactions(Model model, HttpServletRequest request) throws ServletRequestBindingException {
         Stopwatch stopwatch = Stopwatch.createStarted();
         log.info(" {}", "showTransactions, start:" + stopwatch);
@@ -73,6 +75,35 @@ public class TransactionsController {
         return "transactions";
     }
 
+	@RequestMapping()
+	public String doFilter(Model model, HttpServletRequest request) {
+		int size=0;
+		List<Transaction> transactionByFilter = Lists.newArrayList();
+		try {
+			transactionByFilter = transactionService.getByFilter(senderAccountNo, receiverAccountNo, startTime, endTime);
+			size = transactionByFilter.size();
+		} catch (ServiceException e) {
+			log.error("Operation failed", e);
+			showErrorMessage("Operation failed", e);
+		}
+
+		model.addAttribute("formFilter", new FormFilter(senderAccountNo, receiverAccountNo, startTime, endTime));
+
+		Integer pageNumber = ServletRequestUtils.getIntParameter(request, "page", 1);
+		Integer count = Paginator.ROWS_COUNT_PER_PAGE;
+
+		Paginator paginator = new Paginator(pageNumber, count, size);
+		if (paginator.getLastIndex() == -1) {
+			model.addAttribute("transactions", transactionByFilter);
+			return "transactions";
+		}
+		List<Transaction> transactionSublist = transactionByFilter.subList(paginator.getFirstIndex(), paginator.getLastIndex());
+		model.addAttribute("transactions", transactionSublist);
+		model.addAttribute("paginator", paginator);
+
+		return "transactions";
+	}
+
     @RequestMapping(method = RequestMethod.GET, params = "output")
     public ModelAndView saveAllTransactions(Model model, HttpServletRequest request) throws ServletRequestBindingException {
         String output = ServletRequestUtils.getStringParameter(request, "output");
@@ -92,46 +123,49 @@ public class TransactionsController {
         }
 
         //return excel view too
-        return new ModelAndView("ExcelTransactionsReportView", "data", model);
+	    return new ModelAndView("ExcelTransactionsReportView", "data", model);
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    public String doFilter(FormFilter formFilter, Model model) {
-        DateTimeFormatter formatter = DateTimeFormat.forPattern("dd.MM.yyyy");
-        log.debug("doFilter formFilter: {}", formFilter);
+	@RequestMapping(method = RequestMethod.POST)
+	public String doFilter(FormFilter formFilter, Model model, HttpServletRequest request) {
+		log.debug("doFilter formFilter: {}", formFilter);
 
-        DateTime startTime = null;
-        DateTime endTime = null;
+		if (!formFilter.getStartTime().isEmpty()) {
+			startTime = DateTime.parse(formFilter.getStartTime(), FormFilter.DATE_FORMAT);
+		} else {
+			startTime = null;
+		}
+		if (!formFilter.getEndTime().isEmpty()) {
+			endTime = DateTime.parse(formFilter.getEndTime(), FormFilter.DATE_FORMAT);
+		} else {
+			endTime = null;
+		}
 
-        if (!formFilter.getStartTime().isEmpty()) {
-            startTime = DateTime.parse(formFilter.getStartTime(), formatter);
-        }
+		int size = 0;
+		List<Transaction> transactionByFilter = Lists.newArrayList();
+		try {
+			senderAccountNo = formFilter.getSenderAccountNo();
+			receiverAccountNo = formFilter.getReceiverAccountNo();
 
-        if (!formFilter.getEndTime().isEmpty()) {
-            endTime = DateTime.parse(formFilter.getEndTime(), formatter);
-        }
+			transactionByFilter = transactionService.getByFilter(senderAccountNo, receiverAccountNo, startTime, endTime);
+			size = transactionByFilter.size();
+		} catch (ServiceException e) {
+			log.error("Operation failed", e);
+			showErrorMessage("Operation failed", e);
+		}
 
-	    int size=0;
-	    List<Transaction> transactionByFilter = Lists.newArrayList();
-	    try {
-		    transactionByFilter = transactionService.getByFilter(formFilter.getSenderAccountNo(), formFilter.getReceiverAccountNo(), startTime, endTime);
-		    size = transactionByFilter.size();
-        } catch (ServiceException e) {
-            log.error("Operation failed", e);
-            showErrorMessage("Operation failed", e);
-        }
+		Integer pageNumber = ServletRequestUtils.getIntParameter(request, "page", 1);
+		Integer count = Paginator.ROWS_COUNT_PER_PAGE;
 
-	    Integer pageNumber = 1;
-	    Integer count = Paginator.ROWS_COUNT_PER_PAGE;
-        Paginator paginator = new Paginator(pageNumber, count, size);
-        if (paginator.getLastIndex() == -1) {
-            model.addAttribute("transactions", transactionByFilter);
-            return "transactions";
-        }
-        List<Transaction> transactionSublist = transactionByFilter.subList(paginator.getFirstIndex(), paginator.getLastIndex());
-        model.addAttribute("transactions", transactionSublist);
-        model.addAttribute("paginator", paginator);
+		Paginator paginator = new Paginator(pageNumber, count, size);
+		if (paginator.getLastIndex() == -1) {
+			model.addAttribute("transactions", transactionByFilter);
+			return "transactions";
+		}
+		List<Transaction> transactionSublist = transactionByFilter.subList(paginator.getFirstIndex(), paginator.getLastIndex());
+		model.addAttribute("transactions", transactionSublist);
+		model.addAttribute("paginator", paginator);
 
-        return "transactions";
-    }
+		return "transactions";
+	}
 }

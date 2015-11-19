@@ -13,6 +13,9 @@ public interface TransactionDAO {
     List<Transaction> getByFilter(String senderAccountNo, String receiverAccountNo,
                                   DateTime startTime, DateTime endTime) throws DAOException;
 
+    List<Transaction> getByFilter(String senderAccountNo, String receiverAccountNo,
+                                  DateTime startTime, DateTime endTime, int pageNumber, int pageSize) throws DAOException;
+
     List<Transaction> getAll() throws DAOException;
 
     List<Transaction> getAll(int pageNumber, int pageSize) throws DAOException;
