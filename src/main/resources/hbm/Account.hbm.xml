@@ -9,6 +9,7 @@
         </id>
         <property name="balance" type="java.math.BigDecimal" column="ACCOUNT_BALANCE"/>
         <property name="accountNo" type="java.lang.String" column="ACCOUNT_NO" unique="true"/>
+        <property name="state" type="java.lang.String" column="STATE"/>
         <many-to-one name="owner" class="Client" not-null="true" fetch="select">
             <column name="client_id" not-null="true"/>
         </many-to-one>

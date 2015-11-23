@@ -10,7 +10,11 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.Locale;
+import java.util.ResourceBundle;
+import java.util.Set;
 
 import static java.util.Collections.emptySet;
 import static org.hamcrest.Matchers.is;
@@ -84,5 +88,14 @@ public class AccountTest {
             return messages;
         }
     }
+
+	@Test
+	public void testToString() {
+		String expectedString = "Account(id=1, balance=11.05, accountNo=40817810061010000001, state=OPEN)";
+
+		String actualString = account.toString();
+
+		assertThat(actualString, is(expectedString));
+	}
 
 }

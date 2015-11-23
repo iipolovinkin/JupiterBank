@@ -39,6 +39,7 @@ public class Account implements Serializable {
     private BigDecimal balance;
     @NonNull
     private String accountNo;
+    private String state = "OPEN";
 
     public Account(Client owner) {
         this(owner, new BigDecimal(0));
@@ -55,18 +56,25 @@ public class Account implements Serializable {
         this(null, owner, balance);
     }
 
-    public Account(Long id, Client owner, BigDecimal balance) {
-        this.id = id;
-        this.owner = owner;
-        this.balance = balance;
-        this.accountNo = AccountNo.generatePrivateBankAccountNo();
-    }
+	public Account(Long id, Client owner, BigDecimal balance) {
+		this.id = id;
+		this.owner = owner;
+		this.balance = balance;
+		this.accountNo = AccountNo.generatePrivateBankAccountNo();
+	}
 
-    /**
-     * Constructor for tests
-     */
-    public Account(Long id, Client owner, Long balance) {
-        this(id, owner, new BigDecimal(balance));
-    }
+	/**
+	 * Constructor for tests
+	 */
+	public Account(Long id, Client owner, Long balance) {
+		this(id, owner, new BigDecimal(balance));
+	}
+
+	public Account(Long id, Client owner, BigDecimal balance, String accountNo) {
+		this.id = id;
+		this.owner = owner;
+		this.balance = balance;
+		this.accountNo = accountNo;
+	}
 
 }
