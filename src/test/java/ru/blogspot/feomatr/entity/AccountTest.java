@@ -91,7 +91,8 @@ public class AccountTest {
 
 	@Test
 	public void testToString() {
-		String expectedString = "Account(id=1, balance=11.05, accountNo=40817810061010000001, state=OPEN)";
+        account = new Account(1l, client, new BigDecimal("11.05"), "40817810061010007001");
+		String expectedString = "Account(id=1, balance=11.05, accountNo=40817810061010007001, state=OPEN)";
 
 		String actualString = account.toString();
 
