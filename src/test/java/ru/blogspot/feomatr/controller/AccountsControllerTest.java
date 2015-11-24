@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
 import ru.blogspot.feomatr.entity.Account;
 import ru.blogspot.feomatr.entity.Broker;
+import ru.blogspot.feomatr.entity.Client;
 import ru.blogspot.feomatr.service.AccountService;
 import ru.blogspot.feomatr.service.TransferService;
 
@@ -21,6 +22,7 @@ import java.util.List;
 import static java.util.Arrays.asList;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
@@ -101,4 +103,31 @@ public class AccountsControllerTest {
         assertTrue(actualModelAndView.getModel().containsKey("data"));
 
     }
+
+	@Test
+	public void shouldReturnExistsAccount() throws Exception {
+		String expectedViewName = "accounts/showAccount";
+		Long id = 0L;
+		Client owner = new Client("James", "37 Red road", 15);
+		Account expectedAccount = new Account(id, owner, 10L);
+		when(accountService.getAccountById(0L)).thenReturn(expectedAccount);
+
+		String viewName = accountsController.showAccount(id, model);
+
+		assertEquals(expectedViewName, viewName);
+		assertSame(expectedAccount, model.asMap().get("account"));
+	}
+
+	@Test
+	public void shouldReturnNullWhenAccountDoesNotExist() throws Exception {
+		String expectedViewName = "accounts/showAccount";
+		Long id = 100000L;
+		Account expectedAccount = null;
+		when(accountService.getAccountById(id)).thenReturn(null);
+
+		String viewName = accountsController.showAccount(id, model);
+
+		assertEquals(expectedViewName, viewName);
+		assertSame(expectedAccount, model.asMap().get("account"));
+	}
 }

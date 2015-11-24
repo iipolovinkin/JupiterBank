@@ -10,6 +10,7 @@ import ru.blogspot.feomatr.entity.Client;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$$;
 import static com.codeborne.selenide.Selenide.close;
 import static com.codeborne.selenide.Selenide.open;
 
@@ -124,6 +125,16 @@ public class AccountSpecIT {
 
 		page.messageShouldBeVisible();
 		page.messageShouldBeFailed();
+	}
+
+	@Test
+	public void shouldShowAccount() throws Exception {
+		Long id = 1L;
+
+		open("/accounts/" + id);
+
+		$$(By.id("tableAccount")).shouldHaveSize(1);
+		$$(By.cssSelector("td")).shouldHaveSize(5);
 	}
 
 	public static class AccountPageObject {

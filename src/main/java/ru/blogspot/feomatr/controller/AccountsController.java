@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -154,4 +155,18 @@ public class AccountsController {
 
         return "transfer";
     }
+
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	public String showAccount(@PathVariable("id") Long id, Model model) {
+		Account account = null;
+		try {
+			account = accountService.getAccountById(id);
+		} catch (ServiceException e) {
+			log.error("Operation failed", e);
+
+		}
+		model.addAttribute("account", account);
+
+		return "accounts/showAccount";
+	}
 }

@@ -52,9 +52,9 @@
 				<c:forEach var="account" items="${accounts}">
 					<tr>
 						<td>
-							<!-- <a id="param" class="textLink"
-							href="<c:url value="accounts/${account.getId()}/" />">
-							</a> --> <c:out value="${account.getId()}" />
+							<a id="param" class="textLink"
+							href="<c:url value="/accounts/${account.getId()}/" />">
+							<c:out value="${account.getId()}" /></a>
 						</td>
 						<td><c:out value="${account.getAccountNo()}" /></td>
 						<td><c:out value="${account.getBalance()}" /></td>
