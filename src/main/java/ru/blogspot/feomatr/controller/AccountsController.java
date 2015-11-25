@@ -163,7 +163,7 @@ public class AccountsController {
 			account = accountService.getAccountById(id);
 		} catch (ServiceException e) {
 			log.error("Operation failed", e);
-
+			showErrorMessage("Operation failed", e);
 		}
 		model.addAttribute("account", account);
 

@@ -10,7 +10,6 @@ import ru.blogspot.feomatr.entity.Client;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$$;
 import static com.codeborne.selenide.Selenide.close;
 import static com.codeborne.selenide.Selenide.open;
 
@@ -133,8 +132,11 @@ public class AccountSpecIT {
 
 		open("/accounts/" + id);
 
-		$$(By.id("tableAccount")).shouldHaveSize(1);
-		$$(By.cssSelector("td")).shouldHaveSize(5);
+		$(By.id("id")).attr("readonly").equals("true");
+		$(By.id("accountNo")).attr("readonly").equals("true");
+		$(By.id("state")).attr("readonly").equals("true");
+		$(By.id("balance")).attr("readonly").equals("true");
+		$(By.id("save")).attr("disabled").equals("true");
 	}
 
 	public static class AccountPageObject {
