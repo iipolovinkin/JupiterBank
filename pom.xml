@@ -561,12 +561,15 @@
                 <artifactId>findbugs-maven-plugin</artifactId>
                 <version>3.0.2</version>
                 <configuration>
+                    <failOnError>true</failOnError>
                     <effort>Max</effort>
                     <threshold>Medium</threshold>
                     <xmlOutput>true</xmlOutput>
                 </configuration>
                 <executions>
                     <execution>
+                        <id>analyze-compile</id>
+                        <phase>compile</phase>
                         <goals>
                             <goal>check</goal>
                         </goals>
