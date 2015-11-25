@@ -18,7 +18,7 @@ import org.joda.time.format.DateTimeFormatter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class FormFilter {
-	public static DateTimeFormatter DATE_FORMAT = DateTimeFormat.forPattern("dd.MM.yyyy");
+	public static final DateTimeFormatter DATE_FORMAT = DateTimeFormat.forPattern("dd.MM.yyyy");
 
 	private String senderAccountNo;
 	private String receiverAccountNo;
