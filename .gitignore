@@ -1,3 +1,6 @@
+/documentation/
 /target/
+/build/
 .idea
+.directory
 *.iml
