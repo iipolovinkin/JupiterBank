@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -22,6 +23,7 @@ import ru.blogspot.feomatr.service.ServiceException;
 import ru.blogspot.feomatr.service.TransferService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.List;
 
 import static ru.blogspot.feomatr.formBean.UIUtils.showErrorMessage;
@@ -168,5 +170,39 @@ public class AccountsController {
 		model.addAttribute("account", account);
 
 		return "accounts/showAccount";
+	}
+
+	@RequestMapping(value = "/{id}", method = RequestMethod.POST, params="update")
+	public String updateAccount(@Valid Account account,
+	                            BindingResult bindingResult, Model model, HttpServletRequest request) {
+		if (bindingResult.hasErrors()) {
+			log.info("fieldErrors: {}", bindingResult.getFieldErrors());
+			return "accounts/editAccount";
+		}
+		try {
+			Account accountById = accountService.getAccountById(account.getId());
+			//update only state
+			accountById.setState(account.getState());
+			accountService.update(accountById);
+		} catch (ServiceException e) {
+			log.error("Operation failed", e);
+			showErrorMessage("Operation failed", e);
+		}
+		model.addAttribute("account", account);
+		return "redirect:/accounts/" + account.getId();
+	}
+
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET, params="update")
+	public String updateAccount2(@Valid Account account,
+	                            BindingResult bindingResult, Model model, HttpServletRequest request) {
+		try {
+			account = accountService.getAccountById(account.getId());
+		} catch (ServiceException e) {
+			log.error("Operation failed", e);
+			showErrorMessage("Operation failed", e);
+		}
+		model.addAttribute("account", account);
+
+		return "accounts/editAccount";
 	}
 }

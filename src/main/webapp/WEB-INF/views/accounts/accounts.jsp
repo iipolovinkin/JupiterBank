@@ -20,7 +20,7 @@
 				class="btn btn-success" />
 		</sf:form>
 	</c:if>
-	<c:if test="${empty client }">
+	<c:if test="${empty client}">
 	<br>
 		<a href="accounts.xls?output=excel">excel</a>
 
