@@ -16,7 +16,6 @@ import static com.codeborne.selenide.Selenide.open;
 /**
  * Test clients\client at menu item "Accounts"
  * see <a href=https://github.com/codeborne/selenide/wiki/Snippets>Selenide snippets</a>
- *
  * @author iipolovinkin
  */
 public class AccountSpecIT {
@@ -136,7 +135,18 @@ public class AccountSpecIT {
 		$(By.id("accountNo")).attr("readonly").equals("true");
 		$(By.id("state")).attr("readonly").equals("true");
 		$(By.id("balance")).attr("readonly").equals("true");
-		$(By.id("save")).attr("disabled").equals("true");
+	}
+
+	@Test
+	public void shouldEditAccount() throws Exception {
+		Long id = 1L;
+		open("/accounts/" + id);
+
+		$(By.id("param")).followLink();
+
+		$(By.id("id")).attr("readonly").equals("true");
+		$(By.id("accountNo")).attr("readonly").equals("true");
+		$(By.id("balance")).attr("readonly").equals("true");
 	}
 
 	public static class AccountPageObject {

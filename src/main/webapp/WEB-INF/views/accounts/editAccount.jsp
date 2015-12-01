@@ -30,7 +30,7 @@
     				<tr>
     					<th align=left><label for="state">${state}:</state></th>
     					<td><sf:input path="state" id="state" class="form-control"
-    							required="true" readonly="false"/></td>
+    							required="true"/></td>
     				</tr>
     				<tr>
     					<th align=left><label for="balance">${amount}:</state></th>
