@@ -37,6 +37,11 @@ Some of used technologies:
     java 1.7+, SpringMVC 3.2+, Hibernate 4.+, SLF4J 1.6+, JUnit 4.10+, Apache tiles 3.+, Bootstrap 3.+, Mockito 1.10.+, 
     jquery, etc.
 
-Command to run findbugs check:
+Commands to run findbugs check:
 
-mvn clean findbugs:check
+``mvn clean compile findbugs:check``
+``mvn clean compile findbugs:findbugs``
+
+Commands to run pitest:
+
+``mvn clean test org.pitest:pitest-maven:mutationCoverage``
