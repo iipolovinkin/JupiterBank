@@ -37,11 +37,13 @@ public class ClientDAOHibImpl implements ClientDAO {
         Transaction tx = session.beginTransaction();
         try {
             l = (List<Client>) session.createCriteria(Client.class).list();
-        } catch (HibernateException e) {
-            log.error("Cannot get all clients", e);
-            throw new DAOException("Cannot get all clients", e);
-        } finally {
             tx.commit();
+        } catch (HibernateException e) {
+	        if (tx != null) {
+		        tx.rollback();
+	        }
+	        log.error("Cannot get all clients", e);
+            throw new DAOException("Cannot get all clients", e);
         }
         return l;
     }
@@ -59,7 +61,9 @@ public class ClientDAOHibImpl implements ClientDAO {
 			l = criteria.list();
 			tx.commit();
 		} catch (HibernateException e) {
-			tx.rollback();
+			if (tx != null) {
+				tx.rollback();
+			}
 			log.error("Cannot get all clients", e);
 			throw new DAOException("Cannot get all clients", e);
 		}
@@ -73,11 +77,13 @@ public class ClientDAOHibImpl implements ClientDAO {
         Transaction tx = session.beginTransaction();
         try {
             c = (Client) session.get(ru.blogspot.feomatr.entity.Client.class, id);
+	        tx.commit();
         } catch (HibernateException e) {
-            log.error("Cannot get client by id", e);
-            throw new DAOException("Cannot get client by id", e);
-        } finally {
-            tx.commit();
+	        if (tx != null) {
+		        tx.rollback();
+	        }
+	        log.error("Cannot get client by id", e);
+	        throw new DAOException("Cannot get client by id", e);
         }
         return c;
     }
@@ -91,11 +97,13 @@ public class ClientDAOHibImpl implements ClientDAO {
         Transaction tx = session.beginTransaction();
         try {
             session.save(client);
+	        tx.commit();
         } catch (Exception e) {
-            log.error("Cannot create client", e);
-            throw new DAOException("Cannot create client", e);
-        } finally {
-            tx.commit();
+	        if (tx != null) {
+		        tx.rollback();
+	        }
+	        log.error("Cannot create client", e);
+	        throw new DAOException("Cannot create client", e);
         }
         return client;
     }
@@ -106,11 +114,13 @@ public class ClientDAOHibImpl implements ClientDAO {
         Transaction tx = session.beginTransaction();
         try {
             session.delete(client);
+	        tx.commit();
         } catch (HibernateException e) {
+	        if (tx != null) {
+		        tx.rollback();
+	        }
             log.error("Cannot delete client", e);
             throw new DAOException("Cannot delete client", e);
-        } finally {
-            tx.commit();
         }
     }
 
@@ -120,11 +130,13 @@ public class ClientDAOHibImpl implements ClientDAO {
         Transaction tx = session.beginTransaction();
         try {
             session.update(client);
+	        tx.commit();
         } catch (HibernateException e) {
+	        if (tx != null) {
+		        tx.rollback();
+	        }
             log.error("Cannot update client", e);
             throw new DAOException("Cannot update client", e);
-        } finally {
-            tx.commit();
         }
     }
 

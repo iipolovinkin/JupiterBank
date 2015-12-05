@@ -40,11 +40,15 @@ public class AccountDAOHibImpl implements AccountDAO {
         Transaction tx = session.beginTransaction();
         try {
             l = session.createCriteria(Account.class).list();
+            tx.commit();
         } catch (Exception e) {
+	        if (tx != null) {
+		        tx.rollback();
+	        }
             log.error("Cannot get all accounts", e);
             throw new DAOException("Cannot get all accounts", e);
         } finally {
-            tx.commit();
+
         }
         return l;
     }
@@ -63,7 +67,9 @@ public class AccountDAOHibImpl implements AccountDAO {
 			l = criteria.list();
 			tx.commit();
 		} catch (Exception e) {
-			tx.rollback();
+			if (tx != null) {
+				tx.rollback();
+			}
 			log.error("Cannot get all accounts", e);
 			throw new DAOException("Cannot get all accounts", e);
 		}
@@ -77,11 +83,13 @@ public class AccountDAOHibImpl implements AccountDAO {
         Transaction tx = session.beginTransaction();
         try {
             a = (Account) session.get(Account.class, id);
+	        tx.commit();
         } catch (Exception e) {
+	        if (tx != null) {
+		        tx.rollback();
+	        }
             log.error("Cannot get account by id: " + id, e);
             throw new DAOException("Cannot get account by id: " + id, e);
-        } finally {
-            tx.commit();
         }
         return a;
     }
@@ -115,11 +123,13 @@ public class AccountDAOHibImpl implements AccountDAO {
         Transaction tx = session.beginTransaction();
         try {
             session.save(account);
+	        tx.commit();
         } catch (HibernateException e) {
+	        if (tx != null) {
+		        tx.rollback();
+	        }
             log.error("Cannot create account" + account, e);
             throw new DAOException("Cannot create account" + account, e);
-        } finally {
-            tx.commit();
         }
         return account;
     }
@@ -130,11 +140,13 @@ public class AccountDAOHibImpl implements AccountDAO {
         Transaction tx = session.beginTransaction();
         try {
             session.delete(account);
+	        tx.commit();
         } catch (HibernateException e) {
+	        if (tx != null) {
+		        tx.rollback();
+	        }
             log.error("Cannot delete account" + account, e);
             throw new DAOException("Cannot delete account" + account, e);
-        } finally {
-            tx.commit();
         }
     }
 
@@ -144,11 +156,13 @@ public class AccountDAOHibImpl implements AccountDAO {
         Transaction tx = session.beginTransaction();
         try {
             session.update(account);
+	        tx.commit();
         } catch (HibernateException e) {
+	        if (tx != null) {
+		        tx.rollback();
+	        }
             log.error("Cannot update account" + account, e);
             throw new DAOException("Cannot update account" + account, e);
-        } finally {
-            tx.commit();
         }
     }
 }

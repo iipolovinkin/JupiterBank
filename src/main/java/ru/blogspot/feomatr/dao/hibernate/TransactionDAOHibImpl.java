@@ -41,11 +41,13 @@ public class TransactionDAOHibImpl implements TransactionDAO {
         try {
             Criteria criteria = session.createCriteria(Transaction.class);
             l = (List<Transaction>) criteria.list();
+	        tx.commit();
         } catch (HibernateException e) {
-            log.error("Cannot get all transactions", e);
-            throw new DAOException("Cannot get all transactions", e);
-        } finally {
-            tx.commit();
+	        if (tx != null) {
+		        tx.rollback();
+	        }
+	        log.error("Cannot get all transactions", e);
+	        throw new DAOException("Cannot get all transactions", e);
         }
         return l;
     }
@@ -63,7 +65,9 @@ public class TransactionDAOHibImpl implements TransactionDAO {
 			l = (List<Transaction>) criteria.list();
 			tx.commit();
 		} catch (HibernateException e) {
-			tx.rollback();
+			if (tx != null) {
+				tx.rollback();
+			}
 			log.error("Cannot get all transactions", e);
 			throw new DAOException("Cannot get all transactions", e);
 		}
@@ -77,11 +81,13 @@ public class TransactionDAOHibImpl implements TransactionDAO {
         org.hibernate.Transaction tx = session.beginTransaction();
         try {
             t = (Transaction) session.get(Transaction.class, id);
+	        tx.commit();
         } catch (HibernateException e) {
-            log.error("Cannot get transaction by id", e);
-            throw new DAOException("Cannot get transaction by id", e);
-        } finally {
-            tx.commit();
+	        if (tx != null) {
+		        tx.rollback();
+	        }
+	        log.error("Cannot get transaction by id", e);
+	        throw new DAOException("Cannot get transaction by id", e);
         }
         return t;
     }
@@ -93,14 +99,16 @@ public class TransactionDAOHibImpl implements TransactionDAO {
         }
         Session session = getCurrentSession();
         org.hibernate.Transaction tx = session.beginTransaction();
-        try {
-            session.save(tr);
-        } catch (HibernateException e) {
-            log.error("Cannot create transaction", e);
-            throw new DAOException("Cannot create transaction", e);
-        } finally {
-            tx.commit();
-        }
+	    try {
+		    session.save(tr);
+		    tx.commit();
+	    } catch (HibernateException e) {
+		    if (tx != null) {
+			    tx.rollback();
+		    }
+		    log.error("Cannot create transaction", e);
+		    throw new DAOException("Cannot create transaction", e);
+	    }
     }
 
     @Override
@@ -109,11 +117,13 @@ public class TransactionDAOHibImpl implements TransactionDAO {
         org.hibernate.Transaction tx = session.beginTransaction();
         try {
             session.delete(tr);
+	        tx.commit();
         } catch (HibernateException e) {
-            log.error("Cannot delete transaction", e);
-            throw new DAOException("Cannot delete transaction", e);
-        } finally {
-            tx.commit();
+	        if (tx != null) {
+		        tx.rollback();
+	        }
+	        log.error("Cannot delete transaction", e);
+	        throw new DAOException("Cannot delete transaction", e);
         }
     }
 
@@ -121,14 +131,16 @@ public class TransactionDAOHibImpl implements TransactionDAO {
     public void update(Transaction tr) throws DAOException {
         Session session = getCurrentSession();
         org.hibernate.Transaction tx = session.beginTransaction();
-        try {
-            session.update(tr);
-        } catch (HibernateException e) {
-            log.error("Cannot update transaction", e);
-            throw new DAOException("Cannot update transaction", e);
-        } finally {
-            tx.commit();
-        }
+	    try {
+		    session.update(tr);
+		    tx.commit();
+	    } catch (HibernateException e) {
+		    if (tx != null) {
+			    tx.rollback();
+		    }
+		    log.error("Cannot update transaction", e);
+		    throw new DAOException("Cannot update transaction", e);
+	    }
     }
 
     @Override
