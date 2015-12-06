@@ -193,8 +193,7 @@ public class AccountsController {
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET, params="update")
-	public String updateAccount2(@Valid Account account,
-	                            BindingResult bindingResult, Model model, HttpServletRequest request) {
+	public String startEditAccount(@Valid Account account, Model model, HttpServletRequest request) {
 		try {
 			account = accountService.getAccountById(account.getId());
 		} catch (ServiceException e) {

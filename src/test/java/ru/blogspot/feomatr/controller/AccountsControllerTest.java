@@ -21,10 +21,7 @@ import java.util.List;
 
 import static java.util.Arrays.asList;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -126,6 +123,20 @@ public class AccountsControllerTest {
 		when(accountService.getAccountById(id)).thenReturn(null);
 
 		String viewName = accountsController.showAccount(id, model);
+
+		assertEquals(expectedViewName, viewName);
+		assertSame(expectedAccount, model.asMap().get("account"));
+	}
+
+	@Test
+	public void shouldUpdateAccountWhenAccountDoesNotExist() throws Exception {
+		String expectedViewName = "accounts/editAccount";
+		Long id = 11L;
+		Client owner = new Client("James", "37 Red road", 15);
+		Account expectedAccount = new Account(id, owner, 10L);
+		when(accountService.getAccountById(11L)).thenReturn(expectedAccount);
+
+		String viewName = accountsController.startEditAccount(expectedAccount, model, request);
 
 		assertEquals(expectedViewName, viewName);
 		assertSame(expectedAccount, model.asMap().get("account"));
