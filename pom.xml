@@ -21,7 +21,7 @@
 
         <jetbrains.annotations.version>12.0</jetbrains.annotations.version>
         <guava.version>18.0</guava.version>
-        <org.slf4j.version>1.6.6</org.slf4j.version>
+        <org.slf4j.version>1.7.7</org.slf4j.version>
 
         <lombok.version>1.16.6</lombok.version>
 
