@@ -46,7 +46,7 @@
 
         <org.aspectj.version>1.6.10</org.aspectj.version>
 
-        <springframework.version>3.2.3.RELEASE</springframework.version>
+        <springframework.version>5.2.1.RELEASE</springframework.version>
         <springsecurity.version>3.2.5.RELEASE</springsecurity.version>
 
         <hibernate.validator.version>5.1.2.Final</hibernate.validator.version>
