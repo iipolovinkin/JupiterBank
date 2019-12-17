@@ -1,10 +1,10 @@
-package ru.blogspot.feomatr.concurrent;
+package ru.blogspot.feomatr.lab.concurrent;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-public class ThreadPoolExecutorDemo {
+public class ThreadPoolExecutorDemo1 {
     public static void main(String[] args) {
         ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(3, 5, 10_000, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(10));
 

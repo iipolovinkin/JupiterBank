@@ -1,4 +1,4 @@
-package ru.blogspot.feomatr.multithreading;
+package ru.blogspot.feomatr.lab.multithreading;
 
 class Account {
     int balance = 50;

@@ -1,4 +1,4 @@
-package ru.blogspot.feomatr.multithreading;
+package ru.blogspot.feomatr.lab.multithreading;
 
 public class AccountExample implements Runnable {
     private Account acct = new Account();
