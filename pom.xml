@@ -33,7 +33,7 @@
         <bootstrap.version>3.3.5</bootstrap.version>
         <bootstrap-datepicker.version>1.4.0</bootstrap-datepicker.version>
 
-        <xstream.version>1.4.7</xstream.version>
+        <xstream.version>1.4.13-java7</xstream.version>
         <jackson-core.version>2.10.1</jackson-core.version>
 
         <joda.time.version>2.4</joda.time.version>
