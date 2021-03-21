@@ -56,7 +56,7 @@
         <c3p0.version>0.9.5.4</c3p0.version>
 
         <h2.version>1.2.140</h2.version>
-        <mysql.version>5.1.32</mysql.version>
+        <mysql.version>8.0.16</mysql.version>
 
         <!--Testing libs-->
         <junit.version>4.12</junit.version>
