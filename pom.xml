@@ -557,41 +557,53 @@
             </plugin>
 
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>findbugs-maven-plugin</artifactId>
-                <version>3.0.2</version>
+                <groupId>org.pitest</groupId>
+                <artifactId>pitest-maven</artifactId>
+                <version>1.1.7</version>
                 <configuration>
-                    <failOnError>true</failOnError>
-                    <effort>Max</effort>
-                    <threshold>Medium</threshold>
-                    <xmlOutput>true</xmlOutput>
+                    <excludedClasses>
+                        <include>*IT</include>
+                    </excludedClasses>
+                    <targetTests>
+                        <targetTest>ru.blogspot.feomatr*Test</targetTest>
+                    </targetTests>
+                    <targetClasses>
+                        <param>ru.blogspot.feomatr*</param>
+                    </targetClasses>
                 </configuration>
-                <executions>
-                    <execution>
-                        <id>analyze-compile</id>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
-	        <plugin>
-		        <groupId>org.pitest</groupId>
-		        <artifactId>pitest-maven</artifactId>
-		        <version>1.1.7</version>
-		        <configuration>
-			        <excludedClasses>
-				        <include>*IT</include>
-			        </excludedClasses>
-			        <targetTests>
-				        <targetTest>ru.blogspot.feomatr*Test</targetTest>
-			        </targetTests>
-			        <targetClasses>
-				        <param>ru.blogspot.feomatr*</param>
-			        </targetClasses>
-		        </configuration>
-	        </plugin>
         </plugins>
     </build>
+    <profiles>
+        <profile>
+            <id>findbugs</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>findbugs-maven-plugin</artifactId>
+                        <version>3.0.2</version>
+                        <configuration>
+                            <failOnError>true</failOnError>
+                            <effort>Max</effort>
+                            <threshold>Medium</threshold>
+                            <xmlOutput>true</xmlOutput>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>analyze-compile</id>
+                                <phase>compile</phase>
+                                <goals>
+                                    <goal>check</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
