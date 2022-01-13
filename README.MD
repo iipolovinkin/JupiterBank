@@ -34,7 +34,7 @@ Actual login\password pairs described in the file security.xml(admin\pass)
 
 Some of used technologies:
 
-    java 1.7+, SpringMVC 3.2+, Hibernate 4.+, SLF4J 1.6+, JUnit 4.10+, Apache tiles 3.+, Bootstrap 3.+, Mockito 1.10.+, 
+    java 1.7+, SpringMVC 4.2+, Hibernate 4.+, SLF4J 1.6+, JUnit 4.10+, Apache tiles 3.+, Bootstrap 3.+, Mockito 1.10.+, 
     jquery, etc.
 
 Commands to run findbugs check:

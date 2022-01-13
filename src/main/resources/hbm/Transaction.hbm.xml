@@ -15,5 +15,12 @@
         <property name="time"
                   type="org.jadira.usertype.dateandtime.joda.PersistentDateTime"
                   not-null="true" column="dateTime"/>
+
+        <property name="gender" column="sex">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">ru.blogspot.feomatr.entity.Gender</param>
+                <param name="useNamed">false</param>
+            </type>
+        </property>
     </class>
 </hibernate-mapping>

@@ -9,6 +9,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import ru.blogspot.feomatr.dao.ClientDAO;
 import ru.blogspot.feomatr.dao.DAOException;
 import ru.blogspot.feomatr.entity.Client;
@@ -20,9 +22,11 @@ import java.util.List;
  */
 @Setter
 @NoArgsConstructor
+@Repository
 public class ClientDAOHibImpl implements ClientDAO {
     private static final Logger log = LoggerFactory.getLogger(ClientDAOHibImpl.class);
 
+    @Autowired
     private SessionFactory sessionFactory;
 
     private Session getCurrentSession() {

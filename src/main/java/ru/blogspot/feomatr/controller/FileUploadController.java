@@ -3,13 +3,15 @@ package ru.blogspot.feomatr.controller;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.XStreamException;
 import com.thoughtworks.xstream.io.xml.DomDriver;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.ServletRequestDataBinder;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.SimpleFormController;
 import ru.blogspot.feomatr.entity.Account;
 import ru.blogspot.feomatr.entity.Client;
 import ru.blogspot.feomatr.formBean.FileUploadBean;
@@ -25,13 +27,18 @@ import java.io.ByteArrayInputStream;
  * @author iipolovinkin
  * @since 20.09.2015
  */
-public class FileUploadController extends SimpleFormController {
+@RequiredArgsConstructor
+@Controller
+public class FileUploadController {
     private static final Logger log = LoggerFactory.getLogger(FileUploadController.class);
-    private ClientService clientService;
-    private AccountService accountService;
+    @Autowired
+    private final ClientService clientService;
+    @Autowired
+    private final AccountService accountService;
 
-    protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response,
-                                    Object command, BindException errors) throws Exception {
+    @PostMapping
+    protected void onSubmit(HttpServletRequest request, HttpServletResponse response,
+                            Object command, BindException errors) throws Exception {
 
         // cast the bean
         FileUploadBean bean = (FileUploadBean) command;
@@ -55,8 +62,6 @@ public class FileUploadController extends SimpleFormController {
         } catch (XStreamException ex) {
             ex.printStackTrace();
         }
-        // well, let's do nothing with the bean for now and return
-        return super.onSubmit(request, response, command, errors);
     }
 
     protected void initBinder(HttpServletRequest request, ServletRequestDataBinder binder)
@@ -67,12 +72,5 @@ public class FileUploadController extends SimpleFormController {
         // now Spring knows how to handle multipart object and convert them
     }
 
-    public void setClientService(ClientService clientService) {
-        this.clientService = clientService;
-    }
-
-    public void setAccountService(AccountService accountService) {
-        this.accountService = accountService;
-    }
 }
 

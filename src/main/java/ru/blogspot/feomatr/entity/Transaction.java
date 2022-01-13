@@ -30,7 +30,7 @@ public class Transaction implements Serializable {
     private String senderAccountNo;
     private String receiverAccountNo;
     private DateTime time;
-
+    private Gender gender;
     /**
      * @param amount
      * @param sender
@@ -45,11 +45,11 @@ public class Transaction implements Serializable {
     }
 
     public Transaction(Long id, BigDecimal amount, String sender, String receiver) {
-        this(id, amount, sender, receiver, new DateTime());
+        this(id, amount, sender, receiver, new DateTime(), Gender.MALE);
     }
 
     public Transaction(Long id, Long amount, String sender, String receiver) {
-        this(id, new BigDecimal(amount), sender, receiver, new DateTime());
+        this(id, new BigDecimal(amount), sender, receiver, new DateTime(), Gender.MALE);
     }
 
     public Transaction(BigDecimal amount, String sender, String receiver) {
@@ -59,4 +59,7 @@ public class Transaction implements Serializable {
         this.time = new DateTime();
     }
 
+    public Transaction(Gender gender) {
+        this(null, new BigDecimal(21), "sender", "receiver", new DateTime(), gender);
+    }
 }

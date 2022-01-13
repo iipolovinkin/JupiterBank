@@ -5,6 +5,8 @@ import lombok.Setter;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ru.blogspot.feomatr.dao.DAOException;
 import ru.blogspot.feomatr.dao.TransactionDAO;
 import ru.blogspot.feomatr.entity.Transaction;
@@ -16,8 +18,10 @@ import java.util.List;
  */
 @Setter
 @NoArgsConstructor
+@Service
 public class TransactionServiceImpl implements TransactionService {
     private static final Logger log = LoggerFactory.getLogger(TransactionServiceImpl.class);
+    @Autowired
     private TransactionDAO transactionDAO;
 
     @Override

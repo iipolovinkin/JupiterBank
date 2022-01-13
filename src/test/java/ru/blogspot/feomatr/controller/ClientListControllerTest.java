@@ -17,13 +17,18 @@ import ru.blogspot.feomatr.entity.Client;
 import ru.blogspot.feomatr.exceptions.ClientNotFoundException;
 import ru.blogspot.feomatr.service.AccountService;
 import ru.blogspot.feomatr.service.ClientService;
+import ru.blogspot.feomatr.service.ServiceException;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -46,7 +51,7 @@ public class ClientListControllerTest {
     private Long id = 1l;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         model = new ExtendedModelMap();
         request = new MockHttpServletRequest();
         expectedClient = new Client(id, "name", "address rnd", 20);
@@ -77,13 +82,13 @@ public class ClientListControllerTest {
     }
 
     @Test
-    public void testAddClientFromForm_WithBindingResultError() throws Exception {
+    public void testAddClientFromForm_WithBindingResultError() throws ServiceException {
         String expectedView = "clients/edit";
         BindingResult bindingResult = mock(BindingResult.class);
         HttpServletRequest request = this.request;
 
         when(bindingResult.hasErrors()).thenReturn(true);
-        when(clientService.saveClient(expectedClient)).thenReturn(expectedClient);
+//        when(clientService.saveClient(expectedClient)).thenReturn(expectedClient);
 
         String resultView = clientListController.addClientFromForm(expectedClient, bindingResult, model, request);
 
@@ -91,7 +96,7 @@ public class ClientListControllerTest {
     }
 
     @Test
-    public void testCreateClientProfile() throws Exception {
+    public void testCreateClientProfile() {
         String expectedView = "clients/edit";
 
         String resultView = clientListController.createClientProfile(model);
@@ -124,9 +129,9 @@ public class ClientListControllerTest {
     }
 
     @Test
-    public void testShowNonExistenceClientDetails() throws Exception {
+    public void testShowNonExistenceClientDetails() {
         String expectedView = "clients/show";
-        when(clientService.getClientById(10000l)).thenReturn(null);
+//        when(clientService.getClientById(10000l)).thenReturn(null);
 
         expectedException.expect(ClientNotFoundException.class);
         String resultView = clientListController.showClient(id, model);

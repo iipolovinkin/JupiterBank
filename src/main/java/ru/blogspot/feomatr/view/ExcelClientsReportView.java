@@ -6,8 +6,8 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
-import org.springframework.web.servlet.view.document.AbstractExcelView;
 import ru.blogspot.feomatr.entity.Client;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,10 +19,10 @@ import java.util.Map;
  * @author iipolovinkin
  * @since 06.09.2015
  */
-public class ExcelClientsReportView extends AbstractExcelView {
+@Component
+public class ExcelClientsReportView {
     private static final Logger log = LoggerFactory.getLogger(ExcelClientsReportView.class);
 
-    @Override
     @SuppressWarnings("unchecked")
     protected void buildExcelDocument(Map<String, Object> model, HSSFWorkbook workbook, HttpServletRequest request, HttpServletResponse response) throws Exception {
         Model data = (Model) model.get("data");

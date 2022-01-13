@@ -4,6 +4,7 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.view.AbstractView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +16,7 @@ import java.util.Map;
  * @author iipolovinkin
  * @since 20.09.2015
  */
+@Component
 public class XmlClientView extends AbstractView {
     private static final Logger log = LoggerFactory.getLogger(XmlClientView.class);
 

@@ -12,6 +12,8 @@ import org.hibernate.criterion.Restrictions;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import ru.blogspot.feomatr.dao.AccountDAO;
 import ru.blogspot.feomatr.dao.DAOException;
 import ru.blogspot.feomatr.entity.Account;
@@ -23,8 +25,10 @@ import java.util.List;
  */
 @Setter
 @NoArgsConstructor
+@Repository
 public class AccountDAOHibImpl implements AccountDAO {
     private static final Logger log = LoggerFactory.getLogger(AccountDAOHibImpl.class);
+    @Autowired
     private SessionFactory sessionFactory;
 
     private Session getCurrentSession() {

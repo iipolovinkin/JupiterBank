@@ -2,6 +2,7 @@ package ru.blogspot.feomatr.controller;
 
 import com.google.common.collect.Lists;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.apache.velocity.exception.ResourceNotFoundException;
 import org.slf4j.Logger;
@@ -36,14 +37,13 @@ import static ru.blogspot.feomatr.formBean.UIUtils.showErrorMessage;
  *
  * @author iipolovinkin
  */
-@Setter
-@NoArgsConstructor
+@RequiredArgsConstructor
 @Controller
 @RequestMapping(value = "clients")
 public class ClientListController {
     private static final Logger log = LoggerFactory.getLogger(ClientListController.class);
-    private ClientService clientService;
-    private AccountService accountService;
+    private final ClientService clientService;
+    private final AccountService accountService;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.POST)
     public String addAccountFromForm(@PathVariable("id") Long id, Model model) {

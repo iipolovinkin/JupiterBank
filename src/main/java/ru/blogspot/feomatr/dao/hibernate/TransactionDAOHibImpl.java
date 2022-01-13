@@ -13,6 +13,8 @@ import org.jetbrains.annotations.NotNull;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import ru.blogspot.feomatr.dao.DAOException;
 import ru.blogspot.feomatr.dao.TransactionDAO;
 import ru.blogspot.feomatr.entity.Transaction;
@@ -24,8 +26,10 @@ import java.util.List;
  */
 @Setter
 @NoArgsConstructor
+@Repository
 public class TransactionDAOHibImpl implements TransactionDAO {
     private static final Logger log = LoggerFactory.getLogger(TransactionDAOHibImpl.class);
+	@Autowired
     private SessionFactory sessionFactory;
 
     private Session getCurrentSession() {

@@ -4,23 +4,19 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
         http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
     <import resource="baseWebAppContext.xml"/>
-    <import resource="commonEntities.xml"/>
+    <import resource="databaseH2Context.xml"/>
     <import resource="servlet-context.xml"/>
 
-    <bean id="homeController" class="ru.blogspot.feomatr.controller.HomeController">
-        <property name="controllerHelper" ref="controllerHelper"/>
-    </bean>
+    <mvc:annotation-driven/>
+    <context:annotation-config/>
+    <context:component-scan base-package="ru.blogspot"/>
+    <context:component-scan base-package="org.springframework.test.web.servlet"/>
 
-    <bean id="controllerHelper" class="ru.blogspot.feomatr.formBean.ControllerHelper">
-        <property name="clientService" ref="clientService"/>
-        <property name="accountService" ref="accountService"/>
-        <property name="transferService" ref="transferService"/>
-    </bean>
 
 </beans>

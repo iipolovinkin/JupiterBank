@@ -2,9 +2,11 @@ package ru.blogspot.feomatr.controller;
 
 import com.google.common.collect.Lists;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -31,15 +33,16 @@ import static ru.blogspot.feomatr.formBean.UIUtils.showErrorMessage;
 /**
  * @author iipolovinkin
  */
-@Setter
-@NoArgsConstructor
+@RequiredArgsConstructor
 @Controller
 @RequestMapping(value = "accounts")
 public class AccountsController {
     private static final Logger log = LoggerFactory.getLogger(AccountsController.class);
 
-    private AccountService accountService;
-    private TransferService transferService;
+    @Autowired
+    private final AccountService accountService;
+    @Autowired
+    private final TransferService transferService;
 
     @RequestMapping(method = RequestMethod.GET)
     public String showAllAccounts(Model model, HttpServletRequest request) throws ServletRequestBindingException {

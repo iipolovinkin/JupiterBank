@@ -8,6 +8,8 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ru.blogspot.feomatr.entity.Account;
 import ru.blogspot.feomatr.entity.Broker;
 import ru.blogspot.feomatr.entity.Transaction;
@@ -19,9 +21,13 @@ import java.math.BigDecimal;
  */
 @Setter
 @NoArgsConstructor
+@Service
 public class TransferServiceImpl implements TransferService {
     private static final Logger log = LoggerFactory.getLogger(TransferServiceImpl.class);
+    public static final String CANNOT_TRANSFER = "Cannot transfer";
+    @Autowired
     private AccountService accountService;
+    @Autowired
     private TransactionService transactionService;
     private DateTimeFormatter formatter = DateTimeFormat.forPattern("dd.MM.yyyy");
 
@@ -55,12 +61,16 @@ public class TransferServiceImpl implements TransferService {
             accountService.update(accountTo);
             transactionService.create(new Transaction(amount, accountFrom.getAccountNo(), accountTo.getAccountNo(), dateTime));
         } catch (ServiceException e) {
-            log.error("Cannot transfer", e);
-            throw new ServiceException("Cannot transfer", e);
+            return handleException(e, CANNOT_TRANSFER);
         }
 
         return true;
 
+    }
+
+    private boolean handleException(ServiceException e, String s) throws ServiceException {
+        log.error(s, e);
+        throw new ServiceException(s, e);
     }
 
     @Override
@@ -100,8 +110,7 @@ public class TransferServiceImpl implements TransferService {
         try {
             return transferTo(accountService.getAccountByNo(accountTo), amount, dateTime);
         } catch (ServiceException e) {
-            log.error("Cannot transferTo", e);
-            throw new ServiceException("Cannot transferTo", e);
+            return handleException(e, "Cannot transferTo");
         }
     }
 
@@ -109,8 +118,7 @@ public class TransferServiceImpl implements TransferService {
         try {
             return transferFrom(accountService.getAccountByNo(accountFrom), amount, dateTime);
         } catch (ServiceException e) {
-            log.error("Cannot transferFrom", e);
-            throw new ServiceException("Cannot transferFrom", e);
+            return handleException(e, "Cannot transferFrom");
         }
     }
 
@@ -119,8 +127,7 @@ public class TransferServiceImpl implements TransferService {
         try {
             return transfer(accountService.getAccountByNo(accountFrom), accountService.getAccountByNo(accountTo), amount, dateTime);
         } catch (ServiceException e) {
-            log.error("Cannot transfer", e);
-            throw new ServiceException("Cannot transfer", e);
+            return handleException(e, CANNOT_TRANSFER);
         }
     }
 
@@ -140,8 +147,7 @@ public class TransferServiceImpl implements TransferService {
             accountService.update(accountTo);
             transactionService.create(new Transaction(amount, null, accountTo.getAccountNo(), dateTime));
         } catch (ServiceException e) {
-            log.error("Cannot transfer", e);
-            throw new ServiceException("Cannot transferTo", e);
+            handleException(e, "Cannot transferTo");
         }
         return true;
     }
@@ -162,8 +168,7 @@ public class TransferServiceImpl implements TransferService {
                 accountService.update(accountFrom);
                 transactionService.create(new Transaction(amount, accountFrom.getAccountNo(), null, dateTime));
             } catch (ServiceException e) {
-                log.error("Cannot transfer", e);
-                throw new ServiceException("Cannot transfer", e);
+                handleException(e, CANNOT_TRANSFER);
             }
             return true;
         }

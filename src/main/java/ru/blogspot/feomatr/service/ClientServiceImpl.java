@@ -4,6 +4,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ru.blogspot.feomatr.dao.ClientDAO;
 import ru.blogspot.feomatr.dao.DAOException;
 import ru.blogspot.feomatr.entity.Client;
@@ -15,8 +17,10 @@ import java.util.List;
  */
 @Setter
 @NoArgsConstructor
+@Service
 public class ClientServiceImpl implements ClientService {
     private static final Logger log = LoggerFactory.getLogger(ClientServiceImpl.class);
+    @Autowired
     private ClientDAO clientDAO;
 
     @Override

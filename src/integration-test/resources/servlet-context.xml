@@ -6,6 +6,8 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
+    <context:component-scan base-package="ru.blogspot"/>
+
     <bean id="multipartResolver"
           class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
 
@@ -15,14 +17,6 @@
                 /upload.form=fileUploadController
             </value>
         </property>
-    </bean>
-
-    <bean id="fileUploadController" class="ru.blogspot.feomatr.controller.FileUploadController">
-        <property name="commandClass" value="ru.blogspot.feomatr.formBean.FileUploadBean"/>
-        <property name="formView" value="fileuploadform"/>
-        <property name="successView" value="confirmation"/>
-        <property name="clientService" ref="clientService"/>
-        <property name="accountService" ref="accountService"/>
     </bean>
 
     <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
@@ -59,8 +53,6 @@
         up static resources in the ${webappRoot}/resources directory -->
     <mvc:resources mapping="/resources/**" location="/resources/"/>
     <mvc:resources mapping="/webjars/**" location="/webjars/"/>
-
-    <context:component-scan base-package="ru.blogspot.feomatr.controller,ru.blogspot.feomatr.ws"/>
 
     <!-- Resolves views selected for rendering by @Controllers to .jsp resources
         in the /WEB-INF/views directory -->

@@ -5,6 +5,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ru.blogspot.feomatr.dao.AccountDAO;
 import ru.blogspot.feomatr.dao.DAOException;
 import ru.blogspot.feomatr.entity.Account;
@@ -17,8 +19,10 @@ import java.util.List;
  */
 @Setter
 @NoArgsConstructor
+@Service
 public class AccountServiceImpl implements AccountService {
     private static final Logger log = LoggerFactory.getLogger(AccountServiceImpl.class);
+    @Autowired
     private AccountDAO accountDAO;
 
     @Override
@@ -50,6 +54,7 @@ public class AccountServiceImpl implements AccountService {
             throw new ServiceException("ServiceException", e);
         }
     }
+
 
     @Override
     public Account getAccountById(Long id) throws ServiceException {
