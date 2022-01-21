@@ -58,7 +58,7 @@
         <hibernate.version>4.3.6.Final</hibernate.version>
         <c3p0.version>0.9.5.4</c3p0.version>
 
-        <h2.version>1.2.140</h2.version>
+        <h2.version>2.1.210</h2.version>
         <mysql.version>5.1.32</mysql.version>
 
         <moneytostr.version>1.18</moneytostr.version>
