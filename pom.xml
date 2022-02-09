@@ -65,7 +65,7 @@
         <moneytostr.version>1.18</moneytostr.version>
 
         <!--Testing libs-->
-        <junit.version>4.12</junit.version>
+        <junit.version>4.13.1</junit.version>
         <hamcrest.version>1.3</hamcrest.version>
         <junit.version>4.13</junit.version>
         <junit.jupiter.version>5.6.2</junit.jupiter.version>
