@@ -2,9 +2,9 @@ package ru.blogspot.feomatr.web;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.ElementsCollection;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import ru.blogspot.feomatr.entity.Client;
 
@@ -31,7 +31,7 @@ public class ClientSpecIT {
 	private String client_age = "client_age";
 	private Client validClient = new Client("Bill", "Main street, 117", 23);
 
-	@BeforeClass
+	@BeforeAll
 	public static void setUpClass() {
 //		todo move parameters to configuration file
 		Configuration.browser = "chrome";
@@ -45,13 +45,13 @@ public class ClientSpecIT {
 		$(By.id("loginButton")).pressEnter();
 	}
 
-	@AfterClass
+	@AfterAll
 	public static void tearDownClass() throws Exception {
 		close();
 	}
 
 	@Test
-	public void shouldCreateClientWithoutAccounts() throws Exception {
+	void shouldCreateClientWithoutAccounts() throws Exception {
 		open("/clients?new");
 
 		$(By.id(client_name)).setValue("Bill");
@@ -67,7 +67,7 @@ public class ClientSpecIT {
 	}
 
 	@Test
-	public void shouldShowErrorsWhenCreateInvalidClient() {
+	void shouldShowErrorsWhenCreateInvalidClient() {
 		open("/clients?new");
 		$(By.id("firstname.errors")).shouldNotBe(visible);
 		$(By.id("address.errors")).shouldNotBe(visible);
@@ -84,7 +84,7 @@ public class ClientSpecIT {
 	}
 
 	@Test
-	public void shouldShowAccountsHeadAndCreatedAccount() throws Exception {
+	void shouldShowAccountsHeadAndCreatedAccount() throws Exception {
 		Long id = createClient(validClient);
 		open("/clients/" + id);
 		int count = $$("#tableAccounts tr").size();

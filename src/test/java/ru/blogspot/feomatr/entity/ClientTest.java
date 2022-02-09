@@ -2,23 +2,22 @@ package ru.blogspot.feomatr.entity;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.Set;
 
 import static java.util.Collections.emptySet;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
 
 /**
  * @author iipolovinkin
@@ -41,7 +40,7 @@ public class ClientTest {
 
     private Client client;
 
-    @BeforeClass
+    @BeforeAll
     public static void setUpClass() {
         Locale.setDefault(Locale.US);
         validationMsgs = ResourceBundle.getBundle("ValidationMessages");
@@ -60,8 +59,8 @@ public class ClientTest {
         clientFirstnamePattern = validationMsgs.getString("client.firstname.pattern");
     }
 
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         long someId = 1L;
         String validFirstname = "Bill";
         String validAddress = "10 Downing Street";
@@ -70,7 +69,7 @@ public class ClientTest {
     }
 
     @Test
-    public void testSetNullAgeGetValidationMessage() {
+    void testSetNullAgeGetValidationMessage() {
         Set<String> expected = Collections.singleton(clientAgeIsNotNull);
 
         client.setAge(null);
@@ -80,7 +79,7 @@ public class ClientTest {
     }
 
     @Test
-    public void testSetAgeLessThanBottomAgeGetValidationMessage() {
+    void testSetAgeLessThanBottomAgeGetValidationMessage() {
         Set<String> expected = Collections.singleton(clientAgeLessThanValue);
         int lessThanBottomAge = bottomAge - 1;
 
@@ -91,7 +90,7 @@ public class ClientTest {
     }
 
     @Test
-    public void testSetAgeGreaterThanUpperAgeGetValidationMessage() {
+    void testSetAgeGreaterThanUpperAgeGetValidationMessage() {
         Set<String> expected = Collections.singleton(clientAgeGreaterThanValue);
         int greaterThanUpperAge = upperAge + 1;
 
@@ -102,7 +101,7 @@ public class ClientTest {
     }
 
     @Test
-    public void testSetValidAge() {
+    void testSetValidAge() {
         Set<String> expected = emptySet();
         int validAge = 10;
 
@@ -113,7 +112,7 @@ public class ClientTest {
     }
 
     @Test
-    public void testSetShortFirstnameGetValidationMessage() {
+    void testSetShortFirstnameGetValidationMessage() {
         Set<String> expected = Collections.singleton(clientFirstnameSize);
         String shortName = "BO";
 
@@ -124,7 +123,7 @@ public class ClientTest {
     }
 
     @Test
-    public void testSetLpngFirstnameGetValidationMessage() {
+    void testSetLpngFirstnameGetValidationMessage() {
         Set<String> expected = Collections.singleton(clientFirstnameSize);
         String longName = "ItIsVeryLongNameForOurCurrentSystem";
 
@@ -135,7 +134,7 @@ public class ClientTest {
     }
 
     @Test
-    public void testSetValidFirstname() {
+    void testSetValidFirstname() {
         Set<String> expected = emptySet();
         String validName = "Jake";
 
@@ -146,7 +145,7 @@ public class ClientTest {
     }
 
     @Test
-    public void testSetNonAlphabeticFirstnameGetValidationMessages() {
+    void testSetNonAlphabeticFirstnameGetValidationMessages() {
         Set<String> expected = Collections.singleton(clientFirstnamePattern);
         String nonAlpabeticName = "Bill_M$W|NDOW$";
 
@@ -157,7 +156,7 @@ public class ClientTest {
     }
 
     @Test
-    public void testSetShortAddressGetValidationMessage() {
+    void testSetShortAddressGetValidationMessage() {
         Set<String> expected = Collections.singleton(clientAddressSize);
         String shortAddress = "Address";
 
@@ -168,7 +167,7 @@ public class ClientTest {
     }
 
     @Test
-    public void testSetLongAddressThenGetValidationMessage() {
+    void testSetLongAddressThenGetValidationMessage() {
         Set<String> expected = Collections.singleton(clientAddressSize);
         String longString = "AddressTooLongAddressTooLongAddressTooLongAddressTooLongAddressTooLong";
         String longAddress = longString + longString + longString;
@@ -181,7 +180,7 @@ public class ClientTest {
 
 
     @Test
-    public void testSetValidAddress() {
+    void testSetValidAddress() {
         Set<String> expected = emptySet();
         String validAddress = "NY, Wall st. 60";
 
@@ -192,7 +191,7 @@ public class ClientTest {
     }
 
     @Test
-    public void testWhenSetInvalidAgeFirstNameAddressThenGetValidationMessages() {
+    void testWhenSetInvalidAgeFirstNameAddressThenGetValidationMessages() {
         Integer negativeAge = -10;
         String shortName = "2";
         String shortAddress = "10st";
@@ -214,9 +213,8 @@ public class ClientTest {
             return emptySet();
         } else {
             Set<String> messages = Sets.newHashSet();
-            Iterator<ConstraintViolation<Client>> iterator = constraintViolations.iterator();
-            for (; iterator.hasNext(); ) {
-                messages.add(iterator.next().getMessage());
+            for (ConstraintViolation<Client> constraintViolation : constraintViolations) {
+                messages.add(constraintViolation.getMessage());
             }
             return messages;
         }

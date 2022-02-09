@@ -1,11 +1,11 @@
 package ru.blogspot.feomatr.controller;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
@@ -20,16 +20,18 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 import static java.util.Arrays.asList;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 /**
  * @author iipolovinkin
  */
-@RunWith(MockitoJUnitRunner.class)
-public class AccountsControllerTest {
+@ExtendWith(MockitoExtension.class)
+class AccountsControllerTest {
     @Mock
     private AccountService accountService;
     @Mock
@@ -40,14 +42,14 @@ public class AccountsControllerTest {
     private Model model;
     private MockHttpServletRequest request;
 
-    @Before
-    public void setUp() throws Exception {
+    @BeforeEach
+    void setUp() throws Exception {
         model = new ExtendedModelMap();
         request = new MockHttpServletRequest();
     }
 
     @Test
-    public void testShowAllAccounts() throws Exception {
+    void testShowAllAccounts() throws Exception {
         String expectedViewName = "accounts";
         List<Account> expectedAccounts = asList(new Account(), new Account());
         when(accountService.getAllAccounts()).thenReturn(expectedAccounts);
@@ -59,7 +61,7 @@ public class AccountsControllerTest {
     }
 
     @Test
-    public void testShowTransferFrom() throws Exception {
+    void testShowTransferFrom() throws Exception {
         String expectedViewName = "transferFrom";
 
         String viewName = accountsController.showTransferFrom(model);
@@ -70,7 +72,7 @@ public class AccountsControllerTest {
 
 
     @Test
-    public void testShowTransferTo() throws Exception {
+    void testShowTransferTo() throws Exception {
         String expectedViewName = "transferTo";
 
         String viewName = accountsController.showTransferTo(model);
@@ -80,7 +82,7 @@ public class AccountsControllerTest {
     }
 
     @Test
-    public void testShowTransfer() throws Exception {
+    void testShowTransfer() throws Exception {
         String expectedViewName = "transfer";
 
         String viewName = accountsController.showTransfer(model);
@@ -90,7 +92,7 @@ public class AccountsControllerTest {
     }
 
     @Test
-    public void testSaveAllAccounts() throws Exception {
+    void testSaveAllAccounts() throws Exception {
         ModelAndView modelAndView = new ModelAndView("ExcelAccountsReportView", "data", model);
         request.setParameter("output", "excel");
 
@@ -101,44 +103,44 @@ public class AccountsControllerTest {
 
     }
 
-	@Test
-	public void shouldReturnExistsAccount() throws Exception {
-		String expectedViewName = "accounts/showAccount";
-		Long id = 0L;
-		Client owner = new Client("James", "37 Red road", 15);
-		Account expectedAccount = new Account(id, owner, 10L);
-		when(accountService.getAccountById(0L)).thenReturn(expectedAccount);
+    @Test
+    void shouldReturnExistsAccount() throws Exception {
+        String expectedViewName = "accounts/showAccount";
+        Long id = 0L;
+        Client owner = new Client("James", "37 Red road", 15);
+        Account expectedAccount = new Account(id, owner, 10L);
+        when(accountService.getAccountById(0L)).thenReturn(expectedAccount);
 
-		String viewName = accountsController.showAccount(id, model);
+        String viewName = accountsController.showAccount(id, model);
 
-		assertEquals(expectedViewName, viewName);
-		assertSame(expectedAccount, model.asMap().get("account"));
-	}
+        assertEquals(expectedViewName, viewName);
+        assertEquals(expectedAccount, model.asMap().get("account"));
+    }
 
-	@Test
-	public void shouldReturnNullWhenAccountDoesNotExist() throws Exception {
-		String expectedViewName = "accounts/showAccount";
-		Long id = 100000L;
-		Account expectedAccount = null;
-		when(accountService.getAccountById(id)).thenReturn(null);
+    @Test
+    void shouldReturnNullWhenAccountDoesNotExist() throws Exception {
+        String expectedViewName = "accounts/showAccount";
+        Long id = 100000L;
+        Account expectedAccount = null;
+        when(accountService.getAccountById(id)).thenReturn(null);
 
-		String viewName = accountsController.showAccount(id, model);
+        String viewName = accountsController.showAccount(id, model);
 
-		assertEquals(expectedViewName, viewName);
-		assertSame(expectedAccount, model.asMap().get("account"));
-	}
+        assertEquals(expectedViewName, viewName);
+        assertEquals(expectedAccount, model.asMap().get("account"));
+    }
 
-	@Test
-	public void shouldUpdateAccountWhenAccountDoesNotExist() throws Exception {
-		String expectedViewName = "accounts/editAccount";
-		Long id = 11L;
-		Client owner = new Client("James", "37 Red road", 15);
-		Account expectedAccount = new Account(id, owner, 10L);
-		when(accountService.getAccountById(11L)).thenReturn(expectedAccount);
+    @Test
+    void shouldUpdateAccountWhenAccountDoesNotExist() throws Exception {
+        String expectedViewName = "accounts/editAccount";
+        Long id = 11L;
+        Client owner = new Client("James", "37 Red road", 15);
+        Account expectedAccount = new Account(id, owner, 10L);
+        when(accountService.getAccountById(11L)).thenReturn(expectedAccount);
 
-		String viewName = accountsController.startEditAccount(expectedAccount, model, request);
+        String viewName = accountsController.startEditAccount(expectedAccount, model, request);
 
-		assertEquals(expectedViewName, viewName);
-		assertSame(expectedAccount, model.asMap().get("account"));
-	}
+        assertEquals(expectedViewName, viewName);
+        assertEquals(expectedAccount, model.asMap().get("account"));
+    }
 }

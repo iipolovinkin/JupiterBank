@@ -1,13 +1,13 @@
 package ru.blogspot.feomatr.controller;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
@@ -27,11 +27,11 @@ import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.util.List;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.number.BigDecimalCloseTo.closeTo;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @author polovinkin.igor
@@ -40,7 +40,7 @@ import static org.junit.Assert.assertTrue;
  */
 @WebAppConfiguration
 @ContextConfiguration(locations = {"classpath:controllerITContext.xml"})
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 public class AccountsControllerIntegrationTest {
 
     /**
@@ -65,8 +65,8 @@ public class AccountsControllerIntegrationTest {
     @Resource
     private TransactionService transactionService;
 
-    @Before
-    public void setUp() throws Exception {
+    @BeforeEach
+    void setUp() throws Exception {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
         long clientId = 10L;
         Client client = new Client(clientId, "firstName", "Address 100 1010", 20);
@@ -77,8 +77,8 @@ public class AccountsControllerIntegrationTest {
         assertFalse(accountService.getAllAccounts().isEmpty());
     }
 
-    @After
-    public void tearDown() throws Exception {
+    @AfterEach
+    void tearDown() throws Exception {
 
         for (Transaction transaction : transactionService.getAll()) {
             transactionService.delete(transaction);
@@ -111,7 +111,7 @@ public class AccountsControllerIntegrationTest {
      * @throws Exception
      */
     @Test
-    public void testShowAllAccounts() throws Exception {
+    void testShowAllAccounts() throws Exception {
 
         List<Account> allAccounts = accountService.getAllAccounts();
         System.out.println("allAccounts = " + allAccounts);
@@ -123,7 +123,7 @@ public class AccountsControllerIntegrationTest {
     }
 
     @Test
-    public void testShowAllAccounts2() throws Exception {
+    void testShowAllAccounts2() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/accounts").param("page", "2"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.model().attributeExists("accounts"))
@@ -131,7 +131,7 @@ public class AccountsControllerIntegrationTest {
     }
 
     @Test
-    public void shouldReturnExcelWhenSaveAllAccountsWithExcelFormat() throws Exception {
+    void shouldReturnExcelWhenSaveAllAccountsWithExcelFormat() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/accounts").param("output", "excel"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.view().name("ExcelAccountsReportView"))
@@ -139,7 +139,7 @@ public class AccountsControllerIntegrationTest {
     }
 
     @Test
-    public void shouldReturnExcelWhenSaveAllAccountsWithAnyFormat() throws Exception {
+    void shouldReturnExcelWhenSaveAllAccountsWithAnyFormat() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/accounts").param("output", "anyformat"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.view().name("ExcelAccountsReportView"))
@@ -147,7 +147,7 @@ public class AccountsControllerIntegrationTest {
     }
 
     @Test
-    public void shouldShowTransferFrom() throws Exception {
+    void shouldShowTransferFrom() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/accounts").param("transferFrom", ""))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.view().name("transferFrom"));
@@ -155,21 +155,21 @@ public class AccountsControllerIntegrationTest {
 
 
     @Test
-    public void shouldShowTransferTo() throws Exception {
+    void shouldShowTransferTo() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/accounts").param("transferTo", ""))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.view().name("transferTo"));
     }
 
     @Test
-    public void shouldShowTransfer() throws Exception {
+    void shouldShowTransfer() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/accounts").param("transfer", ""))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.view().name("transfer"));
     }
 
     @Test
-    public void shouldDoTransferFromAccount() throws Exception {
+    void shouldDoTransferFromAccount() throws Exception {
         String idFrom = accountService.getAllAccounts().get(0).getAccountNo();
         String idTo = "";
         BigDecimal amount = new BigDecimal(3);
@@ -192,7 +192,7 @@ public class AccountsControllerIntegrationTest {
     }
 
     @Test
-    public void shouldDoOneTransferToAccount() throws Exception {
+    void shouldDoOneTransferToAccount() throws Exception {
         String idFrom = "";
         String idTo = accountService.getAllAccounts().get(1).getAccountNo();
         BigDecimal amount = new BigDecimal(2);
@@ -215,7 +215,7 @@ public class AccountsControllerIntegrationTest {
     }
 
     @Test
-    public void shouldDoTransferAccount() throws Exception {
+    void shouldDoTransferAccount() throws Exception {
         String idFrom = accountService.getAllAccounts().get(0).getAccountNo();
         String idTo = accountService.getAllAccounts().get(1).getAccountNo();
         System.out.println("accountService.getAllAccounts().get(0) = " + accountService.getAllAccounts().get(0));
@@ -242,9 +242,9 @@ public class AccountsControllerIntegrationTest {
     }
 
     // todo fix and rename when will realised JB-50
-    @Ignore
+    @Disabled
     @Test
-    public void shouldDoTransferAccountExceptException() throws Exception {
+    void shouldDoTransferAccountExceptException() throws Exception {
         Broker broker = new Broker();
 
         mockMvc.perform(MockMvcRequestBuilders.post("/accounts").param("transfer", "").requestAttr("broker", broker))
@@ -254,9 +254,9 @@ public class AccountsControllerIntegrationTest {
     }
 
     // todo fix when will realised JB-50
-    @Ignore
+    @Disabled
     @Test
-    public void shouldDoTransferFromAccountExceptException() throws Exception {
+    void shouldDoTransferFromAccountExceptException() throws Exception {
         Broker broker = new Broker();
 
         mockMvc.perform(MockMvcRequestBuilders.post("/accounts").param("transferFrom", "").requestAttr("broker", broker))
@@ -266,9 +266,9 @@ public class AccountsControllerIntegrationTest {
     }
 
     // todo fix when will realised JB-50
-    @Ignore
+    @Disabled
     @Test
-    public void shouldDoTransferToAccountExceptException() throws Exception {
+    void shouldDoTransferToAccountExceptException() throws Exception {
         Broker broker = new Broker();
 
         mockMvc.perform(MockMvcRequestBuilders.post("/accounts").param("transferTo", "").requestAttr("broker", broker))

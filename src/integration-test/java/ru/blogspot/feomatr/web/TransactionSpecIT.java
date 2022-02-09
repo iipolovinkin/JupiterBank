@@ -3,9 +3,9 @@ package ru.blogspot.feomatr.web;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Condition.empty;
@@ -13,7 +13,7 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 import static com.codeborne.selenide.Selenide.close;
 import static com.codeborne.selenide.Selenide.open;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Test clients\client at menu item "Transactions"
@@ -29,7 +29,7 @@ public class TransactionSpecIT {
 	private String senderAccountNo = "40817810061010000010";
 	private String receiverAccountNo = "40817810061010000009";
 
-	@BeforeClass
+	@BeforeAll
 	public static void setUpClass() {
 //		todo move parameters to configuration file
 		Configuration.browser = "chrome";
@@ -45,7 +45,7 @@ public class TransactionSpecIT {
 		page = open("/transactions?lang=ru_RU", TransactionPageObject.class);
 	}
 
-	@AfterClass
+	@AfterAll
 	public static void tearDownClass() throws Exception {
 		close();
 	}

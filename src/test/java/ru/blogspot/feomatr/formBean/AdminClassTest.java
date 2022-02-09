@@ -1,18 +1,19 @@
 package ru.blogspot.feomatr.formBean;
 
-import org.junit.Test;
 
+import org.junit.jupiter.api.Test;
+
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * @author polovinkin.igor
  * @since 10.09.2015
  */
-public class AdminClassTest {
+class AdminClassTest {
     @Test
-    public void testDefaultConstructor() throws Exception {
+    void testDefaultConstructor() throws Exception {
         AdminClass adminClass = new AdminClass();
         assertNotNull(adminClass.getAccountsCount());
         assertNotNull(adminClass.getClientsCount());
@@ -31,7 +32,7 @@ public class AdminClassTest {
     }
 
     @Test
-    public void testCreateAdminFromCATT() throws Exception {
+    void testCreateAdminFromCATT() throws Exception {
         int clientsCount = 1;
         int accountsCount = 2;
         int transfersCount = 3;

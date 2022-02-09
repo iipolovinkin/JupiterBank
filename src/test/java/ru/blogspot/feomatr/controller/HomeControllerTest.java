@@ -1,7 +1,7 @@
 package ru.blogspot.feomatr.controller;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
@@ -10,8 +10,8 @@ import ru.blogspot.feomatr.formBean.ControllerHelper;
 
 import javax.servlet.http.HttpServletRequest;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.mock;
 
 /**
@@ -23,14 +23,14 @@ public class HomeControllerTest {
     private HomeController controller;
     private Model model;
 
-    @Before
-    public void setUp() throws Exception {
+    @BeforeEach
+    void setUp() throws Exception {
         model = new ExtendedModelMap();
         controller = new HomeController();
     }
 
     @Test
-    public void testShowHome() throws Exception {
+    void testShowHome() throws Exception {
         String expectedView = "home";
 
         String actualView = controller.showHome(null);
@@ -39,7 +39,7 @@ public class HomeControllerTest {
     }
 
     @Test
-    public void testShowHomeLogin() throws Exception {
+    void testShowHomeLogin() throws Exception {
         String expectedView = "login";
 
         String actualView = controller.showHomeLogin(null);
@@ -48,7 +48,7 @@ public class HomeControllerTest {
     }
 
     @Test
-    public void testShowAdminPageReturnAdminPage() throws Exception {
+    void testShowAdminPageReturnAdminPage() throws Exception {
         String expectedView = "admin_page";
 
         String actualView = controller.showAdminPage(model);
@@ -57,7 +57,7 @@ public class HomeControllerTest {
     }
 
     @Test
-    public void testShowAdminPagePasteAdminObject() throws Exception {
+    void testShowAdminPagePasteAdminObject() throws Exception {
         AdminClass adminObject = new AdminClass();
 
         controller.showAdminPage(model);
@@ -66,7 +66,7 @@ public class HomeControllerTest {
     }
 
     @Test
-    public void testDoTransferToAccount() throws Exception {
+    void testDoTransferToAccount() throws Exception {
         String expectedView = "admin_page";
         controller.setControllerHelper(mock(ControllerHelper.class));
         HttpServletRequest request = new MockHttpServletRequest();

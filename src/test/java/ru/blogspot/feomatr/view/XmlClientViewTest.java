@@ -1,7 +1,7 @@
 package ru.blogspot.feomatr.view;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import ru.blogspot.feomatr.entity.Account;
@@ -12,8 +12,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
 
 /**
  * @author iipolovinkin
@@ -21,13 +21,13 @@ import static org.junit.Assert.assertThat;
  */
 public class XmlClientViewTest {
 
-    @Before
-    public void setUp() throws Exception {
+    @BeforeEach
+    void setUp() throws Exception {
 
     }
 
     @Test
-    public void testRenderMergedOutputModel() throws Exception {
+    void testRenderMergedOutputModel() throws Exception {
         XmlClientView xmlClientView = new XmlClientView();
         Map<String, Object> map = new HashMap<>();
         Client client = new Client(1L, "Jim", "RnD", 19);

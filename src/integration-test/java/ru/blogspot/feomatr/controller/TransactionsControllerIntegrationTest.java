@@ -1,10 +1,10 @@
 package ru.blogspot.feomatr.controller;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -17,8 +17,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 
 /**
@@ -27,7 +27,7 @@ import static org.mockito.Mockito.mock;
  */
 @WebAppConfiguration
 @ContextConfiguration(locations = {"classpath:controllerITContext.xml"})
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 public class TransactionsControllerIntegrationTest {
 
     @Resource
@@ -43,7 +43,7 @@ public class TransactionsControllerIntegrationTest {
 
     private ExtendedModelMap model;
 
-    @Before
+    @BeforeAll
     public void setUp() throws Exception {
         model = new ExtendedModelMap();
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();

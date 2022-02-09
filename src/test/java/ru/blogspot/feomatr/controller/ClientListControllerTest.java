@@ -1,13 +1,11 @@
 package ru.blogspot.feomatr.controller;
 
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
@@ -23,23 +21,22 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 /**
  * @author iipolovinkin
  */
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class ClientListControllerTest {
     private MockHttpServletRequest request;
-    @Rule
-    public ExpectedException expectedException = ExpectedException.none();
     @Mock
     private AccountService accountService;
     @Mock
@@ -50,15 +47,15 @@ public class ClientListControllerTest {
     private Client expectedClient;
     private Long id = 1l;
 
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         model = new ExtendedModelMap();
         request = new MockHttpServletRequest();
         expectedClient = new Client(id, "name", "address rnd", 20);
     }
 
     @Test
-    public void testAddAccountFromForm() throws Exception {
+    void testAddAccountFromForm() throws Exception {
         String expectedView = "redirect:/clients/" + id;
         when(clientService.getClientById(id)).thenReturn(expectedClient);
 
@@ -68,7 +65,7 @@ public class ClientListControllerTest {
     }
 
     @Test
-    public void testAddClientFromForm_WithoutErrors() throws Exception {
+    void testAddClientFromForm_WithoutErrors() throws Exception {
         String expectedView = "redirect:/clients/" + id;
         BindingResult bindingResult = mock(BindingResult.class);
         HttpServletRequest request = this.request;
@@ -82,7 +79,7 @@ public class ClientListControllerTest {
     }
 
     @Test
-    public void testAddClientFromForm_WithBindingResultError() throws ServiceException {
+    void testAddClientFromForm_WithBindingResultError() throws ServiceException {
         String expectedView = "clients/edit";
         BindingResult bindingResult = mock(BindingResult.class);
         HttpServletRequest request = this.request;
@@ -96,7 +93,7 @@ public class ClientListControllerTest {
     }
 
     @Test
-    public void testCreateClientProfile() {
+    void testCreateClientProfile() {
         String expectedView = "clients/edit";
 
         String resultView = clientListController.createClientProfile(model);
@@ -106,7 +103,7 @@ public class ClientListControllerTest {
     }
 
     @Test
-    public void testShowClients() throws Exception {
+    void testShowClients() throws Exception {
         String expectedView = "clients";
         List<Client> expectedClients = newArrayList();
         when(clientService.getAllClients()).thenReturn(expectedClients);
@@ -118,7 +115,7 @@ public class ClientListControllerTest {
     }
 
     @Test
-    public void testShowClientDetails() throws Exception {
+    void testShowClientDetails() throws Exception {
         String expectedView = "clients/show";
         when(clientService.getClientById(id)).thenReturn(expectedClient);
 
@@ -129,19 +126,12 @@ public class ClientListControllerTest {
     }
 
     @Test
-    public void testShowNonExistenceClientDetails() {
-        String expectedView = "clients/show";
-//        when(clientService.getClientById(10000l)).thenReturn(null);
-
-        expectedException.expect(ClientNotFoundException.class);
-        String resultView = clientListController.showClient(id, model);
-
-        assertEquals(expectedView, resultView);
-        assertSame(expectedClient, model.asMap().get("client"));
+    void testShowNonExistenceClientDetails() {
+        assertThrows(ClientNotFoundException.class, () -> clientListController.showClient(id, model));
     }
 
     @Test
-    public void testSaveAllClients() throws Exception {
+    void testSaveAllClients() throws Exception {
         ModelAndView modelAndView = new ModelAndView("ExcelClientsReportView", "data", model);
         request.setParameter("output", "excel");
 

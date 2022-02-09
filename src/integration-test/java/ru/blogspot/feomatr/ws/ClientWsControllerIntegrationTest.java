@@ -1,13 +1,13 @@
 package ru.blogspot.feomatr.ws;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultMatcher;
@@ -29,8 +29,8 @@ import java.util.Collections;
 import static org.hamcrest.Matchers.emptyCollectionOf;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.hamcrest.core.Is.is;
-import static org.mockito.Matchers.anyLong;
-import static org.mockito.Matchers.isNull;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
@@ -46,7 +46,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebAppConfiguration
 @ContextConfiguration(locations = {"classpath:servlet-context.xml", "classpath:serviceMocks.xml"//})
 		, "classpath:baseWebAppContext.xml"})
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 public class ClientWsControllerIntegrationTest {
 
 	/**
@@ -72,8 +72,8 @@ public class ClientWsControllerIntegrationTest {
 	private Account accountNo1;
 	private Account accountNo2;
 
-	@Before
-	public void setUp() throws Exception {
+	@BeforeEach
+	void setUp() throws Exception {
 		mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 
 		clientNo1 = new Client(10L, "John", "Address 100 1010", 20);
@@ -85,8 +85,8 @@ public class ClientWsControllerIntegrationTest {
 		Account account2 = new Account(4L, clientNo2, new BigDecimal(200));
 	}
 
-	@After
-	public void tearDown() throws Exception {
+	@AfterEach
+	void tearDown() throws Exception {
 		Mockito.reset(clientService);
 	}
 
@@ -95,7 +95,7 @@ public class ClientWsControllerIntegrationTest {
 	 * @see org.springframework.test.web.servlet.ResultActions#andExpect(ResultMatcher)
 	 */
 	@Test
-	public void testGetClientList() throws Exception {
+	void testGetClientList() throws Exception {
 //		when(accountService.getAllAccounts()).thenReturn(Arrays.asList(accountNo1, accountNo2));
 		when(clientService.getAllClients()).thenReturn(Arrays.asList(clientNo1, clientNo2));
 
@@ -115,7 +115,7 @@ public class ClientWsControllerIntegrationTest {
 	}
 
 	@Test
-	public void testGetEmptyClientList() throws Exception {
+	void testGetEmptyClientList() throws Exception {
 		when(clientService.getAllClients()).thenReturn(Collections.<Client>emptyList());
 
 		mockMvc.perform(get("/ws/clients/index"))
@@ -128,7 +128,7 @@ public class ClientWsControllerIntegrationTest {
 	}
 
 	@Test
-	public void testClientIsFound() throws Exception {
+	void testClientIsFound() throws Exception {
 		int clientId = clientNo2.getId().intValue();
 		when(clientService.getClientById(clientNo2.getId())).thenReturn(clientNo2);
 
@@ -144,8 +144,8 @@ public class ClientWsControllerIntegrationTest {
 	}
 
 	@Test
-	@Ignore
-	public void testClientIsNotFound() throws Exception {
+	@Disabled
+	void testClientIsNotFound() throws Exception {
 		int clientId = 77777;
 		when(clientService.getClientById((long) clientId)).thenThrow(new ServiceException("Client not found"));
 

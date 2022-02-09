@@ -1,11 +1,11 @@
 package ru.blogspot.feomatr.formBean;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import ru.blogspot.feomatr.entity.AccountNo;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * TODO: comment
@@ -16,7 +16,7 @@ import static org.junit.Assert.assertThat;
 public class FormFilterTest {
 
     @Test
-    public void testDefaultConstructor() throws Exception {
+    void testDefaultConstructor() throws Exception {
         FormFilter formFilter = new FormFilter();
 
         assertNull(formFilter.getSenderAccountNo());
@@ -26,7 +26,7 @@ public class FormFilterTest {
     }
 
     @Test
-    public void testToString() throws Exception {
+    void testToString() throws Exception {
         FormFilter formFilter = new FormFilter();
         String senderAccountNo = AccountNo.generatePrivateBankAccountNo();
         String receiverAccountNo = AccountNo.generatePrivateBankAccountNo();

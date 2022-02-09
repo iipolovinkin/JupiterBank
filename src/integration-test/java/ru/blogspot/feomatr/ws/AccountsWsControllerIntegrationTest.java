@@ -1,15 +1,15 @@
 package ru.blogspot.feomatr.ws;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultMatcher;
@@ -30,8 +30,8 @@ import java.util.Collections;
 import static org.hamcrest.Matchers.emptyCollectionOf;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.hamcrest.core.Is.is;
-import static org.mockito.Matchers.anyLong;
-import static org.mockito.Matchers.isNull;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
@@ -49,7 +49,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebAppConfiguration
 @ContextConfiguration(locations = {"classpath:servlet-context.xml", "classpath:serviceMocks.xml"//})
 		, "classpath:baseWebAppContext.xml"})
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 public class AccountsWsControllerIntegrationTest {
 
 	/**
@@ -71,7 +71,7 @@ public class AccountsWsControllerIntegrationTest {
 	private Account accountNo2;
 	private Account accountNo14;
 
-	@Before
+	@BeforeEach
 	public void setUp() throws Exception {
 		mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 
@@ -82,7 +82,7 @@ public class AccountsWsControllerIntegrationTest {
 
 	}
 
-	@After
+	@AfterEach
 	public void tearDown() throws Exception {
 		Mockito.reset(accountService);
 	}
@@ -136,7 +136,7 @@ public class AccountsWsControllerIntegrationTest {
 		verifyNoMoreInteractions(accountService);
 	}
 
-	@Ignore
+	@Disabled
 	@Test
 	public void testAccountIsNotFound() throws Exception {
 		int accountId = 77777;
@@ -153,7 +153,7 @@ public class AccountsWsControllerIntegrationTest {
 	}
 
 	//todo how to set account's owner?
-	@Ignore
+	@Disabled
 	@Test
 	public void testAddValidAccount() throws Exception {
 		mockMvc.perform(post("/ws/accounts/add")
@@ -168,7 +168,7 @@ public class AccountsWsControllerIntegrationTest {
 	}
 
 	// todo repair test: validate account from Json;
-	@Ignore
+	@Disabled
 	@Test
 	public void testAddInvalidAccount() throws Exception {
 		String invalidJSON = "\"id\":124";
@@ -181,7 +181,7 @@ public class AccountsWsControllerIntegrationTest {
 				.andExpect(jsonPath("$.status").value(is("ошибка")));
 	}
 
-	@Ignore
+	@Disabled
 	@Test
 	public void testAddEmptyAccount() throws Exception {
 		String content = "";

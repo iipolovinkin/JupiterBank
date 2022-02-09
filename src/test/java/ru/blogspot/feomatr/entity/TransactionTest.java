@@ -1,14 +1,14 @@
 package ru.blogspot.feomatr.entity;
 
 import com.google.common.collect.Sets;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.util.Set;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 /**
  * todo use  human readable naming, use AAA, use assertThat
@@ -21,8 +21,8 @@ public class TransactionTest {
     private Transaction t2;
     private Transaction t3;
 
-    @Before
-    public void setUp() throws Exception {
+    @BeforeEach
+    void setUp() throws Exception {
         accs = new Account[]{new Account(1L, null, 100L),
                 new Account(2L, null, 770L),
                 new Account(3L, null, 200L),
@@ -34,7 +34,7 @@ public class TransactionTest {
     }
 
     @Test
-    public void testTransactionLongLongAccountAccount() {
+    void testTransactionLongLongAccountAccount() {
         assertEquals(t1.getAmount(), BigDecimal.valueOf(50));
         assertEquals(t2.getAmount(), BigDecimal.valueOf(550));
         assertEquals(t3.getAmount(), BigDecimal.valueOf(560));
@@ -42,7 +42,7 @@ public class TransactionTest {
     }
 
     @Test
-    public void testTransactionHash() {
+    void testTransactionHash() {
         Set<Transaction> t = Sets.newHashSet(t1, t2, t3);
         Transaction tt = new Transaction();
         tt.setId(t1.getId());

@@ -1,11 +1,11 @@
 package ru.blogspot.feomatr.controller;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
@@ -21,8 +21,8 @@ import ru.blogspot.feomatr.service.TransactionService;
 
 import javax.annotation.Resource;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @author iipolovinkin
@@ -30,7 +30,7 @@ import static org.junit.Assert.assertTrue;
  */
 @WebAppConfiguration
 @ContextConfiguration(locations = {"classpath:controllerITContext.xml"})
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 public class HomeControllerIntegrationTest {
 
     @Resource
@@ -47,12 +47,12 @@ public class HomeControllerIntegrationTest {
     @Resource
     private TransactionService transactionService;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
 
-    @After
+    @AfterEach
     public void tearDown() throws Exception {
 
         for (Transaction transaction : transactionService.getAll()) {

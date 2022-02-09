@@ -1,8 +1,9 @@
 package ru.blogspot.feomatr.controller;
 
 import com.google.common.collect.Lists;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
@@ -15,11 +16,10 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -35,8 +35,8 @@ public class TransactionsControllerTest {
     private String transactionsView = "transactions";
     private MockHttpServletRequest request;
 
-    @Before
-    public void setUp() throws Exception {
+    @BeforeEach
+    void setUp() throws Exception {
         model = new ExtendedModelMap();
         transactionsController = new TransactionsController();
         transactionService = mock(TransactionService.class);
@@ -45,7 +45,7 @@ public class TransactionsControllerTest {
     }
 
     @Test
-    public void testShowTransactions() throws Exception {
+    void testShowTransactions() throws Exception {
         List<Transaction> expectedTransactions = Lists.newArrayList(new Transaction());
         when(transactionService.getAll()).thenReturn(Arrays.asList(new Transaction()));
 
@@ -57,7 +57,7 @@ public class TransactionsControllerTest {
     }
 
     @Test
-    public void testDoFilter() throws Exception {
+    void testDoFilter() throws Exception {
         FormFilter formFilter = new FormFilter();
         List<Transaction> expectedTransactions = Lists.newArrayList();
         when(transactionService.getByFilter(null, null, null, null)).thenReturn(expectedTransactions);
@@ -65,11 +65,11 @@ public class TransactionsControllerTest {
         String actualView = transactionsController.doFilter(formFilter, model, mock(HttpServletRequest.class));
 
         assertEquals(transactionsView, actualView);
-        assertSame("transaction objects differs", expectedTransactions, model.asMap().get("transactions"));
+        Assertions.assertSame(expectedTransactions, model.asMap().get("transactions"));
     }
 
     @Test
-    public void testSaveAllTransactions() throws Exception {
+    void testSaveAllTransactions() throws Exception {
         ModelAndView modelAndView = new ModelAndView("ExcelTransactionsReportView", "data", model);
         request.setParameter("output", "excel");
 

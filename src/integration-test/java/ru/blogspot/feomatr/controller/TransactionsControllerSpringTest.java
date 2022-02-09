@@ -1,26 +1,23 @@
 package ru.blogspot.feomatr.controller;
 
 import org.hibernate.SessionFactory;
-import org.joda.time.DateTime;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.ui.ExtendedModelMap;
 import ru.blogspot.feomatr.entity.Gender;
 import ru.blogspot.feomatr.entity.Transaction;
 import ru.blogspot.feomatr.service.TransactionService;
 
 import javax.servlet.http.HttpServletRequest;
-import java.math.BigDecimal;
 import java.util.List;
 
 import static java.util.Optional.ofNullable;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 
 /**
@@ -30,7 +27,7 @@ import static org.mockito.Mockito.mock;
  * @since 10.09.2015
  */
 @ContextConfiguration(locations = {"classpath:controllerITContext.xml"})
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 public class TransactionsControllerSpringTest {
 
     @Autowired
@@ -44,13 +41,13 @@ public class TransactionsControllerSpringTest {
     @Autowired
     private SessionFactory factory;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         model = new ExtendedModelMap();
     }
 
     @Test
-    public void testCountry() throws Exception {
+    void testCountry() throws Exception {
         String country = getCountry("Country,address");
         System.out.println("country = " + country);
 
@@ -71,7 +68,7 @@ public class TransactionsControllerSpringTest {
     }
 
     @Test
-    public void testShowTransactions() throws Exception {
+    void testShowTransactions() throws Exception {
         String expectedView = "transactions";
         transactionService.create(new Transaction(Gender.FEMALE));
         transactionService.create(new Transaction(Gender.MALE));

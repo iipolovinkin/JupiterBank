@@ -1,9 +1,9 @@
 package ru.blogspot.feomatr.web;
 
 import com.codeborne.selenide.Configuration;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import ru.blogspot.feomatr.entity.Client;
 
@@ -27,7 +27,7 @@ public class AccountSpecIT {
 	private String amount = "10";
 	private Client validClient = new Client("Bill", "Main street, 117", 23);
 
-	@BeforeClass
+	@BeforeAll
 	public static void setUpClass() {
 //		todo move parameters to configuration file
 		Configuration.browser = "chrome";
@@ -42,13 +42,13 @@ public class AccountSpecIT {
 		open("/accounts?lang=ru_RU");
 	}
 
-	@AfterClass
+	@AfterAll
 	public static void tearDownClass() throws Exception {
 		close();
 	}
 
 	@Test
-	public void shouldShowSuccessMessageWhenTransferFromSenderToReceiver() throws Exception {
+	void shouldShowSuccessMessageWhenTransferFromSenderToReceiver() throws Exception {
 		AccountPageObject page = open("/accounts?transfer", AccountPageObject.class);
 
 		page.setSenderNo(senderAccountNo);
@@ -61,7 +61,7 @@ public class AccountSpecIT {
 	}
 
 	@Test
-	public void shouldShowDangerMessageWhenTransferFromSenderToReceiver() throws Exception {
+	void shouldShowDangerMessageWhenTransferFromSenderToReceiver() throws Exception {
 		AccountPageObject page = open("/accounts?transfer", AccountPageObject.class);
 		String senderAccountNo = "invalidAccountNo";
 		String receiverAccountNo = "invalidAccountNo";
@@ -76,7 +76,7 @@ public class AccountSpecIT {
 	}
 
 	@Test
-	public void shouldShowSuccessMessageWhenTransferFromSender() throws Exception {
+	void shouldShowSuccessMessageWhenTransferFromSender() throws Exception {
 		AccountPageObject page = open("/accounts?transferFrom", AccountPageObject.class);
 
 		page.setSenderNo(senderAccountNo);
@@ -88,7 +88,7 @@ public class AccountSpecIT {
 	}
 
 	@Test
-	public void shouldShowDangerMessageWhenTransferFromSender() throws Exception {
+	void shouldShowDangerMessageWhenTransferFromSender() throws Exception {
 		AccountPageObject page = open("/accounts?transferFrom", AccountPageObject.class);
 		String senderAccountNo = "invalidAccountNo";
 
@@ -101,7 +101,7 @@ public class AccountSpecIT {
 	}
 
 	@Test
-	public void shouldShowSuccessMessageWhenTransferToReceiver() throws Exception {
+	void shouldShowSuccessMessageWhenTransferToReceiver() throws Exception {
 		AccountPageObject page = open("/accounts?transferTo", AccountPageObject.class);
 
 		page.setReceiverNo(receiverAccountNo);
@@ -113,7 +113,7 @@ public class AccountSpecIT {
 	}
 
 	@Test
-	public void shouldShowDangerMessageWhenTransferToReceiver() throws Exception {
+	void shouldShowDangerMessageWhenTransferToReceiver() throws Exception {
 		AccountPageObject page = open("/accounts?transferTo", AccountPageObject.class);
 		String receiverAccountNo = "invalidAccountNo";
 
@@ -126,7 +126,7 @@ public class AccountSpecIT {
 	}
 
 	@Test
-	public void shouldShowAccount() throws Exception {
+	void shouldShowAccount() throws Exception {
 		Long id = 1L;
 
 		open("/accounts/" + id);
@@ -138,7 +138,7 @@ public class AccountSpecIT {
 	}
 
 	@Test
-	public void shouldEditAccount() throws Exception {
+	void shouldEditAccount() throws Exception {
 		Long id = 1L;
 		open("/accounts/" + id);
 

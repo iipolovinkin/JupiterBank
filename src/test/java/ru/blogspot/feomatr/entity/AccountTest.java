@@ -1,9 +1,9 @@
 package ru.blogspot.feomatr.entity;
 
 import com.google.common.collect.Sets;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -17,8 +17,8 @@ import java.util.ResourceBundle;
 import java.util.Set;
 
 import static java.util.Collections.emptySet;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
 
 /**
  * todo use human readable naming, use AAA, use assertThat
@@ -29,7 +29,7 @@ public class AccountTest {
     private Account account;
     private Client client;
 
-    @BeforeClass
+    @BeforeAll
     public static void setUpClass() {
         Locale.setDefault(Locale.US);
         validationMsgs = ResourceBundle.getBundle("ValidationMessages");
@@ -37,14 +37,14 @@ public class AccountTest {
         validator = factory.getValidator();
     }
 
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         client = new Client(1l, "Bill", "45 White avenu", 20);
         account = new Account(1l, client, new BigDecimal("11.05"));
     }
 
     @Test
-    public void balanceMustBeLETopBalance() {
+    void balanceMustBeLETopBalance() {
         BigDecimal topBalance = new BigDecimal(10000000);
         BigDecimal greaterThanTopBalance = topBalance.add(BigDecimal.ONE);
 
@@ -59,7 +59,7 @@ public class AccountTest {
         assertThat(actual, is(expected));
     }
     @Test
-    public void balanceMustBeGEBottomBalance() {
+    void balanceMustBeGEBottomBalance() {
         BigDecimal bottomBalance = BigDecimal.ZERO;
         BigDecimal lessThanBottomBalance = bottomBalance.subtract(BigDecimal.ONE);
 
@@ -90,7 +90,7 @@ public class AccountTest {
     }
 
 	@Test
-	public void testToString() {
+	void testToString() {
         account = new Account(1l, client, new BigDecimal("11.05"), "40817810061010007001");
 		String expectedString = "Account(id=1, balance=11.05, accountNo=40817810061010007001, state=OPEN)";
 
