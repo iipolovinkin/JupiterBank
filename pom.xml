@@ -49,7 +49,7 @@
         <!--        <springframework.version>3.2.3.RELEASE</springframework.version>-->
         <!--        <springsecurity.version>3.2.5.RELEASE</springsecurity.version>-->
 
-        <springframework.version>5.1.3.RELEASE</springframework.version>
+        <springframework.version>5.3.18</springframework.version>
         <springsecurity.version>4.2.17.RELEASE</springsecurity.version>
 
         <hibernate.validator.version>5.1.2.Final</hibernate.validator.version>
